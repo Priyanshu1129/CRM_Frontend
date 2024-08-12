@@ -3,8 +3,9 @@ export * from "./layout/sidebar";
 export * from "./layout/title";
 export * from "./text";
 export * from "./custom-avatar";
-export * from "./table-view";
+export * from "./table";
 export * from "./list-header";
 export * from "./list-search";
 export * from "./list-title-button";
 export * from "./pagination-total"
+export * from "./layout/title";

@@ -1,5 +1,5 @@
 import React from "react";
-import { Table as AntTable } from "antd";
+import { Table } from "@/components";
 const columns = [
   {
     title: "Full Name",
@@ -79,16 +79,10 @@ const data = [
   },
 ];
 
-export const TableView = () => (
-  <AntTable
-    columns={columns}
-    dataSource={data}
-    style={{
-      marginTop: "28px",
-    }}
-    scroll={{
-      x: 1300,
-    }}
-  />
-);
-
+export const ContactsTableView = () => {
+  return (
+    <>
+      <Table data={data} columns={columns} />
+    </>
+  );
+};

@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import List from "./list";
-const Contacts = () => {
+const ContactMaster = () => {
   return (
     <>
       <List />
@@ -9,4 +9,4 @@ const Contacts = () => {
   );
 };
 
-export default Contacts;
+export default ContactMaster;

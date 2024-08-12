@@ -1,14 +1,14 @@
 "use client";
 import React, { useState } from "react";
-import { ListHeader, TableView } from "@/components";
-import { ClientsCardView } from "./components/cardList";
+import { ListHeader } from "@/components";
+import { ContactsTableView, ContactsCardView } from "./components";
 
 const List = () => {
   const [view, setView] = useState("table");
   return (
     <>
       <ListHeader />
-      {view == "table" ? <TableView /> : <ClientsCardView />}
+      {view == "table" ? <ContactsTableView /> : <ContactsCardView />}
     </>
   );
 };
