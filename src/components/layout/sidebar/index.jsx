@@ -36,7 +36,7 @@ const Sidebar = ({ collapsed }) => {
           justifyContent: "flex-start",
           alignItems: "center",
           height: "64px",
-          // backgroundColor: token.colorBgElevated,
+          backgroundColor: token.colorBgElevated,
           borderBottom: "none",
         }}
       >

@@ -1,71 +1,78 @@
+"use client";
 import React from "react";
-import { Alert, Form, Input, Typography } from "antd";
+import { Button, Form, Input, Flex, theme } from "antd";
 const ChangePassword = () => {
   const [form] = Form.useForm();
+  const {
+    token: { colorBgContainer, borderRadiusLG },
+  } = theme.useToken();
   return (
-    <Form
-      form={form}
-      name="dependencies"
-      autoComplete="off"
+    <div
       style={{
-        maxWidth: 600,
+        backgroundColor: "#fff",
+        padding: "32px",
+        maxWidth: 400,
+        borderRadius: borderRadiusLG,
+        margin: "auto",
+        border: 1,
       }}
-      layout="vertical"
     >
-      <Alert
-        message=" Try modify `Password2` and then modify `Password`"
-        type="info"
-        showIcon
-      />
-
-      <Form.Item
-        label="Password"
-        name="password"
-        rules={[
-          {
-            required: true,
-          },
-        ]}
+      <Form
+        form={form}
+        name="dependencies"
+        autoComplete="off"
+        style={{
+          maxWidth: 600,
+        }}
+        layout="vertical"
       >
-        <Input />
-      </Form.Item>
-
-      {/* Field */}
-      <Form.Item
-        label="Confirm Password"
-        name="password2"
-        dependencies={["password"]}
-        rules={[
-          {
-            required: true,
-          },
-          ({ getFieldValue }) => ({
-            validator(_, value) {
-              if (!value || getFieldValue("password") === value) {
-                return Promise.resolve();
-              }
-              return Promise.reject(
-                new Error("The new password that you entered do not match!")
-              );
+        <Form.Item
+          label="Password"
+          name="password"
+          rules={[
+            {
+              required: true,
             },
-          }),
-        ]}
-      >
-        <Input />
-      </Form.Item>
+          ]}
+        >
+          <Input />
+        </Form.Item>
 
-      {/* Render Props */}
-      <Form.Item noStyle dependencies={["password2"]}>
-        {() => (
-          <Typography>
-            <p>
-              Only Update when <code>password2</code> updated:
-            </p>
-            <pre>{JSON.stringify(form.getFieldsValue(), null, 2)}</pre>
-          </Typography>
-        )}
-      </Form.Item>
-    </Form>
+        {/* Field */}
+        <Form.Item
+          label="Confirm Password"
+          name="password2"
+          dependencies={["password"]}
+          rules={[
+            {
+              required: true,
+            },
+            ({ getFieldValue }) => ({
+              validator(_, value) {
+                if (!value || getFieldValue("password") === value) {
+                  return Promise.resolve();
+                }
+                return Promise.reject(
+                  new Error("The new password that you entered do not match!")
+                );
+              },
+            }),
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item>
+          <Button block type="primary" htmlType="submit">
+            Update
+          </Button>
+        </Form.Item>
+        <Form.Item>
+          <Flex justify="center" align="center">
+            <a href="/login">Cancel</a>
+          </Flex>
+        </Form.Item>
+      </Form>
+    </div>
   );
 };
 export default ChangePassword;

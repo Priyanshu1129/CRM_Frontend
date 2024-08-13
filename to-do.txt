@@ -1,0 +1,6 @@
+fix layout bug
+functional logic
+add form
+detail view page
+change icons
+theme setting
