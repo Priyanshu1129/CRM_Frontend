@@ -7,7 +7,10 @@ const ClientMaster = () => {
   const [view, setView] = useState("card");
   return (
     <>
-      <ListHeader />
+      <ListHeader
+        toPath={"client-master/add-client"}
+        buttonText={"Add new client"}
+      />
       {view == "table" ? <ClientsTableView /> : <ClientsCardView />}
     </>
   );

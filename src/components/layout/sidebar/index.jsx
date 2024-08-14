@@ -10,13 +10,14 @@ const Sidebar = ({ collapsed }) => {
   const router = useRouter();
   const { token } = useToken();
   const onClick = (e) => {
-    router.push(e.key, { scroll: false });
-    // router.push(e.key);
+    // router.push(e.key, { scroll: false });
+    router.push(e.key);
   };
   return (
     <Sider
       breakpoint="lg"
       width={256}
+      style={{ height: "100vh" }}
       trigger={null}
       collapsible
       collapsedWidth="0"
@@ -45,7 +46,7 @@ const Sidebar = ({ collapsed }) => {
       <Menu
         onClick={onClick}
         style={{
-          height: "100%",
+          height: "90%",
         }}
         // theme='dark'
         title="Logo"

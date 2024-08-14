@@ -2,7 +2,7 @@ import React from "react";
 import { ListTitleButton } from "./list-title-button";
 import { ListSearch } from "./list-search";
 
-export const ListHeader = () => {
+export const ListHeader = ({ toPath, buttonText }) => {
   return (
     <div
       style={{
@@ -12,7 +12,7 @@ export const ListHeader = () => {
         justifyContent: "space-between",
       }}
     >
-      <ListTitleButton toPath="contacts" buttonText="Add new contact" />
+      <ListTitleButton toPath={toPath} buttonText={buttonText} />
       <ListSearch />
     </div>
   );
