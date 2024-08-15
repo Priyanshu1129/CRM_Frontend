@@ -4,3 +4,4 @@ add form
 detail view page
 change icons
 theme setting
+redux with next.js

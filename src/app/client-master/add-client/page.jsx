@@ -1,5 +1,6 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Button,
   Cascader,
@@ -14,17 +15,26 @@ import {
   Space,
   Grid,
   theme,
+  Row,
+  Col,
 } from "antd";
 import { ListHeader } from "@/components";
 const AddClient = () => {
   const [componentSize, setComponentSize] = useState("default");
   const screens = Grid.useBreakpoint();
+  const { getAllClassifications } = useSelector(
+    (state) => state.classification
+  );
+  const { getAllIncorporationTypes } = useSelector(
+    (state) => state.incorporationType
+  );
+  const { getAllRelationshipStatus } = useSelector(
+    (state) => state.relationshipStatus
+  );
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
-  const onFormLayoutChange = ({ size }) => {
-    setComponentSize(size);
-  };
+  
   const suffixSelector = (
     <Form.Item name="suffix" noStyle>
       <Select
@@ -37,6 +47,7 @@ const AddClient = () => {
       </Select>
     </Form.Item>
   );
+
   return (
     <>
       <ListHeader toPath={"add-client"} buttonText={"Add new client"} />
@@ -51,111 +62,149 @@ const AddClient = () => {
         }}
       >
         <Form
-          labelCol={{
-            span: 4,
-          }}
-          wrapperCol={{
-            span: 14,
-          }}
+          // labelCol={{
+          //   span: 12,
+          // }}
+          // wrapperCol={{
+          //   span: 12,
+          // }}
           layout="vertical"
-          initialValues={{
-            size: componentSize,
-          }}
-          onValuesChange={onFormLayoutChange}
-          size={componentSize}
-          style={{
-            maxWidth: 600,
-          }}
+          initialValues={{}}
+          onValuesChange={() => {}}
+          size={"default"}
+          style={
+            {
+              // maxWidth: 600,
+            }
+          }
         >
-          <Form.Item label="Client Name">
-            <Input />
-          </Form.Item>
-          <Form.Item label="Industry">
-            <Select>
-              <Select.Option value="demo">Demo</Select.Option>
-            </Select>
-          </Form.Item>
-          <Form.Item label="Sub Industry">
-            <Select>
-              <Select.Option value="demo">Demo</Select.Option>
-            </Select>
-          </Form.Item>
-          <Form.Item label="What do they offer ?">
-            <Input />
-          </Form.Item>
-          <Form.Item label="Territory">
-            <Select>
-              <Select.Option value="demo">Demo</Select.Option>
-            </Select>
-          </Form.Item>
-          <Form.Item label="Incorporation Type">
-            <Select>
-              <Select.Option value="demo">Demo</Select.Option>
-            </Select>
-          </Form.Item>
-          <Form.Item label="Client Status">
-            <Select>
-              <Select.Option value="demo">Listed</Select.Option>
-              <Select.Option value="demo">Unlisted</Select.Option>
-            </Select>
-          </Form.Item>
-          <Form.Item
-            name="market-cap"
-            label="Market Cap"
-            rules={[
-              {
-                required: true,
-                message: "Please input market cap!",
-              },
-            ]}
-          >
-            <InputNumber
-              addonAfter={suffixSelector}
-              style={{
-                width: "100%",
-              }}
-            />
-          </Form.Item>
-          <Form.Item label="Annual Revenue">
-            <Input />
-          </Form.Item>
-          <Form.Item label="Classification">
-            <Select>
-              <Select.Option value="demo">Listed</Select.Option>
-            </Select>
-          </Form.Item>
-          <Form.Item label="Total Employee Strength">
-            <Input />
-          </Form.Item>
-          <Form.Item label="IT Employee Strength">
-            <Input />
-          </Form.Item>
-          <Form.Item label="Primary Relationship">
-            <Select>
-              <Select.Option value="demo">Listed</Select.Option>
-            </Select>
-          </Form.Item>
-          <Form.Item label="Secondary Relationship(Pref Economic)">
-            <Select>
-              <Select.Option value="demo">Listed</Select.Option>
-            </Select>
-          </Form.Item>
-          <Form.Item label="Relationship Status">
-            <Select>
-              <Select.Option value="demo">Listed</Select.Option>
-            </Select>
-          </Form.Item>
-          <Form.Item label="Related Contacts">
-            <Input />
-          </Form.Item>
-          <Form.Item label="Priority">
-            <Select>
-              <Select.Option value="demo">Listed</Select.Option>
-            </Select>
-          </Form.Item>          
-          <Form.Item>
-            <Button>Save</Button>
-          </Form.Item>
+          <Row gutter={24}>
+            <Col span={8}>
+              <Form.Item label="Client Name">
+                <Input />
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item label="Industry">
+                <Select>
+                  <Select.Option value="demo">Demo</Select.Option>
+                </Select>
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item label="Sub Industry">
+                <Select>
+                  <Select.Option value="demo">Demo</Select.Option>
+                </Select>
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item label="What do they offer ?">
+                <Input />
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item label="Territory">
+                <Select>
+                  <Select.Option value="demo">Demo</Select.Option>
+                </Select>
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item label="Incorporation Type">
+                <Select>
+                  <Select.Option value="demo">Demo</Select.Option>
+                </Select>
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item label="Client Status">
+                <Select>
+                  <Select.Option value="demo">Listed</Select.Option>
+                  <Select.Option value="demo">Unlisted</Select.Option>
+                </Select>
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item
+                name="market-cap"
+                label="Market Cap"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input market cap!",
+                  },
+                ]}
+              >
+                <InputNumber
+                  addonAfter={suffixSelector}
+                  style={{
+                    width: "100%",
+                  }}
+                />
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item label="Annual Revenue">
+                <Input />
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item label="Classification">
+                <Select>
+                  <Select.Option value="demo">Listed</Select.Option>
+                </Select>
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item label="Total Employee Strength">
+                <Input />
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item label="IT Employee Strength">
+                <Input />
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item label="Primary Relationship">
+                <Select>
+                  <Select.Option value="demo">Listed</Select.Option>
+                </Select>
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item label="Secondary Relationship (Pref Economic)">
+                <Select>
+                  <Select.Option value="demo">Listed</Select.Option>
+                </Select>
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item label="Relationship Status">
+                <Select>
+                  <Select.Option value="demo">Listed</Select.Option>
+                </Select>
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item label="Related Contacts">
+                <Input />
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item label="Priority">
+                <Select>
+                  <Select.Option value="demo">Listed</Select.Option>
+                </Select>
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item>
+                <Button>Save</Button>
+              </Form.Item>
+            </Col>
+          </Row>
         </Form>
       </Space>
     </>

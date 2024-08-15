@@ -4,7 +4,7 @@ import Layout from "@/components/layout";
 import { themeConfig } from "@/config";
 import "./globals.css"
 import { FullScreenLoading } from "@/components";
-
+import { StoreProvider } from "./storeProvider";
 const inter = Inter({ subsets: ["latin"] });
 
 
@@ -14,10 +14,12 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <ConfigProvider>
-          <Layout>
-            {children}
-            {/* <FullScreenLoading /> */}
-          </Layout>
+          <StoreProvider>
+            <Layout>
+              {children}
+              {/* <FullScreenLoading /> */}
+            </Layout>
+          </StoreProvider>
         </ConfigProvider>
       </body>
     </html >
