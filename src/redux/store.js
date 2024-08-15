@@ -19,6 +19,12 @@ import {
     subSolutionReducer,
     territoryReducer
 } from './slices/configurationSlice';
+import { staffReducer } from './slices/staffSlice';
+import { teamReducer } from './slices/teamSlice';
+import { opportunityReducer } from './slices/opportunitySlice';
+import { businessDevelopmentReducer } from './slices/businessDevelopmentSlice';
+import { tenderReducer, stageReducer } from './slices/tenderSlice';
+import { registrationReducer, registrationStatusReducer } from './slices/registrationSlice';
 
 const store = configureStore({
     reducer: {
@@ -34,9 +40,17 @@ const store = configureStore({
         solution: solutionReducer,
         subSolution: subSolutionReducer,
         territory: territoryReducer,
-        archeType:archeTypeReducer,
         contact: contactReducer,
-        relationshipDegree: relationshipDegreeReducer
+        archeType: archeTypeReducer,
+        relationshipDegree: relationshipDegreeReducer,
+        staff: staffReducer,
+        team: teamReducer,
+        opportunity: opportunityReducer,
+        businessDevelopment: businessDevelopmentReducer,
+        tender: tenderReducer,
+        stage: stageReducer,
+        registration: registrationReducer,
+        registrationStatus: registrationStatusReducer
     },
     devTools: true
 })
