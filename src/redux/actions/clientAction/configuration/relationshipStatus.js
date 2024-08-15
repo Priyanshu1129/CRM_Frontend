@@ -1,21 +1,17 @@
 import axios from "axios";
-import { relationshipStatusActions } from "@/redux/slices/relationshipStatusSlice";
-import { serverURL } from "../../config/config";
+import { relationshipStatusActions } from "@/redux/slices/clientSlice";
+import { serverURL } from "@/config/config";
 
-const route = `${serverURL}/configuration/relationshipStatus`
+const route = `${serverURL}/client/config/relationship-status`
 
-export const getAllRelationshipStatus = (token) => async (dispatch) => {
+export const getAllRelationshipStatus = () => async (dispatch) => {
     try {
         dispatch(relationshipStatusActions.getAllRelationshipStatusRequest());
-        console.log('getAllRelationshipStatus', token);
-        const data = await axios.get(`${route}/`, {
-            headers: {
-                "authorization": token
-            }
-        });
+        console.log('getAllRelationshipStatus');
+        const response = await axios.get(`${route}/`);
 
-        console.log('get-all-relationshipStatus-res-data', data.data);
-        dispatch(relationshipStatusActions.getAllRelationshipStatusSuccess(data.data));
+        console.log('get-all-relationshipStatus-res-data', response.data);
+        dispatch(relationshipStatusActions.getAllRelationshipStatusSuccess(response.data));
     } catch (error) {
         console.log("error", error)
         let errorMessage = "An error occurred";

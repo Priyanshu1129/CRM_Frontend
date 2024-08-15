@@ -12,3 +12,5 @@ export * from "./layout/title";
 export * from "./notifications";
 export * from "./current-user";
 export * from "./fullscreen-loading/index"
+export * from "./enums";
+export * from "./InputNotes";

@@ -1,18 +1,14 @@
 import axios from "axios";
 import { incorporationTypeActions } from "@/redux/slices/clientSlice";
-import { serverURL } from "../../config/config";
+import { serverURL } from "@/config/config";
 
-const route = `${serverURL}/configuration/incorporationType`
+const route = `${serverURL}/client/config/incorporation-type`
 
-export const getAllIncorporationTypes = (token) => async (dispatch) => {
+export const getAllIncorporationTypes = () => async (dispatch) => {
     try {
         dispatch(incorporationTypeActions.getAllIncorporationTypesRequest());
-        console.log('getAllIncorporationTypes', token);
-        const data = await axios.get(`${route}/`, {
-            headers: {
-                "authorization": token
-            }
-        });
+        console.log('getAllIncorporationTypes');
+        const data = await axios.get(`${route}/`);
 
         console.log('get-all-incorporationType-res-data', data.data);
         dispatch(incorporationTypeActions.getAllIncorporationTypesSuccess(data.data));

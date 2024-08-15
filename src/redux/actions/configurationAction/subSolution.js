@@ -1,21 +1,17 @@
 import axios from "axios";
 import { subSolutionActions } from "@/redux/slices/configurationSlice";
-import { serverURL } from "../../config/config";
+import { serverURL } from "@/config/config";
 
-const route = `${serverURL}/configuration/subSolution`
+const route = `${serverURL}/configuration/sub-solution`
 
-export const getAllSolutions = (token) => async (dispatch) => {
+export const getAllSubSolutions = () => async (dispatch) => {
     try {
         dispatch(subSolutionActions.getSubAllSolutionsRequest());
-        console.log('getAllSolutions', token);
-        const data = await axios.get(`${route}/`, {
-            headers: {
-                "authorization": token
-            }
-        });
+        console.log('getAllSolutions');
+        const response = await axios.get(`${route}/`);
 
-        console.log('get-all-subSolution-res-data', data.data);
-        dispatch(subSolutionActions.getAllSubSolutionsSuccess(data.data));
+        console.log('get-all-subSolution-res-data', response.data);
+        dispatch(subSolutionActions.getAllSubSolutionsSuccess(response.data));
     } catch (error) {
         console.log("error", error)
         let errorMessage = "An error occurred";

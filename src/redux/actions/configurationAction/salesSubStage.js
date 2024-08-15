@@ -1,21 +1,17 @@
 import axios from "axios";
 import { salesSubStageActions } from "@/redux/slices/configurationSlice";
-import { serverURL } from "../../config/config";
+import { serverURL } from "@/config/config";
 
-const route = `${serverURL}/configuration/salesSubStage`
+const route = `${serverURL}/configuration/sales-sub-stage`
 
-export const getAllSalesSubStages = (token) => async (dispatch) => {
+export const getAllSalesSubStages = () => async (dispatch) => {
     try {
         dispatch(salesSubStageActions.getAllSalesSubStagesRequest());
-        console.log('getAllSalesSubStages', token);
-        const data = await axios.get(`${route}/`, {
-            headers: {
-                "authorization": token
-            }
-        });
+        console.log('getAllSalesSubStages');
+        const response = await axios.get(`${route}/`);
 
-        console.log('get-all-salesSubStage-res-data', data.data);
-        dispatch(salesSubStageActions.getAllSalesSubStagesSuccess(data.data));
+        console.log('get-all-salesSubStage-res-data', response.data);
+        dispatch(salesSubStageActions.getAllSalesSubStagesSuccess(response.data));
     } catch (error) {
         console.log("error", error)
         let errorMessage = "An error occurred";

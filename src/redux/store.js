@@ -6,6 +6,11 @@ import {
     relationshipStatusReducer
 } from './slices/clientSlice';
 import {
+    archeTypeReducer,
+    contactReducer,
+    relationshipDegreeReducer
+} from './slices/contactSlice';
+import {
     industryReducer,
     subIndustryReducer,
     salesStageReducer,
@@ -28,7 +33,10 @@ const store = configureStore({
         salesSubStage: salesSubStageReducer,
         solution: solutionReducer,
         subSolution: subSolutionReducer,
-        territory: territoryReducer
+        territory: territoryReducer,
+        archeType:archeTypeReducer,
+        contact: contactReducer,
+        relationshipDegree: relationshipDegreeReducer
     },
     devTools: true
 })

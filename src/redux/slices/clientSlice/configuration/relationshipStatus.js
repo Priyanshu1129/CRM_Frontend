@@ -48,7 +48,7 @@ const relationshipStatusSlice = createSlice({
         },
         getAllRelationshipStatusSuccess: (state, action) => {
             state.getAllRelationshipStatus.status = 'success'
-            state.getAllRelationshipStatus.data = null
+            state.getAllRelationshipStatus.data = action.payload
         },
         getAllRelationshipStatusFailure: (state, action) => {
             state.getAllRelationshipStatus.status = 'failed';

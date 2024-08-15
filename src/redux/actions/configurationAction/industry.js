@@ -1,21 +1,17 @@
 import axios from "axios";
 import { industryActions } from "@/redux/slices/configurationSlice";
-import { serverURL } from "../../config/config";
+import { serverURL } from "@/config/config";
 
 const route = `${serverURL}/configuration/industry`
 
-export const getAllIndustries = (token) => async (dispatch) => {
+export const getAllIndustries = () => async (dispatch) => {
     try {
         dispatch(industryActions.getAllIndustriesRequest());
-        console.log('getAllIndustries', token);
-        const data = await axios.get(`${route}/`, {
-            headers: {
-                "authorization": token
-            }
-        });
+        console.log('getAllIndustries');
+        const response = await axios.get(`${route}/`);
 
-        console.log('get-all-industry-res-data', data.data);
-        dispatch(industryActions.getAllIndustriesSuccess(data.data));
+        console.log('get-all-industry-res-data', response.data);
+        dispatch(industryActions.getAllIndustriesSuccess(response.data));
     } catch (error) {
         console.log("error", error)
         let errorMessage = "An error occurred";

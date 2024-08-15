@@ -1,21 +1,17 @@
 import axios from "axios";
 import { territoryActions } from "@/redux/slices/configurationSlice";
-import { serverURL } from "../../config/config";
+import { serverURL } from "@/config/config";
 
 const route = `${serverURL}/configuration/territory`
 
-export const getAllTerritories = (token) => async (dispatch) => {
+export const getAllTerritories = () => async (dispatch) => {
     try {
         dispatch(territoryActions.getAllTerritoriesRequest());
-        console.log('getAllTerritories', token);
-        const data = await axios.get(`${route}/`, {
-            headers: {
-                "authorization": token
-            }
-        });
+        console.log('getAllTerritories');
+        const response = await axios.get(`${route}/`);
 
-        console.log('get-all-territory-res-data', data.data);
-        dispatch(territoryActions.getAllTerritoriesSuccess(data.data));
+        console.log('get-all-territory-res-data', response.data);
+        dispatch(territoryActions.getAllTerritoriesSuccess(response.data));
     } catch (error) {
         console.log("error", error)
         let errorMessage = "An error occurred";

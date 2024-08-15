@@ -48,7 +48,7 @@ const solutionSlice = createSlice({
         },
         getAllSolutionsSuccess: (state, action) => {
             state.getAllSolutions.status = 'success'
-            state.getAllSolutions.data = null
+            state.getAllSolutions.data = action.payload;
         },
         getAllSolutionsFailure: (state, action) => {
             state.getAllSolutions.status = 'failed';

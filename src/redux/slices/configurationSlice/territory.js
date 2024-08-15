@@ -48,7 +48,7 @@ export const territorySlice = createSlice({
         },
         getAllTerritoriesSuccess: (state, action) => {
             state.getAllTerritories.status = 'success'
-            state.getAllTerritories.data = null
+            state.getAllTerritories.data = action.payload
         },
         getAllTerritoriesFailure: (state, action) => {
             state.getAllTerritories.status = 'failed';

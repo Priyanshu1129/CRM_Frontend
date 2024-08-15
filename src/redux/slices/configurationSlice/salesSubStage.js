@@ -48,7 +48,7 @@ const salesSubStageSlice = createSlice({
         },
         getAllSalesSubStagesSuccess: (state, action) => {
             state.getAllSalesSubStages.status = 'success'
-            state.getAllSalesSubStages.data = null
+            state.getAllSalesSubStages.data = action.payload;
         },
         getAllSalesSubStagesFailure: (state, action) => {
             state.getAllSalesSubStages.status = 'failed';

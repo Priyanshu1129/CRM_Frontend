@@ -48,7 +48,7 @@ const industrySlice = createSlice({
         },
         getAllIndustriesSuccess: (state, action) => {
             state.getAllIndustries.status = 'success'
-            state.getAllIndustries.data = null
+            state.getAllIndustries.data = action.payload;
         },
         getAllIndustriesFailure: (state, action) => {
             state.getAllIndustries.status = 'failed';

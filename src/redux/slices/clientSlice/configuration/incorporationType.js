@@ -48,7 +48,7 @@ const incorporationTypeSlice = createSlice({
         },
         getAllIncorporationTypesSuccess: (state, action) => {
             state.getAllIncorporationTypes.status = 'success'
-            state.getAllIncorporationTypes.data = null
+            state.getAllIncorporationTypes.data = action.payload;
         },
         getAllIncorporationTypesFailure: (state, action) => {
             state.getAllIncorporationTypes.status = 'failed';

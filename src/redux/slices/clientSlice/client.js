@@ -48,7 +48,7 @@ const clientSlice = createSlice({
         },
         getAllClientsSuccess: (state, action) => {
             state.getAllClients.status = 'success'
-            state.getAllClients.data = null
+            state.getAllClients.data = action.payload;
         },
         getAllClientsFailure: (state, action) => {
             state.getAllClients.status = 'failed';

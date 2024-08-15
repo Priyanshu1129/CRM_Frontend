@@ -12,20 +12,18 @@ import {
   theme,
   Row,
   Col,
+  Checkbox,
 } from "antd";
-import {
-  ClassificationsSelector,
-  IncorporationTypesSelector,
-  RelationshipStatusSelector,
-} from "./enums";
+
+import {} from "./enums";
 import {
   ListHeader,
   IndustrySelector,
   SubIndustrySelector,
-  TerritorySelector,
+  InputNotes,
 } from "@/components";
 
-const AddClient = () => {
+const AddContact = () => {
   const [loading, setLoading] = useState(false);
   const screens = Grid.useBreakpoint();
   const dispatch = useDispatch();
@@ -49,7 +47,7 @@ const AddClient = () => {
 
   return (
     <>
-      <ListHeader toPath={"add-client"} buttonText={"Add new client"} />
+      <ListHeader toPath={"add-contact"} buttonText={"Add new contact"} />
       <Space
         direction="vertical"
         style={{
@@ -79,112 +77,83 @@ const AddClient = () => {
         >
           <Row gutter={24}>
             <Col span={8}>
-              <Form.Item label="Client Name">
+              <Form.Item label="First Name">
                 <Input />
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item label="Industry">
-                <IndustrySelector />
+              <Form.Item label="Last Name">
+                <Input />
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item label="Sub Industry">
+              <Form.Item label="Gender">
+                <Select>
+                  <Select.Option value={"M"}>Male</Select.Option>
+                  <Select.Option value={"F"}>Female</Select.Option>
+                  <Select.Option value={"O"}>Other</Select.Option>
+                </Select>
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item label="Client Name">
+                <Select>
+                  <Select.Option value={"M"}>Male</Select.Option>
+                </Select>
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item label="Job Title">
+                <Input />
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item label="Phone">
+                <Input />
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item label="Mobile Phone">
+                <Input />
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item label="Work Email">
+                <Input />
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item label="Personal Email">
+                <Input />
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item label="Arch Type">
                 <SubIndustrySelector />
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item label="What do they offer ?">
+              <Form.Item label="Relationship Degree">
+                <SubIndustrySelector />
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item label="City">
                 <Input />
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item label="Territory">
-                <TerritorySelector />
-              </Form.Item>
-            </Col>
-            <Col span={8}>
-              <Form.Item label="Incorporation Type">
-                <IncorporationTypesSelector />
-              </Form.Item>
-            </Col>
-            <Col span={8}>
-              <Form.Item label="Client Status">
-                <Select>
-                  <Select.Option value={true}>Listed</Select.Option>
-                  <Select.Option value={false}>Unlisted</Select.Option>
-                </Select>
-              </Form.Item>
-            </Col>
-            <Col span={8}>
-              <Form.Item
-                name="market-cap"
-                label="Market Cap"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input market cap!",
-                  },
-                ]}
-              >
-                <InputNumber
-                  addonAfter={suffixSelector}
-                  style={{
-                    width: "100%",
-                  }}
-                />
-              </Form.Item>
-            </Col>
-            <Col span={8}>
-              <Form.Item label="Annual Revenue">
+              <Form.Item label="Something memorable about him/her">
                 <Input />
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item label="Classification">
-                <ClassificationsSelector />
+              <Form.Item name="detailsConfirmation" valuePropName="checked">
+                <Checkbox>Details are upto date</Checkbox>
               </Form.Item>
             </Col>
-            <Col span={8}>
-              <Form.Item label="Total Employee Strength">
-                <Input />
-              </Form.Item>
-            </Col>
-            <Col span={8}>
-              <Form.Item label="IT Employee Strength">
-                <Input />
-              </Form.Item>
-            </Col>
-            <Col span={8}>
-              <Form.Item label="Primary Relationship">
-                <Select>
-                  <Select.Option value="demo">Listed</Select.Option>
-                </Select>
-              </Form.Item>
-            </Col>
-            <Col span={8}>
-              <Form.Item label="Secondary Relationship (Pref Economic)">
-                <Select>
-                  <Select.Option value="demo">Listed</Select.Option>
-                </Select>
-              </Form.Item>
-            </Col>
-            <Col span={8}>
-              <Form.Item label="Relationship Status">
-                <RelationshipStatusSelector />
-              </Form.Item>
-            </Col>
-            <Col span={8}>
-              <Form.Item label="Related Contacts">
-                <Input />
-              </Form.Item>
-            </Col>
-            <Col span={8}>
-              <Form.Item label="Priority">
-                <Select>
-                  <Select.Option value="demo">Listed</Select.Option>
-                </Select>
-              </Form.Item>
+            <Col span={24}>
+              <InputNotes />
             </Col>
             <Col span={8}>
               <Form.Item>
@@ -197,4 +166,4 @@ const AddClient = () => {
     </>
   );
 };
-export default AddClient;
+export default AddContact;

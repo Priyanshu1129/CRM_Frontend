@@ -48,7 +48,7 @@ const subSolutionSlice = createSlice({
         },
         getAllSubSolutionsSuccess: (state, action) => {
             state.getAllSubSolutions.status = 'success'
-            state.getAllSubSolutions.data = null
+            state.getAllSubSolutions.data = action.payload;
         },
         getAllSubSolutionsFailure: (state, action) => {
             state.getAllSubSolutions.status = 'failed';

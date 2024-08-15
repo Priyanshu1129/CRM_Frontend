@@ -1,21 +1,17 @@
 import axios from "axios";
-import { classificationActions } from "@/redux/slices/classificationSlice";
-import { serverURL } from "../../config/config";
+import { classificationActions } from "@/redux/slices/clientSlice";
+import { serverURL } from "@/config/config";
 
-const route = `${serverURL}/configuration/classification`
+const route = `${serverURL}/client/config/classification`
 
-export const getAllClassifications = (token) => async (dispatch) => {
+export const getAllClassifications = () => async (dispatch) => {
     try {
         dispatch(classificationActions.getAllClassificationsRequest());
-        console.log('getAllClassifications', token);
-        const data = await axios.get(`${route}/`, {
-            headers: {
-                "authorization": token
-            }
-        });
+        console.log('getAllClassifications Request');
+        const response = await axios.get(`${route}/`);
 
-        console.log('get-all-classification-res-data', data.data);
-        dispatch(classificationActions.getAllClassificationsSuccess(data.data));
+        console.log('get-all-classification-res-data', response.data);
+        dispatch(classificationActions.getAllClassificationsSuccess(response.data));
     } catch (error) {
         console.log("error", error)
         let errorMessage = "An error occurred";

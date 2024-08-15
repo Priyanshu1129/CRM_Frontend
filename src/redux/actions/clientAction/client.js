@@ -1,6 +1,6 @@
 import axios from "axios";
 import { clientActions } from "@/redux/slices/clientSlice";
-import { serverURL } from "../../config/config";
+import { serverURL } from "@/config/config";
 
 const route = `${serverURL}/configuration/client`
 

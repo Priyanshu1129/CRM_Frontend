@@ -48,10 +48,11 @@ const classificationSlice = createSlice({
         },
         getAllClassificationsSuccess: (state, action) => {
             state.getAllClassifications.status = 'success'
-            state.getAllClassifications.data = null
+            state.getAllClassifications.data = action.payload;
         },
         getAllClassificationsFailure: (state, action) => {
             state.getAllClassifications.status = 'failed';
+            state.getAllClassifications.error = action.payload;
         },
         createClassificationRequest: (state, action) => {
             state.createClassification.status = 'pending'
@@ -62,7 +63,6 @@ const classificationSlice = createSlice({
         },
         createClassificationFailure: (state, action) => {
             state.createClassification.status = 'failed'
-            state.createClassification.data = null
             state.createClassification.error = action.payload;
         },
         updateClassificationRequest: (state, action) => {
