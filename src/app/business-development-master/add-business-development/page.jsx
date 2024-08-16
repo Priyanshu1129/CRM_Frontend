@@ -99,7 +99,7 @@ const AddBusinessDevelopment = () => {
             </Col>
             <Col span={8}>
               <Form.Item label="Sub Solution">
-                {/* <SolutionSelector /> */}
+                <SubSolutionSelector />
               </Form.Item>
             </Col>
             <Col span={8}>

@@ -14,10 +14,10 @@ export const ClassificationsSelector = () => {
   const { status, data, error } = useSelector(
     (state) => state.classification.getAllClassifications
   );
-  const [classifications, setClassifications] = useState(data?.data || []);
+  const [classifications, setClassifications] = useState(data?.data);
 
   const fetchAllClassifications = useCallback(() => {
-    if (!classifications.length) {
+    if (!classifications) {
       dispatch(getAllClassifications());
     }
   }, [dispatch, classifications]);
@@ -40,7 +40,7 @@ export const ClassificationsSelector = () => {
 
   return (
     <Select>
-      {classifications.map((classification, idx) => (
+      {classifications?.map((classification, idx) => (
         <Select.Option key={idx} value={classification._id}>
           {classification.label}
         </Select.Option>
@@ -55,12 +55,10 @@ export const IncorporationTypesSelector = () => {
   const { status, data, error } = useSelector(
     (state) => state.incorporationType.getAllIncorporationTypes
   );
-  const [incorporationTypes, setIncorporationTypes] = useState(
-    data?.data || []
-  );
+  const [incorporationTypes, setIncorporationTypes] = useState(data?.data);
 
   const fetchAllIncorporationTypes = useCallback(() => {
-    if (!incorporationTypes.length) {
+    if (!incorporationTypes) {
       dispatch(getAllIncorporationTypes());
     }
   }, [dispatch, incorporationTypes]);
@@ -82,7 +80,7 @@ export const IncorporationTypesSelector = () => {
   }, [status, data]);
   return (
     <Select>
-      {incorporationTypes.map((incorporationType, idx) => (
+      {incorporationTypes?.map((incorporationType, idx) => (
         <Select.Option key={idx} value={incorporationType._id}>
           {incorporationType.label}
         </Select.Option>
@@ -97,12 +95,10 @@ export const RelationshipStatusSelector = () => {
   const { status, data, error } = useSelector(
     (state) => state.relationshipStatus.getAllRelationshipStatus
   );
-  const [relationshipStatus, setRelationshipStatus] = useState(
-    data?.data || []
-  );
+  const [relationshipStatus, setRelationshipStatus] = useState(data?.data);
 
   const fetchAllRelationshipStatus = useCallback(() => {
-    if (!relationshipStatus.length) {
+    if (!relationshipStatus) {
       dispatch(getAllRelationshipStatus());
     }
   }, [dispatch, relationshipStatus]);
@@ -125,7 +121,7 @@ export const RelationshipStatusSelector = () => {
 
   return (
     <Select>
-      {relationshipStatus.map((relationshipStatus, idx) => (
+      {relationshipStatus?.map((relationshipStatus, idx) => (
         <Select.Option key={idx} value={relationshipStatus._id}>
           {relationshipStatus.label}
         </Select.Option>

@@ -7,13 +7,13 @@ const route = `${serverURL}/configuration/sub-solution`
 export const getAllSubSolutions = () => async (dispatch) => {
     try {
         dispatch(subSolutionActions.getAllSubSolutionsRequest());
-        console.log('getAllSolutions');
+        console.log('getAllSubSolutions');
         const response = await axios.get(`${route}/`);
 
         console.log('get-all-subSolution-res-data', response.data);
         dispatch(subSolutionActions.getAllSubSolutionsSuccess(response.data));
     } catch (error) {
-        console.log("error", error)
+        console.log("error", error);
         let errorMessage = "An error occurred";
         if (error.response) {
             errorMessage = error.response.data.message || "Server error";

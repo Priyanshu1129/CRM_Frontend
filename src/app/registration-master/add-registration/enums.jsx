@@ -10,12 +10,10 @@ export const RegistrationStatusSelector = () => {
   const { status, data, error } = useSelector(
     (state) => state.registrationStatus.getAllRegistrationStatus
   );
-  const [registrationStatus, setRegistrationStatus] = useState(
-    data?.data || []
-  );
+  const [registrationStatus, setRegistrationStatus] = useState(data?.data);
 
   const fetchAllRegistrationStatus = useCallback(() => {
-    if (!registrationStatus.length) {
+    if (!registrationStatus) {
       dispatch(getAllRegistrationStatus());
     }
   }, [dispatch, registrationStatus]);
@@ -38,7 +36,7 @@ export const RegistrationStatusSelector = () => {
 
   return (
     <Select>
-      {registrationStatus.map((item, idx) => (
+      {registrationStatus?.map((item, idx) => (
         <Select.Option key={idx} value={item._id}>
           {item.label}
         </Select.Option>

@@ -18,10 +18,10 @@ export const IndustrySelector = () => {
   const { status, data, error } = useSelector(
     (state) => state.industry.getAllIndustries
   );
-  const [industries, setIndustries] = useState(data?.data || []);
+  const [industries, setIndustries] = useState(data?.data);
 
   const fetchAllIndustries = useCallback(() => {
-    if (!industries.length) {
+    if (!industries) {
       dispatch(getAllIndustries());
     }
   }, [dispatch, industries]);
@@ -34,7 +34,6 @@ export const IndustrySelector = () => {
     if (status == "pending") {
       setLoading(true);
     } else if (status == "success" && data?.status == "success") {
-      console.log("success-inside");
       setIndustries(data?.data);
       setLoading(false);
     } else {
@@ -44,7 +43,7 @@ export const IndustrySelector = () => {
 
   return (
     <Select>
-      {industries.map((industry, idx) => (
+      {industries?.map((industry, idx) => (
         <Select.Option key={idx} value={industry._id}>
           {industry.label}
         </Select.Option>
@@ -59,10 +58,10 @@ export const SubIndustrySelector = () => {
   const { status, data, error } = useSelector(
     (state) => state.subIndustry.getAllSubIndustries
   );
-  const [subIndustries, setSubIndustries] = useState(data?.data || []);
+  const [subIndustries, setSubIndustries] = useState(data?.data);
 
   const fetchAllSubIndustries = useCallback(() => {
-    if (!subIndustries.length) {
+    if (!subIndustries) {
       dispatch(getAllSubIndustries());
     }
   }, [dispatch, subIndustries]);
@@ -85,7 +84,7 @@ export const SubIndustrySelector = () => {
 
   return (
     <Select>
-      {subIndustries.map((subIndustry, idx) => (
+      {subIndustries?.map((subIndustry, idx) => (
         <Select.Option key={idx} value={subIndustry._id}>
           {subIndustry.label}
         </Select.Option>
@@ -100,10 +99,10 @@ export const SolutionSelector = () => {
   const { status, data, error } = useSelector(
     (state) => state.solution.getAllSolutions
   );
-  const [solutions, setSolutions] = useState(data?.data || []);
+  const [solutions, setSolutions] = useState(data?.data);
 
   const fetchAllSolutions = useCallback(() => {
-    if (!solutions.length) {
+    if (!solutions) {
       dispatch(getAllSolutions());
     }
   }, [dispatch, solutions]);
@@ -126,7 +125,7 @@ export const SolutionSelector = () => {
 
   return (
     <Select>
-      {solutions.map((solution, idx) => (
+      {solutions?.map((solution, idx) => (
         <Select.Option key={idx} value={solution._id}>
           {solution.label}
         </Select.Option>
@@ -141,10 +140,10 @@ export const SubSolutionSelector = () => {
   const { status, data, error } = useSelector(
     (state) => state.subSolution.getAllSubSolutions
   );
-  const [subSolutions, setSubSolutions] = useState(data?.data || []);
+  const [subSolutions, setSubSolutions] = useState(data?.data);
 
   const fetchAllSubSolutions = useCallback(() => {
-    if (!subSolutions.length) {
+    if (!subSolutions) {
       dispatch(getAllSubSolutions());
     }
   }, [dispatch, subSolutions]);
@@ -157,7 +156,7 @@ export const SubSolutionSelector = () => {
     if (status == "pending") {
       setLoading(true);
     } else if (status == "success" && data?.status == "success") {
-      console.log("success-inside");
+      console.log("success-inside-sub-solute", data);
       setSubSolutions(data?.data);
       setLoading(false);
     } else {
@@ -167,7 +166,7 @@ export const SubSolutionSelector = () => {
 
   return (
     <Select>
-      {subSolutions.map((subSolution, idx) => (
+      {subSolutions?.map((subSolution, idx) => (
         <Select.Option key={idx} value={subSolution._id}>
           {subSolution.label}
         </Select.Option>
@@ -182,10 +181,10 @@ export const SalesStageSelector = () => {
   const { status, data, error } = useSelector(
     (state) => state.salesStage.getAllSalesStages
   );
-  const [salesStages, setSalesStages] = useState(data?.data || []);
+  const [salesStages, setSalesStages] = useState(data?.data);
 
   const fetchAllSalesStages = useCallback(() => {
-    if (!salesStages.length) {
+    if (!salesStages) {
       dispatch(getAllSalesStages());
     }
   }, [dispatch, salesStages]);
@@ -208,7 +207,7 @@ export const SalesStageSelector = () => {
 
   return (
     <Select>
-      {salesStages.map((salesStage, idx) => (
+      {salesStages?.map((salesStage, idx) => (
         <Select.Option key={idx} value={salesStage._id}>
           {salesStage.label}
         </Select.Option>
@@ -223,10 +222,10 @@ export const SalesSubStageSelector = () => {
   const { status, data, error } = useSelector(
     (state) => state.salesSubStage.getAllSalesSubStages
   );
-  const [salesSubStages, setSubSalesStages] = useState(data?.data || []);
+  const [salesSubStages, setSubSalesStages] = useState(data?.data);
 
   const fetchAllSalesSubStages = useCallback(() => {
-    if (!salesSubStages.length) {
+    if (!salesSubStages) {
       dispatch(getAllSalesSubStages());
     }
   }, [dispatch, salesSubStages]);
@@ -249,7 +248,7 @@ export const SalesSubStageSelector = () => {
 
   return (
     <Select>
-      {salesSubStages.map((salesSubStage, idx) => (
+      {salesSubStages?.map((salesSubStage, idx) => (
         <Select.Option key={idx} value={salesSubStage._id}>
           {salesSubStage.label}
         </Select.Option>
@@ -264,10 +263,10 @@ export const TerritorySelector = () => {
   const { status, data, error } = useSelector(
     (state) => state.territory.getAllTerritories
   );
-  const [territories, setTerritories] = useState(data?.data || []);
+  const [territories, setTerritories] = useState(data?.data);
 
   const fetchAllTerritories = useCallback(() => {
-    if (!territories.length) {
+    if (!territories) {
       dispatch(getAllTerritories());
     }
   }, [dispatch, territories]);
@@ -290,7 +289,7 @@ export const TerritorySelector = () => {
 
   return (
     <Select>
-      {territories.map((territory, idx) => (
+      {territories?.map((territory, idx) => (
         <Select.Option key={idx} value={territory._id}>
           {territory.label}
         </Select.Option>

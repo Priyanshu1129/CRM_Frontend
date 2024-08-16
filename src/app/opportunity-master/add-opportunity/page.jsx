@@ -101,7 +101,7 @@ const AddOpportunity = () => {
             </Col>
             <Col span={8}>
               <Form.Item label="Sub Solution">
-                {/* <SubSolutionSelector /> */}
+                <SubSolutionSelector />
               </Form.Item>
             </Col>
             <Col span={8}>

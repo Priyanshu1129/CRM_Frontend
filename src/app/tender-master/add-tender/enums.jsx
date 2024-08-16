@@ -10,10 +10,10 @@ export const StageSelector = () => {
   const { status, data, error } = useSelector(
     (state) => state.stage.getAllStages
   );
-  const [stages, setStages] = useState(data?.data || []);
+  const [stages, setStages] = useState(data?.data);
 
   const fetchAllStages = useCallback(() => {
-    if (!stages.length) {
+    if (!stages) {
       dispatch(getAllStages());
     }
   }, [dispatch, stages]);
@@ -35,7 +35,7 @@ export const StageSelector = () => {
 
   return (
     <Select>
-      {stages.map((stage, idx) => (
+      {stages?.map((stage, idx) => (
         <Select.Option key={idx} value={stage._id}>
           {stage.label}
         </Select.Option>

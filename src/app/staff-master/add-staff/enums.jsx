@@ -13,10 +13,10 @@ export const ArcheTypeSelector = () => {
   const { status, data, error } = useSelector(
     (state) => state.archeType.getAllArcheTypes
   );
-  const [archeTypes, setArcheTypes] = useState(data?.data || []);
+  const [archeTypes, setArcheTypes] = useState(data?.data);
 
   const fetchAllArcheTypes = useCallback(() => {
-    if (!archeTypes.length) {
+    if (!archeTypes) {
       dispatch(getAllArcheTypes());
     }
   }, [dispatch, archeTypes]);
@@ -39,7 +39,7 @@ export const ArcheTypeSelector = () => {
 
   return (
     <Select>
-      {archeTypes.map((archeType, idx) => (
+      {archeTypes?.map((archeType, idx) => (
         <Select.Option key={idx} value={archeType._id}>
           {archeType.label}
         </Select.Option>
@@ -54,12 +54,10 @@ export const RelationshipDegreeSelector = () => {
   const { status, data, error } = useSelector(
     (state) => state.relationshipDegree.getAllRelationshipDegrees
   );
-  const [relationshipDegrees, setRelationshipDegrees] = useState(
-    data?.data || []
-  );
+  const [relationshipDegrees, setRelationshipDegrees] = useState(data?.data);
 
   const fetchAllRelationshipDegrees = useCallback(() => {
-    if (!relationshipDegrees.length) {
+    if (!relationshipDegrees) {
       dispatch(getAllRelationshipDegrees());
     }
   }, [dispatch, relationshipDegrees]);
@@ -72,7 +70,6 @@ export const RelationshipDegreeSelector = () => {
     if (status == "pending") {
       setLoading(true);
     } else if (status == "success" && data?.status == "success") {
-      console.log("success-inside");
       setRelationshipDegrees(data?.data);
       setLoading(false);
     } else {
@@ -82,7 +79,7 @@ export const RelationshipDegreeSelector = () => {
 
   return (
     <Select>
-      {relationshipDegrees.map((relationshipDegree, idx) => (
+      {relationshipDegrees?.map((relationshipDegree, idx) => (
         <Select.Option key={idx} value={relationshipDegree._id}>
           {relationshipDegree.label}
         </Select.Option>
