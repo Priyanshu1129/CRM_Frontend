@@ -2,20 +2,16 @@ import axios from "axios";
 import { archeTypeActions } from "@/redux/slices/contactSlice";
 import { serverURL } from "@/config/config";
 
-const route = `${serverURL}/configuration/archeType`
+const route = `${serverURL}/contact/config/archetype`
 
-export const getAllArcheTypes = (token) => async (dispatch) => {
+export const getAllArcheTypes = () => async (dispatch) => {
     try {
         dispatch(archeTypeActions.getAllArcheTypesRequest());
-        console.log('getAllArcheTypes', token);
-        const data = await axios.get(`${route}/`, {
-            headers: {
-                "authorization": token
-            }
-        });
+        console.log('getAllArcheTypes');
+        const response = await axios.get(`${route}/`);
 
-        console.log('get-all-archeType-res-data', data.data);
-        dispatch(archeTypeActions.getAllArcheTypesSuccess(data.data));
+        console.log('get-all-archeType-res-data', response.data);
+        dispatch(archeTypeActions.getAllArcheTypesSuccess(response.data));
     } catch (error) {
         console.log("error", error)
         let errorMessage = "An error occurred";

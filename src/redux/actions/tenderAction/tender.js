@@ -2,7 +2,7 @@ import axios from "axios";
 import { tenderActions } from "@/redux/slices/tenderSlice";
 import { serverURL } from "@/config/config";
 
-const route = `${serverURL}/configuration/tender`
+const route = `${serverURL}/tender`
 
 export const getAllTenders = (token) => async (dispatch) => {
     try {

@@ -2,20 +2,16 @@ import axios from "axios";
 import { registrationStatusActions } from "@/redux/slices/registrationSlice"
 import { serverURL } from "@/config/config";
 
-const route = `${serverURL}/configuration/registrationStatus`
+const route = `${serverURL}/registration/config/registration-status`
 
-export const getAllRegistrationStatus = (token) => async (dispatch) => {
+export const getAllRegistrationStatus = () => async (dispatch) => {
     try {
         dispatch(registrationStatusActions.getAllRegistrationStatusRequest());
-        console.log('getAllRegistrationStatus', token);
-        const data = await axios.get(`${route}/`, {
-            headers: {
-                "authorization": token
-            }
-        });
+        console.log('getAllRegistrationStatus');
+        const response = await axios.get(`${route}/`);
 
-        console.log('get-all-registrationStatus-res-data', data.data);
-        dispatch(registrationStatusActions.getAllRegistrationStatusSuccess(data.data));
+        console.log('get-all-registrationStatus-res-data', response.data);
+        dispatch(registrationStatusActions.getAllRegistrationStatusSuccess(response.data));
     } catch (error) {
         console.log("error", error)
         let errorMessage = "An error occurred";

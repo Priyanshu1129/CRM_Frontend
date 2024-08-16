@@ -15,13 +15,8 @@ import {
   Checkbox,
 } from "antd";
 
-import {} from "./enums";
-import {
-  ListHeader,
-  IndustrySelector,
-  SubIndustrySelector,
-  InputNotes,
-} from "@/components";
+import { ArcheTypeSelector, RelationshipDegreeSelector } from "./enums";
+import { ListHeader, InputNotes } from "@/components";
 
 const AddContact = () => {
   const [loading, setLoading] = useState(false);
@@ -31,19 +26,6 @@ const AddContact = () => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
-
-  const suffixSelector = (
-    <Form.Item name="suffix" noStyle>
-      <Select
-        style={{
-          width: 70,
-        }}
-      >
-        <Select.Option value="billion">B</Select.Option>
-        <Select.Option value="million">M</Select.Option>
-      </Select>
-    </Form.Item>
-  );
 
   return (
     <>
@@ -129,12 +111,12 @@ const AddContact = () => {
             </Col>
             <Col span={8}>
               <Form.Item label="Arch Type">
-                <SubIndustrySelector />
+                <ArcheTypeSelector />
               </Form.Item>
             </Col>
             <Col span={8}>
               <Form.Item label="Relationship Degree">
-                <SubIndustrySelector />
+                <RelationshipDegreeSelector />
               </Form.Item>
             </Col>
             <Col span={8}>

@@ -2,7 +2,7 @@ import axios from "axios";
 import { contactActions } from "@/redux/slices/contactSlice";
 import { serverURL } from "@/config/config";
 
-const route = `${serverURL}/configuration/contact`
+const route = `${serverURL}/contact`
 
 export const getAllContacts = (token) => async (dispatch) => {
     try {

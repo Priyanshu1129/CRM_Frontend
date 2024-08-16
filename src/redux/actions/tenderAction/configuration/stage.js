@@ -2,20 +2,16 @@ import axios from "axios";
 import { stageActions } from "@/redux/slices/tenderSlice"
 import { serverURL } from "@/config/config";
 
-const route = `${serverURL}/configuration/stage`
+const route = `${serverURL}/tender/config/stage`
 
-export const getAllStages = (token) => async (dispatch) => {
+export const getAllStages = () => async (dispatch) => {
     try {
         dispatch(stageActions.getAllStagesRequest());
-        console.log('getAllStages', token);
-        const data = await axios.get(`${route}/`, {
-            headers: {
-                "authorization": token
-            }
-        });
+        console.log('getAllStages');
+        const response = await axios.get(`${route}/`);
 
-        console.log('get-all-stage-res-data', data.data);
-        dispatch(stageActions.getAllStagesSuccess(data.data));
+        console.log('get-all-stage-res-data', response.data);
+        dispatch(stageActions.getAllStagesSuccess(response.data));
     } catch (error) {
         console.log("error", error)
         let errorMessage = "An error occurred";

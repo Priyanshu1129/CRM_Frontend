@@ -76,7 +76,7 @@ export const InputNotes = () => {
               }}
               icon={<PlusOutlined />}
             >
-              Add field
+              Add Notes
             </Button>
             {/* <Button
               type="dashed"

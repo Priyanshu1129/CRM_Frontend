@@ -6,7 +6,7 @@ const route = `${serverURL}/configuration/sub-solution`
 
 export const getAllSubSolutions = () => async (dispatch) => {
     try {
-        dispatch(subSolutionActions.getSubAllSolutionsRequest());
+        dispatch(subSolutionActions.getAllSubSolutionsRequest());
         console.log('getAllSolutions');
         const response = await axios.get(`${route}/`);
 

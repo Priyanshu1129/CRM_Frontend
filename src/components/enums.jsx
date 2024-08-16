@@ -225,15 +225,15 @@ export const SalesSubStageSelector = () => {
   );
   const [salesSubStages, setSubSalesStages] = useState(data?.data || []);
 
-  const fetchAllSalesStages = useCallback(() => {
+  const fetchAllSalesSubStages = useCallback(() => {
     if (!salesSubStages.length) {
       dispatch(getAllSalesSubStages());
     }
   }, [dispatch, salesSubStages]);
 
   useEffect(() => {
-    fetchAllSalesStages();
-  }, [fetchAllSalesStages]);
+    fetchAllSalesSubStages();
+  }, [fetchAllSalesSubStages]);
 
   useEffect(() => {
     if (status == "pending") {

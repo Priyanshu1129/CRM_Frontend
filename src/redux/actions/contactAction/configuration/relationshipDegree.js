@@ -2,20 +2,16 @@ import axios from "axios";
 import { relationshipDegreeActions } from "@/redux/slices/contactSlice";
 import { serverURL } from "@/config/config";
 
-const route = `${serverURL}/configuration/relationshipDegree`
+const route = `${serverURL}/contact/config/relationship-degree`
 
-export const getAllRelationshipDegrees = (token) => async (dispatch) => {
+export const getAllRelationshipDegrees = () => async (dispatch) => {
     try {
         dispatch(relationshipDegreeActions.getAllRelationshipDegreesRequest());
-        console.log('getAllRelationshipDegrees', token);
-        const data = await axios.get(`${route}/`, {
-            headers: {
-                "authorization": token
-            }
-        });
+        console.log('getAllRelationshipDegrees');
+        const response = await axios.get(`${route}/`);
 
-        console.log('get-all-relationshipDegree-res-data', data.data);
-        dispatch(relationshipDegreeActions.getAllRelationshipDegreesSuccess(data.data));
+        console.log('get-all-relationshipDegree-res-data', response.data);
+        dispatch(relationshipDegreeActions.getAllRelationshipDegreesSuccess(response.data));
     } catch (error) {
         console.log("error", error)
         let errorMessage = "An error occurred";

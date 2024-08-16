@@ -55,6 +55,11 @@ export const resources = [
         icon: <ContainerOutlined />,
     },
     {
+        key: "staff-master",
+        label: "Staff Master",
+        icon: <ContainerOutlined />,
+    },
+    {
         key: "registration-master",
         label: "Registration Master",
         icon: <ContainerOutlined />,

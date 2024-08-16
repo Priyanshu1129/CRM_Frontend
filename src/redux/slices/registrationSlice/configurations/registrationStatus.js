@@ -6,7 +6,7 @@ const initialRegistrationStatusState = {
         error: null,
         data: null,
     },
-    getAllRegistrationStatuss: {
+    getAllRegistrationStatus: {
         status: "idle",
         error: null,
         data: null,
