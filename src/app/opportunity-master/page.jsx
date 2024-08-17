@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect, useCallback } from "react";
 import { ListHeader } from "@/components";
-import { useDispatch, useCallback } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { OpportunitiesTableView, OpportunitiesCardView } from "./components";
 import { notification } from "antd";
 import { opportunityActions } from "@/redux/slices/opportunitySlice";

@@ -69,17 +69,8 @@ const AddBusinessDevelopment = () => {
 
   const onFinish = (values) => {
     // setLoading(true);
-    console.log("submitted-values", values);
     // dispatch(createBusinessDevelopment(values));
   };
-  // const StaffSelector = () => {
-  //   return (
-  //     <Select defaultValue="df" value="sdsdf">
-  //       <Select.Option value="1">Jhn Doe</Select.Option>
-  //       <Select.Option value="2">Jane Smith</Select.Option>
-  //     </Select>
-  //   );
-  // };
 
   return (
     <>

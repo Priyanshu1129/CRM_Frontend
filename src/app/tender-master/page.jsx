@@ -58,4 +58,4 @@ const TenderMaster = () => {
   );
 };
 
-export default List;
+export default TenderMaster;

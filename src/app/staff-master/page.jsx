@@ -50,7 +50,7 @@ const StaffMaster = () => {
         buttonText={"Add new staff"}
       />
       {view == "table" ? (
-        <StaffsTableView data={data} loading={loading} />
+        <StaffsTableView data={staffs} loading={loading} />
       ) : (
         <StaffsCardView />
       )}
@@ -58,4 +58,4 @@ const StaffMaster = () => {
   );
 };
 
-export default List;
+export default StaffMaster;
