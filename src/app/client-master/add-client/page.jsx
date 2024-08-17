@@ -12,14 +12,16 @@ import {
   theme,
   Row,
   Col,
+  notification,
 } from "antd";
 import {
   ClassificationsSelector,
   IncorporationTypesSelector,
   RelationshipStatusSelector,
+  MarketCapSelector,
 } from "./enums";
 import {
-  ListHeader,
+  FormHeader,
   IndustrySelector,
   SubIndustrySelector,
   TerritorySelector,
@@ -64,25 +66,18 @@ const AddClient = () => {
 
   const onFinish = (values) => {
     setLoading(true);
-    dispatch(createClient(values));
+    let newValues = {
+      ...values,
+      entryDate: "2024-08-10T00:00:00.000Z",
+      enteredBy: "64cf1c8a6e6e3c0b34a25f95",
+    };
+    console.log("submit", newValues);
+    dispatch(createClient(newValues));
   };
-
-  const suffixSelector = (
-    <Form.Item name="suffix" noStyle>
-      <Select
-        style={{
-          width: 70,
-        }}
-      >
-        <Select.Option value="billion">B</Select.Option>
-        <Select.Option value="million">M</Select.Option>
-      </Select>
-    </Form.Item>
-  );
 
   return (
     <>
-      <ListHeader toPath={"add-client"} buttonText={"Add new client"} />
+      <FormHeader buttonText={"Cancel"} />
       <Space
         direction="vertical"
         style={{
@@ -110,29 +105,25 @@ const AddClient = () => {
             <Col span={8}>
               <Form.Item
                 label="Client Name"
-                name="clientName"
+                name="name"
                 rules={clientFormRules.clientName}
               >
                 <Input />
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item
+              <IndustrySelector
                 label="Industry"
                 name="industry"
                 rules={clientFormRules.industry}
-              >
-                <IndustrySelector />
-              </Form.Item>
+              />
             </Col>
             <Col span={8}>
-              <Form.Item
+              <SubIndustrySelector
                 label="Sub Industry"
                 name="subIndustry"
                 rules={clientFormRules.subIndustry}
-              >
-                <SubIndustrySelector />
-              </Form.Item>
+              />
             </Col>
             <Col span={8}>
               <Form.Item
@@ -144,22 +135,18 @@ const AddClient = () => {
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item
+              <TerritorySelector
                 label="Territory"
                 name="territory"
                 rules={clientFormRules.territory}
-              >
-                <TerritorySelector />
-              </Form.Item>
+              />
             </Col>
             <Col span={8}>
-              <Form.Item
+              <IncorporationTypesSelector
                 label="Incorporation Type"
                 name="incorporationType"
                 rules={clientFormRules.incorporationType}
-              >
-                <IncorporationTypesSelector />
-              </Form.Item>
+              />
             </Col>
             <Col span={8}>
               <Form.Item
@@ -174,19 +161,11 @@ const AddClient = () => {
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item
+              <MarketCapSelector
                 name="marketCap"
                 label="Market Cap"
                 rules={clientFormRules.marketCap}
-              >
-                {/* <InputNumber
-                  addonAfter={suffixSelector}
-                  style={{
-                    width: "100%",
-                  }}
-                /> */}
-                <Input />
-              </Form.Item>
+              />
             </Col>
             <Col span={8}>
               <Form.Item
@@ -198,13 +177,11 @@ const AddClient = () => {
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item
+              <ClassificationsSelector
                 label="Classification"
                 name="classification"
                 rules={clientFormRules.classification}
-              >
-                <ClassificationsSelector />
-              </Form.Item>
+              />
             </Col>
             <Col span={8}>
               <Form.Item
@@ -212,7 +189,7 @@ const AddClient = () => {
                 name="totalEmployeeStrength"
                 rules={clientFormRules.totalEmployeeStrength}
               >
-                <Input />
+                <Input type="number" />
               </Form.Item>
             </Col>
             <Col span={8}>
@@ -225,40 +202,32 @@ const AddClient = () => {
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item
+              <StaffSelector
                 label="Primary Relationship"
                 name="primaryRelationship"
                 rules={clientFormRules.primaryRelationship}
-              >
-                <StaffSelector />
-              </Form.Item>
+              />
             </Col>
             <Col span={8}>
-              <Form.Item
+              <StaffSelector
                 label="Secondary Relationship (Pref Economic)"
                 name="secondaryRelationship"
                 rules={clientFormRules.secondaryRelationship}
-              >
-                <StaffSelector />
-              </Form.Item>
+              />
             </Col>
             <Col span={8}>
-              <Form.Item
+              <RelationshipStatusSelector
                 label="Relationship Status"
                 name="relationshipStatus"
                 rules={clientFormRules.relationshipStatus}
-              >
-                <RelationshipStatusSelector />
-              </Form.Item>
+              />
             </Col>
             <Col span={8}>
-              <Form.Item
+              <StaffSelector
                 label="Related Contacts"
                 name="relatedContacts"
                 rules={clientFormRules.relatedContacts}
-              >
-                <StaffSelector />
-              </Form.Item>
+              />
             </Col>
             <Col span={8}>
               <Form.Item

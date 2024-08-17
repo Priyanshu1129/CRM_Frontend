@@ -14,7 +14,7 @@ import {
   Col,
 } from "antd";
 
-import { ListHeader, InputNotes } from "@/components";
+import { FormHeader, InputNotes } from "@/components";
 import { RegistrationStatusSelector } from "./enums";
 import { StaffSelector } from "@/components";
 import { createRegistration } from "@/redux/actions/registrationAction";
@@ -63,10 +63,7 @@ const AddRegistration = () => {
 
   return (
     <>
-      <ListHeader
-        toPath={"add-registration"}
-        buttonText={"Add new registration"}
-      />
+      <FormHeader buttonText={"Cancel"}/>
       <Space
         direction="vertical"
         style={{

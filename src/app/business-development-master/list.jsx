@@ -11,7 +11,7 @@ const List = () => {
   return (
     <>
       <ListHeader
-        toPath={"business-development-master/add-business-development"}
+        toPath={"/business-development-master/add-business-development"}
         buttonText={"Add New"}
       />
       {view == "table" ? (

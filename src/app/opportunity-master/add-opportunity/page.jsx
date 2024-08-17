@@ -14,7 +14,7 @@ import {
   notification,
 } from "antd";
 
-import { ListHeader } from "@/components";
+import { FormHeader } from "@/components";
 import { RevenueInput } from "../components/revenueInput";
 import {
   SolutionSelector,
@@ -69,9 +69,8 @@ const AddOpportunity = () => {
 
   return (
     <>
-      <ListHeader
-        toPath={"add-opportunity"}
-        buttonText={"Add new opportunity"}
+      <FormHeader
+        toPath={"Cancel"}
       />
       <Space
         direction="vertical"

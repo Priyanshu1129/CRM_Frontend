@@ -13,7 +13,7 @@ import {
   Col,
 } from "antd";
 
-import { ListHeader } from "@/components";
+import { FormHeader } from "@/components";
 import { RevenueInput } from "../components/revenueInput";
 import {
   IndustrySelector,
@@ -83,7 +83,7 @@ const AddBusinessDevelopment = () => {
 
   return (
     <>
-      <ListHeader toPath={"add-business-development"} buttonText={"Add New"} />
+      <FormHeader buttonText={"Cancel"} />
       <Space
         direction="vertical"
         style={{

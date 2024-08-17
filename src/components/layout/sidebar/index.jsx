@@ -11,7 +11,8 @@ const Sidebar = ({ collapsed }) => {
   const { token } = useToken();
   const onClick = (e) => {
     // router.push(e.key, { scroll: false });
-    router.push(e.key);
+    // router.push(e.key, undefined, { scroll: false });
+    router.push(`/${e.key}`, undefined, { scroll: false });
   };
   return (
     <Sider

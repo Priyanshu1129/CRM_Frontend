@@ -6,9 +6,9 @@ import {
   getAllIncorporationTypes,
   getAllRelationshipStatus,
 } from "@/redux/actions/clientAction";
-import { Select } from "antd";
+import { Select, Form } from "antd";
 
-export const ClassificationsSelector = () => {
+export const ClassificationsSelector = ({ label, name, rules }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const { status, data, error } = useSelector(
@@ -39,17 +39,19 @@ export const ClassificationsSelector = () => {
   }, [status, data]);
 
   return (
-    <Select>
-      {classifications?.map((classification, idx) => (
-        <Select.Option key={idx} value={classification._id}>
-          {classification.label}
-        </Select.Option>
-      ))}
-    </Select>
+    <Form.Item label={label} name={name} rules={rules}>
+      <Select>
+        {classifications?.map((classification, idx) => (
+          <Select.Option key={idx} value={classification._id}>
+            {classification.label}
+          </Select.Option>
+        ))}
+      </Select>
+    </Form.Item>
   );
 };
 
-export const IncorporationTypesSelector = () => {
+export const IncorporationTypesSelector = ({ label, name, rules }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const { status, data, error } = useSelector(
@@ -79,17 +81,19 @@ export const IncorporationTypesSelector = () => {
     }
   }, [status, data]);
   return (
-    <Select>
-      {incorporationTypes?.map((incorporationType, idx) => (
-        <Select.Option key={idx} value={incorporationType._id}>
-          {incorporationType.label}
-        </Select.Option>
-      ))}
-    </Select>
+    <Form.Item label={label} name={name} rules={rules}>
+      <Select>
+        {incorporationTypes?.map((incorporationType, idx) => (
+          <Select.Option key={idx} value={incorporationType._id}>
+            {incorporationType.label}
+          </Select.Option>
+        ))}
+      </Select>
+    </Form.Item>
   );
 };
 
-export const RelationshipStatusSelector = () => {
+export const RelationshipStatusSelector = ({ label, name, rules }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const { status, data, error } = useSelector(
@@ -120,12 +124,55 @@ export const RelationshipStatusSelector = () => {
   }, [status, data]);
 
   return (
-    <Select>
-      {relationshipStatus?.map((relationshipStatus, idx) => (
-        <Select.Option key={idx} value={relationshipStatus._id}>
-          {relationshipStatus.label}
-        </Select.Option>
-      ))}
-    </Select>
+    <Form.Item label={label} name={name} rules={rules}>
+      <Select>
+        {relationshipStatus?.map((relationshipStatus, idx) => (
+          <Select.Option key={idx} value={relationshipStatus._id}>
+            {relationshipStatus.label}
+          </Select.Option>
+        ))}
+      </Select>
+    </Form.Item>
+  );
+};
+
+export const MarketCapSelector = ({ label, name, rules }) => {
+  const marketCaps = [
+    {
+      label: "Rs 200k Cr + (Large)",
+    },
+    {
+      label: "Rs 5k - 20k Cr (Mid)",
+    },
+    {
+      label: "< Rs 5k Cr Small Cap",
+    },
+    {
+      label: "10B $+",
+    },
+    {
+      label: "1 - 10B $ +",
+    },
+    {
+      label: "0.5-1B $ + ",
+    },
+    {
+      label: "100-500M $",
+    },
+    {
+      label: "10-100M $",
+    },
+  ];
+
+  return (
+    <Form.Item label={label} name={name} rules={rules}>
+      <Select>
+        {marketCaps?.map((marketCap, idx) => (
+          <Select.Option key={idx} value={marketCap.label}>
+            {marketCap.label}
+          </Select.Option>
+        ))}
+      </Select>
+    </Form.Item>
   );
 };

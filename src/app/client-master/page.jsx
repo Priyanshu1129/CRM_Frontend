@@ -8,7 +8,7 @@ const ClientMaster = () => {
   return (
     <>
       <ListHeader
-        toPath={"client-master/add-client"}
+        toPath={"/client-master/add-client"}
         buttonText={"Add new client"}
       />
       {view == "table" ? <ClientsTableView /> : <ClientsCardView />}

@@ -63,11 +63,11 @@ export const clientFormRules = {
     ],
     totalEmployeeStrength: [
         { required: true, message: "Please input the total employee strength!" },
-        { type: "number", min: 1, message: "Employee strength must be greater than 0!" },
+        // { type: "number", min: 0, message: "Employee strength must be greater than 0!" },
     ],
     itEmployeeStrength: [
         { required: true, message: "Please input the IT employee strength!" },
-        { type: "number", min: 1, message: "IT employee strength must be greater than 0!" },
+        // { type: "number", min: 0, message: "IT employee strength must be greater than 0!" },
     ],
     primaryRelationship: [
         { required: true, message: "Please select a primary relationship!" },
@@ -141,7 +141,7 @@ export const opportunityFormRules = {
     address: [{ required: true, message: "Address is required" }],
 };
 
-export const tenderValidationRules = {
+export const tenderFormRules = {
     rfpDate: [
         { required: true, message: "RFP Date is required" },
         { type: "date", message: "Please enter a valid date" },

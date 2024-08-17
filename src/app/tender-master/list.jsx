@@ -8,7 +8,7 @@ const List = () => {
   return (
     <>
       <ListHeader
-        toPath={"tender-master/add-tender"}
+        toPath={"/tender-master/add-tender"}
         buttonText={"Add new tender"}
       />
       {view == "table" ? <TendersTableView /> : <TendersCardView />}

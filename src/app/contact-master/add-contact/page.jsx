@@ -16,7 +16,7 @@ import {
 } from "antd";
 
 import { ArcheTypeSelector, RelationshipDegreeSelector } from "./enums";
-import { ListHeader, InputNotes } from "@/components";
+import { FormHeader, InputNotes } from "@/components";
 import { contactFormRules } from "@/utilities/formValidationRules";
 import { contactActions } from "@/redux/slices/contactSlice";
 import { createContact } from "@/redux/actions/contactAction";
@@ -62,7 +62,7 @@ const AddContact = () => {
 
   return (
     <>
-      <ListHeader toPath={"add-contact"} buttonText={"Add new contact"} />
+      <FormHeader buttonText={"Cancel"} />
       <Space
         direction="vertical"
         style={{

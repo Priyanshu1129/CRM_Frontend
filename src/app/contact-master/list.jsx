@@ -7,7 +7,10 @@ const List = () => {
   const [view, setView] = useState("table");
   return (
     <>
-      <ListHeader toPath={"contact-master/add-contact"} buttonText={"Add new contact"} />
+      <ListHeader
+        toPath={"/contact-master/add-contact"}
+        buttonText={"Add new contact"}
+      />
       {view == "table" ? <ContactsTableView /> : <ContactsCardView />}
     </>
   );

@@ -8,7 +8,7 @@ const List = () => {
   return (
     <>
       <ListHeader
-        toPath={"registration-master/add-registration"}
+        toPath={"/registration-master/add-registration"}
         buttonText={"Add new registration"}
       />
       {view == "table" ? <RegistrationsTableView /> : <RegistrationsCardView />}

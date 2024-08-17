@@ -2,7 +2,7 @@ import axios from "axios";
 import { clientActions } from "@/redux/slices/clientSlice";
 import { serverURL } from "@/config/config";
 
-const route = `${serverURL}/configuration/client`
+const route = `${serverURL}/client`
 
 export const getAllClients = () => async (dispatch) => {
     try {
@@ -52,45 +52,22 @@ export const getClient = (clientId, token) => async (dispatch) => {
     }
 };
 
-export const createClient = (clientData, token) => async (dispatch) => {
+export const createClient = (clientData) => async (dispatch) => {
     try {
-        console.log("create-clientData", clientData);
+        console.log("create-client-req-data", clientData);
         dispatch(clientActions.createClientRequest());
-        const formData = new FormData();
 
-        // Append other form data to FormData
-        Object.entries(clientData).forEach(([key, value]) => {
-            if (key != 'avatarUri') {
-                formData.append(key, value);
-            }
-        });
-
-        const fileName = clientData.avatarUri.split('/').pop();
-        // Determine file type based on file extension
-        const fileType = fileName.split('.').pop();
-
-        // Append avatar file to FormData
-        formData.append("avatar", {
-            uri: clientData.avatarUri,
-            type: `image/${fileType}`,
-            name: fileName
-        });
-
-        console.log("formdata-----before")
-        console.log("formdata-----", formData)
-
-        const data = await axios.post(
+        const response = await axios.post(
             `${route}/`,
-            formData,
+            clientData,
             {
                 headers: {
                     "Content-Type": "multipart/form-data",
-                    "authorization": token
                 },
             }
         );
-        console.log('create-client-res-data', data);
-        dispatch(clientActions.createClientSuccess(data.data));
+        console.log('create-client-res-data', response);
+        dispatch(clientActions.createClientSuccess(response.data));
     } catch (error) {
         console.log("error", error)
         let errorMessage = "An error occurred";

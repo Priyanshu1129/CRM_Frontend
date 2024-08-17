@@ -13,9 +13,10 @@ import {
   Col,
 } from "antd";
 import { StageSelector } from "./enums";
-import { ListHeader } from "@/components";
+import { FormHeader } from "@/components";
 import { tenderActions } from "@/redux/slices/tenderSlice";
 import { createTender } from "@/redux/actions/tenderAction";
+import { tenderFormRules } from "@/utilities/formValidationRules";
 
 const AddTender = () => {
   const [loading, setLoading] = useState(false);
@@ -57,7 +58,7 @@ const AddTender = () => {
 
   return (
     <>
-      <ListHeader toPath={"add-tender"} buttonText={"Add new tender"} />
+      <FormHeader buttonText={"Cancel"} />
       <Space
         direction="vertical"
         style={{
@@ -80,7 +81,7 @@ const AddTender = () => {
               <Form.Item
                 name="rfpDate"
                 label="RFP Date"
-                rules={validationRules.rfpDate}
+                rules={tenderFormRules.rfpDate}
               >
                 <Input />
               </Form.Item>
@@ -89,7 +90,7 @@ const AddTender = () => {
               <Form.Item
                 name="submissionDueDate"
                 label="Submission Due Date"
-                rules={validationRules.submissionDueDate}
+                rules={tenderFormRules.submissionDueDate}
               >
                 <Input />
               </Form.Item>
@@ -98,7 +99,7 @@ const AddTender = () => {
               <Form.Item
                 name="client"
                 label="Client Name"
-                rules={validationRules.clientName}
+                rules={tenderFormRules.clientName}
               >
                 <Select>
                   <Select.Option value={"M"}>Male</Select.Option>
@@ -111,7 +112,7 @@ const AddTender = () => {
               <Form.Item
                 name="reference"
                 label="Reference"
-                rules={validationRules.reference}
+                rules={tenderFormRules.reference}
               >
                 <Input />
               </Form.Item>
@@ -120,7 +121,7 @@ const AddTender = () => {
               <Form.Item
                 name="rfpTitle"
                 label="RFP Title"
-                rules={validationRules.rfpTitle}
+                rules={tenderFormRules.rfpTitle}
               >
                 <Input />
               </Form.Item>
@@ -129,7 +130,7 @@ const AddTender = () => {
               <Form.Item
                 name="rfpSource"
                 label="How did we receive RFP?"
-                rules={validationRules.rfpSource}
+                rules={tenderFormRules.rfpSource}
               >
                 <Input />
               </Form.Item>
@@ -138,7 +139,7 @@ const AddTender = () => {
               <Form.Item
                 name="associatedOpportunity"
                 label="Associated Opportunity"
-                rules={validationRules.associatedOpportunity}
+                rules={tenderFormRules.associatedOpportunity}
               >
                 <Select>
                   <Select.Option value={"M"}>Male</Select.Option>
@@ -146,7 +147,7 @@ const AddTender = () => {
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item name="bond" label="Bond" rules={validationRules.bond}>
+              <Form.Item name="bond" label="Bond" rules={tenderFormRules.bond}>
                 <Select>
                   <Select.Option value={"Yes"}>Yes</Select.Option>
                   <Select.Option value={"No"}>No</Select.Option>
@@ -157,7 +158,7 @@ const AddTender = () => {
               <Form.Item
                 name="bondValue"
                 label="Bond Value"
-                rules={validationRules.bondValue}
+                rules={tenderFormRules.bondValue}
               >
                 <Input />
               </Form.Item>
@@ -166,7 +167,7 @@ const AddTender = () => {
               <Form.Item
                 name="bondIssueDate"
                 label="Bond Issue Date"
-                rules={validationRules.bondIssueDate}
+                rules={tenderFormRules.bondIssueDate}
               >
                 <Input />
               </Form.Item>
@@ -175,7 +176,7 @@ const AddTender = () => {
               <Form.Item
                 name="bondExpiry"
                 label="Bond Valid Until"
-                rules={validationRules.bondValidUntil}
+                rules={tenderFormRules.bondValidUntil}
               >
                 <Input />
               </Form.Item>
@@ -184,7 +185,7 @@ const AddTender = () => {
               <Form.Item
                 name="submissionMode"
                 label="Submission Mode"
-                rules={validationRules.submissionMode}
+                rules={tenderFormRules.submissionMode}
               >
                 <Select>
                   <Select.Option value={"Mail"}>Mail</Select.Option>
@@ -197,7 +198,7 @@ const AddTender = () => {
               <Form.Item
                 name="evaluationDate"
                 label="Evaluation Date"
-                rules={validationRules.evaluationDate}
+                rules={tenderFormRules.evaluationDate}
               >
                 <Input />
               </Form.Item>
@@ -206,7 +207,7 @@ const AddTender = () => {
               <Form.Item
                 name="officer"
                 label="Tender Officer"
-                rules={validationRules.tenderOfficer}
+                rules={tenderFormRules.tenderOfficer}
               >
                 <Select>
                   <Select.Option value={"John Doe"}>John Doe</Select.Option>
@@ -217,7 +218,7 @@ const AddTender = () => {
               <Form.Item
                 name="bidManager"
                 label="Bid Manager"
-                rules={validationRules.bidManager}
+                rules={tenderFormRules.bidManager}
               >
                 <Select>
                   <Select.Option value={"Jane Doe"}>Jane Doe</Select.Option>
@@ -228,7 +229,7 @@ const AddTender = () => {
               <Form.Item
                 name="stage"
                 label="Tender Stage"
-                rules={validationRules.tenderStage}
+                rules={tenderFormRules.tenderStage}
               >
                 <StageSelector />
               </Form.Item>
@@ -237,7 +238,7 @@ const AddTender = () => {
               <Form.Item
                 name="stageExplanation"
                 label="Stage Explanation"
-                rules={validationRules.stageExplanation}
+                rules={tenderFormRules.stageExplanation}
               >
                 <Input />
               </Form.Item>
@@ -246,7 +247,7 @@ const AddTender = () => {
               <Form.Item
                 name="submissionDate"
                 label="Submission Date"
-                rules={validationRules.submissionDate}
+                rules={tenderFormRules.submissionDate}
               >
                 <Input />
               </Form.Item>
