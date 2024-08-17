@@ -1,67 +1,94 @@
 import React from "react";
 import { Table } from "@/components";
+import { Button, Space } from "antd";
+import { EyeOutlined, DeleteOutlined } from "@ant-design/icons";
 const columns = [
   {
-    title: "Full Name",
-    width: 100,
-    dataIndex: "name",
-    key: "name",
-    fixed: "left",
+    title: "First Name",
+    width: 150,
+    dataIndex: "firstName",
+    key: "firstName",
+    // fixed: "left",
   },
   {
-    title: "Age",
-    width: 100,
-    dataIndex: "age",
-    key: "age",
-    fixed: "left",
-    sorter: true,
+    title: "Last Name",
+    width: 150,
+    dataIndex: "lastName",
+    key: "lastName",
   },
   {
-    title: "Column 1",
-    dataIndex: "address",
-    key: "1",
+    title: "Gender",
+    dataIndex: "gender",
+    key: "gender",
   },
   {
-    title: "Column 2",
-    dataIndex: "address",
-    key: "2",
+    title: "Job Title",
+    width: 200,
+    dataIndex: "jobTitle",
+    key: "jobTitle",
   },
   {
-    title: "Column 3",
-    dataIndex: "address",
-    key: "3",
+    title: "Client",
+    width: 200,
+    dataIndex: "client",
+    key: "client",
   },
   {
-    title: "Column 4",
-    dataIndex: "address",
-    key: "4",
+    title: "Relationship Degree",
+    dataIndex: "relationshipDegree",
+    width: 200,
+    key: "relationshipDegree",
   },
   {
-    title: "Column 5",
-    dataIndex: "address",
-    key: "5",
+    title: "Personal Email",
+    width: 300,
+    dataIndex: "personalEmail",
+    key: "personalEmail",
   },
   {
-    title: "Column 6",
-    dataIndex: "address",
-    key: "6",
+    title: "Work Email",
+    width: 300,
+    dataIndex: "workEmail",
+    key: "workEmail",
   },
   {
-    title: "Column 7",
-    dataIndex: "address",
-    key: "7",
+    title: "Phone",
+    width: 300,
+    dataIndex: "phone",
+    key: "phone",
   },
   {
-    title: "Column 8",
-    dataIndex: "address",
-    key: "8",
+    title: "Mobile Phone",
+    width: 300,
+    dataIndex: "mobilePhone",
+    key: "mobilePhone",
+  },
+  {
+    title: "City",
+    dataIndex: "city",
+    key: "city",
+  },
+  {
+    title: "Arch Type",
+    dataIndex: "archType",
+    key: "archType",
+  },
+  {
+    title: "Details Confirmation",
+    dataIndex: "detailsConfirmation",
+    key: "detailsConfirmation",
   },
   {
     title: "Action",
     key: "operation",
     fixed: "right",
     width: 100,
-    render: () => <a>action</a>,
+    render: () => (
+      <Space>
+        <Button size="small" href="" icon={<EyeOutlined />} />
+        <Button size="small" href="" danger icon={<DeleteOutlined />} />
+      </Space>
+    ),
   },
 ];
 const data = [
@@ -79,10 +106,10 @@ const data = [
   },
 ];
 
-export const ContactsTableView = () => {
+export const ContactsTableView = ({ loading }) => {
   return (
     <>
-      <Table data={data} columns={columns} />
+      <Table loading={loading} data={data} columns={columns} />
     </>
   );
 };

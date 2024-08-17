@@ -6,19 +6,8 @@ import { PaginationTotal } from "@/components";
 
 import { ClientCard, ClientCardSkeleton } from "./card";
 
-export const ClientsCardView = (
-  {
-    // tableProps: { dataSource, pagination, loading },
-    // setCurrent,
-    // setPageSize,
-  }
-) => {
-  // const data = useMemo(() => {
-  //   return [...(dataSource || [])];
-  // }, [dataSource]);
-  const data = [{},{},{},{},{},{}];
-  let loading = false;
-
+export const ClientsCardView = ({ data, loading }) => {
+  
   return (
     <List
       style={{ marginTop: "28px" }}

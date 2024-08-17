@@ -2,12 +2,13 @@ import axios from "axios";
 import { clientActions } from "@/redux/slices/clientSlice";
 import { serverURL } from "@/config/config";
 
+
 const route = `${serverURL}/client`
 
 export const getAllClients = () => async (dispatch) => {
     try {
         dispatch(clientActions.getAllClientsRequest());
-        console.log('getAllClients');
+        console.log('getAllClients-request');
         const data = await axios.get(`${route}/`);
 
         console.log('get-all-client-res-data', data.data);

@@ -11,7 +11,7 @@ export const ClientCard = ({ client }) => {
 
   if (!client) return <ClientCardSkeleton />;
 
-  const relatedContactAvatars = client?.contacts?.nodes?.map((contact) => {
+  const relatedContactAvatars = client?.contacts?.map((contact) => {
     return {
       name: contact.name,
       src: contact.avatarUrl,

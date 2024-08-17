@@ -27,22 +27,21 @@ export const ListSearch = () => {
           />
         </Form.Item>
       </Form>
-      {!screens.xs ? (
+      {/* {!screens.xs ? (
         <Radio.Group
           size="large"
           value={"table"}
           onChange={(e) => onViewChange(e.target.value)}
         >
           <Radio.Button value="table">
-            {/* @ts-expect-error Ant Design Icon's v5.0.1 has an issue with @types/react@^18.2.66 */}
+            
             <UnorderedListOutlined />
           </Radio.Button>
           <Radio.Button value="card">
-            {/* @ts-expect-error Ant Design Icon's v5.0.1 has an issue with @types/react@^18.2.66 */}
             <AppstoreOutlined />
           </Radio.Button>
         </Radio.Group>
-      ) : null}
+      ) : null} */}
     </Space>
   );
 };
