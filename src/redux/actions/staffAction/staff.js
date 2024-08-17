@@ -2,16 +2,16 @@ import axios from "axios";
 import { staffActions } from "@/redux/slices/staffSlice"
 import { serverURL } from "@/config/config";
 
-const route = `${serverURL}/configuration/staff`
+const route = `${serverURL}/team/staff`
 
 export const getAllStaffs = () => async (dispatch) => {
     try {
         dispatch(staffActions.getAllStaffsRequest());
         console.log('getAllStaffs');
-        const data = await axios.get(`${route}/`);
+        const response = await axios.get(`${route}/`);
 
-        console.log('get-all-staff-res-data', data.data);
-        dispatch(staffActions.getAllStaffsSuccess(data.data));
+        console.log('get-all-staff-res-data', response.data);
+        dispatch(staffActions.getAllStaffsSuccess(response.data));
     } catch (error) {
         console.log("error", error)
         let errorMessage = "An error occurred";
@@ -52,45 +52,23 @@ export const getStaff = (staffId, token) => async (dispatch) => {
     }
 };
 
-export const createStaff = (staffData, token) => async (dispatch) => {
+export const createStaff = (staffData) => async (dispatch) => {
     try {
-        console.log("create-staffData", staffData);
+        console.log("create-staff-data", staffData);
         dispatch(staffActions.createStaffRequest());
-        const formData = new FormData();
 
-        // Append other form data to FormData
-        Object.entries(staffData).forEach(([key, value]) => {
-            if (key != 'avatarUri') {
-                formData.append(key, value);
-            }
-        });
-
-        const fileName = staffData.avatarUri.split('/').pop();
-        // Determine file type based on file extension
-        const fileType = fileName.split('.').pop();
-
-        // Append avatar file to FormData
-        formData.append("avatar", {
-            uri: staffData.avatarUri,
-            type: `image/${fileType}`,
-            name: fileName
-        });
-
-        console.log("formdata-----before")
-        console.log("formdata-----", formData)
-
-        const data = await axios.post(
+        const response = await axios.post(
             `${route}/`,
-            formData,
+            staffData,
             {
                 headers: {
                     "Content-Type": "multipart/form-data",
-                    "authorization": token
+                    // "authorization": token
                 },
             }
         );
-        console.log('create-staff-res-data', data);
-        dispatch(staffActions.createStaffSuccess(data.data));
+        console.log('create-staff-res-data', response);
+        dispatch(staffActions.createStaffSuccess(response.data));
     } catch (error) {
         console.log("error", error)
         let errorMessage = "An error occurred";

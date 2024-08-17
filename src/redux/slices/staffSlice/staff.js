@@ -47,11 +47,11 @@ const staffSlice = createSlice({
             state.getAllStaffs.status = "pending";
         },
         getAllStaffsSuccess: (state, action) => {
-            state.getAllStaffs.status = 'success'
+            state.getAllStaffs.status = "success"
             state.getAllStaffs.data = action.payload;
         },
-        getAllStaffsFailure: (state, action) => {
-            state.getAllStaffs.status = 'failed';
+        getAllStaffsFailure: (state) => {
+            state.getAllStaffs.status = "failed";
         },
         createStaffRequest: (state, action) => {
             state.createStaff.status = 'pending'

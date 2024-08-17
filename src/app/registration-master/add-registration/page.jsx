@@ -16,15 +16,50 @@ import {
 
 import { ListHeader, InputNotes } from "@/components";
 import { RegistrationStatusSelector } from "./enums";
+import { StaffSelector } from "@/components";
+import { createRegistration } from "@/redux/actions/registrationAction";
+import { registrationActions } from "@/redux/slices/registrationSlice";
+import { registrationFormRules } from "../../../utilities/formValidationRules";
 
 const AddRegistration = () => {
   const [loading, setLoading] = useState(false);
+  const [form] = Form.useForm();
   const screens = Grid.useBreakpoint();
   const dispatch = useDispatch();
+
+  const { status, error } = useSelector(
+    (state) => state.registration.createRegistration
+  );
 
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
+  useEffect(() => {
+    if (status === "pending") {
+      setLoading(true);
+    } else if (status === "success") {
+      setLoading(false);
+      notification.success({
+        message: "Success",
+        description: "Registration added successfully.",
+      });
+      dispatch(registrationActions.clearCreateRegistrationStatus());
+    } else if (status === "failed") {
+      setLoading(false);
+      notification.error({
+        message: "Error",
+        description: error || "Failed to add registration.",
+      });
+      dispatch(registrationActions.clearCreateRegistrationStatus());
+      dispatch(registrationActions.clearCreateRegistrationError());
+    }
+  }, [status, error, dispatch]);
+
+  const onFinish = (values) => {
+    setLoading(true);
+    dispatch(createRegistration(values));
+  };
 
   return (
     <>
@@ -43,94 +78,127 @@ const AddRegistration = () => {
         }}
       >
         <Form
-          // labelCol={{
-          //   span: 12,
-          // }}
-          // wrapperCol={{
-          //   span: 12,
-          // }}
           layout="vertical"
           initialValues={{}}
-          onValuesChange={() => {}}
+          form={form}
+          onFinish={onFinish}
           size={"default"}
-          style={
-            {
-              // maxWidth: 600,
-            }
-          }
         >
           <Row gutter={24}>
             <Col span={8}>
-              <Form.Item label="Client Name">
+              <Form.Item
+                name="client"
+                label="Client Name"
+                rules={registrationFormRules.clientName}
+              >
                 <Select>
-                  <Select.Option value={"M"}>Male</Select.Option>
+                  <Select.Option value={"c1"}>Client 1</Select.Option>
                 </Select>
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item label="Registration Champ">
-                <Select>
-                  <Select.Option value={"M"}>Male</Select.Option>
-                </Select>
+              <Form.Item
+                name="registrationChamp"
+                label="Registration Champ"
+                rules={registrationFormRules.registrationChamp}
+              >
+                <StaffSelector />
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item label="Registration Status">
+              <Form.Item
+                name="status"
+                label="Registration Status"
+                rules={registrationFormRules.registrationStatus}
+              >
                 <RegistrationStatusSelector />
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item label="Role">
+              <Form.Item
+                name="username"
+                label="Registered Username"
+                rules={registrationFormRules.registeredUsername}
+              >
+                <Input />
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item
+                name="password"
+                label="Registered Password"
+                rules={registrationFormRules.registeredPassword}
+              >
+                <Input />
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item
+                name="otherDetails"
+                label="Other Details"
+                rules={registrationFormRules.otherDetails}
+              >
+                <Input />
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item
+                name="registeredDate"
+                label="Registered Date"
+                rules={registrationFormRules.registeredDate}
+              >
+                <Input />
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item
+                name="expiryDate"
+                label="Valid Until"
+                rules={registrationFormRules.validUntil}
+              >
+                <Input />
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item
+                name="primaryContact"
+                label="Primary Registration Contact"
+                rules={registrationFormRules.primaryRegistrationContact}
+              >
                 <Select>
-                  <Select.Option value={"M"}>Male</Select.Option>
+                  <Select.Option value={"contact1"}>Contact 1</Select.Option>
                 </Select>
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item label="Registered Username">
-                <Input />
-              </Form.Item>
-            </Col>
-            <Col span={8}>
-              <Form.Item label="Registered Password">
-                <Input />
-              </Form.Item>
-            </Col>
-            <Col span={8}>
-              <Form.Item label="Other Details">
-                <Input />
-              </Form.Item>
-            </Col>
-            <Col span={8}>
-              <Form.Item label="Registered Date">
-                <Input />
-              </Form.Item>
-            </Col>
-            <Col span={8}>
-              <Form.Item label="Valid Until">
-                <Input />
-              </Form.Item>
-            </Col>
-            <Col span={8}>
-              <Form.Item label="Primary Registration Contact">
-                <Select>
-                  <Select.Option value={"M"}>Male</Select.Option>
-                </Select>
-              </Form.Item>
-            </Col>
-            <Col span={8}>
-              <Form.Item label="Submitted Documents">
+              <Form.Item
+                name="submittedDocuments"
+                label="Submitted Documents"
+                rules={registrationFormRules.submittedDocuments}
+              >
                 <Input />
               </Form.Item>
             </Col>
             <Col span={24}>
-              <Form.Item label="Notes">
+              <Form.Item name="notes" label="Notes">
                 <InputNotes />
               </Form.Item>
             </Col>
             <Col span={24}>
               <Form.Item>
-                <Button>Save</Button>
+                <Button type="primary" htmlType="submit" loading={loading}>
+                  Save
+                </Button>
+              </Form.Item>
+              <Form.Item>
+                <Button
+                  type="default"
+                  htmlType="button"
+                  onClick={() => form.resetFields()}
+                  loading={loading}
+                >
+                  Reset
+                </Button>
               </Form.Item>
             </Col>
           </Row>

@@ -5,7 +5,6 @@ import {
   Button,
   Form,
   Input,
-  InputNumber,
   Select,
   Space,
   Grid,
@@ -14,17 +13,47 @@ import {
   Col,
 } from "antd";
 import { StageSelector } from "./enums";
-
 import { ListHeader } from "@/components";
+import { tenderActions } from "@/redux/slices/tenderSlice";
+import { createTender } from "@/redux/actions/tenderAction";
 
-const AddContact = () => {
+const AddTender = () => {
   const [loading, setLoading] = useState(false);
+  const [form] = Form.useForm();
   const screens = Grid.useBreakpoint();
   const dispatch = useDispatch();
+
+  const { status, error } = useSelector((state) => state.tender.createTender);
 
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
+  useEffect(() => {
+    if (status === "pending") {
+      setLoading(true);
+    } else if (status === "success") {
+      setLoading(false);
+      notification.success({
+        message: "Success",
+        description: "Tender added successfully.",
+      });
+      dispatch(tenderActions.clearCreateTenderStatus());
+    } else if (status === "failed") {
+      setLoading(false);
+      notification.error({
+        message: "Error",
+        description: error || "Failed to add tender.",
+      });
+      dispatch(tenderActions.clearCreateTenderStatus());
+      dispatch(tenderActions.clearCreateTenderError());
+    }
+  }, [status, error, dispatch]);
+
+  const onFinish = (values) => {
+    setLoading(true);
+    dispatch(createTender(values));
+  };
 
   return (
     <>
@@ -40,35 +69,37 @@ const AddContact = () => {
         }}
       >
         <Form
-          // labelCol={{
-          //   span: 12,
-          // }}
-          // wrapperCol={{
-          //   span: 12,
-          // }}
+          onFinish={onFinish}
           layout="vertical"
           initialValues={{}}
-          onValuesChange={() => {}}
+          form={form}
           size={"default"}
-          style={
-            {
-              // maxWidth: 600,
-            }
-          }
         >
           <Row gutter={24}>
             <Col span={8}>
-              <Form.Item label="RFP Date">
+              <Form.Item
+                name="rfpDate"
+                label="RFP Date"
+                rules={validationRules.rfpDate}
+              >
                 <Input />
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item label="Submission Due Date">
+              <Form.Item
+                name="submissionDueDate"
+                label="Submission Due Date"
+                rules={validationRules.submissionDueDate}
+              >
                 <Input />
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item label="Client Name">
+              <Form.Item
+                name="client"
+                label="Client Name"
+                rules={validationRules.clientName}
+              >
                 <Select>
                   <Select.Option value={"M"}>Male</Select.Option>
                   <Select.Option value={"F"}>Female</Select.Option>
@@ -77,96 +108,164 @@ const AddContact = () => {
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item label="Reference">
+              <Form.Item
+                name="reference"
+                label="Reference"
+                rules={validationRules.reference}
+              >
                 <Input />
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item label="RFP Title">
+              <Form.Item
+                name="rfpTitle"
+                label="RFP Title"
+                rules={validationRules.rfpTitle}
+              >
                 <Input />
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item name="rfpSource" label="How did we received RFP ?">
+              <Form.Item
+                name="rfpSource"
+                label="How did we receive RFP?"
+                rules={validationRules.rfpSource}
+              >
                 <Input />
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item label="Associated Opportunity">
+              <Form.Item
+                name="associatedOpportunity"
+                label="Associated Opportunity"
+                rules={validationRules.associatedOpportunity}
+              >
                 <Select>
                   <Select.Option value={"M"}>Male</Select.Option>
                 </Select>
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item label="Bond">
+              <Form.Item name="bond" label="Bond" rules={validationRules.bond}>
                 <Select>
-                  <Select.Option value={"M"}>Yes</Select.Option>
-                  <Select.Option value={"M"}>No</Select.Option>
+                  <Select.Option value={"Yes"}>Yes</Select.Option>
+                  <Select.Option value={"No"}>No</Select.Option>
                 </Select>
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item label="Bond Value">
+              <Form.Item
+                name="bondValue"
+                label="Bond Value"
+                rules={validationRules.bondValue}
+              >
                 <Input />
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item label="Bond Issue Date">
+              <Form.Item
+                name="bondIssueDate"
+                label="Bond Issue Date"
+                rules={validationRules.bondIssueDate}
+              >
                 <Input />
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item label="Bond Valid Until">
+              <Form.Item
+                name="bondExpiry"
+                label="Bond Valid Until"
+                rules={validationRules.bondValidUntil}
+              >
                 <Input />
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item label="Submission Mode">
+              <Form.Item
+                name="submissionMode"
+                label="Submission Mode"
+                rules={validationRules.submissionMode}
+              >
                 <Select>
-                  <Select.Option value={"M"}>Male</Select.Option>
-                  <Select.Option value={"F"}>Female</Select.Option>
-                  <Select.Option value={"O"}>Other</Select.Option>
+                  <Select.Option value={"Mail"}>Mail</Select.Option>
+                  <Select.Option value={"Online"}>Online</Select.Option>
+                  <Select.Option value={"In Person"}>In Person</Select.Option>
                 </Select>
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item label="Evaluation Date">
+              <Form.Item
+                name="evaluationDate"
+                label="Evaluation Date"
+                rules={validationRules.evaluationDate}
+              >
                 <Input />
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item label="Tender Officer">
+              <Form.Item
+                name="officer"
+                label="Tender Officer"
+                rules={validationRules.tenderOfficer}
+              >
                 <Select>
-                  <Select.Option value={"M"}>Yes</Select.Option>
+                  <Select.Option value={"John Doe"}>John Doe</Select.Option>
                 </Select>
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item label="Bid Manager">
+              <Form.Item
+                name="bidManager"
+                label="Bid Manager"
+                rules={validationRules.bidManager}
+              >
                 <Select>
-                  <Select.Option value={"M"}>Yes</Select.Option>
+                  <Select.Option value={"Jane Doe"}>Jane Doe</Select.Option>
                 </Select>
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item label="Tender Stage">
+              <Form.Item
+                name="stage"
+                label="Tender Stage"
+                rules={validationRules.tenderStage}
+              >
                 <StageSelector />
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item label="Stage Explanation">
+              <Form.Item
+                name="stageExplanation"
+                label="Stage Explanation"
+                rules={validationRules.stageExplanation}
+              >
                 <Input />
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item label="Submission Date">
+              <Form.Item
+                name="submissionDate"
+                label="Submission Date"
+                rules={validationRules.submissionDate}
+              >
                 <Input />
               </Form.Item>
             </Col>
             <Col span={24}>
               <Form.Item>
-                <Button>Save</Button>
+                <Button type="primary" htmlType="submit" loading={loading}>
+                  Save
+                </Button>
+              </Form.Item>
+              <Form.Item>
+                <Button
+                  type="default"
+                  htmlType="button"
+                  onClick={() => form.resetFields()}
+                  loading={loading}
+                >
+                  Reset
+                </Button>
               </Form.Item>
             </Col>
           </Row>
@@ -175,4 +274,4 @@ const AddContact = () => {
     </>
   );
 };
-export default AddContact;
+export default AddTender;

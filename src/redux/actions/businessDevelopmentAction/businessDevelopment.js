@@ -56,32 +56,11 @@ export const getBusinessDevelopment = (businessDevelopmentId, token) => async (d
     }
 };
 
-export const createBusinessDevelopment = (businessDevelopmentData, token) => async (dispatch) => {
+export const createBusinessDevelopment = (businessDevelopmentData) => async (dispatch) => {
     try {
         console.log("create-businessDevelopmentData", businessDevelopmentData);
         dispatch(businessDevelopmentActions.createBusinessDevelopmentRequest());
-        const formData = new FormData();
 
-        // Append other form data to FormData
-        Object.entries(businessDevelopmentData).forEach(([key, value]) => {
-            if (key != 'avatarUri') {
-                formData.append(key, value);
-            }
-        });
-
-        const fileName = businessDevelopmentData.avatarUri.split('/').pop();
-        // Determine file type based on file extension
-        const fileType = fileName.split('.').pop();
-
-        // Append avatar file to FormData
-        formData.append("avatar", {
-            uri: businessDevelopmentData.avatarUri,
-            type: `image/${fileType}`,
-            name: fileName
-        });
-
-        console.log("formdata-----before")
-        console.log("formdata-----", formData)
 
         const data = await axios.post(
             `${route}/`,

@@ -4,18 +4,14 @@ import { serverURL } from "@/config/config";
 
 const route = `${serverURL}/configuration/opportunity`
 
-export const getAllOpportunities = (token) => async (dispatch) => {
+export const getAllOpportunities = () => async (dispatch) => {
     try {
         dispatch(opportunityActions.getAllOpportunitiesRequest());
-        console.log('getAllOpportunities', token);
-        const data = await axios.get(`${route}/`, {
-            headers: {
-                "authorization": token
-            }
-        });
+        console.log('getAllOpportunities');
+        const response = await axios.get(`${route}/`);
 
-        console.log('get-all-opportunity-res-data', data.data);
-        dispatch(opportunityActions.getAllOpportunitiesSuccess(data.data));
+        console.log('get-all-opportunity-res-data', response.data);
+        dispatch(opportunityActions.getAllOpportunitiesSuccess(response.data));
     } catch (error) {
         console.log("error", error)
         let errorMessage = "An error occurred";
@@ -56,32 +52,11 @@ export const getOpportunity = (opportunityId, token) => async (dispatch) => {
     }
 };
 
-export const createOpportunity = (opportunityData, token) => async (dispatch) => {
+export const createOpportunity = (opportunityData) => async (dispatch) => {
     try {
         console.log("create-opportunityData", opportunityData);
         dispatch(opportunityActions.createOpportunityRequest());
         const formData = new FormData();
-
-        // Append other form data to FormData
-        Object.entries(opportunityData).forEach(([key, value]) => {
-            if (key != 'avatarUri') {
-                formData.append(key, value);
-            }
-        });
-
-        const fileName = opportunityData.avatarUri.split('/').pop();
-        // Determine file type based on file extension
-        const fileType = fileName.split('.').pop();
-
-        // Append avatar file to FormData
-        formData.append("avatar", {
-            uri: opportunityData.avatarUri,
-            type: `image/${fileType}`,
-            name: fileName
-        });
-
-        console.log("form-data-----before")
-        console.log("form-data-----", formData)
 
         const data = await axios.post(
             `${route}/`,
@@ -89,7 +64,6 @@ export const createOpportunity = (opportunityData, token) => async (dispatch) =>
             {
                 headers: {
                     "Content-Type": "multipart/form-data",
-                    "authorization": token
                 },
             }
         );

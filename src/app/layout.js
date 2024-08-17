@@ -1,9 +1,8 @@
 import { Inter } from "next/font/google";
 import { ConfigProvider } from 'antd';
 import Layout from "@/components/layout";
-import { themeConfig } from "@/config";
+import ErrorBoundary from "./ErrorBoundary";
 import "./globals.css"
-import { FullScreenLoading } from "@/components";
 import { StoreProvider } from "./storeProvider";
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,10 +14,11 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <ConfigProvider>
           <StoreProvider>
-            <Layout>
-              {children}
-              {/* <FullScreenLoading /> */}
-            </Layout>
+            <ErrorBoundary>
+              <Layout>
+                {children}
+              </Layout>
+            </ErrorBoundary>
           </StoreProvider>
         </ConfigProvider>
       </body>

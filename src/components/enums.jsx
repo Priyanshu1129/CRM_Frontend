@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Select, Form } from "antd";
 import {
   getAllIndustries,
   getAllSubIndustries,
@@ -10,9 +11,13 @@ import {
   getAllSalesSubStages,
   getAllTerritories,
 } from "@/redux/actions/configurationAction";
-import { Select } from "antd";
+import { getAllStaffs } from "@/redux/actions/staffAction";
+import { getAllClients } from "@/redux/actions/clientAction";
+import { getAllContacts } from "@/redux/actions/contactAction";
+import { getAllTenders } from "@/redux/actions/tenderAction";
+import { getAllOpportunities } from "@/redux/actions/opportunityAction";
 
-export const IndustrySelector = () => {
+export const IndustrySelector = ({ name, label, rules }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const { status, data, error } = useSelector(
@@ -42,17 +47,19 @@ export const IndustrySelector = () => {
   }, [status, data]);
 
   return (
-    <Select>
-      {industries?.map((industry, idx) => (
-        <Select.Option key={idx} value={industry._id}>
-          {industry.label}
-        </Select.Option>
-      ))}
-    </Select>
+    <Form.Item name={name} label={label} rules={rules}>
+      <Select>
+        {industries?.map((industry, idx) => (
+          <Select.Option key={idx} value={industry._id}>
+            {industry.label}
+          </Select.Option>
+        ))}
+      </Select>
+    </Form.Item>
   );
 };
 
-export const SubIndustrySelector = () => {
+export const SubIndustrySelector = ({ name, label, rules }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const { status, data, error } = useSelector(
@@ -83,17 +90,19 @@ export const SubIndustrySelector = () => {
   }, [status, data]);
 
   return (
-    <Select>
-      {subIndustries?.map((subIndustry, idx) => (
-        <Select.Option key={idx} value={subIndustry._id}>
-          {subIndustry.label}
-        </Select.Option>
-      ))}
-    </Select>
+    <Form.Item name={name} label={label} rules={rules}>
+      <Select>
+        {subIndustries?.map((subIndustry, idx) => (
+          <Select.Option key={idx} value={subIndustry._id}>
+            {subIndustry.label}
+          </Select.Option>
+        ))}
+      </Select>
+    </Form.Item>
   );
 };
 
-export const SolutionSelector = () => {
+export const SolutionSelector = ({ name, label, rules }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const { status, data, error } = useSelector(
@@ -124,17 +133,19 @@ export const SolutionSelector = () => {
   }, [status, data]);
 
   return (
-    <Select>
-      {solutions?.map((solution, idx) => (
-        <Select.Option key={idx} value={solution._id}>
-          {solution.label}
-        </Select.Option>
-      ))}
-    </Select>
+    <Form.Item name={name} label={label} rules={rules}>
+      <Select>
+        {solutions?.map((solution, idx) => (
+          <Select.Option key={idx} value={solution._id}>
+            {solution.label}
+          </Select.Option>
+        ))}
+      </Select>
+    </Form.Item>
   );
 };
 
-export const SubSolutionSelector = () => {
+export const SubSolutionSelector = ({ name, label, rules }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const { status, data, error } = useSelector(
@@ -165,17 +176,19 @@ export const SubSolutionSelector = () => {
   }, [status, data]);
 
   return (
-    <Select>
-      {subSolutions?.map((subSolution, idx) => (
-        <Select.Option key={idx} value={subSolution._id}>
-          {subSolution.label}
-        </Select.Option>
-      ))}
-    </Select>
+    <Form.Item name={name} label={label} rules={rules}>
+      <Select>
+        {subSolutions?.map((subSolution, idx) => (
+          <Select.Option key={idx} value={subSolution._id}>
+            {subSolution.label}
+          </Select.Option>
+        ))}
+      </Select>
+    </Form.Item>
   );
 };
 
-export const SalesStageSelector = () => {
+export const SalesStageSelector = ({ name, label, rules }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const { status, data, error } = useSelector(
@@ -206,17 +219,19 @@ export const SalesStageSelector = () => {
   }, [status, data]);
 
   return (
-    <Select>
-      {salesStages?.map((salesStage, idx) => (
-        <Select.Option key={idx} value={salesStage._id}>
-          {salesStage.label}
-        </Select.Option>
-      ))}
-    </Select>
+    <Form.Item name={name} label={label} rules={rules}>
+      <Select>
+        {salesStages?.map((salesStage, idx) => (
+          <Select.Option key={idx} value={salesStage._id}>
+            {salesStage.label}
+          </Select.Option>
+        ))}
+      </Select>
+    </Form.Item>
   );
 };
 
-export const SalesSubStageSelector = () => {
+export const SalesSubStageSelector = ({ name, label, rules }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const { status, data, error } = useSelector(
@@ -247,17 +262,19 @@ export const SalesSubStageSelector = () => {
   }, [status, data]);
 
   return (
-    <Select>
-      {salesSubStages?.map((salesSubStage, idx) => (
-        <Select.Option key={idx} value={salesSubStage._id}>
-          {salesSubStage.label}
-        </Select.Option>
-      ))}
-    </Select>
+    <Form.Item name={name} label={label} rules={rules}>
+      <Select>
+        {salesSubStages?.map((salesSubStage, idx) => (
+          <Select.Option key={idx} value={salesSubStage._id}>
+            {salesSubStage.label}
+          </Select.Option>
+        ))}
+      </Select>
+    </Form.Item>
   );
 };
 
-export const TerritorySelector = () => {
+export const TerritorySelector = ({ name, label, rules }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const { status, data, error } = useSelector(
@@ -288,12 +305,228 @@ export const TerritorySelector = () => {
   }, [status, data]);
 
   return (
-    <Select>
-      {territories?.map((territory, idx) => (
-        <Select.Option key={idx} value={territory._id}>
-          {territory.label}
-        </Select.Option>
-      ))}
-    </Select>
+    <Form.Item name={name} label={label} rules={rules}>
+      <Select>
+        {territories?.map((territory, idx) => (
+          <Select.Option key={idx} value={territory._id}>
+            {territory.label}
+          </Select.Option>
+        ))}
+      </Select>
+    </Form.Item>
+  );
+};
+
+export const StaffSelector = ({ name, label, rules }) => {
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const { status, data, error } = useSelector(
+    (state) => state.staff.getAllStaffs
+  );
+  const [staffs, setStaffs] = useState(data?.data);
+
+  const fetchAllStaffs = useCallback(() => {
+    if (!staffs) {
+      dispatch(getAllStaffs());
+    }
+  }, [dispatch, staffs]);
+
+  useEffect(() => {
+    fetchAllStaffs();
+  }, [fetchAllStaffs]);
+
+  useEffect(() => {
+    if (status == "pending") {
+      setLoading(true);
+    } else if (status == "success" && data?.status == "success") {
+      setStaffs(data?.data);
+      setLoading(false);
+    } else {
+      setLoading(false);
+    }
+  }, [status, data]);
+
+  console.log("select", staffs);
+
+  return (
+    <Form.Item name={name} label={label} rules={rules}>
+      <Select>
+        {staffs?.map(({ _id, firstName, lastName }, idx) => (
+          <Select.Option key={idx} value={_id}>
+            {firstName || lastName
+              ? firstName + " " + lastName
+              : "Missing Value"}
+          </Select.Option>
+        ))}
+      </Select>
+    </Form.Item>
+  );
+};
+
+export const ClientSelector = ({ name, label, rules }) => {
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const { status, data, error } = useSelector(
+    (state) => state.client.getAllClients
+  );
+  const [clients, setClients] = useState(data?.data);
+
+  const fetchAllClients = useCallback(() => {
+    if (!clients) {
+      dispatch(getAllClients());
+    }
+  }, [dispatch, clients]);
+
+  useEffect(() => {
+    fetchAllClients();
+  }, [fetchAllClients]);
+
+  useEffect(() => {
+    if (status == "pending") {
+      setLoading(true);
+    } else if (status == "success" && data?.status == "success") {
+      setClients(data?.data);
+      setLoading(false);
+    } else {
+      setLoading(false);
+    }
+  }, [status, data]);
+
+  return (
+    <Form.Item name={name} label={label} rules={rules}>
+      <Select>
+        {clients?.map((client, idx) => (
+          <Select.Option key={idx} value={client._id}>
+            {client.name}
+          </Select.Option>
+        ))}
+      </Select>
+    </Form.Item>
+  );
+};
+
+export const ContactSelector = ({ name, label, rules }) => {
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const { status, data, error } = useSelector(
+    (state) => state.client.getAllContacts
+  );
+  const [contacts, setContacts] = useState(data?.data);
+
+  const fetchAllContacts = useCallback(() => {
+    if (!contacts) {
+      dispatch(getAllContacts());
+    }
+  }, [dispatch, contacts]);
+
+  useEffect(() => {
+    fetchAllContacts();
+  }, [fetchAllContacts]);
+
+  useEffect(() => {
+    if (status == "pending") {
+      setLoading(true);
+    } else if (status == "success" && data?.status == "success") {
+      setContacts(data?.data);
+      setLoading(false);
+    } else {
+      setLoading(false);
+    }
+  }, [status, data]);
+
+  return (
+    <Form.Item name={name} label={label} rules={rules}>
+      <Select>
+        {contacts?.map((contact, idx) => (
+          <Select.Option key={idx} value={contact._id}>
+            {contact.name}
+          </Select.Option>
+        ))}
+      </Select>
+    </Form.Item>
+  );
+};
+
+export const TenderSelector = ({ name, label, rules }) => {
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const { status, data, error } = useSelector(
+    (state) => state.tender.getAllTenders
+  );
+  const [tenders, setTenders] = useState(data?.data);
+
+  const fetchAllTenders = useCallback(() => {
+    if (!tenders) {
+      dispatch(getAllTenders());
+    }
+  }, [dispatch, tenders]);
+
+  useEffect(() => {
+    fetchAllTenders();
+  }, [fetchAllTenders]);
+
+  useEffect(() => {
+    if (status == "pending") {
+      setLoading(true);
+    } else if (status == "success" && data?.status == "success") {
+      setTenders(data?.data);
+      setLoading(false);
+    } else {
+      setLoading(false);
+    }
+  }, [status, data]);
+
+  return (
+    <Form.Item name={name} label={label} rules={rules}>
+      <Select>
+        {tenders?.map((tender, idx) => (
+          <Select.Option key={idx} value={tender._id}>
+            {tender.customId}
+          </Select.Option>
+        ))}
+      </Select>
+    </Form.Item>
+  );
+};
+
+export const OpportunitySelector = ({ name, label, rules }) => {
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const { status, data, error } = useSelector(
+    (state) => state.tender.getAllOpportunities
+  );
+  const [opportunities, setOpportunities] = useState(data?.data);
+
+  const fetchAllOpportunities = useCallback(() => {
+    if (!opportunities) {
+      dispatch(getAllOpportunities());
+    }
+  }, [dispatch, opportunities]);
+
+  useEffect(() => {
+    fetchAllOpportunities();
+  }, [fetchAllOpportunities]);
+
+  useEffect(() => {
+    if (status == "pending") {
+      setLoading(true);
+    } else if (status == "success" && data?.status == "success") {
+      setOpportunities(data?.data);
+      setLoading(false);
+    } else {
+      setLoading(false);
+    }
+  }, [status, data]);
+
+  return (
+    <Form.Item name={name} label={label} rules={rules}>
+      <Select>
+        {opportunities?.map((opportunity, idx) => (
+          <Select.Option key={idx} value={opportunity._id}>
+            {opportunity.customId}
+          </Select.Option>
+        ))}
+      </Select>
+    </Form.Item>
   );
 };

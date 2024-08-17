@@ -4,17 +4,13 @@ import { serverURL } from "@/config/config";
 
 const route = `${serverURL}/tender`
 
-export const getAllTenders = (token) => async (dispatch) => {
+export const getAllTenders = () => async (dispatch) => {
     try {
         dispatch(tenderActions.getAllTendersRequest());
-        console.log('getAllTenders', token);
-        const data = await axios.get(`${route}/`, {
-            headers: {
-                "authorization": token
-            }
-        });
+        console.log('getAllTenders');
+        const response = await axios.get(`${route}/`);
 
-        console.log('get-all-tender-res-data', data.data);
+        console.log('get-all-tender-res-data', response.data);
         dispatch(tenderActions.getAllTendersSuccess(data.data));
     } catch (error) {
         console.log("error", error)

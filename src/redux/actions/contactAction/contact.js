@@ -4,18 +4,14 @@ import { serverURL } from "@/config/config";
 
 const route = `${serverURL}/contact`
 
-export const getAllContacts = (token) => async (dispatch) => {
+export const getAllContacts = () => async (dispatch) => {
     try {
         dispatch(contactActions.getAllContactsRequest());
-        console.log('getAllContacts', token);
-        const data = await axios.get(`${route}/`, {
-            headers: {
-                "authorization": token
-            }
-        });
+        console.log('getAllContacts');
+        const response = await axios.get(`${route}/`);
 
-        console.log('get-all-contact-res-data', data.data);
-        dispatch(contactActions.getAllContactsSuccess(data.data));
+        console.log('get-all-contact-res-data', response.data);
+        dispatch(contactActions.getAllContactsSuccess(response.data));
     } catch (error) {
         console.log("error", error)
         let errorMessage = "An error occurred";

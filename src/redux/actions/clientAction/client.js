@@ -4,15 +4,11 @@ import { serverURL } from "@/config/config";
 
 const route = `${serverURL}/configuration/client`
 
-export const getAllClients = (token) => async (dispatch) => {
+export const getAllClients = () => async (dispatch) => {
     try {
         dispatch(clientActions.getAllClientsRequest());
-        console.log('getAllClients', token);
-        const data = await axios.get(`${route}/`, {
-            headers: {
-                "authorization": token
-            }
-        });
+        console.log('getAllClients');
+        const data = await axios.get(`${route}/`);
 
         console.log('get-all-client-res-data', data.data);
         dispatch(clientActions.getAllClientsSuccess(data.data));
