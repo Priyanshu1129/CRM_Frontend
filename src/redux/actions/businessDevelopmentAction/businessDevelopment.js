@@ -2,20 +2,16 @@ import axios from "axios";
 import { businessDevelopmentActions } from "@/redux/slices/businessDevelopmentSlice"
 import { serverURL } from "@/config/config";
 
-const route = `${serverURL}/configuration/businessDevelopment`
+const route = `${serverURL}/bd`
 
-export const getAllBusinessDevelopments = (token) => async (dispatch) => {
+export const getAllBusinessDevelopments = () => async (dispatch) => {
     try {
         dispatch(businessDevelopmentActions.getAllBusinessDevelopmentsRequest());
-        console.log('getAllBusinessDevelopments', token);
-        const data = await axios.get(`${route}/`, {
-            headers: {
-                "authorization": token
-            }
-        });
+        console.log('getAllBusinessDevelopments');
+        const response = await axios.get(`${route}/`);
 
-        console.log('get-all-businessDevelopment-res-data', data.data);
-        dispatch(businessDevelopmentActions.getAllBusinessDevelopmentsSuccess(data.data));
+        console.log('get-all-businessDevelopment-res-data', response.data);
+        dispatch(businessDevelopmentActions.getAllBusinessDevelopmentsSuccess(response.data));
     } catch (error) {
         console.log("error", error)
         let errorMessage = "An error occurred";
@@ -68,7 +64,6 @@ export const createBusinessDevelopment = (businessDevelopmentData) => async (dis
             {
                 headers: {
                     "Content-Type": "multipart/form-data",
-                    "authorization": token
                 },
             }
         );

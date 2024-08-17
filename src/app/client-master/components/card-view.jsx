@@ -7,7 +7,6 @@ import { PaginationTotal } from "@/components";
 import { ClientCard, ClientCardSkeleton } from "./card";
 
 export const ClientsCardView = ({ data, loading }) => {
-  
   return (
     <List
       style={{ marginTop: "28px" }}
@@ -28,7 +27,7 @@ export const ClientsCardView = ({ data, loading }) => {
       )}
       pagination={{
         // ...pagination,
-        hideOnSinglePage: true,
+        // hideOnSinglePage: true,
         itemRender: undefined,
         position: "bottom",
         style: { display: "flex", marginTop: "1rem" },

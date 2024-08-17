@@ -18,7 +18,7 @@ const ClientMaster = () => {
 
   const fetchAllClients = useCallback(() => {
     if (!clients) {
-      // dispatch(getAllClients());
+      dispatch(getAllClients());
     }
   }, [dispatch, clients]);
 

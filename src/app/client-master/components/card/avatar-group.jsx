@@ -3,7 +3,7 @@ import { Space, Tooltip } from "antd";
 import { CustomAvatar, Text } from "@/components";
 
 export const AvatarGroup = ({
-  avatars = [{}, {}, {}, {}, {}],
+  avatars = [],
   size,
   overlap,
   maxCount = 3,
