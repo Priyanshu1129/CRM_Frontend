@@ -30,7 +30,7 @@ const Header = ({ collapsed, setCollapsed }) => {
         // }}
         style={headerStyles}
       >
-        <Button
+        {/* <Button
           type="text"
           icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
           onClick={() => setCollapsed(!collapsed)}
@@ -39,7 +39,7 @@ const Header = ({ collapsed, setCollapsed }) => {
             width: 64,
             height: 64,
           }}
-        />
+        /> */}
         <Space align="center" size="middle">
           <Notifications />
           <CurrentUser />

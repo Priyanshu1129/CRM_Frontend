@@ -2,7 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-/* body {} */
+body {
+  /* scrollbar-width: thin; */
+}
 
 /* @layer utilities {
   .text-balance {

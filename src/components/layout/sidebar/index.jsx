@@ -6,28 +6,35 @@ import { Title } from "../title";
 const { Sider } = Layout;
 import { resources } from "@/config";
 const { useToken } = theme;
-const Sidebar = ({ collapsed }) => {
+const Sidebar = ({ collapsed, setCollapsed }) => {
   const router = useRouter();
   const { token } = useToken();
   const onClick = (e) => {
-    // router.push(e.key, { scroll: false });
-    // router.push(e.key, undefined, { scroll: false });
     router.push(`/${e.key}`, undefined, { scroll: false });
   };
   return (
     <Sider
       breakpoint="lg"
       width={256}
-      style={{ height: "100vh" }}
-      trigger={null}
+      style={{
+        height: "100vh",
+        position: "fixed",
+        left: 0,
+        top: 0,
+        bottom: 0,
+        zIndex: 1,
+        scrollbarWidth: "thin",
+        scrollbarColor: "unset",
+      }}
+      // trigger={true}
       collapsible
-      collapsedWidth="0"
+      // collapsedWidth="0"
       collapsed={collapsed}
       onBreakpoint={(broken) => {
         console.log(broken);
       }}
-      onCollapse={(collapsed, type) => {
-        console.log(collapsed, type);
+      onCollapse={(value) => {
+        setCollapsed(value);
       }}
     >
       <div
@@ -47,7 +54,8 @@ const Sidebar = ({ collapsed }) => {
       <Menu
         onClick={onClick}
         style={{
-          height: "90%",
+          height: "calc(100% - 64px)", // Adjust to account for header height
+          overflowY: "auto",
         }}
         // theme='dark'
         title="Logo"

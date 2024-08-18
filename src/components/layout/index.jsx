@@ -6,7 +6,7 @@ import { FullScreenLoading } from "..";
 import Sidebar from "@/components/layout/sidebar";
 import Header from "./header";
 
-const { Content } = Layout;
+const { Content, Sider } = Layout;
 
 export default function LayoutComponent({ children }) {
   const [collapsed, setCollapsed] = useState(false);
@@ -34,17 +34,27 @@ export default function LayoutComponent({ children }) {
       <Layout
         style={{
           minHeight: "100vh",
+          display: "flex",
         }}
       >
-        <Sidebar collapsed={collapsed} />
-        <Layout>
+        <Sidebar setCollapsed={setCollapsed} collapsed={collapsed} />
+        <Layout style={{ flex: 1 }}>
           <Header collapsed={collapsed} setCollapsed={setCollapsed} />
-          <Layout style={{ padding: !screens.xs ? "32px" : "16px" }}>
+          <Layout
+            style={{
+              padding: !screens.xs ? "32px" : "16px",
+              height: "100%",
+              marginLeft: !screens.xs ? (collapsed ? "80px" : "256px") : 0,
+            }}
+          >
             <Content
               style={{
                 minHeight: 280,
                 borderRadius: borderRadiusLG,
                 // background: colorBgContainer,
+                overflowY: "auto",
+                scrollbarWidth: "none",
+                scrollbarColor: "unset",
               }}
             >
               {children}
