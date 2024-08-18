@@ -2,20 +2,20 @@ import axios from "axios";
 import { registrationActions } from "@/redux/slices/registrationSlice"
 import { serverURL } from "@/config/config";
 
-const route = `${serverURL}/configuration/registration`
+const route = `${serverURL}/registration`
 
-export const getAllRegistrations = (token) => async (dispatch) => {
+export const getAllRegistrations = () => async (dispatch) => {
     try {
         dispatch(registrationActions.getAllRegistrationsRequest());
-        console.log('getAllRegistrations', token);
-        const data = await axios.get(`${route}/`, {
-            headers: {
-                "authorization": token
-            }
+        console.log('getAllRegistrations');
+        const response = await axios.get(`${route}/`, {
+            // headers: {
+            //     "authorization": token
+            // }
         });
 
-        console.log('get-all-registration-res-data', data.data);
-        dispatch(registrationActions.getAllRegistrationsSuccess(data.data));
+        console.log('get-all-registration-res-data', response.data);
+        dispatch(registrationActions.getAllRegistrationsSuccess(response.data));
     } catch (error) {
         console.log("error", error)
         let errorMessage = "An error occurred";
@@ -56,45 +56,22 @@ export const getRegistration = (registrationId, token) => async (dispatch) => {
     }
 };
 
-export const createRegistration = (registrationData, token) => async (dispatch) => {
+export const createRegistration = (registrationData) => async (dispatch) => {
     try {
         console.log("create-registrationData", registrationData);
         dispatch(registrationActions.createRegistrationRequest());
-        const formData = new FormData();
 
-        // Append other form data to FormData
-        Object.entries(registrationData).forEach(([key, value]) => {
-            if (key != 'avatarUri') {
-                formData.append(key, value);
-            }
-        });
-
-        const fileName = registrationData.avatarUri.split('/').pop();
-        // Determine file type based on file extension
-        const fileType = fileName.split('.').pop();
-
-        // Append avatar file to FormData
-        formData.append("avatar", {
-            uri: registrationData.avatarUri,
-            type: `image/${fileType}`,
-            name: fileName
-        });
-
-        console.log("formdata-----before")
-        console.log("formdata-----", formData)
-
-        const data = await axios.post(
+        const response = await axios.post(
             `${route}/`,
-            formData,
+            registrationData,
             {
                 headers: {
-                    "Content-Type": "multipart/form-data",
-                    "authorization": token
+                    // "authorization": token
                 },
             }
         );
-        console.log('create-registration-res-data', data);
-        dispatch(registrationActions.createRegistrationSuccess(data.data));
+        console.log('create-registration-res-data', response.data);
+        dispatch(registrationActions.createRegistrationSuccess(response.data));
     } catch (error) {
         console.log("error", error)
         let errorMessage = "An error occurred";

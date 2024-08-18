@@ -5,7 +5,7 @@ import {
   Button,
   Form,
   Input,
-  Select,
+  notification,
   Space,
   Grid,
   theme,
@@ -22,6 +22,8 @@ import {
   SubSolutionSelector,
   TerritorySelector,
   StaffSelector,
+  ClientSelector,
+  ContactSelector,
 } from "@/components";
 import { businessDevelopmentActions } from "@/redux/slices/businessDevelopmentSlice";
 import { createBusinessDevelopment } from "@/redux/actions/businessDevelopmentAction";
@@ -69,7 +71,12 @@ const AddBusinessDevelopment = () => {
 
   const onFinish = (values) => {
     // setLoading(true);
-    // dispatch(createBusinessDevelopment(values));
+    let newValues = {
+      ...values,
+      entryDate: "2024-08-10T00:00:00.000Z",
+      enteredBy: "64cf1c8a6e6e3c0b34a25f95",
+    };
+    dispatch(createBusinessDevelopment(newValues));
   };
 
   return (
@@ -100,24 +107,18 @@ const AddBusinessDevelopment = () => {
         >
           <Row gutter={24}>
             <Col span={8}>
-              <Form.Item
+              <ClientSelector
                 name="client"
                 label="Client Name"
                 rules={businessDevelopmentFormRules.client}
-              >
-                <Select placeholder="Select Client"></Select>
-              </Form.Item>
+              />
             </Col>
             <Col span={8}>
-              <Form.Item
+              <ContactSelector
                 name="contact"
                 label="Contact Name"
                 rules={businessDevelopmentFormRules.contact}
-              >
-                <Select placeholder="Select Contact">
-                  {/* Populate with contact options */}
-                </Select>
-              </Form.Item>
+              />
             </Col>
             <Col span={8}>
               <Form.Item
@@ -190,7 +191,7 @@ const AddBusinessDevelopment = () => {
                 <Input placeholder="Potential Offsets" />
               </Form.Item>
             </Col>
-            {/* <Col span={24}>
+            <Col span={24}>
               <Form.Item
                 name="Notes"
                 label="Notes"
@@ -198,7 +199,7 @@ const AddBusinessDevelopment = () => {
               >
                 <InputNotes />
               </Form.Item>
-            </Col> */}
+            </Col>
 
             <Col span={24}>
               <Form.Item>

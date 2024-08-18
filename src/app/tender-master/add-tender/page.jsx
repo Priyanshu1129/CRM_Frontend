@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Button,
@@ -62,11 +62,14 @@ const AddTender = () => {
     setLoading(true);
     const formattedValues = {
       ...values,
-      rfpDate: values.rfpDate.format("YYYY-MM-DD"),
-      submissionDueDate: values.submissionDueDate.format("YYYY-MM-DD"),
-      submissionDate: values.submissionDate.format("YYYY-MM-DD"),
-      evaluationDate: values.evaluationDate.format("YYYY-MM-DD"),
-      evaluationDate: values.bondIssueDate.format("YYYY-MM-DD"),
+      rfpDate: values?.rfpDate.format("YYYY-MM-DD"),
+      submissionDueDate: values?.submissionDueDate.format("YYYY-MM-DD"),
+      submissionDate: values?.submissionDate.format("YYYY-MM-DD"),
+      evaluationDate: values?.evaluationDate.format("YYYY-MM-DD"),
+      bondIssueDate: values?.bondIssueDate.format("YYYY-MM-DD"),
+      bondExpiry: values?.bondExpiry.format("YYYY-MM-DD"),
+      entryDate: "2024-08-10T00:00:00.000Z",
+      enteredBy: "64cf1c8a6e6e3c0b34a25f95",
     };
     dispatch(createTender(formattedValues));
   };

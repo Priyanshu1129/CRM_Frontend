@@ -57,18 +57,9 @@ export const createBusinessDevelopment = (businessDevelopmentData) => async (dis
         console.log("create-businessDevelopmentData", businessDevelopmentData);
         dispatch(businessDevelopmentActions.createBusinessDevelopmentRequest());
 
-
-        const data = await axios.post(
-            `${route}/`,
-            formData,
-            {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
-            }
-        );
-        console.log('create-businessDevelopment-res-data', data);
-        dispatch(businessDevelopmentActions.createBusinessDevelopmentSuccess(data.data));
+        const response = await axios.post(`${route}/`, businessDevelopmentData);
+        console.log('create-businessDevelopment-res-data', response);
+        dispatch(businessDevelopmentActions.createBusinessDevelopmentSuccess(response.data));
     } catch (error) {
         console.log("error", error)
         let errorMessage = "An error occurred";

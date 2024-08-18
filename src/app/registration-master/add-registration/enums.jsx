@@ -2,9 +2,9 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllRegistrationStatus } from "@/redux/actions/registrationAction";
-import { Select } from "antd";
+import { Select, Form } from "antd";
 
-export const RegistrationStatusSelector = () => {
+export const RegistrationStatusSelector = ({ label, name, rules }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const { status, data, error } = useSelector(
@@ -35,12 +35,14 @@ export const RegistrationStatusSelector = () => {
   }, [status, data]);
 
   return (
-    <Select>
-      {registrationStatus?.map((item, idx) => (
-        <Select.Option key={idx} value={item._id}>
-          {item.label}
-        </Select.Option>
-      ))}
-    </Select>
+    <Form.Item label={label} name={name} rules={rules}>
+      <Select showSearch loading={loading}>
+        {registrationStatus?.map(({ label, _id }, idx) => (
+          <Select.Option key={idx} value={_id}>
+            {label ?? "Missing Value"}
+          </Select.Option>
+        ))}
+      </Select>
+    </Form.Item>
   );
 };

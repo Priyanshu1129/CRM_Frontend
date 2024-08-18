@@ -5,18 +5,23 @@ import {
   Button,
   Form,
   Input,
-  InputNumber,
-  Select,
+  notification,
   Space,
   Grid,
   theme,
   Row,
   Col,
+  DatePicker,
 } from "antd";
 
-import { FormHeader, InputNotes } from "@/components";
+import {
+  ContactSelector,
+  StaffSelector,
+  ClientSelector,
+  FormHeader,
+  InputNotes,
+} from "@/components";
 import { RegistrationStatusSelector } from "./enums";
-import { StaffSelector } from "@/components";
 import { createRegistration } from "@/redux/actions/registrationAction";
 import { registrationActions } from "@/redux/slices/registrationSlice";
 import { registrationFormRules } from "../../../utilities/formValidationRules";
@@ -58,12 +63,25 @@ const AddRegistration = () => {
 
   const onFinish = (values) => {
     setLoading(true);
-    dispatch(createRegistration(values));
+
+    const formattedValues = {
+      ...values,
+      registrationDate: values.registrationDate.format("YYYY-MM-DD"),
+      expiryDate: values.expiryDate.format("YYYY-MM-DD"),
+      entryDate: "2024-08-10T00:00:00.000Z",
+      enteredBy: "64cf1c8a6e6e3c0b34a25f95",
+      websiteDetails: {
+        username: values.username || null,
+        password: values.password || null,
+      },
+    };
+    console.log("submit", formattedValues);
+    dispatch(createRegistration(formattedValues));
   };
 
   return (
     <>
-      <FormHeader buttonText={"Cancel"}/>
+      <FormHeader buttonText={"Cancel"} />
       <Space
         direction="vertical"
         style={{
@@ -83,33 +101,25 @@ const AddRegistration = () => {
         >
           <Row gutter={24}>
             <Col span={8}>
-              <Form.Item
+              <ClientSelector
                 name="client"
                 label="Client Name"
                 rules={registrationFormRules.clientName}
-              >
-                <Select>
-                  <Select.Option value={"c1"}>Client 1</Select.Option>
-                </Select>
-              </Form.Item>
+              />
             </Col>
             <Col span={8}>
-              <Form.Item
+              <StaffSelector
                 name="registrationChamp"
                 label="Registration Champ"
                 rules={registrationFormRules.registrationChamp}
-              >
-                <StaffSelector />
-              </Form.Item>
+              />
             </Col>
             <Col span={8}>
-              <Form.Item
+              <RegistrationStatusSelector
                 name="status"
                 label="Registration Status"
                 rules={registrationFormRules.registrationStatus}
-              >
-                <RegistrationStatusSelector />
-              </Form.Item>
+              />
             </Col>
             <Col span={8}>
               <Form.Item
@@ -140,11 +150,11 @@ const AddRegistration = () => {
             </Col>
             <Col span={8}>
               <Form.Item
-                name="registeredDate"
-                label="Registered Date"
-                rules={registrationFormRules.registeredDate}
+                name="registrationDate"
+                label="Registration Date"
+                rules={registrationFormRules.registrationDate}
               >
-                <Input />
+                <DatePicker style={{ width: "100%" }} />
               </Form.Item>
             </Col>
             <Col span={8}>
@@ -153,19 +163,15 @@ const AddRegistration = () => {
                 label="Valid Until"
                 rules={registrationFormRules.validUntil}
               >
-                <Input />
+                <DatePicker style={{ width: "100%" }} />
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item
+              <ContactSelector
                 name="primaryContact"
                 label="Primary Registration Contact"
                 rules={registrationFormRules.primaryRegistrationContact}
-              >
-                <Select>
-                  <Select.Option value={"contact1"}>Contact 1</Select.Option>
-                </Select>
-              </Form.Item>
+              />
             </Col>
             <Col span={8}>
               <Form.Item

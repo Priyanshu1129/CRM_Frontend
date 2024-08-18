@@ -194,7 +194,7 @@ export const registrationFormRules = {
     registeredUsername: [{ required: true, message: "Registered Username is required" }],
     registeredPassword: [{ required: true, message: "Registered Password is required" }],
     otherDetails: [{ required: false }],
-    registeredDate: [{ required: true, message: "Registered Date is required" }],
+    registrationDate: [{ required: true, message: "Registered Date is required" }],
     validUntil: [{ required: true, message: "Valid Until is required" }],
     primaryRegistrationContact: [{ required: true, message: "Primary Registration Contact is required" }],
     submittedDocuments: [{ required: false }],

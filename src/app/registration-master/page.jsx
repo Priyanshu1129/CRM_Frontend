@@ -18,7 +18,7 @@ const RegistrationMaster = () => {
 
   const fetchAllRegistrations = useCallback(() => {
     if (!registrations) {
-      // dispatch(getAllRegistrations());
+      dispatch(getAllRegistrations());
     }
   }, [dispatch, registrations]);
 

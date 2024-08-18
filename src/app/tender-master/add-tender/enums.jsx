@@ -35,10 +35,10 @@ export const StageSelector = ({ name, label, rules }) => {
 
   return (
     <Form.Item label={label} name={name} rules={rules}>
-      <Select loading={loading}>
-        {stages?.map((stage, idx) => (
-          <Select.Option key={idx} value={stage._id}>
-            {stage.label}
+      <Select showSearch loading={loading}>
+        {stages?.map(({ label, _id }, idx) => (
+          <Select.Option key={idx} value={_id}>
+            {label ?? "Missing Value"}
           </Select.Option>
         ))}
       </Select>

@@ -21,7 +21,7 @@ const BusinessDevelopmentMaster = () => {
 
   const fetchAllBusinessDevelopments = useCallback(() => {
     if (!businessDevelopments) {
-      // dispatch(getAllBusinessDevelopments());
+      dispatch(getAllBusinessDevelopments());
     }
   }, [dispatch, businessDevelopments]);
 

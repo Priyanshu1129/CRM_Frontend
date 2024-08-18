@@ -48,10 +48,10 @@ export const IndustrySelector = ({ name, label, rules }) => {
 
   return (
     <Form.Item name={name} label={label} rules={rules}>
-      <Select>
-        {industries?.map((industry, idx) => (
-          <Select.Option key={idx} value={industry._id}>
-            {industry.label}
+      <Select showSearch loading={loading}>
+        {industries?.map(({ label, _id }, idx) => (
+          <Select.Option key={idx} value={_id}>
+            {label ?? "Missing Value"}
           </Select.Option>
         ))}
       </Select>
@@ -91,10 +91,10 @@ export const SubIndustrySelector = ({ name, label, rules }) => {
 
   return (
     <Form.Item name={name} label={label} rules={rules}>
-      <Select>
-        {subIndustries?.map((subIndustry, idx) => (
-          <Select.Option key={idx} value={subIndustry._id}>
-            {subIndustry.label}
+      <Select showSearch loading={loading}>
+        {subIndustries?.map(({ label, _id }, idx) => (
+          <Select.Option key={idx} value={_id}>
+            {label ?? "Missing Value"}
           </Select.Option>
         ))}
       </Select>
@@ -134,10 +134,10 @@ export const SolutionSelector = ({ name, label, rules }) => {
 
   return (
     <Form.Item name={name} label={label} rules={rules}>
-      <Select>
-        {solutions?.map((solution, idx) => (
-          <Select.Option key={idx} value={solution._id}>
-            {solution.label}
+      <Select showSearch loading={loading}>
+        {solutions?.map(({ label, _id }, idx) => (
+          <Select.Option key={idx} value={_id}>
+            {label ?? "Missing Value"}
           </Select.Option>
         ))}
       </Select>
@@ -177,10 +177,10 @@ export const SubSolutionSelector = ({ name, label, rules }) => {
 
   return (
     <Form.Item name={name} label={label} rules={rules}>
-      <Select>
-        {subSolutions?.map((subSolution, idx) => (
-          <Select.Option key={idx} value={subSolution._id}>
-            {subSolution.label}
+      <Select showSearch loading={loading}>
+        {subSolutions?.map(({ label, _id }, idx) => (
+          <Select.Option key={idx} value={_id}>
+            {label ?? "Missing Value"}
           </Select.Option>
         ))}
       </Select>
@@ -220,10 +220,10 @@ export const SalesStageSelector = ({ name, label, rules }) => {
 
   return (
     <Form.Item name={name} label={label} rules={rules}>
-      <Select>
-        {salesStages?.map((salesStage, idx) => (
-          <Select.Option key={idx} value={salesStage._id}>
-            {salesStage.label}
+      <Select showSearch loading={loading}>
+        {salesStages?.map(({ label, _id }, idx) => (
+          <Select.Option key={idx} value={_id}>
+            {label ?? "Missing Value"}
           </Select.Option>
         ))}
       </Select>
@@ -263,10 +263,10 @@ export const SalesSubStageSelector = ({ name, label, rules }) => {
 
   return (
     <Form.Item name={name} label={label} rules={rules}>
-      <Select>
-        {salesSubStages?.map((salesSubStage, idx) => (
-          <Select.Option key={idx} value={salesSubStage._id}>
-            {salesSubStage.label}
+      <Select showSearch loading={loading}>
+        {salesSubStages?.map(({ label, _id }, idx) => (
+          <Select.Option key={idx} value={_id}>
+            {label ?? "Missing Value"}
           </Select.Option>
         ))}
       </Select>
@@ -306,10 +306,10 @@ export const TerritorySelector = ({ name, label, rules }) => {
 
   return (
     <Form.Item name={name} label={label} rules={rules}>
-      <Select>
-        {territories?.map((territory, idx) => (
-          <Select.Option key={idx} value={territory._id}>
-            {territory.label}
+      <Select showSearch loading={loading}>
+        {territories?.map(({ label, _id }, idx) => (
+          <Select.Option key={idx} value={_id}>
+            {label ?? "Missing Value"}
           </Select.Option>
         ))}
       </Select>
@@ -370,7 +370,7 @@ export const ClientSelector = ({ name, label, rules }) => {
     (state) => state.client.getAllClients
   );
   const [clients, setClients] = useState(data?.data);
-
+  console.log(clients, "client");
   const fetchAllClients = useCallback(() => {
     if (!clients) {
       dispatch(getAllClients());
@@ -394,10 +394,10 @@ export const ClientSelector = ({ name, label, rules }) => {
 
   return (
     <Form.Item name={name} label={label} rules={rules}>
-      <Select>
-        {clients?.map((client, idx) => (
-          <Select.Option key={idx} value={client._id}>
-            {client.name}
+      <Select showSearch loading={loading}>
+        {clients?.map(({ name, _id }, idx) => (
+          <Select.Option key={idx} value={_id}>
+            {name ?? "Missing Value"}
           </Select.Option>
         ))}
       </Select>
@@ -409,7 +409,7 @@ export const ContactSelector = ({ name, label, rules }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const { status, data, error } = useSelector(
-    (state) => state.client.getAllContacts
+    (state) => state.contact.getAllContacts
   );
   const [contacts, setContacts] = useState(data?.data);
 
@@ -436,10 +436,12 @@ export const ContactSelector = ({ name, label, rules }) => {
 
   return (
     <Form.Item name={name} label={label} rules={rules}>
-      <Select>
-        {contacts?.map((contact, idx) => (
-          <Select.Option key={idx} value={contact._id}>
-            {contact.name}
+      <Select showSearch loading={loading}>
+        {contacts?.map(({ firstName, lastName, _id }, idx) => (
+          <Select.Option key={idx} value={_id}>
+            {firstName || lastName
+              ? firstName + " " + lastName
+              : "Missing Value"}
           </Select.Option>
         ))}
       </Select>
@@ -479,9 +481,9 @@ export const TenderSelector = ({ name, label, rules }) => {
   return (
     <Form.Item name={name} label={label} rules={rules}>
       <Select loading={loading}>
-        {tenders?.map((tender, idx) => (
-          <Select.Option key={idx} value={tender._id}>
-            {tender.customId}
+        {tenders?.map(({ customId, _id }, idx) => (
+          <Select.Option key={idx} value={_id}>
+            {customId ?? "Missing Value"}
           </Select.Option>
         ))}
       </Select>
@@ -520,10 +522,10 @@ export const OpportunitySelector = ({ name, label, rules }) => {
 
   return (
     <Form.Item name={name} label={label} rules={rules}>
-      <Select>
-        {opportunities?.map((opportunity, idx) => (
-          <Select.Option key={idx} value={opportunity._id}>
-            {opportunity.customId}
+      <Select loading={loading}>
+        {opportunities?.map(({ customId, _id }, idx) => (
+          <Select.Option key={idx} value={_id}>
+            {customId ?? "Missing Value"}
           </Select.Option>
         ))}
       </Select>
