@@ -18,7 +18,7 @@ const StaffMaster = () => {
 
   const fetchAllStaffs = useCallback(() => {
     if (!staffs) {
-      // dispatch(getAllStaffs());
+      dispatch(getAllStaffs());
     }
   }, [dispatch, staffs]);
 
