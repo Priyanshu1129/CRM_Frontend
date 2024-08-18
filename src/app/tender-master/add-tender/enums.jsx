@@ -2,9 +2,9 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllStages } from "@/redux/actions/tenderAction";
-import { Select } from "antd";
+import { Select, Form } from "antd";
 
-export const StageSelector = () => {
+export const StageSelector = ({ name, label, rules }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const { status, data, error } = useSelector(
@@ -34,12 +34,14 @@ export const StageSelector = () => {
   }, [status, data]);
 
   return (
-    <Select>
-      {stages?.map((stage, idx) => (
-        <Select.Option key={idx} value={stage._id}>
-          {stage.label}
-        </Select.Option>
-      ))}
-    </Select>
+    <Form.Item label={label} name={name} rules={rules}>
+      <Select loading={loading}>
+        {stages?.map((stage, idx) => (
+          <Select.Option key={idx} value={stage._id}>
+            {stage.label}
+          </Select.Option>
+        ))}
+      </Select>
+    </Form.Item>
   );
 };

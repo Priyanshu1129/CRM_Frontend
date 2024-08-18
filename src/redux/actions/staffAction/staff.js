@@ -62,7 +62,7 @@ export const createStaff = (staffData) => async (dispatch) => {
             staffData,
             {
                 headers: {
-                    "Content-Type": "multipart/form-data",
+                    // "Content-Type": "multipart/form-data",
                     // "authorization": token
                 },
             }

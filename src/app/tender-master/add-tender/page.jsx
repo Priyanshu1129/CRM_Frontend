@@ -11,8 +11,15 @@ import {
   theme,
   Row,
   Col,
+  DatePicker,
+  notification,
 } from "antd";
 import { StageSelector } from "./enums";
+import {
+  ClientSelector,
+  OpportunitySelector,
+  StaffSelector,
+} from "@/components";
 import { FormHeader } from "@/components";
 import { tenderActions } from "@/redux/slices/tenderSlice";
 import { createTender } from "@/redux/actions/tenderAction";
@@ -53,7 +60,15 @@ const AddTender = () => {
 
   const onFinish = (values) => {
     setLoading(true);
-    dispatch(createTender(values));
+    const formattedValues = {
+      ...values,
+      rfpDate: values.rfpDate.format("YYYY-MM-DD"),
+      submissionDueDate: values.submissionDueDate.format("YYYY-MM-DD"),
+      submissionDate: values.submissionDate.format("YYYY-MM-DD"),
+      evaluationDate: values.evaluationDate.format("YYYY-MM-DD"),
+      evaluationDate: values.bondIssueDate.format("YYYY-MM-DD"),
+    };
+    dispatch(createTender(formattedValues));
   };
 
   return (
@@ -83,7 +98,7 @@ const AddTender = () => {
                 label="RFP Date"
                 rules={tenderFormRules.rfpDate}
               >
-                <Input />
+                <DatePicker style={{ width: "100%" }} />
               </Form.Item>
             </Col>
             <Col span={8}>
@@ -92,21 +107,15 @@ const AddTender = () => {
                 label="Submission Due Date"
                 rules={tenderFormRules.submissionDueDate}
               >
-                <Input />
+                <DatePicker style={{ width: "100%" }} />
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item
+              <ClientSelector
                 name="client"
                 label="Client Name"
                 rules={tenderFormRules.clientName}
-              >
-                <Select>
-                  <Select.Option value={"M"}>Male</Select.Option>
-                  <Select.Option value={"F"}>Female</Select.Option>
-                  <Select.Option value={"O"}>Other</Select.Option>
-                </Select>
-              </Form.Item>
+              />
             </Col>
             <Col span={8}>
               <Form.Item
@@ -136,21 +145,17 @@ const AddTender = () => {
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item
+              <OpportunitySelector
                 name="associatedOpportunity"
                 label="Associated Opportunity"
                 rules={tenderFormRules.associatedOpportunity}
-              >
-                <Select>
-                  <Select.Option value={"M"}>Male</Select.Option>
-                </Select>
-              </Form.Item>
+              />
             </Col>
             <Col span={8}>
               <Form.Item name="bond" label="Bond" rules={tenderFormRules.bond}>
                 <Select>
-                  <Select.Option value={"Yes"}>Yes</Select.Option>
-                  <Select.Option value={"No"}>No</Select.Option>
+                  <Select.Option value={true}>Yes</Select.Option>
+                  <Select.Option value={false}>No</Select.Option>
                 </Select>
               </Form.Item>
             </Col>
@@ -169,7 +174,7 @@ const AddTender = () => {
                 label="Bond Issue Date"
                 rules={tenderFormRules.bondIssueDate}
               >
-                <Input />
+                <DatePicker style={{ width: "100%" }} />
               </Form.Item>
             </Col>
             <Col span={8}>
@@ -178,7 +183,7 @@ const AddTender = () => {
                 label="Bond Valid Until"
                 rules={tenderFormRules.bondValidUntil}
               >
-                <Input />
+                <DatePicker style={{ width: "100%" }} />
               </Form.Item>
             </Col>
             <Col span={8}>
@@ -200,39 +205,29 @@ const AddTender = () => {
                 label="Evaluation Date"
                 rules={tenderFormRules.evaluationDate}
               >
-                <Input />
+                <DatePicker style={{ width: "100%" }} />
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item
+              <StaffSelector
                 name="officer"
                 label="Tender Officer"
                 rules={tenderFormRules.tenderOfficer}
-              >
-                <Select>
-                  <Select.Option value={"John Doe"}>John Doe</Select.Option>
-                </Select>
-              </Form.Item>
+              />
             </Col>
             <Col span={8}>
-              <Form.Item
+              <StaffSelector
                 name="bidManager"
                 label="Bid Manager"
                 rules={tenderFormRules.bidManager}
-              >
-                <Select>
-                  <Select.Option value={"Jane Doe"}>Jane Doe</Select.Option>
-                </Select>
-              </Form.Item>
+              />
             </Col>
             <Col span={8}>
-              <Form.Item
+              <StageSelector
                 name="stage"
                 label="Tender Stage"
                 rules={tenderFormRules.tenderStage}
-              >
-                <StageSelector />
-              </Form.Item>
+              />
             </Col>
             <Col span={8}>
               <Form.Item
@@ -249,7 +244,7 @@ const AddTender = () => {
                 label="Submission Date"
                 rules={tenderFormRules.submissionDate}
               >
-                <Input />
+                <DatePicker style={{ width: "100%" }} />
               </Form.Item>
             </Col>
             <Col span={24}>

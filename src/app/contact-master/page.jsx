@@ -18,7 +18,7 @@ const ContactMaster = () => {
 
   const fetchAllContacts = useCallback(() => {
     if (!contacts) {
-      // dispatch(getAllContacts());
+      dispatch(getAllContacts());
     }
   }, [dispatch, contacts]);
 

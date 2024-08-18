@@ -11,7 +11,7 @@ export const getAllTenders = () => async (dispatch) => {
         const response = await axios.get(`${route}/`);
 
         console.log('get-all-tender-res-data', response.data);
-        dispatch(tenderActions.getAllTendersSuccess(data.data));
+        dispatch(tenderActions.getAllTendersSuccess(response.data));
     } catch (error) {
         console.log("error", error)
         let errorMessage = "An error occurred";
@@ -52,40 +52,17 @@ export const getTender = (tenderId, token) => async (dispatch) => {
     }
 };
 
-export const createTender = (tenderData, token) => async (dispatch) => {
+export const createTender = (tenderData) => async (dispatch) => {
     try {
         console.log("create-tenderData", tenderData);
         dispatch(tenderActions.createTenderRequest());
-        const formData = new FormData();
-
-        // Append other form data to FormData
-        Object.entries(tenderData).forEach(([key, value]) => {
-            if (key != 'avatarUri') {
-                formData.append(key, value);
-            }
-        });
-
-        const fileName = tenderData.avatarUri.split('/').pop();
-        // Determine file type based on file extension
-        const fileType = fileName.split('.').pop();
-
-        // Append avatar file to FormData
-        formData.append("avatar", {
-            uri: tenderData.avatarUri,
-            type: `image/${fileType}`,
-            name: fileName
-        });
-
-        console.log("formdata-----before")
-        console.log("formdata-----", formData)
 
         const data = await axios.post(
             `${route}/`,
-            formData,
+            tenderData,
             {
                 headers: {
-                    "Content-Type": "multipart/form-data",
-                    "authorization": token
+                    // "authorization": token
                 },
             }
         );

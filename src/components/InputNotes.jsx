@@ -23,16 +23,16 @@ const formItemLayout = {
 export const InputNotes = () => {
   return (
     <Form.List
-      name="names"
-      rules={[
-        {
-          validator: async (_, names) => {
-            if (!names || names.length < 2) {
-              return Promise.reject(new Error("At least 2 passengers"));
-            }
-          },
-        },
-      ]}
+      name="notes"
+      // rules={[
+      //   {
+      //     validator: async (_, names) => {
+      //       if (!names || names.length < 2) {
+      //         return Promise.reject(new Error("At least 2 passengers"));
+      //       }
+      //     },
+      //   },
+      // ]}
     >
       {(fields, { add, remove }, { errors }) => (
         <>

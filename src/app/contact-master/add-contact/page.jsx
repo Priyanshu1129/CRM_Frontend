@@ -20,6 +20,8 @@ import { FormHeader, InputNotes } from "@/components";
 import { contactFormRules } from "@/utilities/formValidationRules";
 import { contactActions } from "@/redux/slices/contactSlice";
 import { createContact } from "@/redux/actions/contactAction";
+import { ClientSelector } from "@/components";
+import { notification } from "antd";
 
 const AddContact = () => {
   const [loading, setLoading] = useState(false);
@@ -57,7 +59,13 @@ const AddContact = () => {
 
   const onFinish = (values) => {
     setLoading(true);
-    dispatch(createContact(values));
+    let newValues = {
+      ...values,
+      entryDate: "2024-08-10T00:00:00.000Z",
+      enteredBy: "64cf1c8a6e6e3c0b34a25f95",
+    };
+    console.log("submit", newValues);
+    dispatch(createContact(newValues));
   };
 
   return (
@@ -113,16 +121,11 @@ const AddContact = () => {
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item
-                name="contactName"
-                label="Contact Name"
+              <ClientSelector
+                name="client"
+                label="Client Name"
                 rules={contactFormRules.contactName}
-              >
-                <Select>
-                  <Select.Option value="M">Contact 1</Select.Option>
-                  <Select.Option value="F">Contact 2</Select.Option>
-                </Select>
-              </Form.Item>
+              />
             </Col>
             <Col span={8}>
               <Form.Item
@@ -170,22 +173,18 @@ const AddContact = () => {
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item
+              <ArcheTypeSelector
                 name="archType"
                 label="Arch Type"
                 rules={contactFormRules.archType}
-              >
-                <ArcheTypeSelector />
-              </Form.Item>
+              />
             </Col>
             <Col span={8}>
-              <Form.Item
+              <RelationshipDegreeSelector
                 name="relationshipDegree"
                 label="Relationship Degree"
                 rules={contactFormRules.relationshipDegree}
-              >
-                <RelationshipDegreeSelector />
-              </Form.Item>
+              />
             </Col>
             <Col span={8}>
               <Form.Item name="city" label="City" rules={contactFormRules.city}>
@@ -202,7 +201,11 @@ const AddContact = () => {
               </Form.Item>
             </Col>
             <Col span={24}>
-              <Form.Item name="detailsConfirmation" valuePropName="checked">
+              <Form.Item
+                rules={[{ required: true, message: "Please check the box!" }]}
+                name="detailsConfirmation"
+                valuePropName="checked"
+              >
                 <Checkbox>Details are up to date</Checkbox>
               </Form.Item>
             </Col>

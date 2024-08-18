@@ -131,7 +131,7 @@ export const opportunityFormRules = {
     projectName: [{ required: true, message: "Project Name is required" }],
     associatedTender: [{ required: true, message: "Associated Tender is required" }],
     solution: [{ required: true, message: "Solution is required" }],
-    subSolution: [{ required: true, message: "Sub Solution is required" }],
+    subSolution: [{ required: false, message: "Sub Solution is required" }],
     salesChamp: [{ required: true, message: "Sales Champ is required" }],
     salesStage: [{ required: true, message: "Sales Stage is required" }],
     salesSubStage: [{ required: true, message: "Sales Sub Stage is required" }],

@@ -22,6 +22,8 @@ import {
   SalesStageSelector,
   SalesSubStageSelector,
   StaffSelector,
+  ClientSelector,
+  TenderSelector,
 } from "@/components";
 import { opportunityFormRules } from "@/utilities/formValidationRules";
 import { opportunityActions } from "@/redux/slices/opportunitySlice";
@@ -64,14 +66,18 @@ const AddOpportunity = () => {
 
   const onFinish = (values) => {
     setLoading(true);
-    dispatch(createOpportunity(values));
+    let newValues = {
+      ...values,
+      entryDate: "2024-08-10T00:00:00.000Z",
+      enteredBy: "64cf1c8a6e6e3c0b34a25f95",
+    };
+    console.log("submit", newValues);
+    dispatch(createOpportunity(newValues));
   };
 
   return (
     <>
-      <FormHeader
-        toPath={"Cancel"}
-      />
+      <FormHeader buttonText={"Cancel"} />
       <Space
         direction="vertical"
         style={{
@@ -91,15 +97,11 @@ const AddOpportunity = () => {
         >
           <Row gutter={24}>
             <Col span={8}>
-              <Form.Item
+              <ClientSelector
                 name="clientName"
                 label="Client Name"
                 rules={opportunityFormRules.clientName}
-              >
-                <Select>
-                  <Select.Option value={"c1"}>C1</Select.Option>
-                </Select>
-              </Form.Item>
+              />
             </Col>
             <Col span={8}>
               <Form.Item
@@ -120,60 +122,46 @@ const AddOpportunity = () => {
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item
+              <TenderSelector
                 name="associatedTender"
                 label="Associated Tender"
                 rules={opportunityFormRules.associatedTender}
-              >
-                <Select>
-                  <Select.Option value={"t1"}>T1</Select.Option>
-                </Select>
-              </Form.Item>
+              />
             </Col>
             <Col span={8}>
-              <Form.Item
+              <SolutionSelector
                 name="solution"
                 label="Solution"
                 rules={opportunityFormRules.solution}
-              >
-                <SolutionSelector />
-              </Form.Item>
+              />
             </Col>
             <Col span={8}>
-              <Form.Item
+              <SubSolutionSelector
                 name="subSolution"
                 label="Sub Solution"
                 rules={opportunityFormRules.subSolution}
-              >
-                <SubSolutionSelector />
-              </Form.Item>
+              />
             </Col>
             <Col span={8}>
-              <Form.Item
+              <StaffSelector
                 name="salesChamp"
                 label="Sales Champ"
                 rules={opportunityFormRules.salesChamp}
-              >
-                <StaffSelector />
-              </Form.Item>
+              />
             </Col>
             <Col span={8}>
-              <Form.Item
+              <SalesStageSelector
                 name="salesStage"
                 label="Sales Stage"
                 rules={opportunityFormRules.salesStage}
-              >
-                <SalesStageSelector />
-              </Form.Item>
+              />
             </Col>
             <Col span={8}>
-              <Form.Item
+              <SalesSubStageSelector
                 name="salesSubStage"
                 label="Sales Sub Stage"
                 rules={opportunityFormRules.salesSubStage}
-              >
-                <SalesSubStageSelector />
-              </Form.Item>
+              />
             </Col>
             <Col span={8}>
               <Form.Item

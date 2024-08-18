@@ -52,45 +52,23 @@ export const getContact = (contactId, token) => async (dispatch) => {
     }
 };
 
-export const createContact = (contactData, token) => async (dispatch) => {
+export const createContact = (contactData) => async (dispatch) => {
     try {
         console.log("create-contactData", contactData);
         dispatch(contactActions.createContactRequest());
-        const formData = new FormData();
 
-        // Append other form data to FormData
-        Object.entries(contactData).forEach(([key, value]) => {
-            if (key != 'avatarUri') {
-                formData.append(key, value);
-            }
-        });
-
-        const fileName = contactData.avatarUri.split('/').pop();
-        // Determine file type based on file extension
-        const fileType = fileName.split('.').pop();
-
-        // Append avatar file to FormData
-        formData.append("avatar", {
-            uri: contactData.avatarUri,
-            type: `image/${fileType}`,
-            name: fileName
-        });
-
-        console.log("formdata-----before")
-        console.log("formdata-----", formData)
-
-        const data = await axios.post(
+        const response = await axios.post(
             `${route}/`,
-            formData,
+            contactData,
             {
                 headers: {
-                    "Content-Type": "multipart/form-data",
-                    "authorization": token
+                    // "Content-Type": "multipart/form-data",
+                    // "authorization": token
                 },
             }
         );
-        console.log('create-contact-res-data', data);
-        dispatch(contactActions.createContactSuccess(data.data));
+        console.log('create-contact-res-data', response);
+        dispatch(contactActions.createContactSuccess(response.data));
     } catch (error) {
         console.log("error", error)
         let errorMessage = "An error occurred";

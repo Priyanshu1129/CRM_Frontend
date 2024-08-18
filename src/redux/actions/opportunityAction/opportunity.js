@@ -2,7 +2,7 @@ import axios from "axios";
 import { opportunityActions } from "@/redux/slices/opportunitySlice"
 import { serverURL } from "@/config/config";
 
-const route = `${serverURL}/configuration/opportunity`
+const route = `${serverURL}/opportunity`
 
 export const getAllOpportunities = () => async (dispatch) => {
     try {
@@ -56,17 +56,8 @@ export const createOpportunity = (opportunityData) => async (dispatch) => {
     try {
         console.log("create-opportunityData", opportunityData);
         dispatch(opportunityActions.createOpportunityRequest());
-        const formData = new FormData();
 
-        const data = await axios.post(
-            `${route}/`,
-            formData,
-            {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
-            }
-        );
+        const data = await axios.post(`${route}/`, opportunityData);
         console.log('create-opportunity-res-data', data);
         dispatch(opportunityActions.createOpportunitySuccess(data.data));
     } catch (error) {

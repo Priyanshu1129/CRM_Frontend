@@ -18,7 +18,7 @@ const OpportunityMaster = () => {
 
   const fetchAllOpportunities = useCallback(() => {
     if (!opportunities) {
-      // dispatch(getAllOpportunities());
+      dispatch(getAllOpportunities());
     }
   }, [dispatch, opportunities]);
 

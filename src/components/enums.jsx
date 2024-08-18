@@ -478,7 +478,7 @@ export const TenderSelector = ({ name, label, rules }) => {
 
   return (
     <Form.Item name={name} label={label} rules={rules}>
-      <Select>
+      <Select loading={loading}>
         {tenders?.map((tender, idx) => (
           <Select.Option key={idx} value={tender._id}>
             {tender.customId}
@@ -493,7 +493,7 @@ export const OpportunitySelector = ({ name, label, rules }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const { status, data, error } = useSelector(
-    (state) => state.tender.getAllOpportunities
+    (state) => state.opportunity.getAllOpportunities
   );
   const [opportunities, setOpportunities] = useState(data?.data);
 

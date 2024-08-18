@@ -18,7 +18,7 @@ const TenderMaster = () => {
 
   const fetchAllTenders = useCallback(() => {
     if (!tenders) {
-      // dispatch(getAllTenders());
+      dispatch(getAllTenders());
     }
   }, [dispatch, tenders]);
 

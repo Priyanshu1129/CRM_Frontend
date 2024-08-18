@@ -5,9 +5,9 @@ import {
   getAllArcheTypes,
   getAllRelationshipDegrees,
 } from "@/redux/actions/contactAction";
-import { Select } from "antd";
+import { Select, Form } from "antd";
 
-export const ArcheTypeSelector = () => {
+export const ArcheTypeSelector = ({ label, name, rules }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const { status, data, error } = useSelector(
@@ -38,17 +38,19 @@ export const ArcheTypeSelector = () => {
   }, [status, data]);
 
   return (
-    <Select>
-      {archeTypes?.map((archeType, idx) => (
-        <Select.Option key={idx} value={archeType._id}>
-          {archeType.label}
-        </Select.Option>
-      ))}
-    </Select>
+    <Form.Item label={label} name={name} rules={rules}>
+      <Select>
+        {archeTypes?.map((archeType, idx) => (
+          <Select.Option key={idx} value={archeType._id}>
+            {archeType.label}
+          </Select.Option>
+        ))}
+      </Select>
+    </Form.Item>
   );
 };
 
-export const RelationshipDegreeSelector = () => {
+export const RelationshipDegreeSelector = ({ label, name, rules }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const { status, data, error } = useSelector(
@@ -79,12 +81,14 @@ export const RelationshipDegreeSelector = () => {
   }, [status, data]);
 
   return (
-    <Select>
-      {relationshipDegrees?.map((relationshipDegree, idx) => (
-        <Select.Option key={idx} value={relationshipDegree._id}>
-          {relationshipDegree.label}
-        </Select.Option>
-      ))}
-    </Select>
+    <Form.Item label={label} name={name} rules={rules}>
+      <Select>
+        {relationshipDegrees?.map((relationshipDegree, idx) => (
+          <Select.Option key={idx} value={relationshipDegree._id}>
+            {relationshipDegree.label}
+          </Select.Option>
+        ))}
+      </Select>
+    </Form.Item>
   );
 };
