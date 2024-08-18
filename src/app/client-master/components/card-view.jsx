@@ -1,12 +1,15 @@
-import { useMemo } from "react";
-
 import { List } from "antd";
 
 import { PaginationTotal } from "@/components";
 
 import { ClientCard, ClientCardSkeleton } from "./card";
 
-export const ClientsCardView = ({ data, loading }) => {
+export const ClientsCardView = ({
+  data,
+  loading,
+  setCurrentPage,
+  setPageSize,
+}) => {
   return (
     <List
       style={{ marginTop: "28px" }}
@@ -26,19 +29,22 @@ export const ClientsCardView = ({ data, loading }) => {
         </List.Item>
       )}
       pagination={{
-        // ...pagination,
         // hideOnSinglePage: true,
         itemRender: undefined,
         position: "bottom",
         style: { display: "flex", marginTop: "1rem" },
         pageSizeOptions: ["12", "24", "48"],
+        defaultPageSize: 12,
+        defaultCurrent: 1,
         onChange: (page, pageSize) => {
-          // setCurrent(page);
-          // setPageSize(pageSize);
+          setCurrentPage(page);
+          setPageSize(pageSize);
         },
+        total: 100,
         showTotal: (total) => (
           <PaginationTotal total={total} entityName="company" />
         ),
+        showQuickJumper: true,
       }}
     >
       {loading ? (

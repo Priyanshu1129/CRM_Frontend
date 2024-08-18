@@ -30,7 +30,7 @@ const ContactMaster = () => {
     if (status == "pending") {
       setLoading(true);
     } else if (status == "success" && data?.status == "success") {
-      setContacts(data?.data);
+      setContacts(data?.contacts);
       setLoading(false);
       dispatch(contactActions.clearGetAllContactsStatus());
     } else if (status == "failed") {

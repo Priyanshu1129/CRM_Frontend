@@ -11,7 +11,7 @@ export const getAllContacts = () => async (dispatch) => {
         const response = await axios.get(`${route}/`);
 
         console.log('get-all-contact-res-data', response.data);
-        dispatch(contactActions.getAllContactsSuccess(response.data));
+        dispatch(contactActions.getAllContactsSuccess(response.data.data));
     } catch (error) {
         console.log("error", error)
         let errorMessage = "An error occurred";

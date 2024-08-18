@@ -11,7 +11,7 @@ export const getAllTenders = () => async (dispatch) => {
         const response = await axios.get(`${route}/`);
 
         console.log('get-all-tender-res-data', response.data);
-        dispatch(tenderActions.getAllTendersSuccess(response.data));
+        dispatch(tenderActions.getAllTendersSuccess(response.data.data));
     } catch (error) {
         console.log("error", error)
         let errorMessage = "An error occurred";

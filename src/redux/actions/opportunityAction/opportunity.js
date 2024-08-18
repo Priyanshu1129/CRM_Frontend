@@ -57,9 +57,9 @@ export const createOpportunity = (opportunityData) => async (dispatch) => {
         console.log("create-opportunityData", opportunityData);
         dispatch(opportunityActions.createOpportunityRequest());
 
-        const data = await axios.post(`${route}/`, opportunityData);
-        console.log('create-opportunity-res-data', data);
-        dispatch(opportunityActions.createOpportunitySuccess(data.data));
+        const response = await axios.post(`${route}/`, opportunityData);
+        console.log('create-opportunity-res-data', response);
+        dispatch(opportunityActions.createOpportunitySuccess(response.data.data));
     } catch (error) {
         console.log("error", error)
         let errorMessage = "An error occurred";

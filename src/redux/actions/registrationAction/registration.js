@@ -71,7 +71,7 @@ export const createRegistration = (registrationData) => async (dispatch) => {
             }
         );
         console.log('create-registration-res-data', response.data);
-        dispatch(registrationActions.createRegistrationSuccess(response.data));
+        dispatch(registrationActions.createRegistrationSuccess(response.data.data));
     } catch (error) {
         console.log("error", error)
         let errorMessage = "An error occurred";

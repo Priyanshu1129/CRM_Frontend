@@ -30,7 +30,7 @@ const StaffMaster = () => {
     if (status == "pending") {
       setLoading(true);
     } else if (status == "success" && data?.status == "success") {
-      setStaffs(data?.data);
+      setStaffs(data?.staffs);
       setLoading(false);
       dispatch(staffActions.clearGetAllStaffsStatus());
     } else if (status == "failed") {

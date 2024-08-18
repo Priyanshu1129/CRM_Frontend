@@ -11,7 +11,7 @@ export const getAllBusinessDevelopments = () => async (dispatch) => {
         const response = await axios.get(`${route}/`);
 
         console.log('get-all-businessDevelopment-res-data', response.data);
-        dispatch(businessDevelopmentActions.getAllBusinessDevelopmentsSuccess(response.data));
+        dispatch(businessDevelopmentActions.getAllBusinessDevelopmentsSuccess(response.data.data));
     } catch (error) {
         console.log("error", error)
         let errorMessage = "An error occurred";

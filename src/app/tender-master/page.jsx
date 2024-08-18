@@ -30,7 +30,7 @@ const TenderMaster = () => {
     if (status == "pending") {
       setLoading(true);
     } else if (status == "success" && data?.status == "success") {
-      setTenders(data?.data);
+      setTenders(data?.tenders);
       setLoading(false);
       dispatch(tenderActions.clearGetAllTendersStatus());
     } else if (status == "failed") {

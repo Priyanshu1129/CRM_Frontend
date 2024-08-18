@@ -5,14 +5,16 @@ import { serverURL } from "@/config/config";
 
 const route = `${serverURL}/client`
 
-export const getAllClients = () => async (dispatch) => {
+export const getAllClients = ({ limit, page }) => async (dispatch) => {
     try {
         dispatch(clientActions.getAllClientsRequest());
         console.log('getAllClients-request');
-        const data = await axios.get(`${route}/`);
+        const response = await axios.get(`${route}/`, {
+            params: { limit, page }
+        });
 
-        console.log('get-all-client-res-data', data.data);
-        dispatch(clientActions.getAllClientsSuccess(data.data));
+        console.log('get-all-client-res-data', response.data);
+        dispatch(clientActions.getAllClientsSuccess(response.data.data));
     } catch (error) {
         console.log("error", error)
         let errorMessage = "An error occurred";

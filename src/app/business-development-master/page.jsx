@@ -33,7 +33,7 @@ const BusinessDevelopmentMaster = () => {
     if (status == "pending") {
       setLoading(true);
     } else if (status == "success" && data?.status == "success") {
-      setBusinessDevelopments(data?.data);
+      setBusinessDevelopments(data?.businessDevelopments);
       setLoading(false);
       dispatch(
         businessDevelopmentActions.clearGetAllBusinessDevelopmentsStatus()

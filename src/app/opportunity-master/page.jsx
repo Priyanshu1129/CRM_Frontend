@@ -30,7 +30,7 @@ const OpportunityMaster = () => {
     if (status == "pending") {
       setLoading(true);
     } else if (status == "success" && data?.status == "success") {
-      setOpportunities(data?.data);
+      setOpportunities(data?.opportunities);
       setLoading(false);
       dispatch(opportunityActions.clearGetAllOpportunitiesStatus());
     } else if (status == "failed") {

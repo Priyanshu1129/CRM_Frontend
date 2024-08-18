@@ -30,7 +30,7 @@ const RegistrationMaster = () => {
     if (status == "pending") {
       setLoading(true);
     } else if (status == "success" && data?.status == "success") {
-      setRegistrations(data?.data);
+      setRegistrations(data?.registrations);
       setLoading(false);
       dispatch(registrationActions.clearGetAllRegistrationsStatus());
     } else if (status == "failed") {

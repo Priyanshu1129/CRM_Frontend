@@ -9,18 +9,20 @@ import { notification } from "antd";
 
 const ClientMaster = () => {
   const [view, setView] = useState("card");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(12);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const { status, data, error } = useSelector(
     (state) => state.client.getAllClients
   );
-  const [clients, setClients] = useState(data?.data);
+  const [clients, setClients] = useState(data?.clientsData);
 
   const fetchAllClients = useCallback(() => {
-    if (!clients) {
-      dispatch(getAllClients());
+    if (!clients || currentPage !== data?.page || pageSize !== data?.limit) {
+      dispatch(getAllClients({ page: currentPage, limit: pageSize }));
     }
-  }, [dispatch, clients]);
+  }, [dispatch, clients, currentPage, pageSize, data?.page, data?.limit]);
 
   useEffect(() => {
     fetchAllClients();
@@ -29,8 +31,8 @@ const ClientMaster = () => {
   useEffect(() => {
     if (status == "pending") {
       setLoading(true);
-    } else if (status == "success" && data?.status == "success") {
-      setClients(data?.data);
+    } else if (status == "success") {
+      setClients(data?.clients);
       setLoading(false);
       dispatch(clientActions.clearGetAllClientsStatus());
     } else if (status == "failed") {
@@ -42,7 +44,7 @@ const ClientMaster = () => {
       dispatch(clientActions.clearGetAllClientsStatus());
       dispatch(clientActions.clearGetAllClientsError());
     }
-  }, [dispatch, status]);
+  }, [dispatch, status, data?.clients, error]);
 
   return (
     <>
@@ -53,7 +55,12 @@ const ClientMaster = () => {
       {view == "table" ? (
         <ClientsTableView />
       ) : (
-        <ClientsCardView data={clients} loading={loading} />
+        <ClientsCardView
+          setCurrentPage={setCurrentPage}
+          setPageSize={setPageSize}
+          data={clients}
+          loading={loading}
+        />
       )}
     </>
   );

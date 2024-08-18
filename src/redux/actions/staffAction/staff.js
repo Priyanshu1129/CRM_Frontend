@@ -68,7 +68,7 @@ export const createStaff = (staffData) => async (dispatch) => {
             }
         );
         console.log('create-staff-res-data', response);
-        dispatch(staffActions.createStaffSuccess(response.data));
+        dispatch(staffActions.createStaffSuccess(response.data.data));
     } catch (error) {
         console.log("error", error)
         let errorMessage = "An error occurred";
