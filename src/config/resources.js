@@ -5,7 +5,13 @@ import {
     DashboardOutlined,
     CalendarOutlined,
     ProjectOutlined,
-    CrownOutlined
+    CrownOutlined,
+    FileOutlined,
+    UsergroupAddOutlined,
+    UserAddOutlined,
+    FormOutlined,
+    FileTextOutlined,
+    ProjectFilled,
 } from "@ant-design/icons";
 
 export const resources = [
@@ -15,8 +21,8 @@ export const resources = [
         icon: <DashboardOutlined />,
     },
     // {
-    //     key: "calender",
-    //     label: "Calender",
+    //     key: "calendar",
+    //     label: "Calendar",
     //     icon: <CalendarOutlined />,
     // },
     // {
@@ -37,7 +43,7 @@ export const resources = [
     {
         key: "client-master",
         label: "Client Master",
-        icon: <ShopOutlined />
+        icon: <ShopOutlined />,
     },
     {
         key: "contact-master",
@@ -47,51 +53,51 @@ export const resources = [
     {
         key: "opportunity-master",
         label: "Opportunity Master",
-        icon: <ContainerOutlined />,
+        icon: <FileOutlined />,
     },
     {
         key: "team-master",
         label: "Team Master",
-        icon: <ContainerOutlined />,
+        icon: <UsergroupAddOutlined />,
     },
     {
         key: "staff-master",
         label: "Staff Master",
-        icon: <ContainerOutlined />,
+        icon: <UserAddOutlined />,
     },
     {
         key: "registration-master",
         label: "Registration Master",
-        icon: <ContainerOutlined />,
+        icon: <FormOutlined />,
     },
     {
         key: "tender-master",
         label: "Tender Master",
-        icon: <ContainerOutlined />,
+        icon: <FileTextOutlined />,
     },
     {
         key: "business-development-master",
         label: "Business Development Master",
-        icon: <ContainerOutlined />,
-    },
-    {
-        key: "project-master",
-        label: "Project Master",
-        icon: <ContainerOutlined />,
+        icon: <ProjectFilled />,
     },
     // {
-    //     key: "administration",
-    //     label: "Administration",
-    //     icon: <CrownOutlined />,
-    //     children: [
-    //         {
-    //             key: "settings",
-    //             label: "Settings",
-    //         },
-    //         {
-    //             key: "audits",
-    //             label: "Audit Log",
-    //         },
-    //     ]
-    // }
+    //     key: "project-master",
+    //     label: "Project Master",
+    //     icon: <ProjectFilled />,
+    // },
+    {
+        key: "administration",
+        label: "Administration",
+        icon: <CrownOutlined />,
+        children: [
+            {
+                key: "settings",
+                label: "Settings",
+            },
+            {
+                key: "audits",
+                label: "Audit Log",
+            },
+        ]
+    }
 ];
