@@ -19,10 +19,17 @@ const OpportunityMaster = () => {
   const [opportunities, setOpportunities] = useState(data?.opportunities);
 
   const fetchAllOpportunities = useCallback(() => {
+    console.log("Fetching opportunities with:", {
+      opportunities,
+      currentPage,
+      pageSize,
+      dataPage: data?.page,
+      dataLimit: data?.limit,
+    });
     if (
       !opportunities ||
-      currentPage !== data?.page ||
-      pageSize !== data?.limit
+      currentPage !== Number(data?.page) ||
+      pageSize !== Number(data?.limit)
     ) {
       dispatch(getAllOpportunities({ page: currentPage, limit: pageSize }));
     }

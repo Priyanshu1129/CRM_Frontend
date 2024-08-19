@@ -19,7 +19,7 @@ export const getAllClients = ({ page = null, limit = null, config = false }) => 
 
         console.log('get-all-client-res-data', response.data);
         if (config) {
-            dispatch(mastersConfigActions.getConfigClientsSuccess(response.data.data));
+            dispatch(mastersConfigActions.getConfigClientsSuccess(response.data));
         } else {
             dispatch(clientActions.getAllClientsSuccess(response.data.data));
         }

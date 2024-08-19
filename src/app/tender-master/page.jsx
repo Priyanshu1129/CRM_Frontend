@@ -17,13 +17,16 @@ const TenderMaster = () => {
     (state) => state.tender.getAllTenders
   );
   const [tenders, setTenders] = useState(data?.tenders);
-  console.log("coming",data);
 
   const fetchAllTenders = useCallback(() => {
-    if (!tenders || currentPage !== data?.page || pageSize !== data?.limit) {
+    if (
+      !tenders ||
+      currentPage !== Number(data?.page) ||
+      pageSize !== Number(data?.limit)
+    ) {
       dispatch(getAllTenders({ page: currentPage, limit: pageSize }));
     }
-  }, [dispatch, tenders, currentPage, pageSize, data]);
+  }, [dispatch, tenders, currentPage, pageSize, data?.page, data?.limit]);
 
   useEffect(() => {
     fetchAllTenders();

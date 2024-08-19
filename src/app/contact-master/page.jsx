@@ -19,7 +19,10 @@ const ContactMaster = () => {
   const [contacts, setContacts] = useState(data?.contacts);
 
   const fetchAllContacts = useCallback(() => {
-    if (!contacts || currentPage !== data?.page || pageSize !== data?.limit) {
+    if (!contacts || 
+      currentPage !== Number(data?.page) ||
+      pageSize !== Number(data?.limit)
+    ) {
       dispatch(getAllContacts({ page: currentPage, limit: pageSize }));
     }
   }, [dispatch, contacts, currentPage, pageSize, data?.page, data?.limit]);

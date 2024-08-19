@@ -19,7 +19,11 @@ const StaffMaster = () => {
   const [staffs, setStaffs] = useState(data?.staffs);
 
   const fetchAllStaffs = useCallback(() => {
-    if (!staffs || currentPage !== data?.page || pageSize !== data?.limit) {
+    if (
+      !staffs ||
+      currentPage !== Number(data?.page) ||
+      pageSize !== Number(data?.limit)
+    ) {
       dispatch(getAllStaffs({ page: currentPage, limit: pageSize }));
     }
   }, [dispatch, staffs, currentPage, pageSize, data?.page, data?.limit]);

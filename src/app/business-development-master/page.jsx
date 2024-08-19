@@ -26,8 +26,8 @@ const BusinessDevelopmentMaster = () => {
   const fetchAllBusinessDevelopments = useCallback(() => {
     if (
       !businessDevelopments ||
-      currentPage !== data?.page ||
-      pageSize !== data?.limit
+      currentPage !== Number(data?.page) ||
+      pageSize !== Number(data?.limit)
     ) {
       dispatch(
         getAllBusinessDevelopments({ page: currentPage, limit: pageSize })

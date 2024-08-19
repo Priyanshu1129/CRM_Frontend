@@ -19,7 +19,11 @@ const ClientMaster = () => {
   const [clients, setClients] = useState(data?.clients);
 
   const fetchAllClients = useCallback(() => {
-    if (!clients || currentPage !== data?.page || pageSize !== data?.limit) {
+    if (
+      !clients ||
+      currentPage !== Number(data?.page) ||
+      pageSize !== Number(data?.limit)
+    ) {
       dispatch(getAllClients({ page: currentPage, limit: pageSize }));
     }
   }, [dispatch, clients, currentPage, pageSize, data?.page, data?.limit]);
