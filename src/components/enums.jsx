@@ -350,7 +350,7 @@ export const StaffSelector = ({ name, label, rules }) => {
 
   return (
     <Form.Item name={name} label={label} rules={rules}>
-      <Select showSearch>
+      <Select loading={loading} showSearch>
         {staffs?.map(({ _id, firstName, lastName }, idx) => (
           <Select.Option key={idx} value={_id}>
             {firstName || lastName
@@ -385,8 +385,6 @@ export const ClientSelector = ({ name, label, rules }) => {
     if (status == "pending") {
       setLoading(true);
     } else if (status == "success") {
-      console.log("after success", data);
-      console.log("after success clients", data?.clients);
       setClients(data?.clients);
       setLoading(false);
     } else {
@@ -503,12 +501,12 @@ export const OpportunitySelector = ({ name, label, rules }) => {
 
   const fetchAllOpportunities = useCallback(() => {
     if (!opportunities) {
-      dispatch(getAllOpportunities());
+      dispatch(getAllOpportunities({ config: true }));
     }
   }, [dispatch, opportunities]);
 
   useEffect(() => {
-    fetchAllOpportunities({ config: true });
+    fetchAllOpportunities();
   }, [fetchAllOpportunities]);
 
   useEffect(() => {

@@ -7,7 +7,7 @@ const route = `${serverURL}/tender/config/stage`
 export const getAllStages = () => async (dispatch) => {
     try {
         dispatch(stageActions.getAllStagesRequest());
-        console.log('getAllStages');
+        console.log('getAllStages-req');
         const response = await axios.get(`${route}/`);
 
         console.log('get-all-stage-res-data', response.data);

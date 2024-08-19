@@ -16,9 +16,9 @@ export const getAllStaffs = ({ page = null, limit = null, config = false }) => a
             params: { limit, page, config }
         });
 
-        console.log('get-all-staff-res-data', response.data);
+        console.log('get-all-staff-res-data', response?.data);
         if (config) {
-            dispatch(mastersConfigActions.getConfigStaffsSuccess(response.data.data))
+            dispatch(mastersConfigActions.getConfigStaffsSuccess(response.data?.data))
         } else {
             dispatch(staffActions.getAllStaffsSuccess(response.data.data));
         }

@@ -23,9 +23,9 @@ export const getAllTenders = ({ page = null, limit = null, config = false }) => 
         console.log('get-all-tender-res-data', response.data);
 
         if (config) {
-            dispatch(mastersConfigActions.getConfigTendersSuccess(response.data.data));
+            dispatch(mastersConfigActions.getConfigTendersSuccess(response.data?.data));
         } else {
-            dispatch(tenderActions.getAllTendersSuccess(response.data.data));
+            dispatch(tenderActions.getAllTendersSuccess(response.data?.data));
         }
     } catch (error) {
         console.log("error", error)
