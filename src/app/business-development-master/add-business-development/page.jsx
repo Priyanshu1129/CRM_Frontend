@@ -185,7 +185,7 @@ const AddBusinessDevelopment = () => {
                 label="Potential TopLine"
                 rules={businessDevelopmentFormRules.potentialTopLine}
               >
-                <Input placeholder="Potential TopLine" />
+                <Input type="number" />
               </Form.Item>
             </Col>
             <Col span={8}>
@@ -194,7 +194,7 @@ const AddBusinessDevelopment = () => {
                 label="Potential Offsets"
                 rules={businessDevelopmentFormRules.potentialOffset}
               >
-                <Input placeholder="Potential Offsets" />
+                <Input type="number" />
               </Form.Item>
             </Col>
             <Col span={24}>

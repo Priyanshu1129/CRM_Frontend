@@ -141,7 +141,7 @@ const AddStaff = () => {
                 name="phone"
                 rules={staffFormRules.phone}
               >
-                <Input />
+                <Input type="number" />
               </Form.Item>
             </Col>
             <Col span={8}>
@@ -169,19 +169,19 @@ const AddStaff = () => {
             </Col>
             <Col span={24}>
               <Form.Item>
-                <Button type="primary" htmlType="submit" loading={loading}>
-                  Save
-                </Button>
-              </Form.Item>
-              <Form.Item>
-                <Button
-                  type="default"
-                  htmlType="button"
-                  onClick={() => form.resetFields()}
-                  loading={loading}
-                >
-                  Reset
-                </Button>
+                <Space>
+                  <Button type="primary" htmlType="submit" loading={loading}>
+                    Submit
+                  </Button>
+                  <Button
+                    type="default"
+                    htmlType="button"
+                    onClick={() => form.resetFields()}
+                    loading={loading}
+                  >
+                    Reset
+                  </Button>
+                </Space>
               </Form.Item>
             </Col>
           </Row>
