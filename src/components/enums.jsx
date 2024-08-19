@@ -369,7 +369,7 @@ export const ClientSelector = ({ name, label, rules }) => {
   const { status, data, error } = useSelector(
     (state) => state.mastersConfig.getConfigClients
   );
-  
+
   const [clients, setClients] = useState(data?.clients);
   const fetchAllClients = useCallback(() => {
     if (!clients) {
@@ -385,6 +385,8 @@ export const ClientSelector = ({ name, label, rules }) => {
     if (status == "pending") {
       setLoading(true);
     } else if (status == "success") {
+      console.log("after success", data);
+      console.log("after success clients", data?.clients);
       setClients(data?.clients);
       setLoading(false);
     } else {

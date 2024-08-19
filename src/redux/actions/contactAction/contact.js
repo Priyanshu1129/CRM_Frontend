@@ -32,9 +32,9 @@ export const getAllContacts = ({ page = null, limit = null, config = false }) =>
         } else {
             errorMessage = error.message || "Unknown error";
         }
-        if(config){
+        if (config) {
             dispatch(mastersConfigActions.getConfigContactsFailure());
-        }else{
+        } else {
             dispatch(contactActions.getAllContactsFailure(errorMessage));
         }
     }

@@ -26,6 +26,7 @@ import {
   SubIndustrySelector,
   TerritorySelector,
   StaffSelector,
+  ContactSelector,
   ImageUpload,
   BulkUploadModal,
 } from "@/components";
@@ -238,7 +239,7 @@ const AddClient = () => {
               />
             </Col>
             <Col span={colSpan}>
-              <StaffSelector
+              <ContactSelector
                 label="Related Contacts"
                 name="relatedContacts"
                 rules={clientFormRules.relatedContacts}
