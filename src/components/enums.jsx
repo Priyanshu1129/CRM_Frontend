@@ -338,7 +338,7 @@ export const StaffSelector = ({ name, label, rules }) => {
   useEffect(() => {
     if (status == "pending") {
       setLoading(true);
-    } else if (status == "success" && data?.status == "success") {
+    } else if (status == "success") {
       setStaffs(data?.staffs);
       setLoading(false);
     } else {
@@ -426,7 +426,7 @@ export const ContactSelector = ({ name, label, rules }) => {
   useEffect(() => {
     if (status == "pending") {
       setLoading(true);
-    } else if (status == "success" && data?.status == "success") {
+    } else if (status == "success") {
       setContacts(data?.contacts);
       setLoading(false);
     } else {
@@ -470,7 +470,7 @@ export const TenderSelector = ({ name, label, rules }) => {
   useEffect(() => {
     if (status == "pending") {
       setLoading(true);
-    } else if (status == "success" && data?.status == "success") {
+    } else if (status == "success") {
       setTenders(data?.tenders);
       setLoading(false);
     } else {
@@ -512,7 +512,7 @@ export const OpportunitySelector = ({ name, label, rules }) => {
   useEffect(() => {
     if (status == "pending") {
       setLoading(true);
-    } else if (status == "success" && data?.status == "success") {
+    } else if (status == "success") {
       setOpportunities(data?.opportunities);
       setLoading(false);
     } else {
