@@ -14,7 +14,7 @@ import {
   notification,
 } from "antd";
 
-import { FormHeader, BulkUploadModal } from "@/components";
+import { FormHeader } from "@/components";
 import { RevenueInput } from "../components/revenueInput";
 import {
   SolutionSelector,
@@ -29,9 +29,8 @@ import { opportunityFormRules } from "@/utilities/formValidationRules";
 import { opportunityActions } from "@/redux/slices/opportunitySlice";
 import { createOpportunity } from "@/redux/actions/opportunityAction";
 
-const AddOpportunity = () => {
+const OpportunityDetails = () => {
   const [loading, setLoading] = useState(false);
-  const [uploadModal, setUploadModal] = useState(false);
   const [form] = Form.useForm();
   const screens = Grid.useBreakpoint();
   const dispatch = useDispatch();
@@ -78,11 +77,7 @@ const AddOpportunity = () => {
 
   return (
     <>
-      <FormHeader
-        fileUpload={true}
-        setUploadModal={setUploadModal}
-        backButtonText={"Return"}
-      />
+      <FormHeader backButtonText={"Return"} />
       <Space
         direction="vertical"
         style={{
@@ -226,13 +221,9 @@ const AddOpportunity = () => {
             </Col>
           </Row>
         </Form>
-        <BulkUploadModal
-          setUploadModal={setUploadModal}
-          uploadModal={uploadModal}
-        />
       </Space>
     </>
   );
 };
 
-export default AddOpportunity;
+export default OpportunityDetails;

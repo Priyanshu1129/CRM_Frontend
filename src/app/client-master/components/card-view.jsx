@@ -9,6 +9,7 @@ export const ClientsCardView = ({
   loading,
   setCurrentPage,
   setPageSize,
+  totalClients,
 }) => {
   return (
     <List
@@ -40,9 +41,9 @@ export const ClientsCardView = ({
           setCurrentPage(page);
           setPageSize(pageSize);
         },
-        total: 100,
+        total: totalClients,
         showTotal: (total) => (
-          <PaginationTotal total={total} entityName="company" />
+          <PaginationTotal total={total} entityName="client" />
         ),
         showQuickJumper: true,
       }}

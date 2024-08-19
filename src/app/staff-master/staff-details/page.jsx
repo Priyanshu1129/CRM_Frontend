@@ -14,14 +14,13 @@ import {
   DatePicker,
   notification,
 } from "antd";
-import { FormHeader, ImageUpload, BulkUploadModal } from "@/components";
+import { FormHeader, ImageUpload } from "@/components";
 import { staffFormRules } from "@/utilities/formValidationRules";
 import { createStaff } from "@/redux/actions/staffAction";
 import { staffActions } from "@/redux/slices/staffSlice";
 
-const AddStaff = () => {
+const StaffDetails = () => {
   const [loading, setLoading] = useState(false);
-  const [uploadModal, setUploadModal] = useState(false);
   const [form] = Form.useForm();
   const screens = Grid.useBreakpoint();
   const dispatch = useDispatch();
@@ -67,11 +66,7 @@ const AddStaff = () => {
 
   return (
     <>
-      <FormHeader
-        fileUpload={true}
-        setUploadModal={setUploadModal}
-        backButtonText={"Return"}
-      />
+      <FormHeader backButtonText={"Return"} />
       <Space
         direction="vertical"
         style={{
@@ -186,13 +181,9 @@ const AddStaff = () => {
             </Col>
           </Row>
         </Form>
-        <BulkUploadModal
-          setUploadModal={setUploadModal}
-          uploadModal={uploadModal}
-        />
       </Space>
     </>
   );
 };
 
-export default AddStaff;
+export default StaffDetails;

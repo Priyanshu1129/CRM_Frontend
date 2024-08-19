@@ -38,13 +38,17 @@ export default function LayoutComponent({ children }) {
         }}
       >
         <Sidebar setCollapsed={setCollapsed} collapsed={collapsed} />
-        <Layout style={{ flex: 1 }}>
-          <Header collapsed={collapsed} setCollapsed={setCollapsed} />
+        <Layout
+          style={{
+            flex: 1,
+            marginLeft: !screens.xs ? (collapsed ? "80px" : "256px") : 0,
+          }}
+        >
+          <Header />
           <Layout
             style={{
               padding: !screens.xs ? "32px" : "16px",
               height: "100%",
-              marginLeft: !screens.xs ? (collapsed ? "80px" : "256px") : 0,
             }}
           >
             <Content

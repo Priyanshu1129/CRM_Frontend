@@ -10,17 +10,23 @@ import { getAllRegistrations } from "@/redux/actions/registrationAction";
 const RegistrationMaster = () => {
   const [view, setView] = useState("table");
   const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(12);
   const dispatch = useDispatch();
   const { status, data, error } = useSelector(
     (state) => state.registration.getAllRegistrations
   );
-  const [registrations, setRegistrations] = useState(data?.data);
+  const [registrations, setRegistrations] = useState(data?.registrations);
 
   const fetchAllRegistrations = useCallback(() => {
-    if (!registrations) {
-      dispatch(getAllRegistrations());
+    if (
+      !registrations ||
+      currentPage !== data?.page ||
+      pageSize !== data?.limit
+    ) {
+      dispatch(getAllRegistrations({ page: currentPage, limit: pageSize }));
     }
-  }, [dispatch, registrations]);
+  }, [dispatch, registrations, currentPage, pageSize, data?.page, data?.limit]);
 
   useEffect(() => {
     fetchAllRegistrations();
@@ -29,7 +35,7 @@ const RegistrationMaster = () => {
   useEffect(() => {
     if (status == "pending") {
       setLoading(true);
-    } else if (status == "success" && data?.status == "success") {
+    } else if (status == "success") {
       setRegistrations(data?.registrations);
       setLoading(false);
       dispatch(registrationActions.clearGetAllRegistrationsStatus());
@@ -42,7 +48,7 @@ const RegistrationMaster = () => {
       dispatch(registrationActions.clearGetAllRegistrationsStatus());
       dispatch(registrationActions.clearGetAllRegistrationsError());
     }
-  }, [dispatch, status]);
+  }, [dispatch, status, data?.registrations, error]);
   return (
     <>
       <ListHeader
@@ -50,7 +56,13 @@ const RegistrationMaster = () => {
         buttonText={"Add new registration"}
       />
       {view == "table" ? (
-        <RegistrationsTableView data={registrations} loading={loading} />
+        <RegistrationsTableView
+          data={registrations}
+          setCurrentPage={setCurrentPage}
+          setPageSize={setPageSize}
+          loading={loading}
+          total={data?.totalCount}
+        />
       ) : (
         <RegistrationsCardView />
       )}

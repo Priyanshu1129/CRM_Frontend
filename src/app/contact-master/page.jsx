@@ -10,17 +10,19 @@ import { contactActions } from "@/redux/slices/contactSlice";
 const ContactMaster = () => {
   const [view, setView] = useState("table");
   const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(12);
   const dispatch = useDispatch();
   const { status, data, error } = useSelector(
     (state) => state.contact.getAllContacts
   );
-  const [contacts, setContacts] = useState(data?.data);
+  const [contacts, setContacts] = useState(data?.contacts);
 
   const fetchAllContacts = useCallback(() => {
-    if (!contacts) {
-      dispatch(getAllContacts());
+    if (!contacts || currentPage !== data?.page || pageSize !== data?.limit) {
+      dispatch(getAllContacts({ page: currentPage, limit: pageSize }));
     }
-  }, [dispatch, contacts]);
+  }, [dispatch, contacts, currentPage, pageSize, data?.page, data?.limit]);
 
   useEffect(() => {
     fetchAllContacts();
@@ -29,7 +31,7 @@ const ContactMaster = () => {
   useEffect(() => {
     if (status == "pending") {
       setLoading(true);
-    } else if (status == "success" && data?.status == "success") {
+    } else if (status == "success") {
       setContacts(data?.contacts);
       setLoading(false);
       dispatch(contactActions.clearGetAllContactsStatus());
@@ -42,7 +44,7 @@ const ContactMaster = () => {
       dispatch(contactActions.clearGetAllContactsStatus());
       dispatch(contactActions.clearGetAllContactsError());
     }
-  }, [dispatch, status]);
+  }, [dispatch, status, data?.contacts, error]);
 
   return (
     <>
@@ -51,7 +53,13 @@ const ContactMaster = () => {
         buttonText={"Add new contact"}
       />
       {view == "table" ? (
-        <ContactsTableView loading={loading} data={contacts} />
+        <ContactsTableView
+          setCurrentPage={setCurrentPage}
+          setPageSize={setPageSize}
+          loading={loading}
+          data={contacts}
+          total={data?.totalCount}
+        />
       ) : (
         <ContactsCardView />
       )}

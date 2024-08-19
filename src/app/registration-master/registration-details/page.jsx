@@ -20,16 +20,14 @@ import {
   ClientSelector,
   FormHeader,
   InputNotes,
-  BulkUploadModal,
 } from "@/components";
 import { RegistrationStatusSelector } from "../enums";
 import { createRegistration } from "@/redux/actions/registrationAction";
 import { registrationActions } from "@/redux/slices/registrationSlice";
 import { registrationFormRules } from "../../../utilities/formValidationRules";
 
-const AddRegistration = () => {
+const RegistrationDetails = () => {
   const [loading, setLoading] = useState(false);
-  const [uploadModal, setUploadModal] = useState(false);
   const [form] = Form.useForm();
   const screens = Grid.useBreakpoint();
   const dispatch = useDispatch();
@@ -83,11 +81,7 @@ const AddRegistration = () => {
 
   return (
     <>
-      <FormHeader
-        fileUpload={true}
-        setUploadModal={setUploadModal}
-        backButtonText={"Return"}
-      />
+      <FormHeader backButtonText={"Cancel"} />
       <Space
         direction="vertical"
         style={{
@@ -212,12 +206,8 @@ const AddRegistration = () => {
             </Col>
           </Row>
         </Form>
-        <BulkUploadModal
-          setUploadModal={setUploadModal}
-          uploadModal={uploadModal}
-        />
       </Space>
     </>
   );
 };
-export default AddRegistration;
+export default RegistrationDetails;

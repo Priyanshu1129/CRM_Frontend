@@ -10,17 +10,20 @@ import { getAllTenders } from "@/redux/actions/tenderAction";
 const TenderMaster = () => {
   const [view, setView] = useState("table");
   const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(12);
   const dispatch = useDispatch();
   const { status, data, error } = useSelector(
     (state) => state.tender.getAllTenders
   );
-  const [tenders, setTenders] = useState(data?.data);
+  const [tenders, setTenders] = useState(data?.tenders);
+  console.log("coming",data);
 
   const fetchAllTenders = useCallback(() => {
-    if (!tenders) {
-      dispatch(getAllTenders());
+    if (!tenders || currentPage !== data?.page || pageSize !== data?.limit) {
+      dispatch(getAllTenders({ page: currentPage, limit: pageSize }));
     }
-  }, [dispatch, tenders]);
+  }, [dispatch, tenders, currentPage, pageSize, data]);
 
   useEffect(() => {
     fetchAllTenders();
@@ -29,7 +32,7 @@ const TenderMaster = () => {
   useEffect(() => {
     if (status == "pending") {
       setLoading(true);
-    } else if (status == "success" && data?.status == "success") {
+    } else if (status == "success") {
       setTenders(data?.tenders);
       setLoading(false);
       dispatch(tenderActions.clearGetAllTendersStatus());
@@ -42,7 +45,7 @@ const TenderMaster = () => {
       dispatch(tenderActions.clearGetAllTendersStatus());
       dispatch(tenderActions.clearGetAllTendersError());
     }
-  }, [dispatch, status]);
+  }, [dispatch, status, data?.tenders, error]);
   return (
     <>
       <ListHeader
@@ -50,7 +53,13 @@ const TenderMaster = () => {
         buttonText={"Add new tender"}
       />
       {view == "table" ? (
-        <TendersTableView data={tenders} loading={loading} />
+        <TendersTableView
+          data={tenders}
+          setCurrentPage={setCurrentPage}
+          setPageSize={setPageSize}
+          loading={loading}
+          total={data?.totalCount}
+        />
       ) : (
         <TendersCardView />
       )}

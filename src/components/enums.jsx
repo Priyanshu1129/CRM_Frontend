@@ -321,13 +321,13 @@ export const StaffSelector = ({ name, label, rules }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const { status, data, error } = useSelector(
-    (state) => state.staff.getAllStaffs
+    (state) => state.mastersConfig.getConfigStaffs
   );
-  const [staffs, setStaffs] = useState(data?.data);
+  const [staffs, setStaffs] = useState(data?.staffs);
 
   const fetchAllStaffs = useCallback(() => {
     if (!staffs) {
-      dispatch(getAllStaffs());
+      dispatch(getAllStaffs({ config: true }));
     }
   }, [dispatch, staffs]);
 
@@ -339,7 +339,7 @@ export const StaffSelector = ({ name, label, rules }) => {
     if (status == "pending") {
       setLoading(true);
     } else if (status == "success" && data?.status == "success") {
-      setStaffs(data?.data);
+      setStaffs(data?.staffs);
       setLoading(false);
     } else {
       setLoading(false);
@@ -350,7 +350,7 @@ export const StaffSelector = ({ name, label, rules }) => {
 
   return (
     <Form.Item name={name} label={label} rules={rules}>
-      <Select>
+      <Select showSearch>
         {staffs?.map(({ _id, firstName, lastName }, idx) => (
           <Select.Option key={idx} value={_id}>
             {firstName || lastName
@@ -367,13 +367,13 @@ export const ClientSelector = ({ name, label, rules }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const { status, data, error } = useSelector(
-    (state) => state.client.getAllClients
+    (state) => state.mastersConfig.getConfigClients
   );
-  const [clients, setClients] = useState(data?.data);
-  console.log(clients, "client");
+  
+  const [clients, setClients] = useState(data?.clients);
   const fetchAllClients = useCallback(() => {
     if (!clients) {
-      dispatch(getAllClients());
+      dispatch(getAllClients({ config: true }));
     }
   }, [dispatch, clients]);
 
@@ -384,8 +384,8 @@ export const ClientSelector = ({ name, label, rules }) => {
   useEffect(() => {
     if (status == "pending") {
       setLoading(true);
-    } else if (status == "success" && data?.status == "success") {
-      setClients(data?.data);
+    } else if (status == "success") {
+      setClients(data?.clients);
       setLoading(false);
     } else {
       setLoading(false);
@@ -409,13 +409,13 @@ export const ContactSelector = ({ name, label, rules }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const { status, data, error } = useSelector(
-    (state) => state.contact.getAllContacts
+    (state) => state.mastersConfig.getConfigContacts
   );
-  const [contacts, setContacts] = useState(data?.data);
+  const [contacts, setContacts] = useState(data?.contacts);
 
   const fetchAllContacts = useCallback(() => {
     if (!contacts) {
-      dispatch(getAllContacts());
+      dispatch(getAllContacts({ config: true }));
     }
   }, [dispatch, contacts]);
 
@@ -427,7 +427,7 @@ export const ContactSelector = ({ name, label, rules }) => {
     if (status == "pending") {
       setLoading(true);
     } else if (status == "success" && data?.status == "success") {
-      setContacts(data?.data);
+      setContacts(data?.contacts);
       setLoading(false);
     } else {
       setLoading(false);
@@ -453,13 +453,13 @@ export const TenderSelector = ({ name, label, rules }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const { status, data, error } = useSelector(
-    (state) => state.tender.getAllTenders
+    (state) => state.mastersConfig.getConfigTenders
   );
-  const [tenders, setTenders] = useState(data?.data);
+  const [tenders, setTenders] = useState(data?.tenders);
 
   const fetchAllTenders = useCallback(() => {
     if (!tenders) {
-      dispatch(getAllTenders());
+      dispatch(getAllTenders({ config: true }));
     }
   }, [dispatch, tenders]);
 
@@ -471,7 +471,7 @@ export const TenderSelector = ({ name, label, rules }) => {
     if (status == "pending") {
       setLoading(true);
     } else if (status == "success" && data?.status == "success") {
-      setTenders(data?.data);
+      setTenders(data?.tenders);
       setLoading(false);
     } else {
       setLoading(false);
@@ -480,7 +480,7 @@ export const TenderSelector = ({ name, label, rules }) => {
 
   return (
     <Form.Item name={name} label={label} rules={rules}>
-      <Select loading={loading}>
+      <Select showSearch loading={loading}>
         {tenders?.map(({ customId, _id }, idx) => (
           <Select.Option key={idx} value={_id}>
             {customId ?? "Missing Value"}
@@ -495,9 +495,9 @@ export const OpportunitySelector = ({ name, label, rules }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const { status, data, error } = useSelector(
-    (state) => state.opportunity.getAllOpportunities
+    (state) => state.mastersConfig.getConfigOpportunities
   );
-  const [opportunities, setOpportunities] = useState(data?.data);
+  const [opportunities, setOpportunities] = useState(data?.opportunities);
 
   const fetchAllOpportunities = useCallback(() => {
     if (!opportunities) {
@@ -506,14 +506,14 @@ export const OpportunitySelector = ({ name, label, rules }) => {
   }, [dispatch, opportunities]);
 
   useEffect(() => {
-    fetchAllOpportunities();
+    fetchAllOpportunities({ config: true });
   }, [fetchAllOpportunities]);
 
   useEffect(() => {
     if (status == "pending") {
       setLoading(true);
     } else if (status == "success" && data?.status == "success") {
-      setOpportunities(data?.data);
+      setOpportunities(data?.opportunities);
       setLoading(false);
     } else {
       setLoading(false);
@@ -522,7 +522,7 @@ export const OpportunitySelector = ({ name, label, rules }) => {
 
   return (
     <Form.Item name={name} label={label} rules={rules}>
-      <Select loading={loading}>
+      <Select showSearch loading={loading}>
         {opportunities?.map(({ customId, _id }, idx) => (
           <Select.Option key={idx} value={_id}>
             {customId ?? "Missing Value"}

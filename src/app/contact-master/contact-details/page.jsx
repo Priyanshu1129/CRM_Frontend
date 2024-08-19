@@ -16,12 +16,7 @@ import {
 } from "antd";
 
 import { ArcheTypeSelector, RelationshipDegreeSelector } from "../enums";
-import {
-  FormHeader,
-  InputNotes,
-  ImageUpload,
-  BulkUploadModal,
-} from "@/components";
+import { FormHeader, InputNotes, ImageUpload } from "@/components";
 import { contactFormRules } from "@/utilities/formValidationRules";
 import { contactActions } from "@/redux/slices/contactSlice";
 import { createContact } from "@/redux/actions/contactAction";
@@ -30,7 +25,6 @@ import { notification } from "antd";
 
 const AddContact = () => {
   const [loading, setLoading] = useState(false);
-  const [uploadModal, setUploadModal] = useState(false);
   const [form] = Form.useForm();
   const screens = Grid.useBreakpoint();
   const dispatch = useDispatch();
@@ -78,11 +72,7 @@ const AddContact = () => {
 
   return (
     <>
-      <FormHeader
-        fileUpload={true}
-        setUploadModal={setUploadModal}
-        backButtonText={"Return"}
-      />
+      <FormHeader backButtonText={"Return"} />
       <Space
         direction="vertical"
         style={{
@@ -248,10 +238,6 @@ const AddContact = () => {
             </Col>
           </Row>
         </Form>
-        <BulkUploadModal
-          setUploadModal={setUploadModal}
-          uploadModal={uploadModal}
-        />
       </Space>
     </>
   );

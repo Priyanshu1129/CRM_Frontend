@@ -24,14 +24,12 @@ import {
   StaffSelector,
   ClientSelector,
   ContactSelector,
-  BulkUploadModal,
 } from "@/components";
 import { businessDevelopmentActions } from "@/redux/slices/businessDevelopmentSlice";
 import { createBusinessDevelopment } from "@/redux/actions/businessDevelopmentAction";
 import { businessDevelopmentFormRules } from "@/utilities/formValidationRules";
-const AddBusinessDevelopment = () => {
+const BusinessDevelopmentDetails = () => {
   const [loading, setLoading] = useState(false);
-  const [uploadModal, setUploadModal] = useState(false);
   const [form] = Form.useForm();
   const screens = Grid.useBreakpoint();
   const dispatch = useDispatch();
@@ -83,11 +81,7 @@ const AddBusinessDevelopment = () => {
 
   return (
     <>
-      <FormHeader
-        fileUpload={true}
-        setUploadModal={setUploadModal}
-        backButtonText={"Return"}
-      />
+      <FormHeader backButtonText={"Return"} />
       <Space
         direction="vertical"
         style={{
@@ -226,12 +220,8 @@ const AddBusinessDevelopment = () => {
             </Col>
           </Row>
         </Form>
-        <BulkUploadModal
-          setUploadModal={setUploadModal}
-          uploadModal={uploadModal}
-        />
       </Space>
     </>
   );
 };
-export default AddBusinessDevelopment;
+export default BusinessDevelopmentDetails;

@@ -15,3 +15,6 @@ export * from "./fullscreen-loading/index"
 export * from "./enums";
 export * from "./InputNotes";
 export * from "./form-header";
+export * from "./bulkUploadModal";
+export * from "./imageUpload";
+export * from "./table-actions";

@@ -13,17 +13,34 @@ import { notification } from "antd";
 const BusinessDevelopmentMaster = () => {
   const [view, setView] = useState("table");
   const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(12);
   const dispatch = useDispatch();
   const { status, data, error } = useSelector(
     (state) => state.businessDevelopment.getAllBusinessDevelopments
   );
-  const [businessDevelopments, setBusinessDevelopments] = useState(data?.data);
+  const [businessDevelopments, setBusinessDevelopments] = useState(
+    data?.businessDevelopments
+  );
 
   const fetchAllBusinessDevelopments = useCallback(() => {
-    if (!businessDevelopments) {
-      dispatch(getAllBusinessDevelopments());
+    if (
+      !businessDevelopments ||
+      currentPage !== data?.page ||
+      pageSize !== data?.limit
+    ) {
+      dispatch(
+        getAllBusinessDevelopments({ page: currentPage, limit: pageSize })
+      );
     }
-  }, [dispatch, businessDevelopments]);
+  }, [
+    dispatch,
+    businessDevelopments,
+    currentPage,
+    pageSize,
+    data?.page,
+    data?.limit,
+  ]);
 
   useEffect(() => {
     fetchAllBusinessDevelopments();
@@ -32,7 +49,7 @@ const BusinessDevelopmentMaster = () => {
   useEffect(() => {
     if (status == "pending") {
       setLoading(true);
-    } else if (status == "success" && data?.status == "success") {
+    } else if (status == "success") {
       setBusinessDevelopments(data?.businessDevelopments);
       setLoading(false);
       dispatch(
@@ -51,7 +68,7 @@ const BusinessDevelopmentMaster = () => {
         businessDevelopmentActions.clearGetAllBusinessDevelopmentsError()
       );
     }
-  }, [dispatch, status]);
+  }, [dispatch, status, data?.businessDevelopments, error]);
   return (
     <>
       <ListHeader
@@ -62,6 +79,9 @@ const BusinessDevelopmentMaster = () => {
         <BusinessDevelopmentTableView
           loading={loading}
           data={businessDevelopments}
+          setCurrentPage={setCurrentPage}
+          setPageSize={setPageSize}
+          total={data?.totalCount}
         />
       ) : (
         <BusinessDevelopmentCardView />

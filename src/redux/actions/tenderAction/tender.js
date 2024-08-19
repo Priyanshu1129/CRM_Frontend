@@ -1,17 +1,32 @@
 import axios from "axios";
 import { tenderActions } from "@/redux/slices/tenderSlice";
 import { serverURL } from "@/config/config";
+import { mastersConfigActions } from "@/redux/slices/configurationSlice";
 
 const route = `${serverURL}/tender`
 
-export const getAllTenders = () => async (dispatch) => {
+export const getAllTenders = ({ page = null, limit = null, config = false }) => async (dispatch) => {
     try {
-        dispatch(tenderActions.getAllTendersRequest());
-        console.log('getAllTenders');
-        const response = await axios.get(`${route}/`);
-
+        if (config) {
+            dispatch(mastersConfigActions.getConfigTendersRequest());
+        } else {
+            dispatch(tenderActions.getAllTendersRequest());
+        }
+        console.log('getAllTenders-config', config);
+        const response = await axios.get(`${route}/`, {
+            params: {
+                limit,
+                page,
+                config
+            }
+        });
         console.log('get-all-tender-res-data', response.data);
-        dispatch(tenderActions.getAllTendersSuccess(response.data.data));
+
+        if (config) {
+            dispatch(mastersConfigActions.getConfigTendersSuccess(response.data.data));
+        } else {
+            dispatch(tenderActions.getAllTendersSuccess(response.data.data));
+        }
     } catch (error) {
         console.log("error", error)
         let errorMessage = "An error occurred";
@@ -22,7 +37,11 @@ export const getAllTenders = () => async (dispatch) => {
         } else {
             errorMessage = error.message || "Unknown error";
         }
-        dispatch(tenderActions.getAllTendersFailure(errorMessage));
+        if (config) {
+            dispatch(mastersConfigActions.getConfigTendersFailure());
+        } else {
+            dispatch(tenderActions.getAllTendersFailure(errorMessage));
+        }
     }
 };
 

@@ -1,17 +1,27 @@
 import axios from "axios";
 import { contactActions } from "@/redux/slices/contactSlice";
 import { serverURL } from "@/config/config";
-
+import { mastersConfigActions } from "@/redux/slices/configurationSlice";
 const route = `${serverURL}/contact`
 
-export const getAllContacts = () => async (dispatch) => {
+export const getAllContacts = ({ page = null, limit = null, config = false }) => async (dispatch) => {
     try {
-        dispatch(contactActions.getAllContactsRequest());
-        console.log('getAllContacts');
-        const response = await axios.get(`${route}/`);
+        if (config) {
+            dispatch(mastersConfigActions.getConfigContactsRequest());
+        } else {
+            dispatch(contactActions.getAllContactsRequest());
+        }
+        console.log('getAllContactsRequest Config', config);
+        const response = await axios.get(`${route}/`, {
+            params: { limit, page, config }
+        });
 
         console.log('get-all-contact-res-data', response.data);
-        dispatch(contactActions.getAllContactsSuccess(response.data.data));
+        if (config) {
+            dispatch(mastersConfigActions.getConfigContactsSuccess(response.data.data));
+        } else {
+            dispatch(contactActions.getAllContactsSuccess(response.data.data));
+        }
     } catch (error) {
         console.log("error", error)
         let errorMessage = "An error occurred";
@@ -22,7 +32,11 @@ export const getAllContacts = () => async (dispatch) => {
         } else {
             errorMessage = error.message || "Unknown error";
         }
-        dispatch(contactActions.getAllContactsFailure(errorMessage));
+        if(config){
+            dispatch(mastersConfigActions.getConfigContactsFailure());
+        }else{
+            dispatch(contactActions.getAllContactsFailure(errorMessage));
+        }
     }
 };
 

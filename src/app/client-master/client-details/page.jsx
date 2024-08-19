@@ -27,13 +27,12 @@ import {
   TerritorySelector,
   StaffSelector,
   ImageUpload,
-  BulkUploadModal,
 } from "@/components";
 import { clientActions } from "@/redux/slices/clientSlice";
 import { clientFormRules } from "@/utilities/formValidationRules";
 import { createClient } from "@/redux/actions/clientAction";
 
-const AddClient = () => {
+const ClientDetails = () => {
   const [loading, setLoading] = useState(false);
   const [uploadModal, setUploadModal] = useState(false);
   const [form] = Form.useForm();
@@ -83,11 +82,7 @@ const AddClient = () => {
 
   return (
     <>
-      <FormHeader
-        fileUpload={true}
-        setUploadModal={setUploadModal}
-        backButtonText={"Return"}
-      />
+      <FormHeader backButtonText={""} />
       <Space
         direction="vertical"
         style={{
@@ -113,7 +108,7 @@ const AddClient = () => {
         >
           <Row gutter={24}>
             <Col span={24}>
-              <Form.Item label="Upload Client Profile">
+              <Form.Item label="Upload Client Profile" name="name">
                 <ImageUpload />
               </Form.Item>
             </Col>
@@ -277,12 +272,8 @@ const AddClient = () => {
             </Col>
           </Row>
         </Form>
-        <BulkUploadModal
-          setUploadModal={setUploadModal}
-          uploadModal={uploadModal}
-        />
       </Space>
     </>
   );
 };
-export default AddClient;
+export default ClientDetails;

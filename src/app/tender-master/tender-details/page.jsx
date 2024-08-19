@@ -19,16 +19,14 @@ import {
   ClientSelector,
   OpportunitySelector,
   StaffSelector,
-  FormHeader,
-  BulkUploadModal,
 } from "@/components";
+import { FormHeader } from "@/components";
 import { tenderActions } from "@/redux/slices/tenderSlice";
 import { createTender } from "@/redux/actions/tenderAction";
 import { tenderFormRules } from "@/utilities/formValidationRules";
 
 const AddTender = () => {
   const [loading, setLoading] = useState(false);
-  const [uploadModal, setUploadModal] = useState(false);
   const [form] = Form.useForm();
   const screens = Grid.useBreakpoint();
   const dispatch = useDispatch();
@@ -78,11 +76,7 @@ const AddTender = () => {
 
   return (
     <>
-      <FormHeader
-        fileUpload={true}
-        setUploadModal={setUploadModal}
-        backButtonText={"Return"}
-      />
+      <FormHeader backButtonText={"Return"} />
       <Space
         direction="vertical"
         style={{
@@ -275,10 +269,6 @@ const AddTender = () => {
             </Col>
           </Row>
         </Form>
-        <BulkUploadModal
-          setUploadModal={setUploadModal}
-          uploadModal={uploadModal}
-        />
       </Space>
     </>
   );

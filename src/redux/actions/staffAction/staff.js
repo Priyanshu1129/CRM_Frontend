@@ -1,17 +1,27 @@
 import axios from "axios";
 import { staffActions } from "@/redux/slices/staffSlice"
 import { serverURL } from "@/config/config";
-
+import { mastersConfigActions } from "@/redux/slices/configurationSlice";
 const route = `${serverURL}/team/staff`
 
-export const getAllStaffs = () => async (dispatch) => {
+export const getAllStaffs = ({ page = null, limit = null, config = false }) => async (dispatch) => {
     try {
-        dispatch(staffActions.getAllStaffsRequest());
-        console.log('getAllStaffs');
-        const response = await axios.get(`${route}/`);
+        if (config) {
+            dispatch(mastersConfigActions.getConfigStaffsRequest());
+        } else {
+            dispatch(staffActions.getAllStaffsRequest());
+        }
+        console.log('getAllStaffs config', config);
+        const response = await axios.get(`${route}/`, {
+            params: { limit, page, config }
+        });
 
         console.log('get-all-staff-res-data', response.data);
-        dispatch(staffActions.getAllStaffsSuccess(response.data));
+        if (config) {
+            dispatch(mastersConfigActions.getConfigStaffsSuccess(response.data.data))
+        } else {
+            dispatch(staffActions.getAllStaffsSuccess(response.data.data));
+        }
     } catch (error) {
         console.log("error", error)
         let errorMessage = "An error occurred";
@@ -22,7 +32,11 @@ export const getAllStaffs = () => async (dispatch) => {
         } else {
             errorMessage = error.message || "Unknown error";
         }
-        dispatch(staffActions.getAllStaffsFailure(errorMessage));
+        if (config) {
+            dispatch(mastersConfigActions.getConfigStaffsFailure());
+        } else {
+            dispatch(staffActions.getAllStaffsFailure(errorMessage));
+        }
     }
 };
 

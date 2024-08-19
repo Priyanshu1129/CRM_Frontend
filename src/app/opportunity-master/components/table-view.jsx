@@ -1,10 +1,24 @@
 import React from "react";
 import { Table } from "@/components";
 import { columns } from "./columns";
-export const OpportunitiesTableView = ({ data, loading }) => {
+export const OpportunitiesTableView = ({
+  setCurrentPage,
+  setPageSize,
+  loading,
+  data,
+  total,
+}) => {
   return (
     <>
-      <Table data={data} loading={loading} columns={columns} />
+      <Table
+        setCurrentPage={setCurrentPage}
+        setPageSize={setPageSize}
+        loading={loading}
+        data={data}
+        columns={columns}
+        total={total}
+        entityName="Opportunities"
+      />
     </>
   );
 };

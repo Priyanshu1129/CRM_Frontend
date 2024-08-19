@@ -1,17 +1,27 @@
 import axios from "axios";
 import { opportunityActions } from "@/redux/slices/opportunitySlice"
 import { serverURL } from "@/config/config";
-
+import { mastersConfigActions } from "@/redux/slices/configurationSlice";
 const route = `${serverURL}/opportunity`
 
-export const getAllOpportunities = () => async (dispatch) => {
+export const getAllOpportunities = ({ page = null, limit = null, config = false }) => async (dispatch) => {
     try {
-        dispatch(opportunityActions.getAllOpportunitiesRequest());
-        console.log('getAllOpportunities');
-        const response = await axios.get(`${route}/`);
+        if (config) {
+            dispatch(mastersConfigActions.getConfigOpportunitiesRequest());
+        } else {
+            dispatch(opportunityActions.getAllOpportunitiesRequest());
+        }
+        console.log('getAllOpportunities config', config);
+        const response = await axios.get(`${route}/`, {
+            params: { limit, page, config }
+        });
 
         console.log('get-all-opportunity-res-data', response.data);
-        dispatch(opportunityActions.getAllOpportunitiesSuccess(response.data));
+        if (config) {
+            dispatch(mastersConfigActions.getConfigOpportunitiesSuccess(response.data.data))
+        } else {
+            dispatch(opportunityActions.getAllOpportunitiesSuccess(response.data.data));
+        }
     } catch (error) {
         console.log("error", error)
         let errorMessage = "An error occurred";
@@ -22,7 +32,11 @@ export const getAllOpportunities = () => async (dispatch) => {
         } else {
             errorMessage = error.message || "Unknown error";
         }
-        dispatch(opportunityActions.getAllOpportunitiesFailure(errorMessage));
+        if (config) {
+            dispatch(mastersConfigActions.getConfigOpportunitiesFailure());
+        } else {
+            dispatch(opportunityActions.getAllOpportunitiesFailure(errorMessage));
+        }
     }
 };
 

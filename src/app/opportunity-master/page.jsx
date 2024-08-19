@@ -10,17 +10,23 @@ import { getAllOpportunities } from "@/redux/actions/opportunityAction";
 const OpportunityMaster = () => {
   const [view, setView] = useState("table");
   const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(12);
   const dispatch = useDispatch();
   const { status, data, error } = useSelector(
     (state) => state.opportunity.getAllOpportunities
   );
-  const [opportunities, setOpportunities] = useState(data?.data);
+  const [opportunities, setOpportunities] = useState(data?.opportunities);
 
   const fetchAllOpportunities = useCallback(() => {
-    if (!opportunities) {
-      dispatch(getAllOpportunities());
+    if (
+      !opportunities ||
+      currentPage !== data?.page ||
+      pageSize !== data?.limit
+    ) {
+      dispatch(getAllOpportunities({ page: currentPage, limit: pageSize }));
     }
-  }, [dispatch, opportunities]);
+  }, [dispatch, opportunities, currentPage, pageSize, data?.page, data?.limit]);
 
   useEffect(() => {
     fetchAllOpportunities();
@@ -29,7 +35,7 @@ const OpportunityMaster = () => {
   useEffect(() => {
     if (status == "pending") {
       setLoading(true);
-    } else if (status == "success" && data?.status == "success") {
+    } else if (status == "success") {
       setOpportunities(data?.opportunities);
       setLoading(false);
       dispatch(opportunityActions.clearGetAllOpportunitiesStatus());
@@ -42,7 +48,7 @@ const OpportunityMaster = () => {
       dispatch(opportunityActions.clearGetAllOpportunitiesStatus());
       dispatch(opportunityActions.clearGetAllOpportunitiesError());
     }
-  }, [dispatch, status]);
+  }, [dispatch, status, data?.opportunities, error]);
   return (
     <>
       <ListHeader
@@ -50,7 +56,13 @@ const OpportunityMaster = () => {
         buttonText={"Add new opportunity"}
       />
       {view == "table" ? (
-        <OpportunitiesTableView data={opportunities} loading={loading} />
+        <OpportunitiesTableView
+          data={opportunities}
+          setCurrentPage={setCurrentPage}
+          setPageSize={setPageSize}
+          loading={loading}
+          total={data?.totalCount}
+        />
       ) : (
         <OpportunitiesCardView />
       )}

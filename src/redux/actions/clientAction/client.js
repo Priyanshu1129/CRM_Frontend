@@ -1,20 +1,28 @@
 import axios from "axios";
 import { clientActions } from "@/redux/slices/clientSlice";
 import { serverURL } from "@/config/config";
-
+import { mastersConfigActions } from "@/redux/slices/configurationSlice";
 
 const route = `${serverURL}/client`
 
-export const getAllClients = ({ limit, page }) => async (dispatch) => {
+export const getAllClients = ({ page = null, limit = null, config = false }) => async (dispatch) => {
     try {
-        dispatch(clientActions.getAllClientsRequest());
-        console.log('getAllClients-request');
+        if (config) {
+            dispatch(mastersConfigActions.getConfigClientsRequest());
+        } else {
+            dispatch(clientActions.getAllClientsRequest());
+        }
+        console.log('getAllClients-request-config', config);
         const response = await axios.get(`${route}/`, {
-            params: { limit, page }
+            params: { limit, page, config }
         });
 
         console.log('get-all-client-res-data', response.data);
-        dispatch(clientActions.getAllClientsSuccess(response.data.data));
+        if (config) {
+            dispatch(mastersConfigActions.getConfigClientsSuccess(response.data.data));
+        } else {
+            dispatch(clientActions.getAllClientsSuccess(response.data.data));
+        }
     } catch (error) {
         console.log("error", error)
         let errorMessage = "An error occurred";
@@ -25,7 +33,11 @@ export const getAllClients = ({ limit, page }) => async (dispatch) => {
         } else {
             errorMessage = error.message || "Unknown error";
         }
-        dispatch(clientActions.getAllClientsFailure(errorMessage));
+        if (config) {
+            dispatch(mastersConfigActions.getConfigClientsFailure());
+        } else {
+            dispatch(clientActions.getAllClientsFailure(errorMessage));
+        }
     }
 };
 

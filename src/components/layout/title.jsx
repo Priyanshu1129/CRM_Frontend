@@ -24,12 +24,14 @@ export const Title = ({
         gap: "18px",
         height: "80px",
       }}
+      className="demo-logo-vertical"
     >
       <Space
         style={{
           display: "flex",
           alignItems: "center",
           fontSize: "inherit",
+          gap: 6,
           // ...wrapperStyles,
         }}
       >
@@ -37,7 +39,7 @@ export const Title = ({
           style={{
             height: "24px",
             width: "24px",
-            marginRight: "6px",
+            marginRight: "0px",
             color: token.colorPrimary,
           }}
         >
@@ -58,6 +60,7 @@ export const Title = ({
             style={{
               fontSize: "inherit",
               marginBottom: 0,
+              color: "#fff",
               fontWeight: 700,
             }}
           >

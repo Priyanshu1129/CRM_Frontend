@@ -17,7 +17,8 @@ import {
     salesSubStageReducer,
     solutionReducer,
     subSolutionReducer,
-    territoryReducer
+    territoryReducer,
+    mastersConfigReducer
 } from './slices/configurationSlice';
 import { staffReducer } from './slices/staffSlice';
 import { teamReducer } from './slices/teamSlice';
@@ -26,6 +27,7 @@ import { businessDevelopmentReducer } from './slices/businessDevelopmentSlice';
 import { tenderReducer, stageReducer } from './slices/tenderSlice';
 import { registrationReducer, registrationStatusReducer } from './slices/registrationSlice';
 
+
 const store = configureStore({
     reducer: {
         // auth: authReducer,
@@ -33,6 +35,7 @@ const store = configureStore({
         classification: classificationReducer,
         incorporationType: incorporationTypeReducer,
         relationshipStatus: relationshipStatusReducer,
+        mastersConfig: mastersConfigReducer,
         industry: industryReducer,
         subIndustry: subIndustryReducer,
         salesStage: salesStageReducer,

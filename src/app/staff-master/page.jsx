@@ -10,17 +10,19 @@ import { getAllStaffs } from "@/redux/actions/staffAction";
 const StaffMaster = () => {
   const [view, setView] = useState("table");
   const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(12);
   const dispatch = useDispatch();
   const { status, data, error } = useSelector(
     (state) => state.staff.getAllStaffs
   );
-  const [staffs, setStaffs] = useState(data?.data);
+  const [staffs, setStaffs] = useState(data?.staffs);
 
   const fetchAllStaffs = useCallback(() => {
-    if (!staffs) {
-      dispatch(getAllStaffs());
+    if (!staffs || currentPage !== data?.page || pageSize !== data?.limit) {
+      dispatch(getAllStaffs({ page: currentPage, limit: pageSize }));
     }
-  }, [dispatch, staffs]);
+  }, [dispatch, staffs, currentPage, pageSize, data?.page, data?.limit]);
 
   useEffect(() => {
     fetchAllStaffs();
@@ -29,7 +31,7 @@ const StaffMaster = () => {
   useEffect(() => {
     if (status == "pending") {
       setLoading(true);
-    } else if (status == "success" && data?.status == "success") {
+    } else if (status == "success") {
       setStaffs(data?.staffs);
       setLoading(false);
       dispatch(staffActions.clearGetAllStaffsStatus());
@@ -42,7 +44,7 @@ const StaffMaster = () => {
       dispatch(staffActions.clearGetAllStaffsStatus());
       dispatch(staffActions.clearGetAllStaffsError());
     }
-  }, [dispatch, status]);
+  }, [dispatch, status, data?.staffs, error]);
   return (
     <>
       <ListHeader
@@ -50,7 +52,13 @@ const StaffMaster = () => {
         buttonText={"Add new staff"}
       />
       {view == "table" ? (
-        <StaffsTableView data={staffs} loading={loading} />
+        <StaffsTableView
+          data={staffs}
+          setCurrentPage={setCurrentPage}
+          setPageSize={setPageSize}
+          loading={loading}
+          total={data?.totalCount}
+        />
       ) : (
         <StaffsCardView />
       )}

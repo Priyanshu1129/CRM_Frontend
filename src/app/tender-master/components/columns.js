@@ -1,5 +1,6 @@
 import { Button, Space } from "antd";
 import { EyeOutlined, DeleteOutlined } from "@ant-design/icons";
+import { TableActions } from "@/components";
 
 export const columns = [
     {
@@ -162,10 +163,7 @@ export const columns = [
         fixed: "right",
         width: 120,
         render: () => (
-            <Space>
-                <Button size="small" href="" icon={<EyeOutlined />} />
-                <Button size="small" href="" danger icon={<DeleteOutlined />} />
-            </Space>
+                <TableActions showUrl={"/tender-master/tender-details"}/>
         ),
     },
 ];

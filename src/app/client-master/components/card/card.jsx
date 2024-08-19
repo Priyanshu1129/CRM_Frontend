@@ -1,14 +1,14 @@
 import React from "react";
 import { Text, CustomAvatar } from "@/components";
 import { DeleteOutlined, EyeOutlined, MoreOutlined } from "@ant-design/icons";
+import { useRouter } from "next/navigation";
 import { Button, Card, Dropdown, Space, Tooltip } from "antd";
 import { ClientCardSkeleton } from "./skeleton";
 import { AvatarGroup } from "./avatar-group";
 
 export const ClientCard = ({ client }) => {
   // const { edit } = useNavigation();
-  // const { mutate } = useDelete();
-
+  const router = useRouter();
   if (!client) return <ClientCardSkeleton />;
 
   const relatedContactAvatars = client?.contacts?.map((contact) => {
@@ -87,7 +87,7 @@ export const ClientCard = ({ client }) => {
                 // @ts-expect-error Ant Design Icon's v5.0.1 has an issue with @types/react@^18.2.66
                 icon: <EyeOutlined />,
                 onClick: () => {
-                  // edit("clients", client.id);
+                  router.push("/client-master/client-details");
                 },
               },
               {

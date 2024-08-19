@@ -16,7 +16,7 @@ const ClientMaster = () => {
   const { status, data, error } = useSelector(
     (state) => state.client.getAllClients
   );
-  const [clients, setClients] = useState(data?.clientsData);
+  const [clients, setClients] = useState(data?.clients);
 
   const fetchAllClients = useCallback(() => {
     if (!clients || currentPage !== data?.page || pageSize !== data?.limit) {
@@ -56,6 +56,7 @@ const ClientMaster = () => {
         <ClientsTableView />
       ) : (
         <ClientsCardView
+          totalClients={data?.totalCount}
           setCurrentPage={setCurrentPage}
           setPageSize={setPageSize}
           data={clients}

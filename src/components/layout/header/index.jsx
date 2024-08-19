@@ -4,13 +4,13 @@ import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import { Notifications, CurrentUser } from "@/components";
 
 const { Header: AntHeader } = Layout;
-const Header = ({ collapsed, setCollapsed }) => {
+const Header = () => {
   const {
     token: { colorBgContainer, colorBgElevated },
   } = theme.useToken();
 
   const headerStyles = {
-    backgroundColor: colorBgElevated,
+    backgroundColor: colorBgContainer,
     display: "flex",
     justifyContent: "flex-end",
     alignItems: "center",
@@ -23,23 +23,7 @@ const Header = ({ collapsed, setCollapsed }) => {
 
   return (
     <>
-      <AntHeader
-        // style={{
-        //   padding: 0,
-        //   background: colorBgContainer,
-        // }}
-        style={headerStyles}
-      >
-        {/* <Button
-          type="text"
-          icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-          onClick={() => setCollapsed(!collapsed)}
-          style={{
-            fontSize: "16px",
-            width: 64,
-            height: 64,
-          }}
-        /> */}
+      <AntHeader style={headerStyles}>
         <Space align="center" size="middle">
           <Notifications />
           <CurrentUser />
