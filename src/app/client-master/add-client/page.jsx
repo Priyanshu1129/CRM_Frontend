@@ -167,7 +167,7 @@ const AddClient = () => {
             <Col span={colSpan}>
               <Form.Item
                 label="Client Status"
-                name="clientStatus"
+                name="listedCompany"
                 rules={clientFormRules.clientStatus}
               >
                 <Select>
