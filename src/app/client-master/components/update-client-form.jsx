@@ -25,6 +25,7 @@ import {
   TerritorySelector,
   StaffSelector,
   ImageUpload,
+  ContactSelector,
 } from "@/components";
 import { clientActions } from "@/redux/slices/clientSlice";
 import { clientFormRules } from "@/utilities/formValidationRules";
@@ -226,10 +227,11 @@ export const UpdateClientForm = ({ client }) => {
             />
           </Col>
           <Col span={colSpan}>
-            <StaffSelector
+            <ContactSelector
               label="Related Contacts"
               name="relatedContacts"
               rules={clientFormRules.relatedContacts}
+              mode="multiple"
             />
           </Col>
           <Col span={colSpan}>
