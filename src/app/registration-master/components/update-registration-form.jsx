@@ -18,11 +18,13 @@ import {
   StaffSelector,
   ContactSelector,
   InputNotes,
-  RegistrationStatusSelector,
 } from "@/components";
+
+import { RegistrationStatusSelector } from "../enums";
 import { registrationFormRules } from "@/utilities/formValidationRules";
 import { registrationActions } from "@/redux/slices/registrationSlice";
 import { updateRegistration } from "@/redux/actions/registrationAction";
+import moment from "moment";
 
 export const UpdateRegistrationForm = ({ registration }) => {
   const [loading, setLoading] = useState(false);

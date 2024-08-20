@@ -3,7 +3,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Grid, notification, Space, theme } from "antd";
 import { registrationActions } from "@/redux/slices/registrationSlice";
-import { UpdateRegistrationForm } from "../../components/update-registration-form";
+import { UpdateRegistrationForm } from "../../components/update-registration-form.jsx";
 import { getRegistration } from "@/redux/actions/registrationAction";
 import { useParams } from "next/navigation";
 import { FullScreenLoading, FormHeader } from "@/components";
