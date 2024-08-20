@@ -138,7 +138,7 @@ export const columns = [
     },
     {
         title: "Stage",
-        dataIndex: ["stage","label"],
+        dataIndex: ["stage", "label"],
         key: "stage",
         render: (text) => text || 'N/A',
         width: 150,
@@ -162,8 +162,8 @@ export const columns = [
         key: "operation",
         fixed: "right",
         width: 120,
-        render: () => (
-                <TableActions showUrl={"/tender-master/tender-details"}/>
+        render: (_, record) => (
+            <TableActions showUrl={`/tender-master/tender-details/${record._id}`} />
         ),
     },
 ];

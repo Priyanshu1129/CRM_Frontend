@@ -2,58 +2,59 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Grid, notification, Space, theme } from "antd";
-import { clientActions } from "@/redux/slices/clientSlice";
-import { UpdateClientForm } from "../../components/update-form";
-import { getClient } from "@/redux/actions/clientAction";
+import { contactActions } from "@/redux/slices/contactSlice";
+import { UpdateContactForm } from "../../components/update-form";
+import { getContact } from "@/redux/actions/contactAction";
 import { useParams } from "next/navigation";
 import { FullScreenLoading, FormHeader } from "@/components";
 
-const ClientDetails = () => {
+const ContactDetails = () => {
   const [loading, setLoading] = useState(false);
   const screens = Grid.useBreakpoint();
   const dispatch = useDispatch();
   const { status, error, data } = useSelector(
-    (state) => state.client.getClient
+    (state) => state.contact.getContact
   );
   const { id } = useParams();
 
-  const [client, setClient] = useState(data?.data);
+  const [contact, setContact] = useState(data?.data);
 
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
-  const fetchClientDetails = useCallback(() => {
-    if ((!client && id) || id !== String(client?._id)) {
-      dispatch(getClient(id));
+  const fetchContactDetails = useCallback(() => {
+    if ((!contact && id) || id !== String(contact?._id)) {
+      dispatch(getContact(id));
     }
-  }, [dispatch, id, client]);
+  }, [dispatch, id, contact]);
 
   useEffect(() => {
-    fetchClientDetails();
-  }, [fetchClientDetails]);
+    fetchContactDetails();
+  }, [fetchContactDetails]);
 
   useEffect(() => {
     if (status === "pending") {
       setLoading(true);
     } else if (status === "success") {
-      setClient(data?.data);
+      setContact(data?.data);
       setLoading(false);
-      dispatch(clientActions.clearGetClientStatus());
+      dispatch(contactActions.clearGetContactStatus());
     } else if (status === "failed") {
       setLoading(false);
       notification.error({
         message: "Error",
-        description: error || "Failed to fetch client.",
+        description: error || "Failed to fetch contact.",
       });
-      dispatch(clientActions.clearGetClientStatus());
-      dispatch(clientActions.clearGetClientError());
+      dispatch(contactActions.clearGetContactStatus());
+      dispatch(contactActions.clearGetContactError());
     }
   }, [status, error, data?.data, dispatch]);
+  console.log(data?.data);
 
   return (
     <>
-      <FormHeader backButtonText="Back to Clients" />
+      <FormHeader backButtonText="Back to Contacts" />
       <Space
         direction="vertical"
         style={{
@@ -64,9 +65,13 @@ const ClientDetails = () => {
           padding: screens.xs ? "16px" : "32px",
         }}
       >
-        {loading ? <FullScreenLoading /> : <UpdateClientForm client={client} />}
+        {loading ? (
+          <FullScreenLoading />
+        ) : (
+          <UpdateContactForm contact={contact} />
+        )}
       </Space>
     </>
   );
 };
-export default ClientDetails;
+export default ContactDetails;

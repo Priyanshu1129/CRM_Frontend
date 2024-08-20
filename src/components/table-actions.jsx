@@ -9,7 +9,6 @@ export const TableActions = ({ showUrl, deleteUrl }) => {
       <Space>
         <Button
           size="small"
-          href=""
           onClick={() => router.push(showUrl)}
           icon={<EyeOutlined />}
         />

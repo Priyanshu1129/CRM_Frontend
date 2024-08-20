@@ -121,8 +121,8 @@ export const columns = [
     key: "operation",
     fixed: "right",
     width: 100,
-    render: () => (
-      <TableActions showUrl={"/opportunity-master/opportunity-details"} />
+    render: (_, record) => (
+      <TableActions showUrl={`/opportunity-master/opportunity-details/${record._id}`} />
     ),
   },
 ];

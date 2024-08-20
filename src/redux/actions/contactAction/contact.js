@@ -40,18 +40,18 @@ export const getAllContacts = ({ page = null, limit = null, config = false }) =>
     }
 };
 
-export const getContact = (contactId, token) => async (dispatch) => {
+export const getContact = (contactId) => async (dispatch) => {
     try {
-        console.log("get-contact-data", contactId, token);
+        console.log("get-contact-data", contactId);
         dispatch(contactActions.getContactRequest());
 
-        const data = await axios.get(`${route}/details/${contactId}`, {
-            headers: {
-                "authorization": token
-            }
+        const response = await axios.get(`${route}/${contactId}`, {
+            // headers: {
+            //     "authorization": token
+            // }
         });
-        console.log('get-contact-details-res-data', data.data);
-        dispatch(contactActions.getContactSuccess(data.data));
+        console.log('get-contact-details-res-data', response.data);
+        dispatch(contactActions.getContactSuccess(response.data));
     } catch (error) {
         console.log("error", error)
         let errorMessage = "An error occurred";

@@ -97,8 +97,8 @@ export const columns = [
     key: "operation",
     fixed: "right",
     width: 100,
-    render: () => (
-      <TableActions showUrl={"business-development-master/business-development-details"} />
+    render: (_, record) => (
+      <TableActions showUrl={`/business-development-master/business-development-details/${record._id}`} />
     ),
   },
 ];

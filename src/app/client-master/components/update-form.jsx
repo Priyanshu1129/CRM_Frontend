@@ -30,7 +30,7 @@ import { clientActions } from "@/redux/slices/clientSlice";
 import { clientFormRules } from "@/utilities/formValidationRules";
 import { updateClient } from "@/redux/actions/clientAction";
 
-export const UpdateForm = ({ client }) => {
+export const UpdateClientForm = ({ client }) => {
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
   const screens = Grid.useBreakpoint();
