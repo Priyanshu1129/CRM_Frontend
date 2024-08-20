@@ -194,15 +194,6 @@ const AddOpportunity = () => {
                 <Input type="number" />
               </Form.Item>
             </Col>
-            <Col span={8}>
-              <Form.Item
-                name="address"
-                label="Address"
-                rules={opportunityFormRules.address}
-              >
-                <Input />
-              </Form.Item>
-            </Col>
             <Col span={24}>
               <RevenueInput />
             </Col>

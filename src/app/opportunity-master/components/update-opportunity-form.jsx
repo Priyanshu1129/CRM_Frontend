@@ -45,7 +45,7 @@ export const UpdateOpportunityForm = ({ opportunity }) => {
   useEffect(() => {
     if (opportunity) {
       form.setFieldsValue({
-        clientName: opportunity.client,
+        client: opportunity.client,
         partneredWith: opportunity.partneredWith,
         projectName: opportunity.projectName,
         associatedTender: opportunity.associatedTender,
@@ -57,7 +57,6 @@ export const UpdateOpportunityForm = ({ opportunity }) => {
         stageClarification: opportunity.stageClarification,
         salesTopLine: opportunity.salesTopLine,
         offsets: opportunity.offsets,
-        address: opportunity.address,
       });
     }
   }, [opportunity, form]);
@@ -106,7 +105,7 @@ export const UpdateOpportunityForm = ({ opportunity }) => {
         <Row gutter={24}>
           <Col span={8}>
             <ClientSelector
-              name="clientName"
+              name="client"
               label="Client Name"
               rules={opportunityFormRules.clientName}
             />
@@ -196,15 +195,6 @@ export const UpdateOpportunityForm = ({ opportunity }) => {
               rules={opportunityFormRules.offsets}
             >
               <Input type="number" />
-            </Form.Item>
-          </Col>
-          <Col span={8}>
-            <Form.Item
-              name="address"
-              label="Address"
-              rules={opportunityFormRules.address}
-            >
-              <Input />
             </Form.Item>
           </Col>
           {/* <Col span={24}>
