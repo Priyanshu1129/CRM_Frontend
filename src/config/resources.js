@@ -55,14 +55,14 @@ export const resources = [
         label: "Opportunity Master",
         icon: <FileOutlined />,
     },
-    {
-        key: "team-master",
-        label: "Team Master",
-        icon: <UsergroupAddOutlined />,
-    },
+    // {
+    //     key: "team-master",
+    //     label: "Team Master",
+    //     icon: <UsergroupAddOutlined />,
+    // },
     {
         key: "staff-master",
-        label: "Staff Master",
+        label: "Team Master",
         icon: <UserAddOutlined />,
     },
     {
