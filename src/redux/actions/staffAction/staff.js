@@ -40,18 +40,18 @@ export const getAllStaffs = ({ page = null, limit = null, config = false }) => a
     }
 };
 
-export const getStaff = (staffId, token) => async (dispatch) => {
+export const getStaff = (staffId) => async (dispatch) => {
     try {
-        console.log("get-staff-data", staffId, token);
+        console.log("get-staff-data-by id", staffId);
         dispatch(staffActions.getStaffRequest());
 
-        const data = await axios.get(`${route}/details/${staffId}`, {
-            headers: {
-                "authorization": token
-            }
+        const response = await axios.get(`${route}/${staffId}`, {
+            // headers: {
+            //     "authorization": token
+            // }
         });
-        console.log('get-staff-details-res-data', data.data);
-        dispatch(staffActions.getStaffSuccess(data.data));
+        console.log('get-staff-details-res-data', response.data);
+        dispatch(staffActions.getStaffSuccess(response.data));
     } catch (error) {
         console.log("error", error)
         let errorMessage = "An error occurred";

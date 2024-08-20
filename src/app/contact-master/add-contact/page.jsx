@@ -191,9 +191,9 @@ const AddContact = () => {
             </Col>
             <Col span={8}>
               <ArcheTypeSelector
-                name="archType"
-                label="Arch Type"
-                rules={contactFormRules.archType}
+                name="archeType"
+                label="Arche Type"
+                rules={contactFormRules.archeType}
               />
             </Col>
             <Col span={8}>

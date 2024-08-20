@@ -23,12 +23,12 @@ import {
   ClientSelector,
   TenderSelector,
 } from "@/components";
-import { RevenueInput } from "@/components/revenueInput";
+import { RevenueInput } from "./revenueInput";
 import { opportunityFormRules } from "@/utilities/formValidationRules";
 import { updateOpportunity } from "@/redux/actions/opportunityAction";
 import { opportunityActions } from "@/redux/slices/opportunitySlice";
 
-const UpdateOpportunityForm = ({ opportunity }) => {
+export const UpdateOpportunityForm = ({ opportunity }) => {
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
   const screens = Grid.useBreakpoint();
@@ -41,6 +41,26 @@ const UpdateOpportunityForm = ({ opportunity }) => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
+  useEffect(() => {
+    if (opportunity) {
+      form.setFieldsValue({
+        clientName: opportunity.clientName,
+        partneredWith: opportunity.partneredWith,
+        projectName: opportunity.projectName,
+        associatedTender: opportunity.associatedTender,
+        solution: opportunity.solution,
+        subSolution: opportunity.subSolution,
+        salesChamp: opportunity.salesChamp,
+        salesStage: opportunity.salesStage,
+        salesSubStage: opportunity.salesSubStage,
+        stageClarification: opportunity.stageClarification,
+        salesTopLine: opportunity.salesTopLine,
+        offsets: opportunity.offsets,
+        address: opportunity.address,
+      });
+    }
+  }, [opportunity, form]);
 
   useEffect(() => {
     if (status === "pending") {
@@ -67,8 +87,6 @@ const UpdateOpportunityForm = ({ opportunity }) => {
     setLoading(true);
     const updatedValues = {
       ...values,
-      entryDate: opportunity.entryDate, // Preserve original entry date
-      enteredBy: opportunity.enteredBy, // Preserve original entered by
     };
     dispatch(updateOpportunity(opportunity._id, updatedValues));
   };
@@ -84,28 +102,7 @@ const UpdateOpportunityForm = ({ opportunity }) => {
         padding: !screens.xs ? "32px" : "16px",
       }}
     >
-      <Form
-        layout="vertical"
-        initialValues={{
-          clientName: opportunity.clientName,
-          partneredWith: opportunity.partneredWith,
-          projectName: opportunity.projectName,
-          associatedTender: opportunity.associatedTender,
-          solution: opportunity.solution,
-          subSolution: opportunity.subSolution,
-          salesChamp: opportunity.salesChamp,
-          salesStage: opportunity.salesStage,
-          salesSubStage: opportunity.salesSubStage,
-          stageClarification: opportunity.stageClarification,
-          salesTopLine: opportunity.salesTopLine,
-          offsets: opportunity.offsets,
-          address: opportunity.address,
-          // Add other fields as necessary
-        }}
-        form={form}
-        size={"default"}
-        onFinish={onFinish}
-      >
+      <Form layout="vertical" form={form} size={"default"} onFinish={onFinish}>
         <Row gutter={24}>
           <Col span={8}>
             <ClientSelector
@@ -210,13 +207,18 @@ const UpdateOpportunityForm = ({ opportunity }) => {
               <Input />
             </Form.Item>
           </Col>
-          <Col span={24}>
+          {/* <Col span={24}>
             <RevenueInput initialValues={opportunity.revenue} />
-          </Col>
+          </Col> */}
           <Col span={24}>
             <Form.Item>
               <Space>
-                <Button type="primary" htmlType="submit" loading={loading}>
+                <Button
+                  disabled
+                  type="primary"
+                  htmlType="submit"
+                  loading={loading}
+                >
                   Update
                 </Button>
                 <Button
@@ -235,5 +237,3 @@ const UpdateOpportunityForm = ({ opportunity }) => {
     </Space>
   );
 };
-
-export default UpdateOpportunityForm;

@@ -32,18 +32,18 @@ export const getAllBusinessDevelopments = ({ page = null, limit = null, config =
     }
 };
 
-export const getBusinessDevelopment = (businessDevelopmentId, token) => async (dispatch) => {
+export const getBusinessDevelopment = (businessDevelopmentId) => async (dispatch) => {
     try {
-        console.log("get-businessDevelopment-data", businessDevelopmentId, token);
+        console.log("get-businessDevelopment-data", businessDevelopmentId);
         dispatch(businessDevelopmentActions.getBusinessDevelopmentRequest());
 
-        const data = await axios.get(`${route}/details/${businessDevelopmentId}`, {
-            headers: {
-                "authorization": token
-            }
+        const response = await axios.get(`${route}/${businessDevelopmentId}`, {
+            // headers: {
+            //     "authorization": token
+            // }
         });
-        console.log('get-businessDevelopment-details-res-data', data.data);
-        dispatch(businessDevelopmentActions.getBusinessDevelopmentSuccess(data.data));
+        console.log('get-businessDevelopment-details-res-data', response.data);
+        dispatch(businessDevelopmentActions.getBusinessDevelopmentSuccess(response.data));
     } catch (error) {
         console.log("error", error)
         let errorMessage = "An error occurred";

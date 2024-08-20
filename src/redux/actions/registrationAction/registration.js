@@ -27,18 +27,18 @@ export const getAllRegistrations = ({ page = null, limit = null, config = false 
     }
 };
 
-export const getRegistration = (registrationId, token) => async (dispatch) => {
+export const getRegistration = (registrationId) => async (dispatch) => {
     try {
-        console.log("get-registration-data", registrationId, token);
+        console.log("get-registration-data", registrationId);
         dispatch(registrationActions.getRegistrationRequest());
 
-        const data = await axios.get(`${route}/details/${registrationId}`, {
-            headers: {
-                "authorization": token
-            }
+        const response = await axios.get(`${route}/${registrationId}`, {
+            // headers: {
+            //     "authorization": token
+            // }
         });
-        console.log('get-registration-details-res-data', data.data);
-        dispatch(registrationActions.getRegistrationSuccess(data.data));
+        console.log('get-registration-details-res-data', response.data);
+        dispatch(registrationActions.getRegistrationSuccess(response.data));
     } catch (error) {
         console.log("error", error)
         let errorMessage = "An error occurred";

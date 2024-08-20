@@ -41,7 +41,7 @@ export const UpdateContactForm = ({ contact }) => {
         mobilePhone: contact.mobilePhone,
         workEmail: contact.workEmail,
         personalEmail: contact.personalEmail,
-        archType: contact.archType,
+        archeType: contact.archeType,
         relationshipDegree: contact.relationshipDegree,
         city: contact.city,
         memorableInfo: contact.memorableInfo,
@@ -74,14 +74,13 @@ export const UpdateContactForm = ({ contact }) => {
   const onFinish = (values) => {
     setLoading(true);
     const updatedValues = {
-      ...contact,
       ...values,
     };
     dispatch(updateContact(updatedValues));
   };
 
   const colSpan = screens.xs ? 24 : screens.sm ? 12 : screens.md && 8;
-  console.log("c", contact);
+
   return (
     <>
       <Form layout="vertical" form={form} size={"default"} onFinish={onFinish}>
@@ -176,9 +175,9 @@ export const UpdateContactForm = ({ contact }) => {
           </Col>
           <Col span={8}>
             <ArcheTypeSelector
-              name="archType"
-              label="Arch Type"
-              rules={contactFormRules.archType}
+              name="archeType"
+              label="Arche Type"
+              rules={contactFormRules.archeType}
             />
           </Col>
           <Col span={8}>

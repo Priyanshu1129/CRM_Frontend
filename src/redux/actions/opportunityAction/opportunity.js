@@ -40,18 +40,18 @@ export const getAllOpportunities = ({ page = null, limit = null, config = false 
     }
 };
 
-export const getOpportunity = (opportunityId, token) => async (dispatch) => {
+export const getOpportunity = (opportunityId) => async (dispatch) => {
     try {
-        console.log("get-opportunity-data", opportunityId, token);
+        console.log("get-opportunity-by-id", opportunityId);
         dispatch(opportunityActions.getOpportunityRequest());
 
-        const data = await axios.get(`${route}/details/${opportunityId}`, {
-            headers: {
-                "authorization": token
-            }
+        const response = await axios.get(`${route}/${opportunityId}`, {
+            // headers: {
+            //     "authorization": token
+            // }
         });
-        console.log('get-opportunity-details-res-data', data.data);
-        dispatch(opportunityActions.getOpportunitySuccess(data.data));
+        console.log('get-opportunity-details-res-data', response.data);
+        dispatch(opportunityActions.getOpportunitySuccess(response.data));
     } catch (error) {
         console.log("error", error)
         let errorMessage = "An error occurred";

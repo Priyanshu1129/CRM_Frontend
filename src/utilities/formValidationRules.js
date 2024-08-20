@@ -114,7 +114,7 @@ export const contactFormRules = {
         { required: true, message: "Personal Email is required" },
         { type: "email", message: "Please enter a valid email address" },
     ],
-    archType: [{ required: true, message: "Arch Type is required" }],
+    archeType: [{ required: true, message: "Arch Type is required" }],
     relationshipDegree: [
         { required: true, message: "Relationship Degree is required" },
     ],

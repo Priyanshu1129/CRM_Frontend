@@ -45,18 +45,18 @@ export const getAllTenders = ({ page = null, limit = null, config = false }) => 
     }
 };
 
-export const getTender = (tenderId, token) => async (dispatch) => {
+export const getTender = (tenderId) => async (dispatch) => {
     try {
-        console.log("get-tender-data", tenderId, token);
+        console.log("get-tender-data", tenderId);
         dispatch(tenderActions.getTenderRequest());
 
-        const data = await axios.get(`${route}/details/${tenderId}`, {
-            headers: {
-                "authorization": token
-            }
+        const response = await axios.get(`${route}/${tenderId}`, {
+            // headers: {
+            //     "authorization": token
+            // }
         });
-        console.log('get-tender-details-res-data', data.data);
-        dispatch(tenderActions.getTenderSuccess(data.data));
+        console.log('get-tender-details-res-data', response.data);
+        dispatch(tenderActions.getTenderSuccess(response.data));
     } catch (error) {
         console.log("error", error)
         let errorMessage = "An error occurred";
@@ -101,7 +101,7 @@ export const createTender = (tenderData) => async (dispatch) => {
     }
 };
 
-export const updateTender = (tenderData, token, tenderId) => async (dispatch) => {
+export const updateTender = (tenderData, tenderId) => async (dispatch) => {
 
     const formData = new FormData();
     Object.entries(tenderData).forEach(([key, value]) => {

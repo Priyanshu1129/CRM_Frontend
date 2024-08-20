@@ -100,7 +100,6 @@ const AddRegistration = () => {
       >
         <Form
           layout="vertical"
-          initialValues={{}}
           form={form}
           onFinish={onFinish}
           size={"default"}

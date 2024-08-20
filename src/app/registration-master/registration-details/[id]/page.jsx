@@ -2,59 +2,58 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Grid, notification, Space, theme } from "antd";
-import { contactActions } from "@/redux/slices/contactSlice";
-import { UpdateContactForm } from "../../components/update-contact-form";
-import { getContact } from "@/redux/actions/contactAction";
+import { registrationActions } from "@/redux/slices/registrationSlice";
+import { UpdateRegistrationForm } from "../../components/update-registration-form";
+import { getRegistration } from "@/redux/actions/registrationAction";
 import { useParams } from "next/navigation";
 import { FullScreenLoading, FormHeader } from "@/components";
 
-const ContactDetails = () => {
+const RegistrationDetails = () => {
   const [loading, setLoading] = useState(false);
   const screens = Grid.useBreakpoint();
   const dispatch = useDispatch();
   const { status, error, data } = useSelector(
-    (state) => state.contact.getContact
+    (state) => state.registration.getRegistration
   );
   const { id } = useParams();
 
-  const [contact, setContact] = useState(data?.data);
+  const [registration, setRegistration] = useState(data?.data);
 
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
-  const fetchContactDetails = useCallback(() => {
-    if ((!contact && id) || id !== String(contact?._id)) {
-      dispatch(getContact(id));
+  const fetchRegistrationDetails = useCallback(() => {
+    if ((!registration && id) || id !== String(registration?._id)) {
+      dispatch(getRegistration(id));
     }
-  }, [dispatch, id, contact]);
+  }, [dispatch, id, registration]);
 
   useEffect(() => {
-    fetchContactDetails();
-  }, [fetchContactDetails]);
+    fetchRegistrationDetails();
+  }, [fetchRegistrationDetails]);
 
   useEffect(() => {
     if (status === "pending") {
       setLoading(true);
     } else if (status === "success") {
-      setContact(data?.data);
+      setRegistration(data?.data);
       setLoading(false);
-      dispatch(contactActions.clearGetContactStatus());
+      dispatch(registrationActions.clearGetRegistrationStatus());
     } else if (status === "failed") {
       setLoading(false);
       notification.error({
         message: "Error",
-        description: error || "Failed to fetch contact.",
+        description: error || "Failed to fetch registration.",
       });
-      dispatch(contactActions.clearGetContactStatus());
-      dispatch(contactActions.clearGetContactError());
+      dispatch(registrationActions.clearGetRegistrationStatus());
+      dispatch(registrationActions.clearGetRegistrationError());
     }
   }, [status, error, data?.data, dispatch]);
-  console.log(data?.data);
 
   return (
     <>
-      <FormHeader backButtonText="Back to Contacts" />
+      <FormHeader backButtonText="Back to Registrations" />
       <Space
         direction="vertical"
         style={{
@@ -68,10 +67,10 @@ const ContactDetails = () => {
         {loading ? (
           <FullScreenLoading />
         ) : (
-          <UpdateContactForm contact={contact} />
+          <UpdateRegistrationForm registration={registration} />
         )}
       </Space>
     </>
   );
 };
-export default ContactDetails;
+export default RegistrationDetails;

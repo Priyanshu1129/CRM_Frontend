@@ -39,7 +39,7 @@ export const ArcheTypeSelector = ({ label, name, rules }) => {
 
   return (
     <Form.Item label={label} name={name} rules={rules}>
-      <Select>
+      <Select showSearch loading={loading}>
         {archeTypes?.map((archeType, idx) => (
           <Select.Option key={idx} value={archeType._id}>
             {archeType.label}
