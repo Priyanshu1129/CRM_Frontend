@@ -64,11 +64,7 @@ const TenderDetails = () => {
           padding: screens.xs ? "16px" : "32px",
         }}
       >
-        {loading ? (
-          <FullScreenLoading />
-        ) : (
-          <UpdateTenderForm tender={tender} />
-        )}
+        {loading ? <FullScreenLoading /> : <UpdateTenderForm tender={tender} />}
       </Space>
     </>
   );

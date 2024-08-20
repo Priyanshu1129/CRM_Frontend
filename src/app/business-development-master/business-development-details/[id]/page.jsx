@@ -3,7 +3,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Grid, notification, Space, theme } from "antd";
 import { businessDevelopmentActions } from "@/redux/slices/businessDevelopmentSlice";
-import { UpdateBusinessDevelopmentForm } from "../../components/update-businessDevelopment-form";
+import { UpdateBusinessDevelopmentForm} from "../../components/update-business-development";
 import { getBusinessDevelopment } from "@/redux/actions/businessDevelopmentAction";
 import { useParams } from "next/navigation";
 import { FullScreenLoading, FormHeader } from "@/components";
