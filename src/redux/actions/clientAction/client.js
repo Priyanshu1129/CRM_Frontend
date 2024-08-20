@@ -41,18 +41,14 @@ export const getAllClients = ({ page = null, limit = null, config = false }) => 
     }
 };
 
-export const getClient = (clientId, token) => async (dispatch) => {
+export const getClient = (clientId) => async (dispatch) => {
     try {
-        console.log("get-client-data", clientId, token);
+        console.log("get-client-data-req", clientId);
         dispatch(clientActions.getClientRequest());
 
-        const data = await axios.get(`${route}/details/${clientId}`, {
-            headers: {
-                "authorization": token
-            }
-        });
-        console.log('get-client-details-res-data', data.data);
-        dispatch(clientActions.getClientSuccess(data.data));
+        const response = await axios.get(`${route}/${clientId}`);
+        console.log('get-client-data-res', response.data);
+        dispatch(clientActions.getClientSuccess(response.data));
     } catch (error) {
         console.log("error", error)
         let errorMessage = "An error occurred";
@@ -97,27 +93,27 @@ export const createClient = (clientData) => async (dispatch) => {
     }
 };
 
-export const updateClient = (clientData, token, clientId) => async (dispatch) => {
+export const updateClient = (clientData, clientId) => async (dispatch) => {
 
-    const formData = new FormData();
-    Object.entries(clientData).forEach(([key, value]) => {
-        if (key != 'avatarUri') {
-            formData.append(key, value);
-        }
-    });
+    // const formData = new FormData();
+    // Object.entries(clientData).forEach(([key, value]) => {
+    //     if (key != 'avatarUri') {
+    //         formData.append(key, value);
+    //     }
+    // });
 
-    if (clientData?.avatarUri) {
-        const fileName = clientData.avatarUri.split('/').pop();
-        // Determine file type based on file extension
-        const fileType = fileName.split('.').pop();
+    // if (clientData?.avatarUri) {
+    //     const fileName = clientData.avatarUri.split('/').pop();
+    //     // Determine file type based on file extension
+    //     const fileType = fileName.split('.').pop();
 
-        // Append avatar file to FormData
-        formData.append("avatar", {
-            uri: clientData.avatarUri,
-            type: `image/${fileType}`,
-            name: fileName
-        });
-    }
+    //     // Append avatar file to FormData
+    //     formData.append("avatar", {
+    //         uri: clientData.avatarUri,
+    //         type: `image/${fileType}`,
+    //         name: fileName
+    //     });
+    // }
 
     try {
         console.log("update-clientData%", clientData,);
@@ -130,7 +126,6 @@ export const updateClient = (clientData, token, clientId) => async (dispatch) =>
             {
                 headers: {
                     "Content-Type": "multipart/form-data",
-                    "authorization": token
                 },
             }
         );

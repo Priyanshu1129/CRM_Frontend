@@ -10,7 +10,7 @@ export const ClientCard = ({ client }) => {
   // const { edit } = useNavigation();
   const router = useRouter();
   if (!client) return <ClientCardSkeleton />;
-
+  const { _id } = client;
   const relatedContactAvatars = client?.contacts?.map((contact) => {
     return {
       name: contact.name,
@@ -87,7 +87,7 @@ export const ClientCard = ({ client }) => {
                 // @ts-expect-error Ant Design Icon's v5.0.1 has an issue with @types/react@^18.2.66
                 icon: <EyeOutlined />,
                 onClick: () => {
-                  router.push("/client-master/client-details");
+                  router.push(`/client-master/client-details/${_id}`);
                 },
               },
               {
