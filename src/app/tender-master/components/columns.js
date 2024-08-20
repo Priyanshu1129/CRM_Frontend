@@ -11,13 +11,6 @@ export const columns = [
         width: 150,
     },
     {
-        title: "Opportunity",
-        dataIndex: "opportunity",
-        key: "opportunity",
-        render: (text) => text || 'N/A',
-        width: 150,
-    },
-    {
         title: "RFP Date",
         dataIndex: "rfpDate",
         key: "rfpDate",
