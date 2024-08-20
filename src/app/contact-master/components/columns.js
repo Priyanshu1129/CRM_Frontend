@@ -97,9 +97,9 @@ export const columns = [
         width: 150,
     },
     {
-        title: "Arch Type",
-        dataIndex: ["archType", "label"],
-        key: "archType",
+        title: "Arche Type",
+        dataIndex: ["archeType", "label"],
+        key: "archeType",
         render: (text) => text || "N/A",
         width: 150,
     },
