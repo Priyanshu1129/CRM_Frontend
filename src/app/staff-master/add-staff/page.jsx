@@ -67,11 +67,7 @@ const AddStaff = () => {
 
   return (
     <>
-      <FormHeader
-        fileUpload={true}
-        setUploadModal={setUploadModal}
-        backButtonText={"Return"}
-      />
+      <FormHeader setUploadModal={setUploadModal} backButtonText={"Return"} />
       <Space
         direction="vertical"
         style={{

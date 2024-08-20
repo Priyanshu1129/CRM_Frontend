@@ -270,8 +270,13 @@ export const UpdateTenderForm = ({ tender }) => {
           <Col span={24}>
             <Form.Item>
               <Space>
-                <Button type="primary" htmlType="submit" loading={loading}>
-                  Submit
+                <Button
+                  disabled
+                  type="primary"
+                  htmlType="submit"
+                  loading={loading}
+                >
+                  Update
                 </Button>
                 <Button
                   type="default"
