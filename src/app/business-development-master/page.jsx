@@ -13,6 +13,7 @@ import { notification } from "antd";
 const BusinessDevelopmentMaster = () => {
   const [view, setView] = useState("table");
   const [loading, setLoading] = useState(false);
+  const [refresh, setRefresh] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(12);
   const dispatch = useDispatch();
@@ -27,7 +28,8 @@ const BusinessDevelopmentMaster = () => {
     if (
       !businessDevelopments ||
       currentPage !== Number(data?.page) ||
-      pageSize !== Number(data?.limit)
+      pageSize !== Number(data?.limit) ||
+      refresh
     ) {
       dispatch(
         getAllBusinessDevelopments({ page: currentPage, limit: pageSize })
@@ -40,6 +42,7 @@ const BusinessDevelopmentMaster = () => {
     pageSize,
     data?.page,
     data?.limit,
+    refresh,
   ]);
 
   useEffect(() => {
@@ -52,11 +55,13 @@ const BusinessDevelopmentMaster = () => {
     } else if (status == "success") {
       setBusinessDevelopments(data?.businessDevelopments);
       setLoading(false);
+      setRefresh(false);
       dispatch(
         businessDevelopmentActions.clearGetAllBusinessDevelopmentsStatus()
       );
     } else if (status == "failed") {
       setLoading(false);
+      setRefresh(false);
       notification.error({
         message: "Error",
         description: error || "Failed to fetch businessDevelopments.",
@@ -74,6 +79,7 @@ const BusinessDevelopmentMaster = () => {
       <ListHeader
         toPath={"/business-development-master/add-business-development"}
         buttonText={"Add New"}
+        setRefresh={setRefresh}
       />
       {view == "table" ? (
         <BusinessDevelopmentTableView

@@ -10,6 +10,7 @@ import { getAllStaffs } from "@/redux/actions/staffAction";
 const StaffMaster = () => {
   const [view, setView] = useState("table");
   const [loading, setLoading] = useState(false);
+  const [refresh, setRefresh] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(12);
   const dispatch = useDispatch();
@@ -22,11 +23,20 @@ const StaffMaster = () => {
     if (
       !staffs ||
       currentPage !== Number(data?.page) ||
-      pageSize !== Number(data?.limit)
+      pageSize !== Number(data?.limit) ||
+      refresh
     ) {
       dispatch(getAllStaffs({ page: currentPage, limit: pageSize }));
     }
-  }, [dispatch, staffs, currentPage, pageSize, data?.page, data?.limit]);
+  }, [
+    dispatch,
+    staffs,
+    currentPage,
+    pageSize,
+    data?.page,
+    data?.limit,
+    refresh,
+  ]);
 
   useEffect(() => {
     fetchAllStaffs();
@@ -38,9 +48,11 @@ const StaffMaster = () => {
     } else if (status == "success") {
       setStaffs(data?.staffs);
       setLoading(false);
+      setRefresh(false);
       dispatch(staffActions.clearGetAllStaffsStatus());
     } else if (status == "failed") {
       setLoading(false);
+      setRefresh(false);
       notification.error({
         message: "Error",
         description: error || "Failed to fetch staffs.",
@@ -55,6 +67,7 @@ const StaffMaster = () => {
         toPath={"/staff-master/add-staff"}
         buttonText={"Add new staff"}
         SearchType={"staff"}
+        setRefresh={setRefresh}
       />
       {view == "table" ? (
         <StaffsTableView

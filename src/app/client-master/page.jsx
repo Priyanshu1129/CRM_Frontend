@@ -13,6 +13,7 @@ const ClientMaster = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(12);
   const [loading, setLoading] = useState(false);
+  const [refresh, setRefresh] = useState(false);
   const dispatch = useDispatch();
   const { status, data, error } = useSelector(
     (state) => state.client.getAllClients
@@ -23,11 +24,20 @@ const ClientMaster = () => {
     if (
       !clients ||
       currentPage !== Number(data?.page) ||
-      pageSize !== Number(data?.limit)
+      pageSize !== Number(data?.limit) ||
+      refresh
     ) {
       dispatch(getAllClients({ page: currentPage, limit: pageSize }));
     }
-  }, [dispatch, clients, currentPage, pageSize, data?.page, data?.limit]);
+  }, [
+    dispatch,
+    clients,
+    currentPage,
+    pageSize,
+    data?.page,
+    data?.limit,
+    refresh,
+  ]);
 
   useEffect(() => {
     fetchAllClients();
@@ -39,9 +49,11 @@ const ClientMaster = () => {
     } else if (status == "success") {
       setClients(data?.clients);
       setLoading(false);
+      setRefresh(false);
       dispatch(clientActions.clearGetAllClientsStatus());
     } else if (status == "failed") {
       setLoading(false);
+      setRefresh(false);
       notification.error({
         message: "Error",
         description: error || "Failed to fetch clients.",
@@ -57,6 +69,7 @@ const ClientMaster = () => {
         toPath={"/client-master/add-client"}
         buttonText={"Add new client"}
         SearchType={"client"}
+        setRefresh={setRefresh}
       />
       {view == "table" ? (
         <ClientsTableView />

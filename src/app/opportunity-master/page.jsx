@@ -10,6 +10,7 @@ import { getAllOpportunities } from "@/redux/actions/opportunityAction";
 const OpportunityMaster = () => {
   const [view, setView] = useState("table");
   const [loading, setLoading] = useState(false);
+  const [refresh, setRefresh] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(12);
   const dispatch = useDispatch();
@@ -29,11 +30,20 @@ const OpportunityMaster = () => {
     if (
       !opportunities ||
       currentPage !== Number(data?.page) ||
-      pageSize !== Number(data?.limit)
+      pageSize !== Number(data?.limit) ||
+      refresh
     ) {
       dispatch(getAllOpportunities({ page: currentPage, limit: pageSize }));
     }
-  }, [dispatch, opportunities, currentPage, pageSize, data?.page, data?.limit]);
+  }, [
+    dispatch,
+    opportunities,
+    currentPage,
+    pageSize,
+    data?.page,
+    data?.limit,
+    refresh,
+  ]);
 
   useEffect(() => {
     fetchAllOpportunities();
@@ -45,9 +55,11 @@ const OpportunityMaster = () => {
     } else if (status == "success") {
       setOpportunities(data?.opportunities);
       setLoading(false);
+      setRefresh(false);
       dispatch(opportunityActions.clearGetAllOpportunitiesStatus());
     } else if (status == "failed") {
       setLoading(false);
+      setRefresh(false);
       notification.error({
         message: "Error",
         description: error || "Failed to fetch opportunities.",
@@ -62,6 +74,7 @@ const OpportunityMaster = () => {
         toPath={"/opportunity-master/add-opportunity"}
         buttonText={"Add new opportunity"}
         SearchType={"opportunity"}
+        setRefresh={setRefresh}
       />
       {view == "table" ? (
         <OpportunitiesTableView

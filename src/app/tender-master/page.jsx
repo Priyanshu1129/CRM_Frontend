@@ -10,6 +10,7 @@ import { getAllTenders } from "@/redux/actions/tenderAction";
 const TenderMaster = () => {
   const [view, setView] = useState("table");
   const [loading, setLoading] = useState(false);
+  const [refresh, setRefresh] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(12);
   const dispatch = useDispatch();
@@ -22,11 +23,20 @@ const TenderMaster = () => {
     if (
       !tenders ||
       currentPage !== Number(data?.page) ||
-      pageSize !== Number(data?.limit)
+      pageSize !== Number(data?.limit) ||
+      refresh
     ) {
       dispatch(getAllTenders({ page: currentPage, limit: pageSize }));
     }
-  }, [dispatch, tenders, currentPage, pageSize, data?.page, data?.limit]);
+  }, [
+    dispatch,
+    tenders,
+    currentPage,
+    pageSize,
+    data?.page,
+    data?.limit,
+    refresh,
+  ]);
 
   useEffect(() => {
     fetchAllTenders();
@@ -38,9 +48,11 @@ const TenderMaster = () => {
     } else if (status == "success") {
       setTenders(data?.tenders);
       setLoading(false);
+      setRefresh(false);
       dispatch(tenderActions.clearGetAllTendersStatus());
     } else if (status == "failed") {
       setLoading(false);
+      setRefresh(false);
       notification.error({
         message: "Error",
         description: error || "Failed to fetch tenders.",
@@ -55,6 +67,7 @@ const TenderMaster = () => {
         toPath={"/tender-master/add-tender"}
         buttonText={"Add new tender"}
         SearchType={"tender"}
+        setRefresh={setRefresh}
       />
       {view == "table" ? (
         <TendersTableView

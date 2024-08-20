@@ -10,6 +10,7 @@ import { contactActions } from "@/redux/slices/contactSlice";
 const ContactMaster = () => {
   const [view, setView] = useState("table");
   const [loading, setLoading] = useState(false);
+  const [refresh, setRefresh] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(12);
   const dispatch = useDispatch();
@@ -22,11 +23,20 @@ const ContactMaster = () => {
     if (
       !contacts ||
       currentPage !== Number(data?.page) ||
-      pageSize !== Number(data?.limit)
+      pageSize !== Number(data?.limit) ||
+      refresh
     ) {
       dispatch(getAllContacts({ page: currentPage, limit: pageSize }));
     }
-  }, [dispatch, contacts, currentPage, pageSize, data?.page, data?.limit]);
+  }, [
+    dispatch,
+    contacts,
+    currentPage,
+    pageSize,
+    data?.page,
+    data?.limit,
+    refresh,
+  ]);
 
   useEffect(() => {
     fetchAllContacts();
@@ -38,9 +48,11 @@ const ContactMaster = () => {
     } else if (status == "success") {
       setContacts(data?.contacts);
       setLoading(false);
+      setRefresh(false);
       dispatch(contactActions.clearGetAllContactsStatus());
     } else if (status == "failed") {
       setLoading(false);
+      setRefresh(false);
       notification.error({
         message: "Error",
         description: error || "Failed to fetch contacts.",
@@ -56,6 +68,7 @@ const ContactMaster = () => {
         toPath={"/contact-master/add-contact"}
         buttonText={"Add new contact"}
         SearchType={"contact"}
+        setRefresh={setRefresh}
       />
       {view == "table" ? (
         <ContactsTableView
