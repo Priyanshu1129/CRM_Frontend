@@ -490,6 +490,7 @@ export const ContactSelector = ({
   label = "",
   rules = [],
   size = "medium",
+  mode = "default",
 }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
@@ -524,6 +525,7 @@ export const ContactSelector = ({
       <Select
         size={size}
         showSearch
+        mode={mode}
         loading={loading}
         optionFilterProp="children"
         filterOption={(input, option) =>

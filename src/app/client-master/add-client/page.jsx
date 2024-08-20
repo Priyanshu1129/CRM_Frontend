@@ -243,6 +243,7 @@ const AddClient = () => {
                 label="Related Contacts"
                 name="relatedContacts"
                 rules={clientFormRules.relatedContacts}
+                mode="multiple"
               />
             </Col>
             <Col span={colSpan}>
