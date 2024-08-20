@@ -202,9 +202,9 @@ const AddTender = () => {
                 rules={tenderFormRules.submissionMode}
               >
                 <Select>
-                  <Select.Option value={"Mail"}>Mail</Select.Option>
-                  <Select.Option value={"Online"}>Online</Select.Option>
-                  <Select.Option value={"In Person"}>In Person</Select.Option>
+                  <Select.Option value={"Email"}>Email</Select.Option>
+                  <Select.Option value={"Hard Copy"}>Hard Copy</Select.Option>
+                  <Select.Option value={"Portal"}>Portal</Select.Option>
                 </Select>
               </Form.Item>
             </Col>
