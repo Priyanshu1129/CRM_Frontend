@@ -102,7 +102,7 @@ const AddOpportunity = () => {
           <Row gutter={24}>
             <Col span={8}>
               <ClientSelector
-                name="clientName"
+                name="client"
                 label="Client Name"
                 rules={opportunityFormRules.clientName}
               />

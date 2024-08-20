@@ -45,7 +45,7 @@ export const UpdateOpportunityForm = ({ opportunity }) => {
   useEffect(() => {
     if (opportunity) {
       form.setFieldsValue({
-        clientName: opportunity.clientName,
+        clientName: opportunity.client,
         partneredWith: opportunity.partneredWith,
         projectName: opportunity.projectName,
         associatedTender: opportunity.associatedTender,
