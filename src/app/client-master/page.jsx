@@ -6,6 +6,7 @@ import { ClientsCardView, ClientsTableView } from "./components";
 import { getAllClients } from "@/redux/actions/clientAction";
 import { clientActions } from "@/redux/slices/clientSlice";
 import { notification } from "antd";
+import { ClientSelector } from "@/components";
 
 const ClientMaster = () => {
   const [view, setView] = useState("card");
@@ -55,6 +56,7 @@ const ClientMaster = () => {
       <ListHeader
         toPath={"/client-master/add-client"}
         buttonText={"Add new client"}
+        SearchType={"client"}
       />
       {view == "table" ? (
         <ClientsTableView />

@@ -251,6 +251,7 @@ const AddContact = () => {
         <BulkUploadModal
           setUploadModal={setUploadModal}
           uploadModal={uploadModal}
+          resource="contact"
         />
       </Space>
     </>

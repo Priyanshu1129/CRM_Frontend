@@ -39,7 +39,14 @@ export const ArcheTypeSelector = ({ label, name, rules }) => {
 
   return (
     <Form.Item label={label} name={name} rules={rules}>
-      <Select showSearch loading={loading}>
+      <Select
+        showSearch
+        loading={loading}
+        optionFilterProp="children"
+        filterOption={(input, option) =>
+          option?.children?.toLowerCase().includes(input.toLowerCase())
+        }
+      >
         {archeTypes?.map((archeType, idx) => (
           <Select.Option key={idx} value={archeType._id}>
             {archeType.label}
@@ -82,7 +89,14 @@ export const RelationshipDegreeSelector = ({ label, name, rules }) => {
 
   return (
     <Form.Item label={label} name={name} rules={rules}>
-      <Select>
+      <Select
+        loading={loading}
+        showSearch
+        optionFilterProp="children"
+        filterOption={(input, option) =>
+          option?.children?.toLowerCase().includes(input.toLowerCase())
+        }
+      >
         {relationshipDegrees?.map((relationshipDegree, idx) => (
           <Select.Option key={idx} value={relationshipDegree._id}>
             {relationshipDegree.label}

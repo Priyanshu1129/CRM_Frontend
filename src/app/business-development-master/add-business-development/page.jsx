@@ -226,10 +226,10 @@ const AddBusinessDevelopment = () => {
             </Col>
           </Row>
         </Form>
-        <BulkUploadModal
+        {/* <BulkUploadModal
           setUploadModal={setUploadModal}
           uploadModal={uploadModal}
-        />
+        /> */}
       </Space>
     </>
   );

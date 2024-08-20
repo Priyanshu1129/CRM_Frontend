@@ -228,6 +228,7 @@ const AddOpportunity = () => {
         <BulkUploadModal
           setUploadModal={setUploadModal}
           uploadModal={uploadModal}
+          resource="opportunity"
         />
       </Space>
     </>

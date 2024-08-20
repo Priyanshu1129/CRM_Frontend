@@ -40,7 +40,14 @@ export const ClassificationsSelector = ({ label, name, rules }) => {
 
   return (
     <Form.Item label={label} name={name} rules={rules}>
-      <Select>
+      <Select
+        showSearch
+        loading={loading}
+        optionFilterProp="children"
+        filterOption={(input, option) =>
+          option?.children?.toLowerCase().includes(input.toLowerCase())
+        }
+      >
         {classifications?.map((classification, idx) => (
           <Select.Option key={idx} value={classification._id}>
             {classification.label}
@@ -82,7 +89,14 @@ export const IncorporationTypesSelector = ({ label, name, rules }) => {
   }, [status, data]);
   return (
     <Form.Item label={label} name={name} rules={rules}>
-      <Select>
+      <Select
+        loading={loading}
+        showSearch
+        optionFilterProp="children"
+        filterOption={(input, option) =>
+          option?.children?.toLowerCase().includes(input.toLowerCase())
+        }
+      >
         {incorporationTypes?.map((incorporationType, idx) => (
           <Select.Option key={idx} value={incorporationType._id}>
             {incorporationType.label}
@@ -125,7 +139,14 @@ export const RelationshipStatusSelector = ({ label, name, rules }) => {
 
   return (
     <Form.Item label={label} name={name} rules={rules}>
-      <Select>
+      <Select
+        loading={loading}
+        showSearch
+        optionFilterProp="children"
+        filterOption={(input, option) =>
+          option?.children?.toLowerCase().includes(input.toLowerCase())
+        }
+      >
         {relationshipStatus?.map((relationshipStatus, idx) => (
           <Select.Option key={idx} value={relationshipStatus._id}>
             {relationshipStatus.label}
@@ -166,7 +187,13 @@ export const MarketCapSelector = ({ label, name, rules }) => {
 
   return (
     <Form.Item label={label} name={name} rules={rules}>
-      <Select>
+      <Select
+        showSearch
+        optionFilterProp="children"
+        filterOption={(input, option) =>
+          option?.children?.toLowerCase().includes(input.toLowerCase())
+        }
+      >
         {marketCaps?.map((marketCap, idx) => (
           <Select.Option key={idx} value={marketCap.label}>
             {marketCap.label}

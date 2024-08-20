@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { UploadOutlined } from "@ant-design/icons";
 import { Button, Modal, message, Upload } from "antd";
+import { serverURL } from "@/config/config";
 
-export const BulkUploadModal = ({ uploadModal, setUploadModal }) => {
-  const [loading, setLoading] = useState(false);
+export const BulkUploadModal = ({ uploadModal, setUploadModal, resource }) => {
   const [fileList, setFileList] = useState([]);
   const [uploading, setUploading] = useState(false);
 
@@ -14,14 +14,14 @@ export const BulkUploadModal = ({ uploadModal, setUploadModal }) => {
     setUploadModal(false);
   };
 
-  const handleUpload = () => {
+  const handleUpload = (check) => {
+    check = check ? "true" : "false";
     const formData = new FormData();
     fileList.forEach((file) => {
-      formData.append("files[]", file);
+      formData.append("dataFile", file);
     });
     setUploading(true);
-    // You can use any AJAX library you like
-    fetch("https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload", {
+    fetch(`${serverURL}/upload/${resource}?check=${check}`, {
       method: "POST",
       body: formData,
     })
@@ -65,7 +65,19 @@ export const BulkUploadModal = ({ uploadModal, setUploadModal }) => {
           <Button
             key="submit"
             type="primary"
-            onClick={handleUpload}
+            onClick={() => handleUpload(true)}
+            disabled={fileList.length === 0}
+            loading={uploading}
+            style={{
+              marginTop: 16,
+            }}
+          >
+            {uploading ? "Testing" : "Start Test"}
+          </Button>,
+          <Button
+            key="submit"
+            type="primary"
+            onClick={() => handleUpload(false)}
             disabled={fileList.length === 0}
             loading={uploading}
             style={{

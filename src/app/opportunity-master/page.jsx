@@ -61,6 +61,7 @@ const OpportunityMaster = () => {
       <ListHeader
         toPath={"/opportunity-master/add-opportunity"}
         buttonText={"Add new opportunity"}
+        SearchType={"opportunity"}
       />
       {view == "table" ? (
         <OpportunitiesTableView

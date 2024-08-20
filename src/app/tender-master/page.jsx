@@ -54,6 +54,7 @@ const TenderMaster = () => {
       <ListHeader
         toPath={"/tender-master/add-tender"}
         buttonText={"Add new tender"}
+        SearchType={"tender"}
       />
       {view == "table" ? (
         <TendersTableView

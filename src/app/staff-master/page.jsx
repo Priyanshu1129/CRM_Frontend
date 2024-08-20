@@ -54,6 +54,7 @@ const StaffMaster = () => {
       <ListHeader
         toPath={"/staff-master/add-staff"}
         buttonText={"Add new staff"}
+        SearchType={"staff"}
       />
       {view == "table" ? (
         <StaffsTableView

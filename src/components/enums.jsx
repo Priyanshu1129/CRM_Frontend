@@ -48,7 +48,14 @@ export const IndustrySelector = ({ name, label, rules }) => {
 
   return (
     <Form.Item name={name} label={label} rules={rules}>
-      <Select showSearch loading={loading}>
+      <Select
+        showSearch
+        loading={loading}
+        optionFilterProp="children"
+        filterOption={(input, option) =>
+          option?.children?.toLowerCase().includes(input.toLowerCase())
+        }
+      >
         {industries?.map(({ label, _id }, idx) => (
           <Select.Option key={idx} value={_id}>
             {label ?? "Missing Value"}
@@ -91,7 +98,14 @@ export const SubIndustrySelector = ({ name, label, rules }) => {
 
   return (
     <Form.Item name={name} label={label} rules={rules}>
-      <Select showSearch loading={loading}>
+      <Select
+        showSearch
+        loading={loading}
+        optionFilterProp="children"
+        filterOption={(input, option) =>
+          option?.children?.toLowerCase().includes(input.toLowerCase())
+        }
+      >
         {subIndustries?.map(({ label, _id }, idx) => (
           <Select.Option key={idx} value={_id}>
             {label ?? "Missing Value"}
@@ -134,7 +148,14 @@ export const SolutionSelector = ({ name, label, rules }) => {
 
   return (
     <Form.Item name={name} label={label} rules={rules}>
-      <Select showSearch loading={loading}>
+      <Select
+        showSearch
+        loading={loading}
+        optionFilterProp="children"
+        filterOption={(input, option) =>
+          option?.children?.toLowerCase().includes(input.toLowerCase())
+        }
+      >
         {solutions?.map(({ label, _id }, idx) => (
           <Select.Option key={idx} value={_id}>
             {label ?? "Missing Value"}
@@ -177,7 +198,14 @@ export const SubSolutionSelector = ({ name, label, rules }) => {
 
   return (
     <Form.Item name={name} label={label} rules={rules}>
-      <Select showSearch loading={loading}>
+      <Select
+        showSearch
+        loading={loading}
+        optionFilterProp="children"
+        filterOption={(input, option) =>
+          option?.children?.toLowerCase().includes(input.toLowerCase())
+        }
+      >
         {subSolutions?.map(({ label, _id }, idx) => (
           <Select.Option key={idx} value={_id}>
             {label ?? "Missing Value"}
@@ -220,7 +248,14 @@ export const SalesStageSelector = ({ name, label, rules }) => {
 
   return (
     <Form.Item name={name} label={label} rules={rules}>
-      <Select showSearch loading={loading}>
+      <Select
+        showSearch
+        loading={loading}
+        optionFilterProp="children"
+        filterOption={(input, option) =>
+          option?.children?.toLowerCase().includes(input.toLowerCase())
+        }
+      >
         {salesStages?.map(({ label, _id }, idx) => (
           <Select.Option key={idx} value={_id}>
             {label ?? "Missing Value"}
@@ -263,7 +298,14 @@ export const SalesSubStageSelector = ({ name, label, rules }) => {
 
   return (
     <Form.Item name={name} label={label} rules={rules}>
-      <Select showSearch loading={loading}>
+      <Select
+        showSearch
+        loading={loading}
+        optionFilterProp="children"
+        filterOption={(input, option) =>
+          option?.children?.toLowerCase().includes(input.toLowerCase())
+        }
+      >
         {salesSubStages?.map(({ label, _id }, idx) => (
           <Select.Option key={idx} value={_id}>
             {label ?? "Missing Value"}
@@ -306,7 +348,14 @@ export const TerritorySelector = ({ name, label, rules }) => {
 
   return (
     <Form.Item name={name} label={label} rules={rules}>
-      <Select showSearch loading={loading}>
+      <Select
+        showSearch
+        loading={loading}
+        optionFilterProp="children"
+        filterOption={(input, option) =>
+          option?.children?.toLowerCase().includes(input.toLowerCase())
+        }
+      >
         {territories?.map(({ label, _id }, idx) => (
           <Select.Option key={idx} value={_id}>
             {label ?? "Missing Value"}
@@ -317,7 +366,12 @@ export const TerritorySelector = ({ name, label, rules }) => {
   );
 };
 
-export const StaffSelector = ({ name, label, rules }) => {
+export const StaffSelector = ({
+  name = "",
+  label = "",
+  rules = [],
+  size = "medium",
+}) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const { status, data, error } = useSelector(
@@ -346,13 +400,19 @@ export const StaffSelector = ({ name, label, rules }) => {
     }
   }, [status, data]);
 
-  console.log("select", staffs);
-
   return (
     <Form.Item name={name} label={label} rules={rules}>
-      <Select loading={loading} showSearch>
+      <Select
+        size={size}
+        loading={loading}
+        showSearch
+        optionFilterProp="children"
+        filterOption={(input, option) =>
+          option?.children?.toLowerCase().includes(input.toLowerCase())
+        }
+      >
         {staffs?.map(({ _id, firstName, lastName }, idx) => (
-          <Select.Option key={idx} value={_id}>
+          <Select.Option key={_id} value={_id}>
             {firstName || lastName
               ? firstName + " " + lastName
               : "Missing Value"}
@@ -363,7 +423,13 @@ export const StaffSelector = ({ name, label, rules }) => {
   );
 };
 
-export const ClientSelector = ({ name, label, rules }) => {
+export const ClientSelector = ({
+  name = "",
+  label = "",
+  rules = [],
+  size = "medium",
+  setInput = null,
+}) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const { status, data, error } = useSelector(
@@ -391,10 +457,24 @@ export const ClientSelector = ({ name, label, rules }) => {
       setLoading(false);
     }
   }, [status, data]);
+  const handleSelect = (item) => {
+    if (setInput != null) {
+      setInput(item);
+    }
+  };
 
   return (
     <Form.Item name={name} label={label} rules={rules}>
-      <Select showSearch loading={loading}>
+      <Select
+        size={size}
+        showSearch
+        loading={loading}
+        optionFilterProp="children"
+        filterOption={(input, option) =>
+          option?.children?.toLowerCase().includes(input.toLowerCase())
+        }
+        onSelect={handleSelect}
+      >
         {clients?.map(({ name, _id }, idx) => (
           <Select.Option key={idx} value={_id}>
             {name ?? "Missing Value"}
@@ -405,7 +485,12 @@ export const ClientSelector = ({ name, label, rules }) => {
   );
 };
 
-export const ContactSelector = ({ name, label, rules }) => {
+export const ContactSelector = ({
+  name = "",
+  label = "",
+  rules = [],
+  size = "medium",
+}) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const { status, data, error } = useSelector(
@@ -436,7 +521,15 @@ export const ContactSelector = ({ name, label, rules }) => {
 
   return (
     <Form.Item name={name} label={label} rules={rules}>
-      <Select showSearch loading={loading}>
+      <Select
+        size={size}
+        showSearch
+        loading={loading}
+        optionFilterProp="children"
+        filterOption={(input, option) =>
+          option?.children?.toLowerCase().includes(input.toLowerCase())
+        }
+      >
         {contacts?.map(({ firstName, lastName, _id }, idx) => (
           <Select.Option key={idx} value={_id}>
             {firstName || lastName
@@ -449,7 +542,12 @@ export const ContactSelector = ({ name, label, rules }) => {
   );
 };
 
-export const TenderSelector = ({ name, label, rules }) => {
+export const TenderSelector = ({
+  name = "",
+  label = "",
+  rules = [],
+  size = "medium",
+}) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const { status, data, error } = useSelector(
@@ -480,7 +578,15 @@ export const TenderSelector = ({ name, label, rules }) => {
 
   return (
     <Form.Item name={name} label={label} rules={rules}>
-      <Select showSearch loading={loading}>
+      <Select
+        size={size}
+        showSearch
+        loading={loading}
+        optionFilterProp="children"
+        filterOption={(input, option) =>
+          option?.children?.toLowerCase().includes(input.toLowerCase())
+        }
+      >
         {tenders?.map(({ customId, _id }, idx) => (
           <Select.Option key={idx} value={_id}>
             {customId ?? "Missing Value"}
@@ -491,7 +597,12 @@ export const TenderSelector = ({ name, label, rules }) => {
   );
 };
 
-export const OpportunitySelector = ({ name, label, rules }) => {
+export const OpportunitySelector = ({
+  name = "",
+  label = "",
+  rules = [],
+  size = "medium",
+}) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const { status, data, error } = useSelector(
@@ -522,7 +633,15 @@ export const OpportunitySelector = ({ name, label, rules }) => {
 
   return (
     <Form.Item name={name} label={label} rules={rules}>
-      <Select showSearch loading={loading}>
+      <Select
+        size={size}
+        showSearch
+        loading={loading}
+        optionFilterProp="children"
+        filterOption={(input, option) =>
+          option?.children?.toLowerCase().includes(input.toLowerCase())
+        }
+      >
         {opportunities?.map(({ customId, _id }, idx) => (
           <Select.Option key={idx} value={_id}>
             {customId ?? "Missing Value"}

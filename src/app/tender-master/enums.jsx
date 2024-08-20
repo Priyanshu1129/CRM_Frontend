@@ -35,7 +35,14 @@ export const StageSelector = ({ name, label, rules }) => {
 
   return (
     <Form.Item label={label} name={name} rules={rules}>
-      <Select showSearch loading={loading}>
+      <Select
+        showSearch
+        loading={loading}
+        optionFilterProp="children"
+        filterOption={(input, option) =>
+          option?.children?.toLowerCase().includes(input.toLowerCase())
+        }
+      >
         {stages?.map(({ label, _id }, idx) => (
           <Select.Option key={idx} value={_id}>
             {label ?? "Missing Value"}

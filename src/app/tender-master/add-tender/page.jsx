@@ -278,6 +278,7 @@ const AddTender = () => {
         <BulkUploadModal
           setUploadModal={setUploadModal}
           uploadModal={uploadModal}
+          resource="tender"
         />
       </Space>
     </>

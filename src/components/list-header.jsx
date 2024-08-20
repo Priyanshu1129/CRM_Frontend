@@ -2,7 +2,7 @@ import React from "react";
 import { ListTitleButton } from "./list-title-button";
 import { ListSearch } from "./list-search";
 
-export const ListHeader = ({ toPath, buttonText }) => {
+export const ListHeader = ({ toPath, buttonText, SearchType }) => {
   return (
     <div
       style={{
@@ -13,7 +13,7 @@ export const ListHeader = ({ toPath, buttonText }) => {
       }}
     >
       <ListTitleButton toPath={toPath} buttonText={buttonText} />
-      <ListSearch />
+      <ListSearch SearchType={SearchType} />
     </div>
   );
 };

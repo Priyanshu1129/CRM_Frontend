@@ -19,7 +19,8 @@ const ContactMaster = () => {
   const [contacts, setContacts] = useState(data?.contacts);
 
   const fetchAllContacts = useCallback(() => {
-    if (!contacts || 
+    if (
+      !contacts ||
       currentPage !== Number(data?.page) ||
       pageSize !== Number(data?.limit)
     ) {
@@ -54,6 +55,7 @@ const ContactMaster = () => {
       <ListHeader
         toPath={"/contact-master/add-contact"}
         buttonText={"Add new contact"}
+        SearchType={"contact"}
       />
       {view == "table" ? (
         <ContactsTableView
