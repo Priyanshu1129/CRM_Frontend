@@ -88,45 +88,24 @@ export const createOpportunity = (opportunityData) => async (dispatch) => {
     }
 };
 
-export const updateOpportunity = (opportunityData, token, opportunityId) => async (dispatch) => {
+export const updateOpportunity = (opportunityData, opportunityId) => async (dispatch) => {
 
-    const formData = new FormData();
-    Object.entries(opportunityData).forEach(([key, value]) => {
-        if (key != 'avatarUri') {
-            formData.append(key, value);
-        }
-    });
-
-    if (opportunityData?.avatarUri) {
-        const fileName = opportunityData.avatarUri.split('/').pop();
-        // Determine file type based on file extension
-        const fileType = fileName.split('.').pop();
-
-        // Append avatar file to FormData
-        formData.append("avatar", {
-            uri: opportunityData.avatarUri,
-            type: `image/${fileType}`,
-            name: fileName
-        });
-    }
 
     try {
-        console.log("update-opportunityData%", opportunityData,);
-        console.log("update-opportunityData%", formData,);
+        console.log("update-opportunityData-req", opportunityData,);
         dispatch(opportunityActions.updateOpportunityRequest());
-        console.log("update url----------", `${route}/${opportunityId}`);
-        const data = await axios.put(
+        const response = await axios.put(
             `${route}/${opportunityId}`,
-            formData,
+            opportunityData,
             {
                 headers: {
-                    "Content-Type": "multipart/form-data",
-                    "authorization": token
+                    "Content-Type": "multipart/form-data"
                 },
             }
         );
-        console.log('update-opportunity-res-data', data.data);
-        dispatch(opportunityActions.updateOpportunitySuccess(data.data));
+        console.log('update-opportunity-res-data', response.data);
+        dispatch(opportunityActions.getOpportunitySuccess(response.data));
+        dispatch(opportunityActions.updateOpportunitySuccess(response.data));
     } catch (error) {
         console.log("error", error)
         let errorMessage = "An error occurred";

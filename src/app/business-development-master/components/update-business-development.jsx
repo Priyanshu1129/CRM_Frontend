@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Form, Input, Space, Grid, Row, Col, notification } from "antd";
 import {
@@ -15,6 +15,7 @@ import {
 import { businessDevelopmentActions } from "@/redux/slices/businessDevelopmentSlice";
 import { businessDevelopmentFormRules } from "@/utilities/formValidationRules";
 import { updateBusinessDevelopment } from "@/redux/actions/businessDevelopmentAction";
+import { getChangedValues } from "@/utilities/getChangedValues";
 
 export const UpdateBusinessDevelopmentForm = ({ businessDevelopment }) => {
   const [loading, setLoading] = useState(false);
@@ -26,9 +27,11 @@ export const UpdateBusinessDevelopmentForm = ({ businessDevelopment }) => {
     (state) => state.businessDevelopment.updateBusinessDevelopment
   );
 
+  const initialValues = useRef({});
+
   useEffect(() => {
     if (businessDevelopment) {
-      form.setFieldsValue({
+      const businessDevelopmentInitialValues = {
         client: businessDevelopment.client,
         contact: businessDevelopment.contact,
         connectionSource: businessDevelopment.connectionSource,
@@ -41,7 +44,9 @@ export const UpdateBusinessDevelopmentForm = ({ businessDevelopment }) => {
         potentialTopLine: businessDevelopment.potentialTopLine,
         potentialOffset: businessDevelopment.potentialOffset,
         Notes: businessDevelopment.Notes,
-      });
+      };
+      form.setFieldsValue(businessDevelopmentInitialValues);
+      initialValues.current = businessDevelopmentInitialValues;
     }
   }, [businessDevelopment, form]);
 
@@ -74,13 +79,24 @@ export const UpdateBusinessDevelopmentForm = ({ businessDevelopment }) => {
 
   const onFinish = (values) => {
     setLoading(true);
-    const updatedValues = {
-      ...businessDevelopment,
-      ...values,
-    };
-    dispatch(updateBusinessDevelopment(updatedValues));
-  };
 
+    const changedValues = getChangedValues(initialValues, values);
+
+    console.log("Changed values:", changedValues);
+
+    // Dispatch only if there are changed values
+    if (Object.keys(changedValues).length > 0) {
+      dispatch(
+        updateBusinessDevelopment(changedValues, businessDevelopment._id)
+      );
+    } else {
+      setLoading(false);
+      notification.info({
+        message: "No Changes",
+        description: "No changes were made.",
+      });
+    }
+  };
   const colSpan = screens.xs ? 24 : screens.sm ? 12 : screens.md && 8;
 
   return (

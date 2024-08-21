@@ -87,6 +87,7 @@ export const createTender = (tenderData) => async (dispatch) => {
         );
         console.log('create-tender-res-data', data);
         dispatch(tenderActions.createTenderSuccess(data.data));
+
     } catch (error) {
         console.log("error", error)
         let errorMessage = "An error occurred";
@@ -103,43 +104,22 @@ export const createTender = (tenderData) => async (dispatch) => {
 
 export const updateTender = (tenderData, tenderId) => async (dispatch) => {
 
-    const formData = new FormData();
-    Object.entries(tenderData).forEach(([key, value]) => {
-        if (key != 'avatarUri') {
-            formData.append(key, value);
-        }
-    });
-
-    if (tenderData?.avatarUri) {
-        const fileName = tenderData.avatarUri.split('/').pop();
-        // Determine file type based on file extension
-        const fileType = fileName.split('.').pop();
-
-        // Append avatar file to FormData
-        formData.append("avatar", {
-            uri: tenderData.avatarUri,
-            type: `image/${fileType}`,
-            name: fileName
-        });
-    }
 
     try {
-        console.log("update-tenderData%", tenderData,);
-        console.log("update-tenderData%", formData,);
+        console.log("update-tenderData-req", tenderData,);
         dispatch(tenderActions.updateTenderRequest());
-        console.log("update url----------", `${route}/${tenderId}`);
-        const data = await axios.put(
+        const response = await axios.put(
             `${route}/${tenderId}`,
-            formData,
+            tenderData,
             {
                 headers: {
                     "Content-Type": "multipart/form-data",
-                    "authorization": token
                 },
             }
         );
-        console.log('update-tender-res-data', data.data);
-        dispatch(tenderActions.updateTenderSuccess(data.data));
+        console.log('update-tender-res-data', response.data);
+        dispatch(tenderActions.getTenderSuccess(response.data));
+        dispatch(tenderActions.updateTenderSuccess(response.data));
     } catch (error) {
         console.log("error", error)
         let errorMessage = "An error occurred";

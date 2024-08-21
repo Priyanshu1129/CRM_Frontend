@@ -80,45 +80,23 @@ export const createBusinessDevelopment = (businessDevelopmentData) => async (dis
     }
 };
 
-export const updateBusinessDevelopment = (businessDevelopmentData, token, businessDevelopmentId) => async (dispatch) => {
-
-    const formData = new FormData();
-    Object.entries(businessDevelopmentData).forEach(([key, value]) => {
-        if (key != 'avatarUri') {
-            formData.append(key, value);
-        }
-    });
-
-    if (businessDevelopmentData?.avatarUri) {
-        const fileName = businessDevelopmentData.avatarUri.split('/').pop();
-        // Determine file type based on file extension
-        const fileType = fileName.split('.').pop();
-
-        // Append avatar file to FormData
-        formData.append("avatar", {
-            uri: businessDevelopmentData.avatarUri,
-            type: `image/${fileType}`,
-            name: fileName
-        });
-    }
+export const updateBusinessDevelopment = (businessDevelopmentData, businessDevelopmentId) => async (dispatch) => {
 
     try {
-        console.log("update-businessDevelopmentData%", businessDevelopmentData,);
-        console.log("update-businessDevelopmentData%", formData,);
+        console.log("update-businessDevelopmentData-req", businessDevelopmentData,);
         dispatch(businessDevelopmentActions.updateBusinessDevelopmentRequest());
-        console.log("update url----------", `${route}/${businessDevelopmentId}`);
-        const data = await axios.put(
+        const response = await axios.put(
             `${route}/${businessDevelopmentId}`,
-            formData,
+            businessDevelopmentData,
             {
                 headers: {
-                    "Content-Type": "multipart/form-data",
-                    "authorization": token
+                    "Content-Type": "multipart/form-data"
                 },
             }
         );
-        console.log('update-businessDevelopment-res-data', data.data);
-        dispatch(businessDevelopmentActions.updateBusinessDevelopmentSuccess(data.data));
+        console.log('update-businessDevelopment-res-data', response.data);
+        dispatch(businessDevelopmentActions.getBusinessDevelopmentSuccess(response.data));
+        dispatch(businessDevelopmentActions.updateBusinessDevelopmentSuccess(response.data));
     } catch (error) {
         console.log("error", error)
         let errorMessage = "An error occurred";

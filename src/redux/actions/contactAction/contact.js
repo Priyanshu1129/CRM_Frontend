@@ -97,45 +97,23 @@ export const createContact = (contactData) => async (dispatch) => {
     }
 };
 
-export const updateContact = (contactData, token, contactId) => async (dispatch) => {
-
-    const formData = new FormData();
-    Object.entries(contactData).forEach(([key, value]) => {
-        if (key != 'avatarUri') {
-            formData.append(key, value);
-        }
-    });
-
-    if (contactData?.avatarUri) {
-        const fileName = contactData.avatarUri.split('/').pop();
-        // Determine file type based on file extension
-        const fileType = fileName.split('.').pop();
-
-        // Append avatar file to FormData
-        formData.append("avatar", {
-            uri: contactData.avatarUri,
-            type: `image/${fileType}`,
-            name: fileName
-        });
-    }
+export const updateContact = (contactData, contactId) => async (dispatch) => {
 
     try {
-        console.log("update-contactData%", contactData,);
-        console.log("update-contactData%", formData,);
+        console.log("update-contactData-req", contactData);
         dispatch(contactActions.updateContactRequest());
-        console.log("update url----------", `${route}/${contactId}`);
-        const data = await axios.put(
+        const response = await axios.put(
             `${route}/${contactId}`,
-            formData,
+            contactData,
             {
                 headers: {
-                    "Content-Type": "multipart/form-data",
-                    "authorization": token
+                    "Content-Type": "multipart/form-data"
                 },
             }
         );
-        console.log('update-contact-res-data', data.data);
-        dispatch(contactActions.updateContactSuccess(data.data));
+        console.log('update-contact-res-data', response.data);
+        dispatch(contactActions.getContactSuccess(response.data));
+        dispatch(contactActions.updateContactSuccess(response.data));
     } catch (error) {
         console.log("error", error)
         let errorMessage = "An error occurred";

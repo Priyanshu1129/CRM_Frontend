@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Button,
@@ -19,17 +19,23 @@ import { ImageUpload } from "@/components";
 import { staffFormRules } from "@/utilities/formValidationRules";
 import { updateStaff } from "@/redux/actions/staffAction";
 import { staffActions } from "@/redux/slices/staffSlice";
+import { getChangedValues } from "@/utilities/getChangedValues";
 
 export const UpdateStaffForm = ({ staff }) => {
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
   const screens = Grid.useBreakpoint();
   const dispatch = useDispatch();
+
   const { status, error } = useSelector((state) => state.staff.updateStaff);
+
+  const initialValues = useRef({});
+  const [avatarChanged, setAvatarChanged] = useState(false);
+  const [avatar, setAvatar] = useState(null);
 
   useEffect(() => {
     if (staff) {
-      form.setFieldsValue({
+      const staffInitialValues = {
         firstName: staff.firstName,
         lastName: staff.lastName,
         gender: staff.gender,
@@ -38,7 +44,10 @@ export const UpdateStaffForm = ({ staff }) => {
         email: staff.email,
         DOB: staff.DOB ? moment(staff.DOB) : null,
         address: staff.address,
-      });
+        avatar: staff.avatar,
+      };
+      form.setFieldsValue(staffInitialValues);
+      initialValues.current = staffInitialValues;
     }
   }, [staff, form]);
 
@@ -49,29 +58,54 @@ export const UpdateStaffForm = ({ staff }) => {
       setLoading(false);
       notification.success({
         message: "Success",
-        description: "Staff member updated successfully.",
+        description: "Member updated successfully.",
       });
       dispatch(staffActions.clearUpdateStaffStatus());
     } else if (status === "failed") {
       setLoading(false);
       notification.error({
         message: "Error",
-        description: error || "Failed to update staff member.",
+        description: error || "Failed to update member.",
       });
       dispatch(staffActions.clearUpdateStaffStatus());
       dispatch(staffActions.clearUpdateStaffError());
     }
   }, [status, error, dispatch]);
-
-  const onFinish = (values) => {
-    const updatedValues = {
-      ...values,
-      dob: values?.DOB.format("YYYY-MM-DD") || staff.DOB,
-    };
-    setLoading(true);
-    dispatch(updateStaff(updatedValues));
+  const handleAvatarChange = (fileList) => {
+    if (fileList.length > 0) {
+      const newAvatar = fileList[0].originFileObj || fileList[0].url;
+      setAvatarChanged(true);
+      setAvatar(newAvatar);
+    } else {
+      setAvatarChanged(false);
+      setAvatar(null);
+    }
   };
 
+  const onFinish = (values) => {
+    setLoading(true);
+
+    // Compare current values with initial values and get only changed values
+
+    const changedValues = getChangedValues(initialValues, values);
+
+    if (avatarChanged) {
+      changedValues.avatar = avatar;
+    }
+
+    console.log("Changed values:", changedValues);
+
+    // Dispatch only if there are changed values
+    if (Object.keys(changedValues).length > 0) {
+      dispatch(updateStaff(changedValues, staff._id));
+    } else {
+      setLoading(false);
+      notification.info({
+        message: "No Changes",
+        description: "No changes were made.",
+      });
+    }
+  };
   const colSpan = screens.xs ? 24 : screens.sm ? 12 : screens.md && 8;
 
   return (
@@ -79,7 +113,10 @@ export const UpdateStaffForm = ({ staff }) => {
       <Row gutter={24}>
         <Col span={24}>
           <Form.Item label="Upload Staff Profile" name="profileImage">
-            <ImageUpload initialImage={staff?.profileImage} />
+            <ImageUpload
+              initialImage={staff?.avatar}
+              onAvatarChange={handleAvatarChange}
+            />
           </Form.Item>
         </Col>
         <Col span={colSpan}>
@@ -146,7 +183,7 @@ export const UpdateStaffForm = ({ staff }) => {
           <Form.Item>
             <Space>
               <Button
-                disabled
+                // disabled
                 type="primary"
                 htmlType="submit"
                 loading={loading}

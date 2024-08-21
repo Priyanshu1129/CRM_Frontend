@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Button,
@@ -24,6 +24,7 @@ import moment from "moment";
 import { tenderActions } from "@/redux/slices/tenderSlice";
 import { updateTender } from "@/redux/actions/tenderAction";
 import { tenderFormRules } from "@/utilities/formValidationRules";
+import { getChangedValues } from "@/utilities/getChangedValues";
 
 export const UpdateTenderForm = ({ tender }) => {
   const [loading, setLoading] = useState(false);
@@ -33,9 +34,11 @@ export const UpdateTenderForm = ({ tender }) => {
 
   const { status, error } = useSelector((state) => state.tender.updateTender);
 
+  const initialValues = useRef({});
+
   useEffect(() => {
     if (tender) {
-      form.setFieldsValue({
+      const tenderInitialValues = {
         rfpDate: tender.rfpDate ? moment(tender.rfpDate) : null,
         submissionDueDate: tender.submissionDueDate
           ? moment(tender.submissionDueDate)
@@ -62,7 +65,9 @@ export const UpdateTenderForm = ({ tender }) => {
         bidManager: tender.bidManager,
         stage: tender.stage,
         stageExplanation: tender.stageExplanation,
-      });
+      };
+      form.setFieldsValue(tenderInitialValues);
+      initialValues.current = tenderInitialValues;
     }
   }, [tender, form]);
 
@@ -89,21 +94,21 @@ export const UpdateTenderForm = ({ tender }) => {
 
   const onFinish = (values) => {
     setLoading(true);
-    const formattedValues = {
-      ...values,
-      rfpDate: values?.rfpDate?.format("YYYY-MM-DD") || tender.rfpDate,
-      submissionDueDate:
-        values?.submissionDueDate?.format("YYYY-MM-DD") ||
-        tender.submissionDueDate,
-      submissionDate:
-        values?.submissionDate?.format("YYYY-MM-DD") || tender.submissionDate,
-      evaluationDate:
-        values?.evaluationDate?.format("YYYY-MM-DD") || tender.evaluationDate,
-      bondIssueDate:
-        values?.bondIssueDate?.format("YYYY-MM-DD") || tender.bondIssueDate,
-      bondExpiry: values?.bondExpiry?.format("YYYY-MM-DD") || tender.bondExpiry,
-    };
-    dispatch(updateTender(formattedValues));
+
+    const changedValues = getChangedValues(initialValues, values);
+
+    console.log("Changed values:", changedValues);
+
+    // Dispatch only if there are changed values
+    if (Object.keys(changedValues).length > 0) {
+      dispatch(updateTender(changedValues, tender._id));
+    } else {
+      setLoading(false);
+      notification.info({
+        message: "No Changes",
+        description: "No changes were made.",
+      });
+    }
   };
 
   const colSpan = screens.xs ? 24 : screens.sm ? 12 : screens.md && 8;
@@ -271,7 +276,7 @@ export const UpdateTenderForm = ({ tender }) => {
             <Form.Item>
               <Space>
                 <Button
-                  disabled
+                  // disabled
                   type="primary"
                   htmlType="submit"
                   loading={loading}

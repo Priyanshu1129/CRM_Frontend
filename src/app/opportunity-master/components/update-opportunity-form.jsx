@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Button,
@@ -27,6 +27,7 @@ import { RevenueInput } from "./revenueInput";
 import { opportunityFormRules } from "@/utilities/formValidationRules";
 import { updateOpportunity } from "@/redux/actions/opportunityAction";
 import { opportunityActions } from "@/redux/slices/opportunitySlice";
+import { getChangedValues } from "@/utilities/getChangedValues";
 
 export const UpdateOpportunityForm = ({ opportunity }) => {
   const [loading, setLoading] = useState(false);
@@ -38,13 +39,15 @@ export const UpdateOpportunityForm = ({ opportunity }) => {
     (state) => state.opportunity.updateOpportunity
   );
 
+  const initialValues = useRef({});
+
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
   useEffect(() => {
     if (opportunity) {
-      form.setFieldsValue({
+      const opportunityInitialValues = {
         client: opportunity.client,
         partneredWith: opportunity.partneredWith,
         projectName: opportunity.projectName,
@@ -57,7 +60,9 @@ export const UpdateOpportunityForm = ({ opportunity }) => {
         stageClarification: opportunity.stageClarification,
         salesTopLine: opportunity.salesTopLine,
         offsets: opportunity.offsets,
-      });
+      };
+      form.setFieldsValue(opportunityInitialValues);
+      initialValues.current = opportunityInitialValues;
     }
   }, [opportunity, form]);
 
@@ -84,10 +89,21 @@ export const UpdateOpportunityForm = ({ opportunity }) => {
 
   const onFinish = (values) => {
     setLoading(true);
-    const updatedValues = {
-      ...values,
-    };
-    dispatch(updateOpportunity(opportunity._id, updatedValues));
+
+    const changedValues = getChangedValues(initialValues, values);
+
+    console.log("Changed values:", changedValues);
+
+    // Dispatch only if there are changed values
+    if (Object.keys(changedValues).length > 0) {
+      dispatch(updateOpportunity(changedValues, opportunity._id));
+    } else {
+      setLoading(false);
+      notification.info({
+        message: "No Changes",
+        description: "No changes were made.",
+      });
+    }
   };
 
   return (
@@ -204,7 +220,7 @@ export const UpdateOpportunityForm = ({ opportunity }) => {
             <Form.Item>
               <Space>
                 <Button
-                  disabled
+                  // disabled
                   type="primary"
                   htmlType="submit"
                   loading={loading}

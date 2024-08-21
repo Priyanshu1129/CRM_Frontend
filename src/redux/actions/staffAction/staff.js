@@ -97,45 +97,23 @@ export const createStaff = (staffData) => async (dispatch) => {
     }
 };
 
-export const updateStaff = (staffData, token, staffId) => async (dispatch) => {
-
-    const formData = new FormData();
-    Object.entries(staffData).forEach(([key, value]) => {
-        if (key != 'avatarUri') {
-            formData.append(key, value);
-        }
-    });
-
-    if (staffData?.avatarUri) {
-        const fileName = staffData.avatarUri.split('/').pop();
-        // Determine file type based on file extension
-        const fileType = fileName.split('.').pop();
-
-        // Append avatar file to FormData
-        formData.append("avatar", {
-            uri: staffData.avatarUri,
-            type: `image/${fileType}`,
-            name: fileName
-        });
-    }
+export const updateStaff = (staffData, staffId) => async (dispatch) => {
 
     try {
-        console.log("update-staffData%", staffData,);
-        console.log("update-staffData%", formData,);
+        console.log("update-staffData-req", staffData,);
         dispatch(staffActions.updateStaffRequest());
-        console.log("update url----------", `${route}/${staffId}`);
-        const data = await axios.put(
+        const response = await axios.put(
             `${route}/${staffId}`,
-            formData,
+            staffData,
             {
                 headers: {
                     "Content-Type": "multipart/form-data",
-                    "authorization": token
                 },
             }
         );
-        console.log('update-staff-res-data', data.data);
-        dispatch(staffActions.updateStaffSuccess(data.data));
+        console.log('update-staff-res-data', response.data);
+        dispatch(staffActions.getStaffSuccess(response.data));
+        dispatch(staffActions.updateStaffSuccess(response.data));
     } catch (error) {
         console.log("error", error)
         let errorMessage = "An error occurred";

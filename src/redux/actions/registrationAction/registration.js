@@ -83,45 +83,23 @@ export const createRegistration = (registrationData) => async (dispatch) => {
     }
 };
 
-export const updateRegistration = (registrationData, token, registrationId) => async (dispatch) => {
-
-    const formData = new FormData();
-    Object.entries(registrationData).forEach(([key, value]) => {
-        if (key != 'avatarUri') {
-            formData.append(key, value);
-        }
-    });
-
-    if (registrationData?.avatarUri) {
-        const fileName = registrationData.avatarUri.split('/').pop();
-        // Determine file type based on file extension
-        const fileType = fileName.split('.').pop();
-
-        // Append avatar file to FormData
-        formData.append("avatar", {
-            uri: registrationData.avatarUri,
-            type: `image/${fileType}`,
-            name: fileName
-        });
-    }
+export const updateRegistration = (registrationData, registrationId) => async (dispatch) => {
 
     try {
-        console.log("update-registrationData%", registrationData,);
-        console.log("update-registrationData%", formData,);
+        console.log("update-registrationData-req", registrationData,);
         dispatch(registrationActions.updateRegistrationRequest());
-        console.log("update url----------", `${route}/${registrationId}`);
-        const data = await axios.put(
+        const response = await axios.put(
             `${route}/${registrationId}`,
-            formData,
+            registrationData,
             {
                 headers: {
-                    "Content-Type": "multipart/form-data",
-                    "authorization": token
+                    "Content-Type": "multipart/form-data"
                 },
             }
         );
-        console.log('update-registration-res-data', data.data);
-        dispatch(registrationActions.updateRegistrationSuccess(data.data));
+        console.log('update-registration-res-data', response.data);
+        dispatch(registrationActions.getRegistrationSuccess(response.data));
+        dispatch(registrationActions.updateRegistrationSuccess(response.data));
     } catch (error) {
         console.log("error", error)
         let errorMessage = "An error occurred";

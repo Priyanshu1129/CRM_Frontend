@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Button,
@@ -24,6 +24,7 @@ import { RegistrationStatusSelector } from "../enums";
 import { registrationFormRules } from "@/utilities/formValidationRules";
 import { registrationActions } from "@/redux/slices/registrationSlice";
 import { updateRegistration } from "@/redux/actions/registrationAction";
+import { getChangedValues } from "@/utilities/getChangedValues";
 import moment from "moment";
 
 export const UpdateRegistrationForm = ({ registration }) => {
@@ -36,9 +37,11 @@ export const UpdateRegistrationForm = ({ registration }) => {
     (state) => state.registration.updateRegistration
   );
 
+  const initialValues = useRef({});
+
   useEffect(() => {
     if (registration) {
-      form.setFieldsValue({
+      const registrationInitialValues = {
         client: registration.client,
         registrationChamp: registration.registrationChamp,
         status: registration.status,
@@ -54,7 +57,9 @@ export const UpdateRegistrationForm = ({ registration }) => {
         primaryContact: registration.primaryContact,
         submittedDocuments: registration.submittedDocuments,
         notes: registration.notes,
-      });
+      };
+      form.setFieldsValue(registrationInitialValues);
+      initialValues.current = registrationInitialValues;
     }
   }, [registration, form]);
 
@@ -81,16 +86,21 @@ export const UpdateRegistrationForm = ({ registration }) => {
 
   const onFinish = (values) => {
     setLoading(true);
-    const updatedValues = {
-      ...values,
-      registrationDate: values.registrationDate?.format("YYYY-MM-DD"),
-      expiryDate: values.expiryDate?.format("YYYY-MM-DD"),
-      websiteDetails: {
-        username: values.username || null,
-        password: values.password || null,
-      },
-    };
-    dispatch(updateRegistration(updatedValues));
+
+    const changedValues = getChangedValues(initialValues, values);
+
+    console.log("Changed values:", changedValues);
+
+    // Dispatch only if there are changed values
+    if (Object.keys(changedValues).length > 0) {
+      dispatch(updateRegistration(changedValues, registration._id));
+    } else {
+      setLoading(false);
+      notification.info({
+        message: "No Changes",
+        description: "No changes were made.",
+      });
+    }
   };
   return (
     <>
@@ -193,7 +203,7 @@ export const UpdateRegistrationForm = ({ registration }) => {
             <Form.Item>
               <Space>
                 <Button
-                  disabled
+                  // disabled
                   type="primary"
                   htmlType="submit"
                   loading={loading}

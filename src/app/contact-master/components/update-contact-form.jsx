@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Button,
@@ -20,6 +20,7 @@ import { contactFormRules } from "@/utilities/formValidationRules";
 import { contactActions } from "@/redux/slices/contactSlice";
 import { updateContact } from "@/redux/actions/contactAction";
 import { ClientSelector } from "@/components";
+import { getChangedValues } from "@/utilities/getChangedValues";
 
 export const UpdateContactForm = ({ contact }) => {
   const [loading, setLoading] = useState(false);
@@ -29,9 +30,13 @@ export const UpdateContactForm = ({ contact }) => {
 
   const { status, error } = useSelector((state) => state.contact.updateContact);
 
+  const initialValues = useRef({});
+  const [avatarChanged, setAvatarChanged] = useState(false);
+  const [avatar, setAvatar] = useState(null);
+
   useEffect(() => {
     if (contact) {
-      form.setFieldsValue({
+      const contactInitialValues = {
         firstName: contact.firstName,
         lastName: contact.lastName,
         gender: contact.gender,
@@ -46,7 +51,10 @@ export const UpdateContactForm = ({ contact }) => {
         city: contact.city,
         memorableInfo: contact.memorableInfo,
         detailsConfirmation: contact.detailsConfirmation,
-      });
+        avatar: contact.avatar,
+      };
+      form.setFieldsValue(contactInitialValues);
+      initialValues.current = contactInitialValues;
     }
   }, [contact, form]);
 
@@ -71,12 +79,40 @@ export const UpdateContactForm = ({ contact }) => {
     }
   }, [status, error, dispatch]);
 
+  const handleAvatarChange = (fileList) => {
+    if (fileList.length > 0) {
+      const newAvatar = fileList[0].originFileObj || fileList[0].url;
+      setAvatarChanged(true);
+      setAvatar(newAvatar);
+    } else {
+      setAvatarChanged(false);
+      setAvatar(null);
+    }
+  };
+
   const onFinish = (values) => {
     setLoading(true);
-    const updatedValues = {
-      ...values,
-    };
-    dispatch(updateContact(updatedValues));
+
+    // Compare current values with initial values and get only changed values
+
+    const changedValues = getChangedValues(initialValues, values);
+
+    if (avatarChanged) {
+      changedValues.avatar = avatar;
+    }
+
+    console.log("Changed values:", changedValues);
+
+    // Dispatch only if there are changed values
+    if (Object.keys(changedValues).length > 0) {
+      dispatch(updateContact(changedValues, contact._id));
+    } else {
+      setLoading(false);
+      notification.info({
+        message: "No Changes",
+        description: "No changes were made.",
+      });
+    }
   };
 
   const colSpan = screens.xs ? 24 : screens.sm ? 12 : screens.md && 8;
@@ -87,7 +123,10 @@ export const UpdateContactForm = ({ contact }) => {
         <Row gutter={24}>
           <Col span={24}>
             <Form.Item label="Upload Contact Profile" name="profileImage">
-              <ImageUpload initialImage={contact?.profileImage} />
+              <ImageUpload
+                initialImage={contact?.profileImage}
+                onAvatarChange={handleAvatarChange}
+              />
             </Form.Item>
           </Col>
           <Col span={8}>
@@ -217,7 +256,7 @@ export const UpdateContactForm = ({ contact }) => {
             <Form.Item>
               <Space>
                 <Button
-                  disabled
+                  // disabled
                   type="primary"
                   htmlType="submit"
                   loading={loading}
