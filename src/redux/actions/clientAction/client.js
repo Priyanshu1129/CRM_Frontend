@@ -95,42 +95,21 @@ export const createClient = (clientData) => async (dispatch) => {
 
 export const updateClient = (clientData, clientId) => async (dispatch) => {
 
-    // const formData = new FormData();
-    // Object.entries(clientData).forEach(([key, value]) => {
-    //     if (key != 'avatarUri') {
-    //         formData.append(key, value);
-    //     }
-    // });
-
-    // if (clientData?.avatarUri) {
-    //     const fileName = clientData.avatarUri.split('/').pop();
-    //     // Determine file type based on file extension
-    //     const fileType = fileName.split('.').pop();
-
-    //     // Append avatar file to FormData
-    //     formData.append("avatar", {
-    //         uri: clientData.avatarUri,
-    //         type: `image/${fileType}`,
-    //         name: fileName
-    //     });
-    // }
-
     try {
-        console.log("update-clientData%", clientData,);
-        console.log("update-clientData%", formData,);
+        console.log("update-client-req-data", clientData);
         dispatch(clientActions.updateClientRequest());
-        console.log("update url----------", `${route}/${clientId}`);
-        const data = await axios.put(
+        const response = await axios.put(
             `${route}/${clientId}`,
-            formData,
+            clientData,
             {
                 headers: {
                     "Content-Type": "multipart/form-data",
-                },
+                }
             }
         );
-        console.log('update-client-res-data', data.data);
-        dispatch(clientActions.updateClientSuccess(data.data));
+        console.log('update-client-res-data', response.data);
+        dispatch(clientActions.getClientSuccess(response.data));
+        dispatch(clientActions.updateClientSuccess(response.data));
     } catch (error) {
         console.log("error", error)
         let errorMessage = "An error occurred";

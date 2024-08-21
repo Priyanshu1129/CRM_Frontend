@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Button,
@@ -30,6 +30,7 @@ import {
 import { clientActions } from "@/redux/slices/clientSlice";
 import { clientFormRules } from "@/utilities/formValidationRules";
 import { updateClient } from "@/redux/actions/clientAction";
+import { getChangedValues } from "@/utilities/getChangedValues";
 
 export const UpdateClientForm = ({ client }) => {
   const [loading, setLoading] = useState(false);
@@ -37,13 +38,15 @@ export const UpdateClientForm = ({ client }) => {
   const screens = Grid.useBreakpoint();
   const dispatch = useDispatch();
 
-  const { status, error, data } = useSelector(
-    (state) => state.client.updateClient
-  );
+  const { status, error } = useSelector((state) => state.client.updateClient);
+
+  const initialValues = useRef({});
+  const [avatarChanged, setAvatarChanged] = useState(false);
+  const [avatar, setAvatar] = useState(null);
 
   useEffect(() => {
     if (client) {
-      form.setFieldsValue({
+      const clientInitialValues = {
         name: client.name,
         industry: client.industry,
         subIndustry: client.subIndustry,
@@ -61,7 +64,12 @@ export const UpdateClientForm = ({ client }) => {
         relationshipStatus: client.relationshipStatus,
         relatedContacts: client.relatedContacts,
         priority: client.priority,
-      });
+        avatar: client.avatar,
+      };
+
+      // Set initial form values
+      form.setFieldsValue(clientInitialValues);
+      initialValues.current = clientInitialValues;
     }
   }, [client, form]);
 
@@ -86,13 +94,40 @@ export const UpdateClientForm = ({ client }) => {
     }
   }, [status, error, dispatch]);
 
+  const handleAvatarChange = (fileList) => {
+    if (fileList.length > 0) {
+      const newAvatar = fileList[0].originFileObj || fileList[0].url;
+      setAvatarChanged(true);
+      setAvatar(newAvatar);
+    } else {
+      setAvatarChanged(false);
+      setAvatar(null);
+    }
+  };
+
   const onFinish = (values) => {
     setLoading(true);
-    const updatedValues = {
-      ...client,
-      ...values,
-    };
-    dispatch(updateClient(updatedValues));
+
+    // Compare current values with initial values and get only changed values
+
+    const changedValues = getChangedValues(initialValues, values);
+
+    if (avatarChanged) {
+      changedValues.avatar = avatar;
+    }
+
+    console.log("Changed values:", changedValues);
+
+    // Dispatch only if there are changed values
+    if (Object.keys(changedValues).length > 0) {
+      dispatch(updateClient(changedValues, client._id));
+    } else {
+      setLoading(false);
+      notification.info({
+        message: "No Changes",
+        description: "No changes were made.",
+      });
+    }
   };
 
   const colSpan = screens.xs ? 24 : screens.sm ? 12 : screens.md && 8;
@@ -102,8 +137,11 @@ export const UpdateClientForm = ({ client }) => {
       <Form form={form} layout="vertical" onFinish={onFinish} size="default">
         <Row gutter={24}>
           <Col span={24}>
-            <Form.Item label="Upload Client Profile" name="profileImage">
-              <ImageUpload initialImage={client?.profileImage} />
+            <Form.Item label="Upload Client Profile" name="avatar">
+              <ImageUpload
+                initialImage={client?.avatar}
+                onAvatarChange={handleAvatarChange}
+              />
             </Form.Item>
           </Col>
           <Col span={colSpan}>
@@ -252,10 +290,10 @@ export const UpdateClientForm = ({ client }) => {
             <Form.Item>
               <Space>
                 <Button
-                  disabled
+                  // disabled
                   type="primary"
                   htmlType="submit"
-                  loading={loading}
+                  // loading={loading}
                 >
                   Update
                 </Button>
