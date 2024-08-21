@@ -89,9 +89,9 @@ export const updateBusinessDevelopment = (businessDevelopmentData, businessDevel
             `${route}/${businessDevelopmentId}`,
             businessDevelopmentData,
             {
-                headers: {
-                    "Content-Type": "multipart/form-data"
-                },
+                // headers: {
+                //     "Content-Type": "multipart/form-data"
+                // },
             }
         );
         console.log('update-businessDevelopment-res-data', response.data);

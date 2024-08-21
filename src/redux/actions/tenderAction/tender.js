@@ -112,9 +112,9 @@ export const updateTender = (tenderData, tenderId) => async (dispatch) => {
             `${route}/${tenderId}`,
             tenderData,
             {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
+                // headers: {
+                //     "Content-Type": "multipart/form-data",
+                // },
             }
         );
         console.log('update-tender-res-data', response.data);

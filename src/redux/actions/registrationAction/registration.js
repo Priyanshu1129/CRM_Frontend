@@ -89,14 +89,7 @@ export const updateRegistration = (registrationData, registrationId) => async (d
         console.log("update-registrationData-req", registrationData,);
         dispatch(registrationActions.updateRegistrationRequest());
         const response = await axios.put(
-            `${route}/${registrationId}`,
-            registrationData,
-            {
-                headers: {
-                    "Content-Type": "multipart/form-data"
-                },
-            }
-        );
+            `${route}/${registrationId}`, registrationData);
         console.log('update-registration-res-data', response.data);
         dispatch(registrationActions.getRegistrationSuccess(response.data));
         dispatch(registrationActions.updateRegistrationSuccess(response.data));

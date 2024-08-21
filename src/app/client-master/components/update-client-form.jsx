@@ -108,8 +108,6 @@ export const UpdateClientForm = ({ client }) => {
   const onFinish = (values) => {
     setLoading(true);
 
-    // Compare current values with initial values and get only changed values
-
     const changedValues = getChangedValues(initialValues, values);
 
     if (avatarChanged) {

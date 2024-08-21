@@ -98,9 +98,9 @@ export const updateOpportunity = (opportunityData, opportunityId) => async (disp
             `${route}/${opportunityId}`,
             opportunityData,
             {
-                headers: {
-                    "Content-Type": "multipart/form-data"
-                },
+                // headers: {
+                //     "Content-Type": "multipart/form-data"
+                // },
             }
         );
         console.log('update-opportunity-res-data', response.data);
