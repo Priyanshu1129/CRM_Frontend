@@ -116,14 +116,14 @@ export const UpdateOpportunityForm = ({ opportunity }) => {
     // const changedRevenue = getChangedValues(initialRevenue, updatedRevenue);
     const changedRevenue = updatedRevenue.filter((updatedItem) => {
       const initialItem = initialRevenue.find(
-          (item) => item._id === updatedItem._id
+        (item) => item._id === updatedItem._id
       );
 
       return (
-          !initialItem ||
-          JSON.stringify(updatedItem) !== JSON.stringify(initialItem)
+        !initialItem ||
+        JSON.stringify(updatedItem) !== JSON.stringify(initialItem)
       );
-  });
+    });
 
     console.log("Deleted items:", deletedRevenue);
     console.log("Changed/Added items:", changedRevenue);
@@ -137,7 +137,7 @@ export const UpdateOpportunityForm = ({ opportunity }) => {
 
     // Dispatch only if there are changed values
     if (Object.keys(changedValues).length > 0) {
-      // dispatch(updateOpportunity(changedValues, opportunity._id));
+      dispatch(updateOpportunity(changedValues, opportunity._id));
     } else {
       setLoading(false);
       notification.info({

@@ -15,7 +15,7 @@ export const RevenueInput = ({ rules }) => (
                 name={[name, "year"]}
                 rules={rules.year}
               >
-                <Input input="number" />
+                <Input />
               </Form.Item>
             </Col>
             <Col span={12}>
@@ -28,7 +28,7 @@ export const RevenueInput = ({ rules }) => (
                 name={[name, "Q1"]}
                 rules={rules.quarter}
               >
-                <Input min={0} type="number" />
+                <Input />
               </Form.Item>
             </Col>
             <Col span={6}>
@@ -38,7 +38,7 @@ export const RevenueInput = ({ rules }) => (
                 name={[name, "Q2"]}
                 rules={rules.quarter}
               >
-                <Input min={0} type="number" />
+                <Input />
               </Form.Item>
             </Col>
             <Col span={6}>
@@ -48,7 +48,7 @@ export const RevenueInput = ({ rules }) => (
                 name={[name, "Q3"]}
                 rules={rules.quarter}
               >
-                <Input min={0} type="number" />
+                <Input />
               </Form.Item>
             </Col>
             <Col span={6}>
@@ -58,7 +58,7 @@ export const RevenueInput = ({ rules }) => (
                 name={[name, "Q4"]}
                 rules={rules.quarter}
               >
-                <Input min={0} type="number" />
+                <Input />
               </Form.Item>
             </Col>
           </Row>
