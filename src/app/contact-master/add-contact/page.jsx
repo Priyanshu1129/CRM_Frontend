@@ -37,6 +37,9 @@ const AddContact = () => {
 
   const { status, error } = useSelector((state) => state.contact.createContact);
 
+  const [avatarChanged, setAvatarChanged] = useState(false);
+  const [avatar, setAvatar] = useState(null);
+
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
@@ -63,12 +66,24 @@ const AddContact = () => {
     }
   }, [status, error, dispatch]);
 
+  const handleAvatarChange = (fileList) => {
+    if (fileList.length > 0) {
+      const newAvatar = fileList[0].originFileObj || fileList[0].url;
+      setAvatarChanged(true);
+      setAvatar(newAvatar);
+    } else {
+      setAvatarChanged(false);
+      setAvatar(null);
+    }
+  };
+
   const onFinish = (values) => {
     setLoading(true);
     let newValues = {
       ...values,
       entryDate: "2024-08-10T00:00:00.000Z",
       enteredBy: "64cf1c8a6e6e3c0b34a25f95",
+      avatar: avatarChanged ? avatar : null,
     };
     console.log("submit", newValues);
     dispatch(createContact(newValues));

@@ -42,7 +42,6 @@ export const UpdateStaffForm = ({ staff }) => {
         role: staff.role,
         phone: staff.phone,
         email: staff.email,
-        DOB: staff.DOB ? moment(staff.DOB) : null,
         address: staff.address,
         avatar: staff.avatar,
       };
@@ -163,11 +162,6 @@ export const UpdateStaffForm = ({ staff }) => {
         <Col span={colSpan}>
           <Form.Item label="Email" name="email" rules={staffFormRules.email}>
             <Input />
-          </Form.Item>
-        </Col>
-        <Col span={colSpan}>
-          <Form.Item label="DOB" name="DOB" rules={staffFormRules.DOB}>
-            <DatePicker style={{ width: "100%" }} />
           </Form.Item>
         </Col>
         <Col span={colSpan}>

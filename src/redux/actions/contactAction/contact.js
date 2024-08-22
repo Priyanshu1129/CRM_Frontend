@@ -76,8 +76,7 @@ export const createContact = (contactData) => async (dispatch) => {
             contactData,
             {
                 headers: {
-                    // "Content-Type": "multipart/form-data",
-                    // "authorization": token
+                    "Content-Type": "multipart/form-data",
                 },
             }
         );

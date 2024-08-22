@@ -33,6 +33,9 @@ const AddStaff = () => {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
+  const [avatarChanged, setAvatarChanged] = useState(false);
+  const [avatar, setAvatar] = useState(null);
+
   useEffect(() => {
     if (status === "pending") {
       setLoading(true);
@@ -55,10 +58,21 @@ const AddStaff = () => {
     }
   }, [status, error, dispatch]);
 
+  const handleAvatarChange = (fileList) => {
+    if (fileList.length > 0) {
+      const newAvatar = fileList[0].originFileObj || fileList[0].url;
+      setAvatarChanged(true);
+      setAvatar(newAvatar);
+    } else {
+      setAvatarChanged(false);
+      setAvatar(null);
+    }
+  };
+
   const onFinish = (values) => {
     const formattedValues = {
       ...values,
-      dob: values.DOB.format("YYYY-MM-DD"), // Convert DatePicker to required format
+      avatar: avatarChanged ? avatar : null,
     };
 
     setLoading(true);
@@ -88,10 +102,7 @@ const AddStaff = () => {
           <Row gutter={24}>
             <Col span={24}>
               <Form.Item label="Upload Client Profile">
-                <ImageUpload
-                  initialImage={staff?.avatar}
-                  onAvatarChange={handleAvatarChange}
-                />
+                <ImageUpload onAvatarChange={handleAvatarChange} />
               </Form.Item>
             </Col>
             <Col span={8}>
@@ -150,11 +161,6 @@ const AddStaff = () => {
                 rules={staffFormRules.email}
               >
                 <Input />
-              </Form.Item>
-            </Col>
-            <Col span={8}>
-              <Form.Item label="DOB" name="DOB" rules={staffFormRules.DOB}>
-                <DatePicker style={{ width: "100%" }} />
               </Form.Item>
             </Col>
             <Col span={8}>

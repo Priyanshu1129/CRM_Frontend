@@ -73,7 +73,7 @@ export const createClient = (clientData) => async (dispatch) => {
             clientData,
             {
                 headers: {
-                    // "Content-Type": "multipart/form-data",
+                    "Content-Type": "multipart/form-data",
                 },
             }
         );

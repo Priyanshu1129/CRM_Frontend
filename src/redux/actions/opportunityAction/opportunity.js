@@ -99,7 +99,6 @@ export const updateOpportunity = (opportunityData, opportunityId) => async (disp
             opportunityData,
             {
                 // headers: {
-                //     "Content-Type": "multipart/form-data"
                 // },
             }
         );

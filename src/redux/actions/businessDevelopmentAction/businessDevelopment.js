@@ -90,7 +90,7 @@ export const updateBusinessDevelopment = (businessDevelopmentData, businessDevel
             businessDevelopmentData,
             {
                 // headers: {
-                //     "Content-Type": "multipart/form-data"
+
                 // },
             }
         );
