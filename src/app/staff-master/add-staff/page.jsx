@@ -88,7 +88,10 @@ const AddStaff = () => {
           <Row gutter={24}>
             <Col span={24}>
               <Form.Item label="Upload Client Profile">
-                <ImageUpload />
+                <ImageUpload
+                  initialImage={staff?.avatar}
+                  onAvatarChange={handleAvatarChange}
+                />
               </Form.Item>
             </Col>
             <Col span={8}>

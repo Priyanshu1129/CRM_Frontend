@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Upload } from "antd";
 import ImgCrop from "antd-img-crop";
-export const ImageUpload = ({ onAvatarChange, initialImage }) => {
+export const ImageUpload = ({ onAvatarChange, initialImage = "" }) => {
   const [fileList, setFileList] = useState([]);
 
   useEffect(() => {
