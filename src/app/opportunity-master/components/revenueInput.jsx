@@ -1,11 +1,11 @@
 import React from "react";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Space, Col, Row } from "antd";
-const onFinish = (values) => {
-  console.log("Received values of form:", values);
-};
+
 export const RevenueInput = () => (
-  <Form.List name="users">
+  <Form.List
+    name="revenue"
+  >
     {(fields, { add, remove }) => (
       <>
         {fields.map(({ key, name, ...restField }) => (
@@ -14,15 +14,15 @@ export const RevenueInput = () => (
               <Form.Item
                 label="Year"
                 {...restField}
-                name={[name, "first"]}
+                name={[name, "year"]}
                 rules={[
                   {
                     required: true,
-                    message: "Missing first name",
+                    message: "Please input year",
                   },
                 ]}
               >
-                <Input placeholder="First Name" />
+                <Input />
               </Form.Item>
             </Col>
             <Col span={12}>
@@ -32,60 +32,60 @@ export const RevenueInput = () => (
               <Form.Item
                 {...restField}
                 label="Quarter 1"
-                name={[name, "last"]}
+                name={[name, "Q1"]}
                 rules={[
                   {
                     required: true,
-                    message: "Missing last name",
+                    message: "Please input quarter 1 revenue",
                   },
                 ]}
               >
-                <Input placeholder="Revenue" />
+                <Input />
               </Form.Item>
             </Col>
             <Col span={6}>
               <Form.Item
                 {...restField}
                 label="Quarter 2"
-                name={[name, "last"]}
+                name={[name, "Q2"]}
                 rules={[
                   {
                     required: true,
-                    message: "Missing last name",
+                    message: "Please input quarter 2 revenue",
                   },
                 ]}
               >
-                <Input placeholder="Last Name" />
+                <Input />
               </Form.Item>
             </Col>
             <Col span={6}>
               <Form.Item
                 {...restField}
                 label="Quarter 3"
-                name={[name, "last"]}
+                name={[name, "Q3"]}
                 rules={[
                   {
                     required: true,
-                    message: "Missing last name",
+                    message: "Please input quarter 3 revenue",
                   },
                 ]}
               >
-                <Input placeholder="Last Name" />
+                <Input />
               </Form.Item>
             </Col>
             <Col span={6}>
               <Form.Item
                 {...restField}
                 label="Quarter 4"
-                name={[name, "last"]}
+                name={[name, "Q4"]}
                 rules={[
                   {
                     required: true,
-                    message: "Missing last name",
+                    message: "Please input quarter 4 revenue",
                   },
                 ]}
               >
-                <Input placeholder="Last Name" />
+                <Input />
               </Form.Item>
             </Col>
           </Row>

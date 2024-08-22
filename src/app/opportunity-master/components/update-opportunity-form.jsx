@@ -60,6 +60,7 @@ export const UpdateOpportunityForm = ({ opportunity }) => {
         stageClarification: opportunity.stageClarification,
         salesTopLine: opportunity.salesTopLine,
         offsets: opportunity.offsets,
+        revenue: opportunity.revenue,
       };
       form.setFieldsValue(opportunityInitialValues);
       initialValues.current = opportunityInitialValues;
@@ -92,7 +93,42 @@ export const UpdateOpportunityForm = ({ opportunity }) => {
 
     const changedValues = getChangedValues(initialValues, values);
 
-    console.log("Changed values:", changedValues);
+    const initialRevenue = initialValues.current.revenue || [];
+    const updatedRevenue = values.revenue || [];
+
+    // Identify deleted items
+    const deletedRevenue = initialRevenue
+      .filter(
+        (initialItem) =>
+          !updatedRevenue.some(
+            (updatedItem) => updatedItem._id === initialItem._id
+          )
+      )
+      .map((item) => ({
+        ...item,
+        delete: true,
+      }));
+
+    const changedRevenue = updatedRevenue.filter((updatedItem) => {
+      const initialItem = initialRevenue.find(
+        (item) => item._id === updatedItem._id
+      );
+
+      return (
+        !initialItem ||
+        JSON.stringify(updatedItem) !== JSON.stringify(initialItem)
+      );
+    });
+
+    console.log("Deleted items:", deletedRevenue);
+    console.log("Changed/Added items:", changedRevenue);
+
+    // Merge the results into changedValues
+    if (changedRevenue.length || deletedRevenue.length) {
+      changedValues.revenue = [...changedRevenue, ...deletedRevenue];
+    }
+
+    console.log("Final changed values:", changedValues);
 
     // Dispatch only if there are changed values
     if (Object.keys(changedValues).length > 0) {
@@ -213,9 +249,9 @@ export const UpdateOpportunityForm = ({ opportunity }) => {
               <Input type="number" />
             </Form.Item>
           </Col>
-          {/* <Col span={24}>
-            <RevenueInput initialValues={opportunity.revenue} />
-          </Col> */}
+          <Col span={24}>
+            <RevenueInput />
+          </Col>
           <Col span={24}>
             <Form.Item>
               <Space>
@@ -223,7 +259,7 @@ export const UpdateOpportunityForm = ({ opportunity }) => {
                   // disabled
                   type="primary"
                   htmlType="submit"
-                  loading={loading}
+                  // loading={loading}
                 >
                   Update
                 </Button>

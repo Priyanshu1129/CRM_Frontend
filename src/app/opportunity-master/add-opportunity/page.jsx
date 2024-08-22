@@ -72,7 +72,7 @@ const AddOpportunity = () => {
       enteredBy: "64cf1c8a6e6e3c0b34a25f95",
     };
     console.log("submit", newValues);
-    dispatch(createOpportunity(newValues));
+    // dispatch(createOpportunity(newValues));
   };
 
   return (
@@ -200,7 +200,7 @@ const AddOpportunity = () => {
             <Col span={24}>
               <Form.Item>
                 <Space>
-                  <Button type="primary" htmlType="submit" loading={loading}>
+                  <Button type="primary" htmlType="submit">
                     Submit
                   </Button>
                   <Button
