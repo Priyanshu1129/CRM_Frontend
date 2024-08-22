@@ -27,7 +27,10 @@ import { RevenueInput } from "./revenueInput";
 import { opportunityFormRules } from "@/utilities/formValidationRules";
 import { updateOpportunity } from "@/redux/actions/opportunityAction";
 import { opportunityActions } from "@/redux/slices/opportunitySlice";
-import { getChangedValues } from "@/utilities/getChangedValues";
+import {
+  getChangedValues,
+  getDeletedRevenue,
+} from "@/utilities/getChangedValues";
 
 export const UpdateOpportunityForm = ({ opportunity }) => {
   const [loading, setLoading] = useState(false);
@@ -97,28 +100,9 @@ export const UpdateOpportunityForm = ({ opportunity }) => {
     const updatedRevenue = values.revenue || [];
 
     // Identify deleted items
-    const deletedRevenue = initialRevenue
-      .filter(
-        (initialItem) =>
-          !updatedRevenue.some(
-            (updatedItem) => updatedItem._id === initialItem._id
-          )
-      )
-      .map((item) => ({
-        ...item,
-        delete: true,
-      }));
+    const deletedRevenue = getDeletedRevenue(initialRevenue, updatedRevenue);
 
-    const changedRevenue = updatedRevenue.filter((updatedItem) => {
-      const initialItem = initialRevenue.find(
-        (item) => item._id === updatedItem._id
-      );
-
-      return (
-        !initialItem ||
-        JSON.stringify(updatedItem) !== JSON.stringify(initialItem)
-      );
-    });
+    const changedRevenue = getChangedValues(initialRevenue, updatedRevenue);
 
     console.log("Deleted items:", deletedRevenue);
     console.log("Changed/Added items:", changedRevenue);
@@ -250,7 +234,7 @@ export const UpdateOpportunityForm = ({ opportunity }) => {
             </Form.Item>
           </Col>
           <Col span={24}>
-            <RevenueInput />
+            <RevenueInput rules={opportunityFormRules.revenue} />
           </Col>
           <Col span={24}>
             <Form.Item>

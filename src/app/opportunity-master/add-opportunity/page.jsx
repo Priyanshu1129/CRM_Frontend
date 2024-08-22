@@ -72,7 +72,7 @@ const AddOpportunity = () => {
       enteredBy: "64cf1c8a6e6e3c0b34a25f95",
     };
     console.log("submit", newValues);
-    // dispatch(createOpportunity(newValues));
+    dispatch(createOpportunity(newValues));
   };
 
   return (
@@ -195,7 +195,7 @@ const AddOpportunity = () => {
               </Form.Item>
             </Col>
             <Col span={24}>
-              <RevenueInput />
+              <RevenueInput rules={opportunityFormRules.revenue} />
             </Col>
             <Col span={24}>
               <Form.Item>

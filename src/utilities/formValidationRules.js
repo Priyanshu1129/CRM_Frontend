@@ -139,6 +139,28 @@ export const opportunityFormRules = {
     salesTopLine: [{ required: true, message: "Sales Top-Line is required" }],
     offsets: [{ required: true, message: "Offsets are required" }],
     address: [{ required: false, message: "Address is required" }],
+    revenue: {
+        year: [
+            {
+                required: true,
+                message: "Year is required",
+            },
+            {
+                pattern: /^[0-9]{4}$/, // Matches a 4-digit year
+                message: "Year must be a valid 4-digit number",
+            },
+        ],
+        quarter: [
+            {
+                required: true,
+                message: "This field is required",
+            },
+            {
+                min: 0,
+                message: "Value must be a positive number or 0",
+            },
+        ],
+    }
 };
 
 export const tenderFormRules = {

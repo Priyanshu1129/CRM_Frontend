@@ -2,10 +2,8 @@ import React from "react";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Space, Col, Row } from "antd";
 
-export const RevenueInput = () => (
-  <Form.List
-    name="revenue"
-  >
+export const RevenueInput = ({ rules }) => (
+  <Form.List name="revenue">
     {(fields, { add, remove }) => (
       <>
         {fields.map(({ key, name, ...restField }) => (
@@ -15,14 +13,9 @@ export const RevenueInput = () => (
                 label="Year"
                 {...restField}
                 name={[name, "year"]}
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input year",
-                  },
-                ]}
+                rules={rules.year}
               >
-                <Input />
+                <Input input="number" />
               </Form.Item>
             </Col>
             <Col span={12}>
@@ -33,14 +26,9 @@ export const RevenueInput = () => (
                 {...restField}
                 label="Quarter 1"
                 name={[name, "Q1"]}
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input quarter 1 revenue",
-                  },
-                ]}
+                rules={rules.quarter}
               >
-                <Input />
+                <Input min={0} type="number" />
               </Form.Item>
             </Col>
             <Col span={6}>
@@ -48,14 +36,9 @@ export const RevenueInput = () => (
                 {...restField}
                 label="Quarter 2"
                 name={[name, "Q2"]}
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input quarter 2 revenue",
-                  },
-                ]}
+                rules={rules.quarter}
               >
-                <Input />
+                <Input min={0} type="number" />
               </Form.Item>
             </Col>
             <Col span={6}>
@@ -63,14 +46,9 @@ export const RevenueInput = () => (
                 {...restField}
                 label="Quarter 3"
                 name={[name, "Q3"]}
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input quarter 3 revenue",
-                  },
-                ]}
+                rules={rules.quarter}
               >
-                <Input />
+                <Input min={0} type="number" />
               </Form.Item>
             </Col>
             <Col span={6}>
@@ -78,14 +56,9 @@ export const RevenueInput = () => (
                 {...restField}
                 label="Quarter 4"
                 name={[name, "Q4"]}
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input quarter 4 revenue",
-                  },
-                ]}
+                rules={rules.quarter}
               >
-                <Input />
+                <Input min={0} type="number" />
               </Form.Item>
             </Col>
           </Row>
