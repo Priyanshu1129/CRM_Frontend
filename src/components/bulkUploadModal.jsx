@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { UploadOutlined } from "@ant-design/icons";
-import { Button, Modal, message, Upload } from "antd";
+import { Button, Modal, message, Upload, Space } from "antd";
 import { serverURL } from "@/config/config";
+import Link from "next/link";
 
 export const BulkUploadModal = ({ uploadModal, setUploadModal, resource }) => {
   const [fileList, setFileList] = useState([]);
   const [uploading, setUploading] = useState(false);
-
+  const [resData, setResData] = useState(null);
   const handleOk = () => {
     setUploadModal(false);
   };
@@ -26,9 +27,10 @@ export const BulkUploadModal = ({ uploadModal, setUploadModal, resource }) => {
       body: formData,
     })
       .then((res) => res.json())
-      .then(() => {
+      .then((res) => {
+        setResData(res);
         setFileList([]);
-        message.success("upload successfully.");
+        message.success(res?.message);
       })
       .catch(() => {
         message.error("upload failed.");
@@ -91,6 +93,18 @@ export const BulkUploadModal = ({ uploadModal, setUploadModal, resource }) => {
         <Upload {...props}>
           <Button>Select File</Button>
         </Upload>
+        {resData?.data?.url &&
+          (resData?.type == "backup" ? (
+            <Space style={{ marginTop: "16px" }}>
+              <Link href={resData?.data?.url}>
+                Click to check correction file
+              </Link>
+            </Space>
+          ) : (
+            <Space style={{ marginTop: "16px" }}>
+              <Link href={resData?.data?.url}>Click to get backup file</Link>
+            </Space>
+          ))}
       </Modal>
     </>
   );

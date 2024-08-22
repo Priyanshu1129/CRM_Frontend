@@ -102,6 +102,7 @@ export const UpdateRegistrationForm = ({ registration }) => {
       });
     }
   };
+
   return (
     <>
       <Form

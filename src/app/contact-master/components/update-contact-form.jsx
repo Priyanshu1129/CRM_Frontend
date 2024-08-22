@@ -122,9 +122,9 @@ export const UpdateContactForm = ({ contact }) => {
       <Form layout="vertical" form={form} size={"default"} onFinish={onFinish}>
         <Row gutter={24}>
           <Col span={24}>
-            <Form.Item label="Upload Contact Profile" name="profileImage">
+            <Form.Item label="Upload Contact Profile" name="avatar">
               <ImageUpload
-                initialImage={contact?.profileImage}
+                initialImage={contact?.avatar}
                 onAvatarChange={handleAvatarChange}
               />
             </Form.Item>
