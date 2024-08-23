@@ -43,13 +43,13 @@ export const columns = [
         width: 200,
         render: (text) => text || "N/A",
     },
-    {
-        title: "Website Password",
-        dataIndex: ["websiteDetails", "password"],
-        key: "websitePassword",
-        width: 150,
-        render: () => "••••••", // Masking the password for security
-    },
+    // {
+    //     title: "Website Password",
+    //     dataIndex: ["websiteDetails", "password"],
+    //     key: "websitePassword",
+    //     width: 150,
+    //     render: () => "••••••", // Masking the password for security
+    // },
     {
         title: "Other Details",
         dataIndex: "otherDetails",
@@ -85,13 +85,13 @@ export const columns = [
         width: 200,
         render: (text) => text || "N/A",
     },
-    {
-        title: "Notes",
-        dataIndex: "notes",
-        key: "notes",
-        width: 300,
-        render: (notes) => notes.length ? notes.join(", ") : "N/A",
-    },
+    // {
+    //     title: "Notes",
+    //     dataIndex: "notes",
+    //     key: "notes",
+    //     width: 300,
+    //     render: (notes) => notes.length ? notes.join(", ") : "N/A",
+    // },
     {
         title: "Action",
         key: "operation",

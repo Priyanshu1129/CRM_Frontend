@@ -63,6 +63,7 @@ export const ListSearch = ({ SearchType }) => {
   useEffect(() => {
     if (input && SearchType) {
       let url = `/${SearchType}-master/${SearchType}-details/${input}`;
+      router.push(url);
     }
   }, [input, router, SearchType]);
 

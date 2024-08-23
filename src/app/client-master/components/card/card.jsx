@@ -84,14 +84,7 @@ export const ClientCard = ({ client }) => {
                   }
                   key={primaryRelationship?.id}
                 >
-                  <CustomAvatar
-                    name={
-                      `${primaryRelationship.firstName || "N/A"} ${
-                        primaryRelationship.lastName || "N/A"
-                      }` || "N/A"
-                    }
-                    src={primaryRelationship?.avatar}
-                  />
+                  <CustomAvatar src={primaryRelationship?.avatar} />
                 </Tooltip>
               )}
               {secondaryRelationship && (
@@ -103,14 +96,7 @@ export const ClientCard = ({ client }) => {
                   }
                   key={secondaryRelationship?.id}
                 >
-                  <CustomAvatar
-                    name={
-                      `${secondaryRelationship.firstName || "N/A"} ${
-                        secondaryRelationship.lastName || "N/A"
-                      }` || "N/A"
-                    }
-                    src={secondaryRelationship?.avatar}
-                  />
+                  <CustomAvatar src={secondaryRelationship?.avatar} />
                 </Tooltip>
               )}
             </div>

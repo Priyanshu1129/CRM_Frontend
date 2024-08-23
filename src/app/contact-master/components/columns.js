@@ -1,17 +1,25 @@
-import { TableActions } from "@/components";
+import { TableActions, CustomAvatar, Text } from "@/components";
+import { Space } from "antd";
 export const columns = [
     {
-        title: "First Name",
-        dataIndex: "firstName",
+        title: "Name",
+        // dataIndex: "firstName",
         key: "firstName",
-        width: 150,
+        width: 200,
+        render: (_, record) =>
+        (
+            <Space>
+                <CustomAvatar src={record.avatar} />
+                <Text>{`${record.firstName} ${record.lastName}` || "N/A"}</Text>
+            </Space>
+        )
     },
-    {
-        title: "Last Name",
-        dataIndex: "lastName",
-        key: "lastName",
-        width: 150,
-    },
+    // {
+    //     title: "Last Name",
+    //     dataIndex: "lastName",
+    //     key: "lastName",
+    //     width: 150,
+    // },
     {
         title: "Entry Date",
         dataIndex: "entryDate",

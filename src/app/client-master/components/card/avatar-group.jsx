@@ -58,7 +58,6 @@ export const AvatarGroup = ({
                 height: getImageSize(size),
                 ...avatarStyle,
               }}
-              name={avatar?.name}
               src={avatar?.src}
               size={size}
             />
@@ -74,11 +73,7 @@ export const AvatarGroup = ({
               {remainingAvatars.map((avatar, index) => {
                 return (
                   <Space key={index}>
-                    <CustomAvatar
-                      name={avatar.name}
-                      src={avatar.src}
-                      size="small"
-                    />
+                    <CustomAvatar src={avatar.src} size="small" />
                     <Text
                       style={{
                         color: "#fff",

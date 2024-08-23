@@ -1,19 +1,26 @@
-import { TableActions } from "@/components";
+import { TableActions, CustomAvatar, Text } from "@/components";
+import { Space } from "antd";
 export const columns = [
     {
-        title: "First Name",
-        dataIndex: "firstName",
+        title: "Name",
+        // dataIndex: "firstName",
         key: "firstName",
-        width: 150,
-        render: (text) => text || "N/A",
+        width: 200,
+        render: (_, record) =>
+        (
+            <Space>
+                <CustomAvatar src={record.avatar} />
+                <Text>{`${record.firstName} ${record.lastName}` || "N/A"}</Text>
+            </Space>
+        )
     },
-    {
-        title: "Last Name",
-        dataIndex: "lastName",
-        key: "lastName",
-        width: 150,
-        render: (text) => text || "N/A",
-    },
+    // {
+    //     title: "Last Name",
+    //     dataIndex: "lastName",
+    //     key: "lastName",
+    //     width: 150,
+    //     render: (text) => text || "N/A",
+    // },
     {
         title: "Gender",
         dataIndex: "gender",
@@ -32,13 +39,6 @@ export const columns = [
                     return text;
             }
         },
-    },
-    {
-        title: "Date of Birth",
-        dataIndex: "DOB",
-        key: "DOB",
-        width: 150,
-        render: (text) => (text ? new Date(text).toLocaleDateString() : "N/A"),
     },
     {
         title: "Email",

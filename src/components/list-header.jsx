@@ -36,7 +36,7 @@ export const ListHeader = ({ setRefresh, toPath, buttonText, SearchType }) => {
             marginTop: screens.xs ? "1.6rem" : "0rem",
           }}
         />
-        <ListSearch SearchType={SearchType} />
+        {SearchType && <ListSearch SearchType={SearchType} />}
       </Space>
     </div>
   );

@@ -409,6 +409,7 @@ export const StaffSelector = ({
     >
       <Select
         size={size}
+        placeholder={name ? `Search staff` : ""}
         loading={loading}
         showSearch
         optionFilterProp="children"
@@ -477,6 +478,7 @@ export const ClientSelector = ({
     >
       <Select
         size={size}
+        placeholder={name ? `Search client` : ""}
         showSearch
         loading={loading}
         optionFilterProp="children"
@@ -539,6 +541,7 @@ export const ContactSelector = ({
     >
       <Select
         size={size}
+        placeholder={name ? `Search contact` : ""}
         showSearch
         mode={mode}
         loading={loading}
@@ -603,6 +606,7 @@ export const TenderSelector = ({
       <Select
         size={size}
         showSearch
+        placeholder={name ? `Search tender` : ""}
         loading={loading}
         optionFilterProp="children"
         filterOption={(input, option) =>
@@ -662,6 +666,7 @@ export const OpportunitySelector = ({
     >
       <Select
         size={size}
+        placeholder={name ? `Search opportunity` : ""}
         showSearch
         loading={loading}
         optionFilterProp="children"

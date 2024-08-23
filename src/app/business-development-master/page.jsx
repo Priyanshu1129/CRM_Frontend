@@ -78,7 +78,7 @@ const BusinessDevelopmentMaster = () => {
     <>
       <ListHeader
         toPath={"/business-development-master/add-business-development"}
-        buttonText={"Add New"}
+        buttonText={"Add new business development"}
         setRefresh={setRefresh}
       />
       {view == "table" ? (

@@ -22,6 +22,12 @@ export const columns = [
     render: (enteredBy) => enteredBy ? `${enteredBy.firstName} ${enteredBy.lastName}` : "N/A",
   },
   {
+    title: "Client",
+    dataIndex: ["client", "name"],
+    key: "partneredWith",
+    width: 150,
+  },
+  {
     title: "Partnered With",
     dataIndex: "partneredWith",
     key: "partneredWith",
@@ -55,7 +61,7 @@ export const columns = [
     render: (text) => text || 'N/A',
   },
   {
-    title: "Sales Champion",
+    title: "Sales Champ",
     dataIndex: "salesChamp",
     key: "salesChamp",
     width: 150,
@@ -96,11 +102,11 @@ export const columns = [
     render: (text) => text || 'N/A',
   },
   {
-    title: "Revenue",
-    dataIndex: "revenue",
+    title: "Total Revenue",
+    dataIndex: "totalRevenue",
     key: "revenue",
     width: 120,
-    render: (text) => text.length > 0 ? text.join(", ") : 'N/A',
+    render: (text) => text || 'N/A',
   },
   {
     title: "Confidence Level",

@@ -85,13 +85,13 @@ export const columns = [
     width: 180,
     render: (text) => text?.toLocaleString() || "N/A",
   },
-  {
-    title: "Notes",
-    dataIndex: "Notes",
-    key: "notes",
-    width: 200,
-    render: (notes) => (notes && notes.length ? notes.join(", ") : "N/A"),
-  },
+  // {
+  //   title: "Notes",
+  //   dataIndex: "Notes",
+  //   key: "notes",
+  //   width: 200,
+  //   render: (notes) => (notes && notes.length ? notes.join(", ") : "N/A"),
+  // },
   {
     title: "Action",
     key: "operation",
