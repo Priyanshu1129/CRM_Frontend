@@ -10,13 +10,24 @@ export const ClientCard = ({ client }) => {
   // const { edit } = useNavigation();
   const router = useRouter();
   if (!client) return <ClientCardSkeleton />;
-  const { _id } = client;
-  const relatedContactAvatars = client?.contacts?.map((contact) => {
+  const {
+    _id,
+    avatar = "",
+    name,
+    relatedContacts,
+    primaryRelationship,
+    secondaryRelationship,
+    clientCode,
+    marketCap,
+  } = client;
+  const relatedContactAvatars = relatedContacts?.map((contact) => {
     return {
-      name: contact.name,
-      src: contact.avatarUrl,
+      name:
+        `${contact.firstName || "N/A"} ${contact.lastName || "N/A"}` || "N/A",
+      src: contact.avatar,
     };
   });
+
   return (
     <Card
       size="small"
@@ -56,16 +67,53 @@ export const ClientCard = ({ client }) => {
               gap: "6px",
             }}
           >
-            <Text size="xs">Sales owner</Text>
-            <Tooltip
-              title={client.salesOwner?.name}
-              key={client.salesOwner?.id}
+            <Text size="xs">Relationships</Text>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "flex-end",
+                gap: "6px",
+              }}
             >
-              <CustomAvatar
-                name={client.salesOwner?.name}
-                src={client.salesOwner?.avatarUrl}
-              />
-            </Tooltip>
+              {primaryRelationship && (
+                <Tooltip
+                  title={
+                    `${primaryRelationship.firstName || "N/A"} ${
+                      primaryRelationship.lastName || "N/A"
+                    }` || "N/A"
+                  }
+                  key={primaryRelationship?.id}
+                >
+                  <CustomAvatar
+                    name={
+                      `${primaryRelationship.firstName || "N/A"} ${
+                        primaryRelationship.lastName || "N/A"
+                      }` || "N/A"
+                    }
+                    src={primaryRelationship?.avatar}
+                  />
+                </Tooltip>
+              )}
+              {secondaryRelationship && (
+                <Tooltip
+                  title={
+                    `${secondaryRelationship.firstName || "N/A"} ${
+                      secondaryRelationship.lastName || "N/A"
+                    }` || "N/A"
+                  }
+                  key={secondaryRelationship?.id}
+                >
+                  <CustomAvatar
+                    name={
+                      `${secondaryRelationship.firstName || "N/A"} ${
+                        secondaryRelationship.lastName || "N/A"
+                      }` || "N/A"
+                    }
+                    src={secondaryRelationship?.avatar}
+                  />
+                </Tooltip>
+              )}
+            </div>
           </div>
         </div>,
       ]}
@@ -128,8 +176,8 @@ export const ClientCard = ({ client }) => {
         </Dropdown>
 
         <CustomAvatar
-          name={client.name}
-          src={client.avatarUrl}
+          name={name}
+          src={avatar}
           shape="square"
           style={{
             width: "48px",
@@ -144,7 +192,7 @@ export const ClientCard = ({ client }) => {
             marginTop: "12px",
           }}
         >
-          {client.name}
+          {name}
         </Text>
 
         <Space
@@ -155,7 +203,7 @@ export const ClientCard = ({ client }) => {
             alignItems: "center",
           }}
         >
-          <Text type="secondary">Open deals amount</Text>
+          <Text type="secondary">{clientCode}</Text>
           <Text
             strong
             size="md"
@@ -164,7 +212,7 @@ export const ClientCard = ({ client }) => {
             }}
           >
             {/* {currencyNumber(client?.dealsAggregate?.[0].sum?.value || 0)} */}
-            $299,149.00
+            {marketCap}
           </Text>
         </Space>
       </div>

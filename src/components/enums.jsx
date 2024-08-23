@@ -401,7 +401,12 @@ export const StaffSelector = ({
   }, [status, data]);
 
   return (
-    <Form.Item name={name} label={label} rules={rules}>
+    <Form.Item
+      style={{ width: "100%" }}
+      name={name}
+      label={label}
+      rules={rules}
+    >
       <Select
         size={size}
         loading={loading}
@@ -464,7 +469,12 @@ export const ClientSelector = ({
   };
 
   return (
-    <Form.Item name={name} label={label} rules={rules}>
+    <Form.Item
+      style={{ width: "100%" }}
+      name={name}
+      label={label}
+      rules={rules}
+    >
       <Select
         size={size}
         showSearch
@@ -521,7 +531,12 @@ export const ContactSelector = ({
   }, [status, data]);
 
   return (
-    <Form.Item name={name} label={label} rules={rules}>
+    <Form.Item
+      style={{ width: "100%" }}
+      name={name}
+      label={label}
+      rules={rules}
+    >
       <Select
         size={size}
         showSearch
@@ -579,7 +594,12 @@ export const TenderSelector = ({
   }, [status, data]);
 
   return (
-    <Form.Item name={name} label={label} rules={rules}>
+    <Form.Item
+      style={{ width: "100%" }}
+      name={name}
+      label={label}
+      rules={rules}
+    >
       <Select
         size={size}
         showSearch
@@ -634,7 +654,12 @@ export const OpportunitySelector = ({
   }, [status, data]);
 
   return (
-    <Form.Item name={name} label={label} rules={rules}>
+    <Form.Item
+      style={{ width: "100%" }}
+      name={name}
+      label={label}
+      rules={rules}
+    >
       <Select
         size={size}
         showSearch

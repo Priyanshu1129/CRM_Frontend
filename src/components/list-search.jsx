@@ -72,7 +72,7 @@ export const ListSearch = ({ SearchType }) => {
         marginTop: screens.xs ? "1.6rem" : undefined,
       }}
     >
-      <Form style={{ width: "150px" }} layout="inline">
+      <Form style={{ width: screens.xs ? "150px" : "200px" }} layout="inline">
         {renderSelector()}
       </Form>
 
