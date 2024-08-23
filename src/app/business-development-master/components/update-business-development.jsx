@@ -176,7 +176,7 @@ export const UpdateBusinessDevelopmentForm = ({ businessDevelopment }) => {
               label="Potential TopLine"
               rules={businessDevelopmentFormRules.potentialTopLine}
             >
-              <Input type="number" />
+              <Input />
             </Form.Item>
           </Col>
           <Col span={colSpan}>
@@ -185,7 +185,7 @@ export const UpdateBusinessDevelopmentForm = ({ businessDevelopment }) => {
               label="Potential Offsets"
               rules={businessDevelopmentFormRules.potentialOffset}
             >
-              <Input type="number" />
+              <Input />
             </Form.Item>
           </Col>
           <Col span={24}>

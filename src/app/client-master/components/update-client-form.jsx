@@ -213,7 +213,7 @@ export const UpdateClientForm = ({ client }) => {
               name="annualRevenue"
               rules={clientFormRules.annualRevenue}
             >
-              <Input />
+              <Input type="number" />
             </Form.Item>
           </Col>
           <Col span={colSpan}>
