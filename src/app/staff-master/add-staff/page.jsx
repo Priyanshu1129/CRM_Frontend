@@ -79,6 +79,12 @@ const AddStaff = () => {
     dispatch(createStaff(formattedValues));
   };
 
+  const roles = [
+    { label: "Viewer", value: "viewer" },
+    { label: "Admin", value: "admin" },
+    { label: "User", value: "user" },
+  ];
+
   return (
     <>
       <FormHeader setUploadModal={setUploadModal} backButtonText={"Return"} />
@@ -139,9 +145,11 @@ const AddStaff = () => {
             <Col span={8}>
               <Form.Item label="Role" name="role" rules={staffFormRules.role}>
                 <Select>
-                  <Select.Option value="R1">Role 1</Select.Option>
-                  <Select.Option value="R2">Role 2</Select.Option>
-                  <Select.Option value="R3">Role 3</Select.Option>
+                  {roles.map(({ label, value }, idx) => (
+                    <Select.Option key={idx} value={value}>
+                      {label}
+                    </Select.Option>
+                  ))}
                 </Select>
               </Form.Item>
             </Col>

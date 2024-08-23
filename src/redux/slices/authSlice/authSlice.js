@@ -18,6 +18,20 @@ export const authSlice = createSlice({
     name: "auth",
     initialState: initialUserState,
     reducers: {
+        registerRequest: (state, action) => {
+            state.authDetails.status = 'pending'
+        },
+        registerSuccess: (state, action) => {
+            state.authDetails.status = 'success'
+            state.authDetails.isAuthenticated = true;
+            state.authDetails.data = action.payload;
+        },
+        registerFailure: (state, action) => {
+            state.authDetails.status = 'failed'
+            state.authDetails.isAuthenticated = false;
+            state.authDetails.data = null
+            state.authDetails.error = action.payload;
+        },
         loginRequest: (state, action) => {
             state.authDetails.status = 'pending'
         },
@@ -42,20 +56,6 @@ export const authSlice = createSlice({
         },
         logoutFailure: (state, action) => {
             state.authDetails.status = 'failed';
-        },
-        registerRequest: (state, action) => {
-            state.authDetails.status = 'pending'
-        },
-        registerSuccess: (state, action) => {
-            state.authDetails.status = 'success'
-            state.authDetails.isAuthenticated = true;
-            state.authDetails.data = action.payload;
-        },
-        registerFailure: (state, action) => {
-            state.authDetails.status = 'failed'
-            state.authDetails.isAuthenticated = false;
-            state.authDetails.data = null
-            state.authDetails.error = action.payload;
         },
         forgotPasswordRequest: (state, action) => {
             state.authDetails.status = 'pending'
