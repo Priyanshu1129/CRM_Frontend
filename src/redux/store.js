@@ -20,7 +20,6 @@ import {
     territoryReducer,
     mastersConfigReducer
 } from './slices/configurationSlice';
-import { staffReducer } from './slices/staffSlice';
 import { userReducer } from './slices/userSlice';
 import { teamReducer } from './slices/teamSlice';
 import { opportunityReducer } from './slices/opportunitySlice';
@@ -48,7 +47,7 @@ const store = configureStore({
         contact: contactReducer,
         archeType: archeTypeReducer,
         relationshipDegree: relationshipDegreeReducer,
-        staff: staffReducer,
+        user: userReducer,
         team: teamReducer,
         opportunity: opportunityReducer,
         businessDevelopment: businessDevelopmentReducer,

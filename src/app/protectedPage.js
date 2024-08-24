@@ -30,7 +30,7 @@ export const ProtectedPage = ({ children }) => {
 
         // Redirect if not authenticated and trying to access a protected route
         if (authStatus === 'true' && publicRoutes.includes(currentPath)) {
-            router.push('/dashboard'); // Redirect authenticated users to dashboard
+            router.push('/cockpit'); // Redirect authenticated users to dashboard
         } else if (authStatus !== 'true' && !publicRoutes.includes(currentPath)) {
             router.push('/login'); // Redirect unauthenticated users to login
         }

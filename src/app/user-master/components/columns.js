@@ -81,7 +81,7 @@ export const columns = [
         fixed: "right",
         width: 100,
         render: (_, record) => (
-            <TableActions showUrl={`/staff-master/staff-details/${record._id}`} />
+            <TableActions showUrl={`/user-master/user-details/${record._id}`} />
         ),
     },
 ];

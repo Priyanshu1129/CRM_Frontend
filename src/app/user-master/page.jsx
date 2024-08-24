@@ -2,12 +2,12 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ListHeader } from "@/components";
-import { StaffsTableView, StaffsCardView } from "./components";
+import { UsersTableView, UsersCardView } from "./components";
 import { notification } from "antd";
-import { staffActions } from "@/redux/slices/staffSlice";
-import { getAllStaffs } from "@/redux/actions/staffAction";
+import { userActions } from "@/redux/slices/userSlice";
+import { getAllUsers } from "@/redux/actions/userAction";
 
-const StaffMaster = () => {
+const UserMaster = () => {
   const [view, setView] = useState("table");
   const [loading, setLoading] = useState(false);
   const [refresh, setRefresh] = useState(false);
@@ -15,22 +15,22 @@ const StaffMaster = () => {
   const [pageSize, setPageSize] = useState(12);
   const dispatch = useDispatch();
   const { status, data, error } = useSelector(
-    (state) => state.staff.getAllStaffs
+    (state) => state.user.getAllUsers
   );
-  const [staffs, setStaffs] = useState(data?.staffs);
+  const [users, setUsers] = useState(data?.users);
 
-  const fetchAllStaffs = useCallback(() => {
+  const fetchAllUsers = useCallback(() => {
     if (
-      !staffs ||
+      !users ||
       currentPage !== Number(data?.page) ||
       pageSize !== Number(data?.limit) ||
       refresh
     ) {
-      dispatch(getAllStaffs({ page: currentPage, limit: pageSize }));
+      dispatch(getAllUsers({ page: currentPage, limit: pageSize }));
     }
   }, [
     dispatch,
-    staffs,
+    users,
     currentPage,
     pageSize,
     data?.page,
@@ -39,49 +39,49 @@ const StaffMaster = () => {
   ]);
 
   useEffect(() => {
-    fetchAllStaffs();
-  }, [fetchAllStaffs]);
+    fetchAllUsers();
+  }, [fetchAllUsers]);
 
   useEffect(() => {
     if (status == "pending") {
       setLoading(true);
     } else if (status == "success") {
-      setStaffs(data?.staffs);
+      setUsers(data?.users);
       setLoading(false);
       setRefresh(false);
-      dispatch(staffActions.clearGetAllStaffsStatus());
+      dispatch(userActions.clearGetAllUsersStatus());
     } else if (status == "failed") {
       setLoading(false);
       setRefresh(false);
       notification.error({
         message: "Error",
-        description: error || "Failed to fetch staffs.",
+        description: error || "Failed to fetch users.",
       });
-      dispatch(staffActions.clearGetAllStaffsStatus());
-      dispatch(staffActions.clearGetAllStaffsError());
+      dispatch(userActions.clearGetAllUsersStatus());
+      dispatch(userActions.clearGetAllUsersError());
     }
-  }, [dispatch, status, data?.staffs, error]);
+  }, [dispatch, status, data?.users, error]);
   return (
     <>
       <ListHeader
-        toPath={"/staff-master/add-staff"}
-        buttonText={"Add new staff"}
-        SearchType={"staff"}
+        toPath={"/user-master/add-user"}
+        buttonText={"Add new user"}
+        SearchType={"user"}
         setRefresh={setRefresh}
       />
       {view == "table" ? (
-        <StaffsTableView
-          data={staffs}
+        <UsersTableView
+          data={users}
           setCurrentPage={setCurrentPage}
           setPageSize={setPageSize}
           loading={loading}
           total={data?.totalCount}
         />
       ) : (
-        <StaffsCardView />
+        <UsersCardView />
       )}
     </>
   );
 };
 
-export default StaffMaster;
+export default UserMaster;

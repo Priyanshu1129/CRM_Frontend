@@ -21,7 +21,7 @@ const initialMastersConfigState = {
         error: null,
         data: null,
     },
-    getConfigStaffs: {
+    getConfigUsers: {
         status: "idle",
         error: null,
         data: null,
@@ -76,16 +76,16 @@ const mastersConfigSlice = createSlice({
             state.getConfigTenders.status = 'failed'
             state.getConfigTenders.error = action.payload
         },
-        getConfigStaffsRequest: (state) => {
-            state.getConfigStaffs.status = 'pending'
+        getConfigUsersRequest: (state) => {
+            state.getConfigUsers.status = 'pending'
         },
-        getConfigStaffsSuccess: (state, action) => {
-            state.getConfigStaffs.status = 'success'
-            state.getConfigStaffs.data = action.payload
+        getConfigUsersSuccess: (state, action) => {
+            state.getConfigUsers.status = 'success'
+            state.getConfigUsers.data = action.payload
         },
-        getConfigStaffsFailure: (state, action) => {
-            state.getConfigStaffs.status = 'failed'
-            state.getConfigStaffs.error = action.payload
+        getConfigUsersFailure: (state, action) => {
+            state.getConfigUsers.status = 'failed'
+            state.getConfigUsers.error = action.payload
         },
         clearGetConfigClientsStatus: (state) => {
             state.getConfigClients.status = "idle";
@@ -123,14 +123,14 @@ const mastersConfigSlice = createSlice({
         clearGetConfigTendersError: (state) => {
             state.getConfigTenders.error = null;
         },
-        clearGetConfigStaffsStatus: (state) => {
-            state.getConfigStaffs.status = "idle";
+        clearGetConfigUsersStatus: (state) => {
+            state.getConfigUsers.status = "idle";
         },
-        clearGetConfigStaffsData: () => {
-            state.getConfigStaffs.data = null;
+        clearGetConfigUsersData: () => {
+            state.getConfigUsers.data = null;
         },
-        clearGetConfigStaffsError: (state) => {
-            state.getConfigStaffs.error = null;
+        clearGetConfigUsersError: (state) => {
+            state.getConfigUsers.error = null;
         },
     }
 })

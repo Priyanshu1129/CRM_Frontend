@@ -17,7 +17,7 @@ import {
 import {
   ClientSelector,
   OpportunitySelector,
-  StaffSelector,
+  UserSelector,
 } from "@/components";
 import { StageSelector } from "../enums";
 import moment from "moment";
@@ -234,14 +234,14 @@ export const UpdateTenderForm = ({ tender }) => {
             </Form.Item>
           </Col>
           <Col span={colSpan}>
-            <StaffSelector
+            <UserSelector
               name="officer"
               label="Tender Officer"
               rules={tenderFormRules.tenderOfficer}
             />
           </Col>
           <Col span={colSpan}>
-            <StaffSelector
+            <UserSelector
               name="bidManager"
               label="Bid Manager"
               rules={tenderFormRules.bidManager}

@@ -7,7 +7,7 @@ import {
   SolutionSelector,
   SubSolutionSelector,
   TerritorySelector,
-  StaffSelector,
+  UserSelector,
   ClientSelector,
   ContactSelector,
   InputNotes,
@@ -164,7 +164,7 @@ export const UpdateBusinessDevelopmentForm = ({ businessDevelopment }) => {
             />
           </Col>
           <Col span={colSpan}>
-            <StaffSelector
+            <UserSelector
               name="salesChamp"
               label="Sales Champ"
               rules={businessDevelopmentFormRules.salesChamp}

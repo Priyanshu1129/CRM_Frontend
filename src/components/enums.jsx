@@ -11,7 +11,7 @@ import {
   getAllSalesSubStages,
   getAllTerritories,
 } from "@/redux/actions/configurationAction";
-import { getAllStaffs } from "@/redux/actions/staffAction";
+import { getAllUsers } from "@/redux/actions/userAction";
 import { getAllClients } from "@/redux/actions/clientAction";
 import { getAllContacts } from "@/redux/actions/contactAction";
 import { getAllTenders } from "@/redux/actions/tenderAction";
@@ -366,7 +366,7 @@ export const TerritorySelector = ({ name, label, rules }) => {
   );
 };
 
-export const StaffSelector = ({
+export const UserSelector = ({
   name = "",
   label = "",
   rules = [],
@@ -375,25 +375,25 @@ export const StaffSelector = ({
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const { status, data, error } = useSelector(
-    (state) => state.mastersConfig.getConfigStaffs
+    (state) => state.mastersConfig.getConfigUsers
   );
-  const [staffs, setStaffs] = useState(data?.staffs);
+  const [users, setUsers] = useState(data?.users);
 
-  const fetchAllStaffs = useCallback(() => {
-    if (!staffs) {
-      dispatch(getAllStaffs({ config: true }));
+  const fetchAllUsers = useCallback(() => {
+    if (!users) {
+      dispatch(getAllUsers({ config: true }));
     }
-  }, [dispatch, staffs]);
+  }, [dispatch, users]);
 
   useEffect(() => {
-    fetchAllStaffs();
-  }, [fetchAllStaffs]);
+    fetchAllUsers();
+  }, [fetchAllUsers]);
 
   useEffect(() => {
     if (status == "pending") {
       setLoading(true);
     } else if (status == "success") {
-      setStaffs(data?.staffs);
+      setUsers(data?.users);
       setLoading(false);
     } else {
       setLoading(false);
@@ -409,7 +409,7 @@ export const StaffSelector = ({
     >
       <Select
         size={size}
-        placeholder={name ? `Search staff` : ""}
+        placeholder={name ? `Search user` : ""}
         loading={loading}
         showSearch
         optionFilterProp="children"
@@ -417,7 +417,7 @@ export const StaffSelector = ({
           option?.children?.toLowerCase().includes(input.toLowerCase())
         }
       >
-        {staffs?.map(({ _id, firstName, lastName }, idx) => (
+        {users?.map(({ _id, firstName, lastName }, idx) => (
           <Select.Option key={_id} value={_id}>
             {firstName || lastName
               ? firstName + " " + lastName

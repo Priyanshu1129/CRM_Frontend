@@ -18,7 +18,7 @@ import { StageSelector } from "../enums";
 import {
   ClientSelector,
   OpportunitySelector,
-  StaffSelector,
+  UserSelector,
   FormHeader,
   BulkUploadModal,
 } from "@/components";
@@ -218,14 +218,14 @@ const AddTender = () => {
               </Form.Item>
             </Col>
             <Col span={8}>
-              <StaffSelector
+              <UserSelector
                 name="officer"
                 label="Tender Officer"
                 rules={tenderFormRules.tenderOfficer}
               />
             </Col>
             <Col span={8}>
-              <StaffSelector
+              <UserSelector
                 name="bidManager"
                 label="Bid Manager"
                 rules={tenderFormRules.bidManager}

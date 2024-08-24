@@ -15,7 +15,7 @@ import {
 } from "antd";
 import {
   ClientSelector,
-  StaffSelector,
+  UserSelector,
   ContactSelector,
   InputNotes,
 } from "@/components";
@@ -121,7 +121,7 @@ export const UpdateRegistrationForm = ({ registration }) => {
             />
           </Col>
           <Col span={8}>
-            <StaffSelector
+            <UserSelector
               name="registrationChamp"
               label="Registration Champ"
               rules={registrationFormRules.registrationChamp}

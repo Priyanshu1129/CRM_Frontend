@@ -21,7 +21,7 @@ import {
   SolutionSelector,
   SubSolutionSelector,
   TerritorySelector,
-  StaffSelector,
+  UserSelector,
   ClientSelector,
   ContactSelector,
   BulkUploadModal,
@@ -169,7 +169,7 @@ const AddBusinessDevelopment = () => {
               />
             </Col>
             <Col span={8}>
-              <StaffSelector
+              <UserSelector
                 name="salesChamp"
                 label="Sales Champ"
                 rules={businessDevelopmentFormRules.salesChamp}

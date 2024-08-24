@@ -16,39 +16,39 @@ import {
 } from "antd";
 import moment from "moment";
 import { ImageUpload } from "@/components";
-import { staffFormRules } from "@/utilities/formValidationRules";
-import { updateStaff } from "@/redux/actions/staffAction";
-import { staffActions } from "@/redux/slices/staffSlice";
+import { userFormRules } from "@/utilities/formValidationRules";
+import { updateUser } from "@/redux/actions/userAction";
+import { userActions } from "@/redux/slices/userSlice";
 import { getChangedValues } from "@/utilities/getChangedValues";
 
-export const UpdateStaffForm = ({ staff }) => {
+export const UpdateUserForm = ({ user }) => {
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
   const screens = Grid.useBreakpoint();
   const dispatch = useDispatch();
 
-  const { status, error } = useSelector((state) => state.staff.updateStaff);
+  const { status, error } = useSelector((state) => state.user.updateUser);
 
   const initialValues = useRef({});
   const [avatarChanged, setAvatarChanged] = useState(false);
   const [avatar, setAvatar] = useState(null);
 
   useEffect(() => {
-    if (staff) {
-      const staffInitialValues = {
-        firstName: staff.firstName,
-        lastName: staff.lastName,
-        gender: staff.gender,
-        role: staff.role,
-        phone: staff.phone,
-        email: staff.email,
-        address: staff.address,
-        avatar: staff.avatar,
+    if (user) {
+      const userInitialValues = {
+        firstName: user.firstName,
+        lastName: user.lastName,
+        gender: user.gender,
+        role: user.role,
+        phone: user.phone,
+        email: user.email,
+        address: user.address,
+        avatar: user.avatar,
       };
-      form.setFieldsValue(staffInitialValues);
-      initialValues.current = staffInitialValues;
+      form.setFieldsValue(userInitialValues);
+      initialValues.current = userInitialValues;
     }
-  }, [staff, form]);
+  }, [user, form]);
 
   useEffect(() => {
     if (status === "pending") {
@@ -57,17 +57,17 @@ export const UpdateStaffForm = ({ staff }) => {
       setLoading(false);
       notification.success({
         message: "Success",
-        description: "Member updated successfully.",
+        description: "User updated successfully.",
       });
-      dispatch(staffActions.clearUpdateStaffStatus());
+      dispatch(userActions.clearUpdateUserStatus());
     } else if (status === "failed") {
       setLoading(false);
       notification.error({
         message: "Error",
-        description: error || "Failed to update member.",
+        description: error || "Failed to update user.",
       });
-      dispatch(staffActions.clearUpdateStaffStatus());
-      dispatch(staffActions.clearUpdateStaffError());
+      dispatch(userActions.clearUpdateUserStatus());
+      dispatch(userActions.clearUpdateUserError());
     }
   }, [status, error, dispatch]);
   const handleAvatarChange = (fileList) => {
@@ -96,7 +96,7 @@ export const UpdateStaffForm = ({ staff }) => {
 
     // Dispatch only if there are changed values
     if (Object.keys(changedValues).length > 0) {
-      dispatch(updateStaff(changedValues, staff._id));
+      dispatch(updateUser(changedValues, user._id));
     } else {
       setLoading(false);
       notification.info({
@@ -118,9 +118,9 @@ export const UpdateStaffForm = ({ staff }) => {
     <Form form={form} layout="vertical" onFinish={onFinish} size="default">
       <Row gutter={24}>
         <Col span={24}>
-          <Form.Item label="Upload Staff Profile" name="profileImage">
+          <Form.Item label="Upload User Profile" name="profileImage">
             <ImageUpload
-              initialImage={staff?.avatar}
+              initialImage={user?.avatar}
               onAvatarChange={handleAvatarChange}
             />
           </Form.Item>
@@ -129,7 +129,7 @@ export const UpdateStaffForm = ({ staff }) => {
           <Form.Item
             label="First Name"
             name="firstName"
-            rules={staffFormRules.firstName}
+            rules={userFormRules.firstName}
           >
             <Input />
           </Form.Item>
@@ -138,13 +138,13 @@ export const UpdateStaffForm = ({ staff }) => {
           <Form.Item
             label="Last Name"
             name="lastName"
-            rules={staffFormRules.lastName}
+            rules={userFormRules.lastName}
           >
             <Input />
           </Form.Item>
         </Col>
         <Col span={colSpan}>
-          <Form.Item label="Gender" name="gender" rules={staffFormRules.gender}>
+          <Form.Item label="Gender" name="gender" rules={userFormRules.gender}>
             <Select>
               <Select.Option value="M">Male</Select.Option>
               <Select.Option value="F">Female</Select.Option>
@@ -153,7 +153,7 @@ export const UpdateStaffForm = ({ staff }) => {
           </Form.Item>
         </Col>
         <Col span={colSpan}>
-          <Form.Item label="Role" name="role" rules={staffFormRules.role}>
+          <Form.Item label="Role" name="role" rules={userFormRules.role}>
             <Select>
               {roles.map(({ label, value }, idx) => (
                 <Select.Option key={idx} value={value}>
@@ -164,12 +164,12 @@ export const UpdateStaffForm = ({ staff }) => {
           </Form.Item>
         </Col>
         <Col span={colSpan}>
-          <Form.Item label="Phone" name="phone" rules={staffFormRules.phone}>
+          <Form.Item label="Phone" name="phone" rules={userFormRules.phone}>
             <Input type="number" />
           </Form.Item>
         </Col>
         <Col span={colSpan}>
-          <Form.Item label="Email" name="email" rules={staffFormRules.email}>
+          <Form.Item label="Email" name="email" rules={userFormRules.email}>
             <Input />
           </Form.Item>
         </Col>
@@ -177,7 +177,7 @@ export const UpdateStaffForm = ({ staff }) => {
           <Form.Item
             label="Address"
             name="address"
-            rules={staffFormRules.address}
+            rules={userFormRules.address}
           >
             <Input />
           </Form.Item>

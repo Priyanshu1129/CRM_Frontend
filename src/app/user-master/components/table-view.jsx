@@ -1,7 +1,7 @@
 import React from "react";
 import { Table } from "@/components";
 import { columns } from "./columns";
-export const StaffsTableView = ({
+export const UsersTableView = ({
   setCurrentPage,
   setPageSize,
   loading,
@@ -17,7 +17,7 @@ export const StaffsTableView = ({
         data={data}
         columns={columns}
         total={total}
-        entityName="Staffs"
+        entityName="Utaffs"
       />
     </>
   );

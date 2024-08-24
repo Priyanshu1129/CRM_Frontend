@@ -2,56 +2,56 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Grid, notification, Space, theme } from "antd";
-import { staffActions } from "@/redux/slices/staffSlice";
-import { UpdateStaffForm } from "../../components/update-staff-form";
-import { getStaff } from "@/redux/actions/staffAction";
+import { userActions } from "@/redux/slices/userSlice";
+import { UpdateUserForm } from "../../components/update-user-form";
+import { getUser } from "@/redux/actions/userAction";
 import { useParams } from "next/navigation";
 import { FullScreenLoading, FormHeader } from "@/components";
 
-const StaffDetails = () => {
+const UserDetails = () => {
   const [loading, setLoading] = useState(false);
   const screens = Grid.useBreakpoint();
   const dispatch = useDispatch();
-  const { status, error, data } = useSelector((state) => state.staff.getStaff);
+  const { status, error, data } = useSelector((state) => state.user.getUser);
   const { id } = useParams();
 
-  const [staff, setStaff] = useState(data?.data);
+  const [user, setUser] = useState(data?.data);
 
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
-  const fetchStaffDetails = useCallback(() => {
-    if ((!staff && id) || id !== String(staff?._id)) {
-      dispatch(getStaff(id));
+  const fetchUserDetails = useCallback(() => {
+    if ((!user && id) || id !== String(user?._id)) {
+      dispatch(getUser(id));
     }
-  }, [dispatch, id, staff]);
+  }, [dispatch, id, user]);
 
   useEffect(() => {
-    fetchStaffDetails();
-  }, [fetchStaffDetails]);
+    fetchUserDetails();
+  }, [fetchUserDetails]);
 
   useEffect(() => {
     if (status === "pending") {
       setLoading(true);
     } else if (status === "success") {
-      setStaff(data?.data);
+      setUser(data?.data);
       setLoading(false);
-      dispatch(staffActions.clearGetStaffStatus());
+      dispatch(userActions.clearGetUserStatus());
     } else if (status === "failed") {
       setLoading(false);
       notification.error({
         message: "Error",
-        description: error || "Failed to fetch staff.",
+        description: error || "Failed to fetch user.",
       });
-      dispatch(staffActions.clearGetStaffStatus());
-      dispatch(staffActions.clearGetStaffError());
+      dispatch(userActions.clearGetUserStatus());
+      dispatch(userActions.clearGetUserError());
     }
   }, [status, error, data?.data, dispatch]);
 
   return (
     <>
-      <FormHeader backButtonText="Back to Staffs" />
+      <FormHeader backButtonText="Back to Users" />
       <Space
         direction="vertical"
         style={{
@@ -62,9 +62,9 @@ const StaffDetails = () => {
           padding: screens.xs ? "16px" : "32px",
         }}
       >
-        {loading ? <FullScreenLoading /> : <UpdateStaffForm staff={staff} />}
+        {loading ? <FullScreenLoading /> : <UpdateUserForm user={user} />}
       </Space>
     </>
   );
 };
-export default StaffDetails;
+export default UserDetails;

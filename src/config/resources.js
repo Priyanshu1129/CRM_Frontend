@@ -61,7 +61,7 @@ export const resources = [
     //     icon: <UsergroupAddOutlined />,
     // },
     {
-        key: "staff-master",
+        key: "user-master",
         label: "Team Master",
         icon: <UserAddOutlined />,
     },

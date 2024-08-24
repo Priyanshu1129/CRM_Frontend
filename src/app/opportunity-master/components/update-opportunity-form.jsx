@@ -19,7 +19,7 @@ import {
   SubSolutionSelector,
   SalesStageSelector,
   SalesSubStageSelector,
-  StaffSelector,
+  UserSelector,
   ClientSelector,
   TenderSelector,
 } from "@/components";
@@ -207,7 +207,7 @@ export const UpdateOpportunityForm = ({ opportunity }) => {
             />
           </Col>
           <Col span={8}>
-            <StaffSelector
+            <UserSelector
               name="salesChamp"
               label="Sales Champ"
               rules={opportunityFormRules.salesChamp}

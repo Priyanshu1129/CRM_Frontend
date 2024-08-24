@@ -14,18 +14,16 @@ import {
   notification,
 } from "antd";
 import { FormHeader, ImageUpload } from "@/components";
-import { staffFormRules } from "@/utilities/formValidationRules";
+import { userFormRules } from "@/utilities/formValidationRules";
 import { createUser } from "@/redux/actions/userAction/user";
 import { userActions } from "@/redux/slices/userSlice";
 
-const AddStaff = () => {
+const AddUser = () => {
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
   const screens = Grid.useBreakpoint();
   const dispatch = useDispatch();
-  const { status, data, error } = useSelector(
-    (state) => state.staff.createStaff
-  );
+  const { status, data, error } = useSelector((state) => state.user.createUser);
 
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -41,7 +39,7 @@ const AddStaff = () => {
       setLoading(false);
       notification.success({
         message: "Success",
-        description: "Staff member created successfully.",
+        description: "User created successfully.",
       });
       dispatch(userActions.clearCreateUserStatus());
       // dispatch(userActions.clearCreateUserData());
@@ -49,7 +47,7 @@ const AddStaff = () => {
       setLoading(false);
       notification.error({
         message: "Error",
-        description: error || "Failed to create staff member.",
+        description: error || "Failed to add user.",
       });
       dispatch(userActions.clearCreateUserStatus());
       dispatch(userActions.clearCreateUserError());
@@ -113,7 +111,7 @@ const AddStaff = () => {
               <Form.Item
                 label="First Name"
                 name="firstName"
-                rules={staffFormRules.firstName}
+                rules={userFormRules.firstName}
               >
                 <Input />
               </Form.Item>
@@ -122,7 +120,7 @@ const AddStaff = () => {
               <Form.Item
                 label="Last Name"
                 name="lastName"
-                rules={staffFormRules.lastName}
+                rules={userFormRules.lastName}
               >
                 <Input />
               </Form.Item>
@@ -131,7 +129,7 @@ const AddStaff = () => {
               <Form.Item
                 label="Gender"
                 name="gender"
-                rules={staffFormRules.gender}
+                rules={userFormRules.gender}
               >
                 <Select>
                   <Select.Option value="M">Male</Select.Option>
@@ -141,7 +139,7 @@ const AddStaff = () => {
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item label="Role" name="role" rules={staffFormRules.role}>
+              <Form.Item label="Role" name="role" rules={userFormRules.role}>
                 <Select>
                   {roles.map(({ label, value }, idx) => (
                     <Select.Option key={idx} value={value}>
@@ -152,20 +150,12 @@ const AddStaff = () => {
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item
-                label="Phone"
-                name="phone"
-                rules={staffFormRules.phone}
-              >
+              <Form.Item label="Phone" name="phone" rules={userFormRules.phone}>
                 <Input type="number" />
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item
-                label="Email"
-                name="email"
-                rules={staffFormRules.email}
-              >
+              <Form.Item label="Email" name="email" rules={userFormRules.email}>
                 <Input />
               </Form.Item>
             </Col>
@@ -173,7 +163,7 @@ const AddStaff = () => {
               <Form.Item
                 label="Address"
                 name="address"
-                rules={staffFormRules.address}
+                rules={userFormRules.address}
               >
                 <Input />
               </Form.Item>
@@ -206,4 +196,4 @@ const AddStaff = () => {
   );
 };
 
-export default AddStaff;
+export default AddUser;

@@ -9,7 +9,7 @@ import {
   ClientSelector,
   ContactSelector,
   OpportunitySelector,
-  StaffSelector,
+  UserSelector,
   TenderSelector,
 } from ".";
 import { useRouter } from "next/navigation";
@@ -41,9 +41,9 @@ export const ListSearch = ({ SearchType }) => {
         return (
           <TenderSelector setInput={setInput} size={size} name={SearchType} />
         );
-      case "staff":
+      case "user":
         return (
-          <StaffSelector setInput={setInput} size={size} name={SearchType} />
+          <UserSelector setInput={setInput} size={size} name={SearchType} />
         );
       default:
         return null; // or you could render a fallback component here

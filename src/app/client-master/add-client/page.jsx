@@ -25,7 +25,7 @@ import {
   IndustrySelector,
   SubIndustrySelector,
   TerritorySelector,
-  StaffSelector,
+  UserSelector,
   ContactSelector,
   ImageUpload,
   BulkUploadModal,
@@ -233,14 +233,14 @@ const AddClient = () => {
               </Form.Item>
             </Col>
             <Col span={colSpan}>
-              <StaffSelector
+              <UserSelector
                 label="Primary Relationship"
                 name="primaryRelationship"
                 rules={clientFormRules.primaryRelationship}
               />
             </Col>
             <Col span={colSpan}>
-              <StaffSelector
+              <UserSelector
                 label="Secondary Relationship (Pref Economic)"
                 name="secondaryRelationship"
                 rules={clientFormRules.secondaryRelationship}

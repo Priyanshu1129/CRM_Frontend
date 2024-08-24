@@ -6,7 +6,7 @@ import { PaginationTotal } from "@/components";
 
 import { ClientCard, ClientCardSkeleton } from "./card";
 
-export const StaffsCardView = (
+export const UsersCardView = (
   {
     // tableProps: { dataSource, pagination, loading },
     // setCurrent,
