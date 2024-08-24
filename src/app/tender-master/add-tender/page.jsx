@@ -65,11 +65,11 @@ const AddTender = () => {
     const formattedValues = {
       ...values,
       rfpDate: values?.rfpDate.format("YYYY-MM-DD"),
-      submissionDueDate: values?.submissionDueDate.format("YYYY-MM-DD"),
-      submissionDate: values?.submissionDate.format("YYYY-MM-DD"),
-      evaluationDate: values?.evaluationDate.format("YYYY-MM-DD"),
-      bondIssueDate: values?.bondIssueDate.format("YYYY-MM-DD"),
-      bondExpiry: values?.bondExpiry.format("YYYY-MM-DD"),
+      submissionDueDate: values?.submissionDueDate?.format("YYYY-MM-DD"),
+      submissionDate: values?.submissionDate?.format("YYYY-MM-DD"),
+      evaluationDate: values?.evaluationDate?.format("YYYY-MM-DD"),
+      bondIssueDate: values?.bondIssueDate?.format("YYYY-MM-DD"),
+      bondExpiry: values?.bondExpiry?.format("YYYY-MM-DD"),
       entryDate: "2024-08-24T00:00:00.000Z",
       enteredBy: "66c9fe42a82f016e3c7e3d6b",
     };
@@ -253,7 +253,7 @@ const AddTender = () => {
                 label="Submission Date"
                 rules={tenderFormRules.submissionDate}
               >
-                <DatePicker style={{ width: "100%" }} />
+                <DatePicker disabled style={{ width: "100%" }} />
               </Form.Item>
             </Col>
             <Col span={24}>
@@ -266,7 +266,7 @@ const AddTender = () => {
                     type="default"
                     htmlType="button"
                     onClick={() => form.resetFields()}
-                    loading={loading}
+                    disabled={loading}
                   >
                     Reset
                   </Button>
