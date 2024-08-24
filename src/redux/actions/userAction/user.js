@@ -2,7 +2,7 @@ import axios from "axios";
 import { userActions } from "@/redux/slices/userSlice"
 import { serverURL } from "@/config/config";
 import { mastersConfigActions } from "@/redux/slices/configurationSlice";
-const route = `${serverURL}/team/user`
+const route = `${serverURL}/user`
 
 export const getAllUsers = ({ page = null, limit = null, config = false }) => async (dispatch) => {
     try {
@@ -77,7 +77,6 @@ export const createUser = (userData) => async (dispatch) => {
             {
                 headers: {
                     "Content-Type": "multipart/form-data",
-                    // "authorization": token
                 },
             }
         );

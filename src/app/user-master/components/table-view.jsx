@@ -17,7 +17,7 @@ export const UsersTableView = ({
         data={data}
         columns={columns}
         total={total}
-        entityName="Utaffs"
+        entityName="Users"
       />
     </>
   );
