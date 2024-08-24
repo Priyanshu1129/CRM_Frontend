@@ -118,7 +118,7 @@ const AddContact = () => {
           <Row gutter={24}>
             <Col span={24}>
               <Form.Item label="Upload Contact Profile">
-                <ImageUpload />
+                <ImageUpload onAvatarChange={handleAvatarChange} />
               </Form.Item>
             </Col>
             <Col span={8}>
