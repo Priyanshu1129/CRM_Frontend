@@ -31,7 +31,7 @@ export const columns = [
     },
     {
         title: "Status",
-        dataIndex: "status",
+        dataIndex: ["status", "label"],
         key: "status",
         width: 150,
         render: (text) => text || "N/A",
