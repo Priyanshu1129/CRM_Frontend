@@ -7,6 +7,7 @@ export const BusinessDevelopmentTableView = ({
   setPageSize,
   loading,
   data,
+  total,
 }) => {
   return (
     <>
@@ -17,6 +18,7 @@ export const BusinessDevelopmentTableView = ({
         data={data}
         columns={columns}
         entityName="Business Developments"
+        total={total}
       />
     </>
   );

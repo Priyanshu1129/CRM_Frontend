@@ -6,6 +6,7 @@ export const StaffsTableView = ({
   setPageSize,
   loading,
   data,
+  total,
 }) => {
   return (
     <>
@@ -15,6 +16,7 @@ export const StaffsTableView = ({
         loading={loading}
         data={data}
         columns={columns}
+        total={total}
         entityName="Staffs"
       />
     </>

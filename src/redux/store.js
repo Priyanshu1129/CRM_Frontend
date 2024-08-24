@@ -26,11 +26,12 @@ import { opportunityReducer } from './slices/opportunitySlice';
 import { businessDevelopmentReducer } from './slices/businessDevelopmentSlice';
 import { tenderReducer, stageReducer } from './slices/tenderSlice';
 import { registrationReducer, registrationStatusReducer } from './slices/registrationSlice';
+import { authReducer } from './slices/authSlice';
 
 
 const store = configureStore({
     reducer: {
-        // auth: authReducer,
+        auth: authReducer,
         client: clientReducer,
         classification: classificationReducer,
         incorporationType: incorporationTypeReducer,

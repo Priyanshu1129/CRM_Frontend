@@ -7,6 +7,7 @@ export const RegistrationsTableView = ({
   setPageSize,
   loading,
   data,
+  total,
 }) => {
   return (
     <>
@@ -15,6 +16,7 @@ export const RegistrationsTableView = ({
         setPageSize={setPageSize}
         loading={loading}
         data={data}
+        total={total}
         columns={columns}
         entityName="Registrations"
       />

@@ -6,6 +6,7 @@ export const TendersTableView = ({
   setPageSize,
   loading,
   data,
+  total,
 }) => {
   return (
     <>
@@ -14,6 +15,7 @@ export const TendersTableView = ({
         setPageSize={setPageSize}
         loading={loading}
         data={data}
+        total={total}
         columns={columns}
         entityName="Contacts"
       />

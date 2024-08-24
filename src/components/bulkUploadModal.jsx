@@ -65,7 +65,7 @@ export const BulkUploadModal = ({ uploadModal, setUploadModal, resource }) => {
             Cancel
           </Button>,
           <Button
-            key="submit"
+            key="test"
             type="primary"
             onClick={() => handleUpload(true)}
             disabled={fileList.length === 0}
@@ -77,7 +77,7 @@ export const BulkUploadModal = ({ uploadModal, setUploadModal, resource }) => {
             {uploading ? "Testing" : "Start Test"}
           </Button>,
           <Button
-            key="submit"
+            key="upload"
             type="primary"
             onClick={() => handleUpload(false)}
             disabled={fileList.length === 0}

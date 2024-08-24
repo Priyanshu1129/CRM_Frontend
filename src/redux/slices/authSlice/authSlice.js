@@ -5,16 +5,24 @@ const initialUserState = {
         status: null,
         error: null,
         data: null,
-        isAuthenticated: false
     },
-    verifyOTPDetails: {
+    logout: {
+        status: null,
+        error: null
+    },
+    verifyOTP: {
+        status: null,
+        error: null,
+        data: null,
+    },
+    changePassword: {
         status: null,
         error: null,
         data: null,
     }
 }
 
-export const authSlice = createSlice({
+const authSlice = createSlice({
     name: "auth",
     initialState: initialUserState,
     reducers: {
@@ -23,12 +31,10 @@ export const authSlice = createSlice({
         },
         registerSuccess: (state, action) => {
             state.authDetails.status = 'success'
-            state.authDetails.isAuthenticated = true;
             state.authDetails.data = action.payload;
         },
         registerFailure: (state, action) => {
             state.authDetails.status = 'failed'
-            state.authDetails.isAuthenticated = false;
             state.authDetails.data = null
             state.authDetails.error = action.payload;
         },
@@ -37,64 +43,87 @@ export const authSlice = createSlice({
         },
         loginSuccess: (state, action) => {
             state.authDetails.status = 'success'
-            state.authDetails.isAuthenticated = true;
             state.authDetails.data = action.payload;
         },
         loginFailure: (state, action) => {
             state.authDetails.status = 'failed'
-            state.authDetails.isAuthenticated = false;
             state.authDetails.error = action.payload;
         },
         logoutRequest: (state, action) => {
-            state.authDetails.status = "pending";
-            state.authDetails.isAuthenticated = false;
+            state.logout.status = "pending";
         },
         logoutSuccess: (state, action) => {
-            state.authDetails.status = 'success'
-            state.authDetails.isAuthenticated = false;
-            state.authDetails.data = null
+            state.logout.status = 'success'
+            state.logout.data = null
         },
         logoutFailure: (state, action) => {
-            state.authDetails.status = 'failed';
+            state.logout.status = 'failed';
         },
         forgotPasswordRequest: (state, action) => {
             state.authDetails.status = 'pending'
-            state.authDetails.isAuthenticated = false
         },
         forgotPasswordSuccess: (state, action) => {
             state.authDetails.status = 'success'
             state.authDetails.data = action.payload
-            state.authDetails.isAuthenticated = false
         },
         forgotPasswordFailure: (state, action) => {
             state.authDetails.status = 'failed'
             state.authDetails.error = action.payload
-            state.authDetails.isAuthenticated = false
         },
         verifyOTPRequest: (state) => {
-            state.verifyOTPDetails.status = 'pending'
+            state.verifyOTP.status = 'pending'
         },
         verifyOTPSuccess: (state, action) => {
-            state.verifyOTPDetails.status = 'success'
-            state.verifyOTPDetails.data = action.payload
+            state.verifyOTP.status = 'success'
+            state.verifyOTP.data = action.payload
         },
         verifyOTPFailure: (state, action) => {
-            state.verifyOTPDetails.status = 'failed'
-            state.verifyOTPDetails.error = action.payload
+            state.verifyOTP.status = 'failed'
+            state.verifyOTP.error = action.payload
         },
-        clearError: (state) => {
-            state.authDetails.error = null;
+        changePasswordRequest: (state) => {
+            state.changePassword.status = 'pending'
         },
-        clearStatus: (state) => {
+        changePasswordSuccess: (state, action) => {
+            state.changePassword.status = 'success'
+            state.changePassword.data = action.payload
+        },
+        changePasswordFailure: (state, action) => {
+            state.changePassword.status = 'failed'
+            state.changePassword.error = action.payload
+        },
+        clearAuthDetailsStatus: (state) => {
             state.authDetails.status = null;
         },
-        clearVerifyOTPDetailsStatus: (state) => {
-            state.verifyOTPDetails.status = null;
+        clearAuthDetailsError: (state) => {
+            state.authDetails.error = null;
         },
-        clearVerifyOTPDetailsError: (state) => {
-            state.verifyOTPDetails.error = null;
+        clearAuthDetailsData: (state) => {
+            state.authDetails.data = null;
+        },
+        clearLogoutStatus: (state) => {
+            state.logout.status = null;
+        },
+        clearLogoutError: (state) => {
+            state.logout.error = null;
+        },
+        clearLogoutData: (state) => {
+            state.logout.data = null;
+        },
+        clearVerifyOTPStatus: (state) => {
+            state.verifyOTP.status = null;
+        },
+        clearVerifyOTPError: (state) => {
+            state.verifyOTP.error = null;
+        },
+        clearChangePasswordStatus: (state) => {
+            state.changePassword.status = null;
+        },
+        clearChangePasswordError: (state) => {
+            state.changePassword.error = null;
         }
     }
 })
 
 export const authActions = authSlice.actions;
+export const authReducer = authSlice.reducer;

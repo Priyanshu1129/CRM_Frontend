@@ -269,7 +269,7 @@ export const UpdateTenderForm = ({ tender }) => {
               label="Submission Date"
               rules={tenderFormRules.submissionDate}
             >
-              <DatePicker style={{ width: "100%" }} />
+              <DatePicker disabled style={{ width: "100%" }} />
             </Form.Item>
           </Col>
           <Col span={24}>

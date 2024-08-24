@@ -1,21 +1,48 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Form, Input, Flex, theme } from "antd";
+import { Button, Checkbox, Form, Input, Flex, theme, notification } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "@/redux/actions/authAction";
+import { authActions } from "@/redux/slices/authSlice";
+import { useRouter } from "next/navigation";
+
 const Login = () => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const { status, error } = useSelector((state) => state.auth.authDetails);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (status === "pending") {
+      setLoading(true);
+    } else if (status === "success") {
+      router.push("/cockpit");
+      setLoading(false);
+    } else if (status === "failed") {
+      setLoading(false);
+      notification.error({
+        message: "Error",
+        description: error || "Email or Password is wrong",
+      });
+      dispatch(authActions.clearAuthDetailsStatus());
+      dispatch(authActions.clearAuthDetailsError());
+    }
+  }, [status, error, dispatch, router]);
 
   const onFinish = (values) => {
-    console.log("Received values of form: ", values);
+    dispatch(login(values));
   };
+
   return (
     <div
       style={{
         backgroundColor: "#fff",
         padding: "32px",
-        maxWidth: 400,
+        width: 360,
         borderRadius: borderRadiusLG,
         margin: "auto",
         border: 1,
@@ -30,15 +57,15 @@ const Login = () => {
         onFinish={onFinish}
       >
         <Form.Item
-          name="username"
+          name="email"
           rules={[
             {
               required: true,
-              message: "Please input your Username!",
+              message: "Please input your email!",
             },
           ]}
         >
-          <Input prefix={<UserOutlined />} placeholder="Username" />
+          <Input prefix={<UserOutlined />} placeholder="Email" />
         </Form.Item>
         <Form.Item
           name="password"
@@ -49,7 +76,7 @@ const Login = () => {
             },
           ]}
         >
-          <Input
+          <Input.Password
             prefix={<LockOutlined />}
             type="password"
             placeholder="Password"
@@ -65,10 +92,9 @@ const Login = () => {
         </Form.Item>
 
         <Form.Item>
-          <Button block type="primary" htmlType="submit">
+          <Button loading={loading} block type="primary" htmlType="submit">
             Log in
           </Button>
-          or <a href="">Any link</a>
         </Form.Item>
       </Form>
     </div>

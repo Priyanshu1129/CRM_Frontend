@@ -65,6 +65,7 @@ export const UpdateClientForm = ({ client }) => {
         relatedContacts: client.relatedContacts,
         priority: client.priority,
         avatar: client.avatar,
+        lifeTimeValue: client.lifeTimeValue,
       };
 
       // Set initial form values
@@ -282,6 +283,11 @@ export const UpdateClientForm = ({ client }) => {
                 <Select.Option value="Medium">Medium</Select.Option>
                 <Select.Option value="Low">Low</Select.Option>
               </Select>
+            </Form.Item>
+          </Col>
+          <Col span={colSpan}>
+            <Form.Item label="Life Time Value" name="lifeTimeValue">
+              <Input disabled />
             </Form.Item>
           </Col>
           <Col span={24}>

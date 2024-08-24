@@ -1,11 +1,10 @@
 import { Inter } from "next/font/google";
 import { ConfigProvider } from 'antd';
-import Layout from "@/components/layout";
+import { ProtectedPage } from "./protectedPage";
 import ErrorBoundary from "./ErrorBoundary";
 import "./globals.css"
 import { StoreProvider } from "./storeProvider";
 const inter = Inter({ subsets: ["latin"] });
-
 
 export default function RootLayout({ children }) {
 
@@ -14,11 +13,11 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <ConfigProvider>
           <StoreProvider>
-            <ErrorBoundary>
-              <Layout>
+            <ProtectedPage>
+              <ErrorBoundary>
                 {children}
-              </Layout>
-            </ErrorBoundary>
+              </ErrorBoundary>
+            </ProtectedPage>
           </StoreProvider>
         </ConfigProvider>
       </body>

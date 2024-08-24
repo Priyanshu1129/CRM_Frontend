@@ -11,7 +11,7 @@ const ChangePassword = () => {
       style={{
         backgroundColor: "#fff",
         padding: "32px",
-        maxWidth: 400,
+        width: 360,
         borderRadius: borderRadiusLG,
         margin: "auto",
         border: 1,
