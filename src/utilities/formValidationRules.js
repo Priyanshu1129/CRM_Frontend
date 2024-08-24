@@ -203,7 +203,7 @@ export const tenderFormRules = {
         { required: true, message: "Stage Explanation is required" },
     ],
     submissionDate: [
-        { required: true, message: "Submission Date is required" },
+        { required: false, message: "Submission Date is required" },
         { type: "date", message: "Please enter a valid date" },
     ],
 };
