@@ -14,7 +14,8 @@ export const getAllClients = ({ page = null, limit = null, config = false }) => 
         }
         console.log('getAllClients-request-config', config);
         const response = await axios.get(`${route}/`, {
-            params: { limit, page, config }
+            params: { limit, page, config },
+            withCredentials: true,
         });
 
         console.log('get-all-client-res-data', response.data);
@@ -46,7 +47,9 @@ export const getClient = (clientId) => async (dispatch) => {
         console.log("get-client-data-req", clientId);
         dispatch(clientActions.getClientRequest());
 
-        const response = await axios.get(`${route}/${clientId}`);
+        const response = await axios.get(`${route}/${clientId}`, {
+            withCredentials: true,
+        });
         console.log('get-client-data-res', response.data);
         dispatch(clientActions.getClientSuccess(response.data));
     } catch (error) {
@@ -75,6 +78,7 @@ export const createClient = (clientData) => async (dispatch) => {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
+                withCredentials: true,
             }
         );
         console.log('create-client-res-data', response);
@@ -104,7 +108,8 @@ export const updateClient = (clientData, clientId) => async (dispatch) => {
             {
                 headers: {
                     "Content-Type": "multipart/form-data",
-                }
+                },
+                withCredentials: true,
             }
         );
         console.log('update-client-res-data', response.data);
@@ -134,8 +139,8 @@ export const deleteClient = (clientId, token) => async (dispatch) => {
             {
                 headers: {
                     "Content-Type": "application/json",
-                    "authorization": token
                 },
+                withCredentials: true,
             }
         );
         console.log('delete-client-res-data', data.data);

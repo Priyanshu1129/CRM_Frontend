@@ -68,8 +68,8 @@ const AddOpportunity = () => {
     setLoading(true);
     let newValues = {
       ...values,
-      entryDate: "2024-08-10T00:00:00.000Z",
-      enteredBy: "64cf1c8a6e6e3c0b34a25f95",
+      entryDate: "2024-08-24T00:00:00.000Z",
+      enteredBy: "66c9fe42a82f016e3c7e3d6b",
     };
     console.log("submit", newValues);
     dispatch(createOpportunity(newValues));

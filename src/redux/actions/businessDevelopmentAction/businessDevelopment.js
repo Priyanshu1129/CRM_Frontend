@@ -13,7 +13,8 @@ export const getAllBusinessDevelopments = ({ page = null, limit = null, config =
                 limit: limit,
                 page: page,
                 config: config
-            }
+            },
+            withCredentials: true,
         });
 
         console.log('get-all-businessDevelopment-res-data', response.data);
@@ -38,9 +39,7 @@ export const getBusinessDevelopment = (businessDevelopmentId) => async (dispatch
         dispatch(businessDevelopmentActions.getBusinessDevelopmentRequest());
 
         const response = await axios.get(`${route}/${businessDevelopmentId}`, {
-            // headers: {
-            //     "authorization": token
-            // }
+            withCredentials: true,
         });
         console.log('get-businessDevelopment-details-res-data', response.data);
         dispatch(businessDevelopmentActions.getBusinessDevelopmentSuccess(response.data));
@@ -63,7 +62,9 @@ export const createBusinessDevelopment = (businessDevelopmentData) => async (dis
         console.log("create-businessDevelopmentData", businessDevelopmentData);
         dispatch(businessDevelopmentActions.createBusinessDevelopmentRequest());
 
-        const response = await axios.post(`${route}/`, businessDevelopmentData);
+        const response = await axios.post(`${route}/`, businessDevelopmentData, {
+            withCredentials: true,
+        });
         console.log('create-businessDevelopment-res-data', response);
         dispatch(businessDevelopmentActions.createBusinessDevelopmentSuccess(response.data));
     } catch (error) {
@@ -89,9 +90,7 @@ export const updateBusinessDevelopment = (businessDevelopmentData, businessDevel
             `${route}/${businessDevelopmentId}`,
             businessDevelopmentData,
             {
-                // headers: {
-
-                // },
+                withCredentials: true,
             }
         );
         console.log('update-businessDevelopment-res-data', response.data);
@@ -121,8 +120,8 @@ export const deleteBusinessDevelopment = (businessDevelopmentId, token) => async
             {
                 headers: {
                     "Content-Type": "application/json",
-                    "authorization": token
                 },
+                withCredentials: true,
             }
         );
         console.log('delete-businessDevelopment-res-data', data.data);

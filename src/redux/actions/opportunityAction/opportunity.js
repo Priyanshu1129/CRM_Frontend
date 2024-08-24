@@ -13,7 +13,8 @@ export const getAllOpportunities = ({ page = null, limit = null, config = false 
         }
         console.log('getAllOpportunities config', config);
         const response = await axios.get(`${route}/`, {
-            params: { limit, page, config }
+            params: { limit, page, config },
+            withCredentials: true,
         });
 
         console.log('get-all-opportunity-res-data', response.data);
@@ -46,9 +47,7 @@ export const getOpportunity = (opportunityId) => async (dispatch) => {
         dispatch(opportunityActions.getOpportunityRequest());
 
         const response = await axios.get(`${route}/${opportunityId}`, {
-            // headers: {
-            //     "authorization": token
-            // }
+            withCredentials: true,
         });
         console.log('get-opportunity-details-res-data', response.data);
         dispatch(opportunityActions.getOpportunitySuccess(response.data));

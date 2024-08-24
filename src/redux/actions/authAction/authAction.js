@@ -82,6 +82,7 @@ export const logout = () => async (dispatch) => {
                 headers: {
                     "Content-Type": "application/json",
                 },
+                withCredentials: true,
             }
         );
         localStorage.removeItem("user");
