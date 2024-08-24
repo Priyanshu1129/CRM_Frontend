@@ -21,6 +21,7 @@ import {
     mastersConfigReducer
 } from './slices/configurationSlice';
 import { staffReducer } from './slices/staffSlice';
+import { userReducer } from './slices/userSlice';
 import { teamReducer } from './slices/teamSlice';
 import { opportunityReducer } from './slices/opportunitySlice';
 import { businessDevelopmentReducer } from './slices/businessDevelopmentSlice';

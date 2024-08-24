@@ -11,17 +11,15 @@ import {
   theme,
   Row,
   Col,
-  DatePicker,
   notification,
 } from "antd";
-import { FormHeader, ImageUpload, BulkUploadModal } from "@/components";
+import { FormHeader, ImageUpload } from "@/components";
 import { staffFormRules } from "@/utilities/formValidationRules";
-import { createStaff } from "@/redux/actions/staffAction";
-import { staffActions } from "@/redux/slices/staffSlice";
+import { createUser } from "@/redux/actions/userAction/user";
+import { userActions } from "@/redux/slices/userSlice";
 
 const AddStaff = () => {
   const [loading, setLoading] = useState(false);
-  const [uploadModal, setUploadModal] = useState(false);
   const [form] = Form.useForm();
   const screens = Grid.useBreakpoint();
   const dispatch = useDispatch();
@@ -45,16 +43,16 @@ const AddStaff = () => {
         message: "Success",
         description: "Staff member created successfully.",
       });
-      dispatch(staffActions.clearCreateStaffStatus());
-      // dispatch(staffActions.clearCreateStaffData());
+      dispatch(userActions.clearCreateUserStatus());
+      // dispatch(userActions.clearCreateUserData());
     } else if (status === "failed") {
       setLoading(false);
       notification.error({
         message: "Error",
         description: error || "Failed to create staff member.",
       });
-      dispatch(staffActions.clearCreateStaffStatus());
-      dispatch(staffActions.clearCreateStaffError());
+      dispatch(userActions.clearCreateUserStatus());
+      dispatch(userActions.clearCreateUserError());
     }
   }, [status, error, dispatch]);
 
@@ -76,7 +74,7 @@ const AddStaff = () => {
     };
 
     setLoading(true);
-    dispatch(createStaff(formattedValues));
+    dispatch(createUser(formattedValues));
   };
 
   const roles = [
@@ -87,7 +85,7 @@ const AddStaff = () => {
 
   return (
     <>
-      <FormHeader setUploadModal={setUploadModal} backButtonText={"Return"} />
+      <FormHeader backButtonText={"Return"} />
       <Space
         direction="vertical"
         style={{
