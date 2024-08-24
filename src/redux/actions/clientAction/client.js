@@ -15,7 +15,7 @@ export const getAllClients = ({ page = null, limit = null, config = false }) => 
         console.log('getAllClients-request-config', config);
         const response = await axios.get(`${route}/`, {
             params: { limit, page, config },
-            withCredentials: true,
+            // withCredentials: true,
         });
 
         console.log('get-all-client-res-data', response.data);
@@ -48,7 +48,7 @@ export const getClient = (clientId) => async (dispatch) => {
         dispatch(clientActions.getClientRequest());
 
         const response = await axios.get(`${route}/${clientId}`, {
-            withCredentials: true,
+            // withCredentials: true,
         });
         console.log('get-client-data-res', response.data);
         dispatch(clientActions.getClientSuccess(response.data));
@@ -78,7 +78,7 @@ export const createClient = (clientData) => async (dispatch) => {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
-                withCredentials: true,
+                // withCredentials: true,
             }
         );
         console.log('create-client-res-data', response);
@@ -109,7 +109,7 @@ export const updateClient = (clientData, clientId) => async (dispatch) => {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
-                withCredentials: true,
+                // withCredentials: true,
             }
         );
         console.log('update-client-res-data', response.data);
@@ -140,7 +140,7 @@ export const deleteClient = (clientId, token) => async (dispatch) => {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                withCredentials: true,
+                // withCredentials: true,
             }
         );
         console.log('delete-client-res-data', data.data);
