@@ -1,11 +1,18 @@
 import React from "react";
 import { ListTitleButton } from "./list-title-button";
 import { ReloadOutlined } from "@ant-design/icons";
-import { Button, Grid, Space } from "antd";
+import { Grid, Button, Space, Radio } from "antd";
 import { ListSearch } from "./list-search";
-import { Text } from "./text";
+import { AppstoreOutlined, UnorderedListOutlined } from "@ant-design/icons";
 
-export const ListHeader = ({ setRefresh, toPath, buttonText, SearchType }) => {
+export const ListHeader = ({
+  setView,
+  setRefresh,
+  toPath,
+  buttonText,
+  SearchType,
+  view,
+}) => {
   const screens = Grid.useBreakpoint();
   return (
     <div
@@ -26,7 +33,6 @@ export const ListHeader = ({ setRefresh, toPath, buttonText, SearchType }) => {
       >
         <Button
           type="default"
-          // @ts-expect-error Ant Design Icon's v5.0.1 has an issue with @types/react@^18.2.66
           icon={<ReloadOutlined />}
           onClick={() => {
             setRefresh(true);
@@ -36,7 +42,28 @@ export const ListHeader = ({ setRefresh, toPath, buttonText, SearchType }) => {
             marginTop: screens.xs ? "1.6rem" : "0rem",
           }}
         />
-        {SearchType && <ListSearch SearchType={SearchType} />}
+
+        <Space
+          style={{
+            marginTop: screens.xs ? "1.6rem" : undefined,
+          }}
+        >
+          {SearchType && <ListSearch SearchType={SearchType} />}
+          {!screens.xs && view ? (
+            <Radio.Group
+              size="large"
+              value={view}
+              onChange={(e) => setView(e.target.value)}
+            >
+              <Radio.Button value="card">
+                <AppstoreOutlined />
+              </Radio.Button>
+              <Radio.Button value="table">
+                <UnorderedListOutlined />
+              </Radio.Button>
+            </Radio.Group>
+          ) : null}
+        </Space>
       </Space>
     </div>
   );

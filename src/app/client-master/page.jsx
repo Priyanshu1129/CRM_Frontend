@@ -70,9 +70,17 @@ const ClientMaster = () => {
         buttonText={"Add new client"}
         SearchType={"client"}
         setRefresh={setRefresh}
+        setView={setView}
+        view={view}
       />
       {view == "table" ? (
-        <ClientsTableView />
+        <ClientsTableView
+          totalClients={data?.totalCount}
+          setCurrentPage={setCurrentPage}
+          setPageSize={setPageSize}
+          data={clients}
+          loading={loading}
+        />
       ) : (
         <ClientsCardView
           totalClients={data?.totalCount}

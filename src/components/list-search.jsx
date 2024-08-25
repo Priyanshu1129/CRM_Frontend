@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Form, Grid, Row, Space, Spin, Col } from "antd";
-import {
-  AppstoreOutlined,
-  SearchOutlined,
-  UnorderedListOutlined,
-} from "@ant-design/icons";
+import { Form, Grid } from "antd";
 import {
   ClientSelector,
   ContactSelector,
@@ -50,16 +45,6 @@ export const ListSearch = ({ SearchType }) => {
     }
   };
 
-  // default selector -
-  // <Input
-  //   size="large"
-  //   // @ts-expect-error Ant Design Icon's v5.0.1 has an issue with @types/react@^18.2.66
-  //   prefix={<SearchOutlined className="anticon tertiary" />}
-  //   suffix={<Spin size="small" spinning={false} />}
-  //   placeholder="Search by name"
-  //   // onChange={debouncedOnChange}
-  //   onChange={() => {}}
-  // />;
   useEffect(() => {
     if (input && SearchType) {
       let url = `/${SearchType}-master/${SearchType}-details/${input}`;
@@ -68,30 +53,10 @@ export const ListSearch = ({ SearchType }) => {
   }, [input, router, SearchType]);
 
   return (
-    <Space
-      style={{
-        marginTop: screens.xs ? "1.6rem" : undefined,
-      }}
-    >
+    <div>
       <Form style={{ width: screens.xs ? "150px" : "200px" }} layout="inline">
         {renderSelector()}
       </Form>
-
-      {/* {!screens.xs ? (
-        <Radio.Group
-          size="large"
-          value={"table"}
-          onChange={(e) => onViewChange(e.target.value)}
-        >
-          <Radio.Button value="table">
-            
-            <UnorderedListOutlined />
-          </Radio.Button>
-          <Radio.Button value="card">
-            <AppstoreOutlined />
-          </Radio.Button>
-        </Radio.Group>
-      ) : null} */}
-    </Space>
+    </div>
   );
 };

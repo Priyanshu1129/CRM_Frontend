@@ -2,7 +2,7 @@ import { TableActions, CustomAvatar, Text } from "@/components";
 import { Space } from "antd";
 export const columns = [
     {
-        title: "Name",
+        title: <div style={{ paddingLeft: "24px" }}>Name</div>,
         // dataIndex: "firstName",
         key: "firstName",
         width: 200,
