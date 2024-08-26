@@ -16,7 +16,7 @@ export const login = (loginData) => async (dispatch) => {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                // withCredentials: true,
+                withCredentials: true,
             }
         );
 
@@ -82,7 +82,7 @@ export const logout = () => async (dispatch) => {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                // withCredentials: true,
+                withCredentials: true,
             }
         );
         localStorage.removeItem("user");
@@ -175,7 +175,7 @@ export const changePassword = (data) => async (dispatch) => {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                // withCredentials: true,
+                withCredentials: true,
             }
         );
 

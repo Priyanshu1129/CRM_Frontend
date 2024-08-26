@@ -8,7 +8,9 @@ export const getAllSalesSubStages = () => async (dispatch) => {
     try {
         dispatch(salesSubStageActions.getAllSalesSubStagesRequest());
         console.log('getAllSalesSubStages');
-        const response = await axios.get(`${route}/`);
+        const response = await axios.get(`${route}/`, {
+            withCredentials: true,
+        });
 
         console.log('get-all-salesSubStage-res-data', response.data);
         dispatch(salesSubStageActions.getAllSalesSubStagesSuccess(response.data));

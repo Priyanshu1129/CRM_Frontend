@@ -8,7 +8,9 @@ export const getAllSolutions = () => async (dispatch) => {
     try {
         dispatch(solutionActions.getAllSolutionsRequest());
         console.log('getAllSolutions');
-        const response = await axios.get(`${route}/`);
+        const response = await axios.get(`${route}/`, {
+            withCredentials: true,
+        });
 
         console.log('get-all-solution-res-data', response.data);
         dispatch(solutionActions.getAllSolutionsSuccess(response.data));

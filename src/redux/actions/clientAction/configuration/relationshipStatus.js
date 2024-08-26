@@ -8,7 +8,9 @@ export const getAllRelationshipStatus = () => async (dispatch) => {
     try {
         dispatch(relationshipStatusActions.getAllRelationshipStatusRequest());
         console.log('getAllRelationshipStatus');
-        const response = await axios.get(`${route}/`);
+        const response = await axios.get(`${route}/`, {
+            withCredentials: true,
+        });
 
         console.log('get-all-relationshipStatus-res-data', response.data);
         dispatch(relationshipStatusActions.getAllRelationshipStatusSuccess(response.data));

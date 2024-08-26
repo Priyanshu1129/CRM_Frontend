@@ -8,7 +8,9 @@ export const getAllIncorporationTypes = () => async (dispatch) => {
     try {
         dispatch(incorporationTypeActions.getAllIncorporationTypesRequest());
         console.log('getAllIncorporationTypes');
-        const data = await axios.get(`${route}/`);
+        const data = await axios.get(`${route}/`, {
+            withCredentials: true,
+        });
 
         console.log('get-all-incorporationType-res-data', data.data);
         dispatch(incorporationTypeActions.getAllIncorporationTypesSuccess(data.data));

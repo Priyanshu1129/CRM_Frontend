@@ -14,7 +14,7 @@ export const getAllBusinessDevelopments = ({ page = null, limit = null, config =
                 page: page,
                 config: config
             },
-            // withCredentials: true,
+            withCredentials: true,
         });
 
         console.log('get-all-businessDevelopment-res-data', response.data);
@@ -39,7 +39,7 @@ export const getBusinessDevelopment = (businessDevelopmentId) => async (dispatch
         dispatch(businessDevelopmentActions.getBusinessDevelopmentRequest());
 
         const response = await axios.get(`${route}/${businessDevelopmentId}`, {
-            // withCredentials: true,
+            withCredentials: true,
         });
         console.log('get-businessDevelopment-details-res-data', response.data);
         dispatch(businessDevelopmentActions.getBusinessDevelopmentSuccess(response.data));
@@ -63,7 +63,7 @@ export const createBusinessDevelopment = (businessDevelopmentData) => async (dis
         dispatch(businessDevelopmentActions.createBusinessDevelopmentRequest());
 
         const response = await axios.post(`${route}/`, businessDevelopmentData, {
-            // withCredentials: true,
+            withCredentials: true,
         });
         console.log('create-businessDevelopment-res-data', response);
         dispatch(businessDevelopmentActions.createBusinessDevelopmentSuccess(response.data));
@@ -90,7 +90,7 @@ export const updateBusinessDevelopment = (businessDevelopmentData, businessDevel
             `${route}/${businessDevelopmentId}`,
             businessDevelopmentData,
             {
-                // withCredentials: true,
+                withCredentials: true,
             }
         );
         console.log('update-businessDevelopment-res-data', response.data);
@@ -121,7 +121,7 @@ export const deleteBusinessDevelopment = (businessDevelopmentId, token) => async
                 headers: {
                     "Content-Type": "application/json",
                 },
-                // withCredentials: true,
+                withCredentials: true,
             }
         );
         console.log('delete-businessDevelopment-res-data', data.data);

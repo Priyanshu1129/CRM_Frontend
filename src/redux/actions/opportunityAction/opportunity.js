@@ -14,7 +14,7 @@ export const getAllOpportunities = ({ page = null, limit = null, config = false 
         console.log('getAllOpportunities config', config);
         const response = await axios.get(`${route}/`, {
             params: { limit, page, config },
-            // withCredentials: true,
+            withCredentials: true,
         });
 
         console.log('get-all-opportunity-res-data', response.data);
@@ -47,7 +47,7 @@ export const getOpportunity = (opportunityId) => async (dispatch) => {
         dispatch(opportunityActions.getOpportunityRequest());
 
         const response = await axios.get(`${route}/${opportunityId}`, {
-            // withCredentials: true,
+            withCredentials: true,
         });
         console.log('get-opportunity-details-res-data', response.data);
         dispatch(opportunityActions.getOpportunitySuccess(response.data));
@@ -70,7 +70,9 @@ export const createOpportunity = (opportunityData) => async (dispatch) => {
         console.log("create-opportunityData", opportunityData);
         dispatch(opportunityActions.createOpportunityRequest());
 
-        const response = await axios.post(`${route}/`, opportunityData);
+        const response = await axios.post(`${route}/`, opportunityData, {
+            withCredentials: true,
+        });
         console.log('create-opportunity-res-data', response);
         dispatch(opportunityActions.createOpportunitySuccess(response.data.data));
     } catch (error) {
@@ -97,8 +99,7 @@ export const updateOpportunity = (opportunityData, opportunityId) => async (disp
             `${route}/${opportunityId}`,
             opportunityData,
             {
-                // headers: {
-                // },
+                withCredentials: true,
             }
         );
         console.log('update-opportunity-res-data', response.data);
@@ -127,9 +128,9 @@ export const deleteOpportunity = (opportunityId, token) => async (dispatch) => {
             `${route}/${opportunityId}`,
             {
                 headers: {
-                    "Content-Type": "application/json",
-                    "authorization": token
+                    "Content-Type": "application/json"
                 },
+                withCredentials: true,
             }
         );
         console.log('delete-opportunity-res-data', data.data);

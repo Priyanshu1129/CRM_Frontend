@@ -13,7 +13,8 @@ export const getAllContacts = ({ page = null, limit = null, config = false }) =>
         }
         console.log('getAllContactsRequest Config', config);
         const response = await axios.get(`${route}/`, {
-            params: { limit, page, config }
+            params: { limit, page, config },
+            withCredentials: true,
         });
 
         console.log('get-all-contact-res-data', response.data);
@@ -46,9 +47,7 @@ export const getContact = (contactId) => async (dispatch) => {
         dispatch(contactActions.getContactRequest());
 
         const response = await axios.get(`${route}/${contactId}`, {
-            // headers: {
-            //     "authorization": token
-            // }
+            withCredentials: true,
         });
         console.log('get-contact-details-res-data', response.data);
         dispatch(contactActions.getContactSuccess(response.data));
@@ -78,6 +77,7 @@ export const createContact = (contactData) => async (dispatch) => {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
+                withCredentials: true,
             }
         );
         console.log('create-contact-res-data', response);
@@ -108,6 +108,7 @@ export const updateContact = (contactData, contactId) => async (dispatch) => {
                 headers: {
                     "Content-Type": "multipart/form-data"
                 },
+                withCredentials: true,
             }
         );
         console.log('update-contact-res-data', response.data);
@@ -137,8 +138,8 @@ export const deleteContact = (contactId, token) => async (dispatch) => {
             {
                 headers: {
                     "Content-Type": "application/json",
-                    "authorization": token
                 },
+                withCredentials: true,
             }
         );
         console.log('delete-contact-res-data', data.data);

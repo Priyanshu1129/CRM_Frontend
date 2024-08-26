@@ -8,7 +8,9 @@ export const getAllStages = () => async (dispatch) => {
     try {
         dispatch(stageActions.getAllStagesRequest());
         console.log('getAllStages-req');
-        const response = await axios.get(`${route}/`);
+        const response = await axios.get(`${route}/`, {
+            withCredentials: true,
+        });
 
         console.log('get-all-stage-res-data', response.data);
         dispatch(stageActions.getAllStagesSuccess(response.data));
@@ -32,9 +34,7 @@ export const getStage = (stageId, token) => async (dispatch) => {
         dispatch(stageActions.getStageRequest());
 
         const data = await axios.get(`${route}/details/${stageId}`, {
-            headers: {
-                "authorization": token
-            }
+            withCredentials: true
         });
         console.log('get-stage-details-res-data', data.data);
         dispatch(stageActions.getStageSuccess(data.data));

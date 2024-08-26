@@ -8,7 +8,9 @@ export const getAllSubSolutions = () => async (dispatch) => {
     try {
         dispatch(subSolutionActions.getAllSubSolutionsRequest());
         console.log('getAllSubSolutions');
-        const response = await axios.get(`${route}/`);
+        const response = await axios.get(`${route}/`, {
+            withCredentials: true,
+        });
 
         console.log('get-all-subSolution-res-data', response.data);
         dispatch(subSolutionActions.getAllSubSolutionsSuccess(response.data));

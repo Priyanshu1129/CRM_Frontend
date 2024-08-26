@@ -8,7 +8,9 @@ export const getAllTerritories = () => async (dispatch) => {
     try {
         dispatch(territoryActions.getAllTerritoriesRequest());
         console.log('getAllTerritories');
-        const response = await axios.get(`${route}/`);
+        const response = await axios.get(`${route}/`, {
+            withCredentials: true,
+        });
 
         console.log('get-all-territory-res-data', response.data);
         dispatch(territoryActions.getAllTerritoriesSuccess(response.data));

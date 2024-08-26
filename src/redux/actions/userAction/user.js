@@ -13,7 +13,8 @@ export const getAllUsers = ({ page = null, limit = null, config = false }) => as
         }
         console.log('getAllUsers config', config);
         const response = await axios.get(`${route}/`, {
-            params: { limit, page, config }
+            params: { limit, page, config },
+            withCredentials: true,
         });
 
         console.log('get-all-user-res-data', response?.data);
@@ -46,9 +47,7 @@ export const getUser = (userId) => async (dispatch) => {
         dispatch(userActions.getUserRequest());
 
         const response = await axios.get(`${route}/${userId}`, {
-            // headers: {
-            //     "authorization": token
-            // }
+            withCredentials: true,
         });
         console.log('get-user-details-res-data', response.data);
         dispatch(userActions.getUserSuccess(response.data));
@@ -78,6 +77,7 @@ export const createUser = (userData) => async (dispatch) => {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
+                withCredentials: true,
             }
         );
         console.log('create-user-res-data', response);
@@ -108,6 +108,7 @@ export const updateUser = (userData, userId) => async (dispatch) => {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
+                withCredentials: true,
             }
         );
         console.log('update-user-res-data', response.data);
@@ -137,8 +138,8 @@ export const deleteUser = (userId, token) => async (dispatch) => {
             {
                 headers: {
                     "Content-Type": "application/json",
-                    "authorization": token
                 },
+                withCredentials: true,
             }
         );
         console.log('delete-user-res-data', data.data);

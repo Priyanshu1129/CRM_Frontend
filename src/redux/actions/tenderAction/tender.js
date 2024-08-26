@@ -18,7 +18,8 @@ export const getAllTenders = ({ page = null, limit = null, config = false }) => 
                 limit,
                 page,
                 config
-            }
+            },
+            withCredentials: true,
         });
         console.log('get-all-tender-res-data', response.data);
 
@@ -51,9 +52,7 @@ export const getTender = (tenderId) => async (dispatch) => {
         dispatch(tenderActions.getTenderRequest());
 
         const response = await axios.get(`${route}/${tenderId}`, {
-            // headers: {
-            //     "authorization": token
-            // }
+            withCredentials: true,
         });
         console.log('get-tender-details-res-data', response.data);
         dispatch(tenderActions.getTenderSuccess(response.data));
@@ -80,9 +79,7 @@ export const createTender = (tenderData) => async (dispatch) => {
             `${route}/`,
             tenderData,
             {
-                headers: {
-                    // "authorization": token
-                },
+                withCredentials: true
             }
         );
         console.log('create-tender-res-data', data);
@@ -112,8 +109,7 @@ export const updateTender = (tenderData, tenderId) => async (dispatch) => {
             `${route}/${tenderId}`,
             tenderData,
             {
-                // headers: {
-                // },
+                withCredentials: true,
             }
         );
         console.log('update-tender-res-data', response.data);
@@ -143,8 +139,8 @@ export const deleteTender = (tenderId, token) => async (dispatch) => {
             {
                 headers: {
                     "Content-Type": "application/json",
-                    "authorization": token
                 },
+                withCredentials: true,
             }
         );
         console.log('delete-tender-res-data', data.data);

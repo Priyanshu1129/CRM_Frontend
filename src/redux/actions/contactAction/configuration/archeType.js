@@ -8,7 +8,9 @@ export const getAllArcheTypes = () => async (dispatch) => {
     try {
         dispatch(archeTypeActions.getAllArcheTypesRequest());
         console.log('getAllArcheTypes');
-        const response = await axios.get(`${route}/`);
+        const response = await axios.get(`${route}/`, {
+            withCredentials: true,
+        });
 
         console.log('get-all-archeType-res-data', response.data);
         dispatch(archeTypeActions.getAllArcheTypesSuccess(response.data));

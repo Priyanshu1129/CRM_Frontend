@@ -8,7 +8,8 @@ export const getAllRegistrations = ({ page = null, limit = null, config = false 
         dispatch(registrationActions.getAllRegistrationsRequest());
         console.log('getAllRegistrations');
         const response = await axios.get(`${route}/`, {
-            params: { limit, page, config }
+            params: { limit, page, config },
+            withCredentials: true,
         });
 
         console.log('get-all-registration-res-data', response.data);
@@ -33,9 +34,7 @@ export const getRegistration = (registrationId) => async (dispatch) => {
         dispatch(registrationActions.getRegistrationRequest());
 
         const response = await axios.get(`${route}/${registrationId}`, {
-            // headers: {
-            //     "authorization": token
-            // }
+            withCredentials: true,
         });
         console.log('get-registration-details-res-data', response.data);
         dispatch(registrationActions.getRegistrationSuccess(response.data));
@@ -62,9 +61,7 @@ export const createRegistration = (registrationData) => async (dispatch) => {
             `${route}/`,
             registrationData,
             {
-                headers: {
-                    // "authorization": token
-                },
+                withCredentials: true,
             }
         );
         console.log('create-registration-res-data', response.data);
@@ -89,7 +86,9 @@ export const updateRegistration = (registrationData, registrationId) => async (d
         console.log("update-registrationData-req", registrationData,);
         dispatch(registrationActions.updateRegistrationRequest());
         const response = await axios.put(
-            `${route}/${registrationId}`, registrationData);
+            `${route}/${registrationId}`, registrationData, {
+            withCredentials: true,
+        });
         console.log('update-registration-res-data', response.data);
         dispatch(registrationActions.getRegistrationSuccess(response.data));
         dispatch(registrationActions.updateRegistrationSuccess(response.data));
@@ -117,8 +116,8 @@ export const deleteRegistration = (registrationId, token) => async (dispatch) =>
             {
                 headers: {
                     "Content-Type": "application/json",
-                    "authorization": token
                 },
+                withCredentials: true,
             }
         );
         console.log('delete-registration-res-data', data.data);

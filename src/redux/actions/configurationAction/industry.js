@@ -8,7 +8,9 @@ export const getAllIndustries = () => async (dispatch) => {
     try {
         dispatch(industryActions.getAllIndustriesRequest());
         console.log('getAllIndustries');
-        const response = await axios.get(`${route}/`);
+        const response = await axios.get(`${route}/`, {
+            withCredentials: true,
+        });
 
         console.log('get-all-industry-res-data', response.data);
         dispatch(industryActions.getAllIndustriesSuccess(response.data));

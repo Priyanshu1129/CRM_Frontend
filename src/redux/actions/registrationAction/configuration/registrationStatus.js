@@ -8,7 +8,9 @@ export const getAllRegistrationStatus = () => async (dispatch) => {
     try {
         dispatch(registrationStatusActions.getAllRegistrationStatusRequest());
         console.log('getAllRegistrationStatus');
-        const response = await axios.get(`${route}/`);
+        const response = await axios.get(`${route}/`, {
+            withCredentials: true,
+        });
 
         console.log('get-all-registrationStatus-res-data', response.data);
         dispatch(registrationStatusActions.getAllRegistrationStatusSuccess(response.data));

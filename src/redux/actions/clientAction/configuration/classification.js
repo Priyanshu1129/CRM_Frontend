@@ -8,7 +8,9 @@ export const getAllClassifications = () => async (dispatch) => {
     try {
         dispatch(classificationActions.getAllClassificationsRequest());
         console.log('getAllClassifications Request');
-        const response = await axios.get(`${route}/`);
+        const response = await axios.get(`${route}/`, {
+            withCredentials: true,
+        });
 
         console.log('get-all-classification-res-data', response.data);
         dispatch(classificationActions.getAllClassificationsSuccess(response.data));
@@ -32,9 +34,7 @@ export const getClassification = (classificationId, token) => async (dispatch) =
         dispatch(classificationActions.getClassificationRequest());
 
         const data = await axios.get(`${route}/details/${classificationId}`, {
-            headers: {
-                "authorization": token
-            }
+            withCredentials: true,
         });
         console.log('get-classification-details-res-data', data.data);
         dispatch(classificationActions.getClassificationSuccess(data.data));

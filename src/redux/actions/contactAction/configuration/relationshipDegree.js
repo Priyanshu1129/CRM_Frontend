@@ -8,7 +8,9 @@ export const getAllRelationshipDegrees = () => async (dispatch) => {
     try {
         dispatch(relationshipDegreeActions.getAllRelationshipDegreesRequest());
         console.log('getAllRelationshipDegrees');
-        const response = await axios.get(`${route}/`);
+        const response = await axios.get(`${route}/`, {
+            withCredentials: true,
+        });
 
         console.log('get-all-relationshipDegree-res-data', response.data);
         dispatch(relationshipDegreeActions.getAllRelationshipDegreesSuccess(response.data));
