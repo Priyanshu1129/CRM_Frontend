@@ -161,10 +161,20 @@ const AddUser = () => {
             </Col>
             <Col span={8}>
               <Form.Item
-                label="Address"
-                name="address"
-                rules={userFormRules.address}
+                label="Country"
+                name="country"
+                rules={userFormRules.country}
               >
+                <Input />
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item label="State" name="state" rules={userFormRules.state}>
+                <Input />
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item label="City" name="city" rules={userFormRules.city}>
                 <Input />
               </Form.Item>
             </Col>
@@ -178,7 +188,7 @@ const AddUser = () => {
                     type="default"
                     htmlType="button"
                     onClick={() => form.resetFields()}
-                    loading={loading}
+                    disabled={loading}
                   >
                     Reset
                   </Button>
@@ -187,10 +197,6 @@ const AddUser = () => {
             </Col>
           </Row>
         </Form>
-        {/* <BulkUploadModal
-          setUploadModal={setUploadModal}
-          uploadModal={uploadModal}
-        /> */}
       </Space>
     </>
   );

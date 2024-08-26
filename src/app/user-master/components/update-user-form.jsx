@@ -42,7 +42,9 @@ export const UpdateUserForm = ({ user }) => {
         role: user.role,
         phone: user.phone,
         email: user.email,
-        address: user.address,
+        country: user.country,
+        state: user.state,
+        city: user.city,
         avatar: user.avatar,
       };
       form.setFieldsValue(userInitialValues);
@@ -173,31 +175,36 @@ export const UpdateUserForm = ({ user }) => {
             <Input />
           </Form.Item>
         </Col>
-        <Col span={colSpan}>
+        <Col span={8}>
           <Form.Item
-            label="Address"
-            name="address"
+            label="Country"
+            name="country"
             rules={userFormRules.address}
           >
+            <Input />
+          </Form.Item>
+        </Col>
+        <Col span={8}>
+          <Form.Item label="State" name="state" rules={userFormRules.state}>
+            <Input />
+          </Form.Item>
+        </Col>
+        <Col span={8}>
+          <Form.Item label="City" name="city" rules={userFormRules.city}>
             <Input />
           </Form.Item>
         </Col>
         <Col span={24}>
           <Form.Item>
             <Space>
-              <Button
-                // disabled
-                type="primary"
-                htmlType="submit"
-                loading={loading}
-              >
+              <Button type="primary" htmlType="submit" loading={loading}>
                 Update
               </Button>
               <Button
                 type="default"
                 htmlType="button"
                 onClick={() => form.resetFields()}
-                loading={loading}
+                disabled={loading}
               >
                 Reset
               </Button>

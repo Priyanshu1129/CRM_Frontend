@@ -213,7 +213,7 @@ const AddBusinessDevelopment = () => {
                     type="default"
                     htmlType="button"
                     onClick={() => form.resetFields()}
-                    loading={loading}
+                    disabled={loading}
                   >
                     Reset
                   </Button>
@@ -222,10 +222,6 @@ const AddBusinessDevelopment = () => {
             </Col>
           </Row>
         </Form>
-        {/* <BulkUploadModal
-          setUploadModal={setUploadModal}
-          uploadModal={uploadModal}
-        /> */}
       </Space>
     </>
   );

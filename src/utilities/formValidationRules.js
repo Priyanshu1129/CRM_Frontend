@@ -24,9 +24,17 @@ export const userFormRules = {
     DOB: [
         { required: true, message: 'Date of Birth is required' }
     ],
-    address: [
-        { required: true, message: 'Address is required' },
-        { min: 3, message: 'Address must be at least 3 characters' }
+    country: [
+        { required: true, message: 'Country is required' },
+        { min: 3, message: 'Country must be at least 3 characters' }
+    ],
+    state: [
+        { required: true, message: 'State is required' },
+        { min: 3, message: 'State must be at least 3 characters' }
+    ],
+    city: [
+        { required: true, message: 'City is required' },
+        { min: 3, message: 'City must be at least 3 characters' }
     ]
 };
 

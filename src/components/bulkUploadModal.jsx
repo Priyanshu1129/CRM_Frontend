@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { UploadOutlined } from "@ant-design/icons";
 import { Button, Modal, message, Upload, Space } from "antd";
 import { serverURL } from "@/config/config";
 import Link from "next/link";
 
 export const BulkUploadModal = ({ uploadModal, setUploadModal, resource }) => {
   const [fileList, setFileList] = useState([]);
+  const [testing, setTesting] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [resData, setResData] = useState(null);
   const handleOk = () => {
@@ -17,6 +17,7 @@ export const BulkUploadModal = ({ uploadModal, setUploadModal, resource }) => {
 
   const handleUpload = (check) => {
     check = check ? "true" : "false";
+    if (check) setTesting(true);
     const formData = new FormData();
     fileList.forEach((file) => {
       formData.append("dataFile", file);
@@ -37,6 +38,7 @@ export const BulkUploadModal = ({ uploadModal, setUploadModal, resource }) => {
       })
       .finally(() => {
         setUploading(false);
+        setTesting(false);
       });
   };
   const props = {
@@ -68,20 +70,20 @@ export const BulkUploadModal = ({ uploadModal, setUploadModal, resource }) => {
             key="test"
             type="primary"
             onClick={() => handleUpload(true)}
-            disabled={fileList.length === 0}
-            loading={uploading}
+            disabled={fileList.length === 0 || uploading}
+            loading={uploading && testing}
             style={{
               marginTop: 16,
             }}
           >
-            {uploading ? "Testing" : "Start Test"}
+            {testing ? "Testing" : "Start Test"}
           </Button>,
           <Button
             key="upload"
             type="primary"
             onClick={() => handleUpload(false)}
-            disabled={fileList.length === 0}
-            loading={uploading}
+            disabled={fileList.length === 0 || testing}
+            loading={uploading && !testing}
             style={{
               marginTop: 16,
             }}

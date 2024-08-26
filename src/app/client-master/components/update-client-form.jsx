@@ -297,7 +297,7 @@ export const UpdateClientForm = ({ client }) => {
                   // disabled
                   type="primary"
                   htmlType="submit"
-                  // loading={loading}
+                  loading={loading}
                 >
                   Update
                 </Button>
@@ -305,7 +305,7 @@ export const UpdateClientForm = ({ client }) => {
                   type="default"
                   htmlType="button"
                   onClick={() => form.resetFields()}
-                  loading={loading}
+                  disabled={loading}
                 >
                   Reset
                 </Button>

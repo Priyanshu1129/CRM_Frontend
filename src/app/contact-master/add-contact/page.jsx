@@ -254,7 +254,7 @@ const AddContact = () => {
                     type="default"
                     htmlType="button"
                     onClick={() => form.resetFields()}
-                    loading={loading}
+                    disabled={loading}
                   >
                     Reset
                   </Button>
