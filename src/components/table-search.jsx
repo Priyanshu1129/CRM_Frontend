@@ -1,10 +1,8 @@
 import React from "react";
-import { Table } from "@/components";
-import { columns } from "./column";
 import { Space, Input, Button } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 
-export const TableSearch = ({
+const TableSearch = ({
   setSelectedKeys,
   selectedKeys,
   confirm,
@@ -35,24 +33,4 @@ export const TableSearch = ({
   </div>
 );
 
-export const ClientsTableView = ({
-  data,
-  loading,
-  setCurrentPage,
-  setPageSize,
-  totalClients,
-}) => {
-  return (
-    <>
-      <Table
-        setCurrentPage={setCurrentPage}
-        setPageSize={setPageSize}
-        loading={loading}
-        data={data}
-        total={totalClients}
-        columns={columns}
-        entityName="Clients"
-      />
-    </>
-  );
-};
+export default TableSearch;

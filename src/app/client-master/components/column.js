@@ -1,12 +1,17 @@
 import { TableActions, CustomAvatar, Text } from "@/components";
+import { SearchOutlined } from "@ant-design/icons";
 import { Space } from "antd";
-import dayjs from "dayjs";
+import TableSearch from "@/components/table-search";
+
 
 export const columns = [
     {
         title: <div style={{ paddingLeft: "24px" }}>Name</div>,
         key: "name",
         width: 200,
+        // filterDropdown: <TableSearch />,
+        // filterIcon: filtered => <SearchOutlined style={{ color: filtered ? "#1890ff" : undefined }} />,
+        // onFilter: (value, record) => record.name.toLowerCase().includes(value.toLowerCase()),
         render: (_, record) => (
             <Space>
                 <CustomAvatar src={record.avatar} />
@@ -26,6 +31,8 @@ export const columns = [
         dataIndex: "entryDate",
         key: "entryDate",
         width: 120,
+        // sorter: (a, b) => new Date(a.entryDate) - new Date(b.entryDate),
+        // sortDirections: ['ascend', 'descend'],
         render: (text) => (text ? new Date(text).toLocaleDateString() : "N/A"),
     },
     {
