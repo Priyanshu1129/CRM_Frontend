@@ -42,9 +42,9 @@ export const UpdateUserForm = ({ user }) => {
         role: user.role,
         phone: user.phone,
         email: user.email,
-        country: user.country,
-        state: user.state,
-        city: user.city,
+        country: user.address?.country,
+        state: user.address?.state,
+        city: user.address?.city,
         avatar: user.avatar,
       };
       form.setFieldsValue(userInitialValues);
