@@ -316,7 +316,8 @@ export const SalesSubStageSelector = ({ name, label, rules }) => {
   );
 };
 
-export const TerritorySelector = ({ name, label, rules }) => {
+export const 
+TerritorySelector = ({ name, label, rules }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const { status, data, error } = useSelector(
