@@ -13,7 +13,7 @@ export const getAllOpportunities = ({ page = null, limit = null, config = false,
         }
         console.log('getAllOpportunities config', config);
         const response = await axios.get(`${route}/`, {
-            params: { limit, page, config, enteredBy, entryDate },
+            params: { limit, page, config, enteredBy, entry_date: entryDate },
             withCredentials: true,
         });
 

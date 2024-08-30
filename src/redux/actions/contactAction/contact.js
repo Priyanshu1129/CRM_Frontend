@@ -13,7 +13,7 @@ export const getAllContacts = ({ page = null, limit = null, config = false, entr
         }
         console.log('getAllContactsRequest Config', config);
         const response = await axios.get(`${route}/`, {
-            params: { limit, page, config, enteredBy, entryDate },
+            params: { limit, page, config, enteredBy, entry_date: entryDate },
             withCredentials: true,
         });
 

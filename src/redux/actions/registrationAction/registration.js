@@ -8,7 +8,7 @@ export const getAllRegistrations = ({ page = null, limit = null, config = false,
         dispatch(registrationActions.getAllRegistrationsRequest());
         console.log('getAllRegistrations');
         const response = await axios.get(`${route}/`, {
-            params: { limit, page, config, enteredBy, entryDate },
+            params: { limit, page, config, enteredBy, entry_date: entryDate },
             withCredentials: true,
         });
 
