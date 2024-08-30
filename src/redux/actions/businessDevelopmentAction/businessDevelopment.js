@@ -4,16 +4,12 @@ import { serverURL } from "@/config/config";
 
 const route = `${serverURL}/bd`
 
-export const getAllBusinessDevelopments = ({ page = null, limit = null, config = false }) => async (dispatch) => {
+export const getAllBusinessDevelopments = ({ page = null, limit = null, config = false, entryDate = "", enteredBy = "" }) => async (dispatch) => {
     try {
         dispatch(businessDevelopmentActions.getAllBusinessDevelopmentsRequest());
         console.log('getAllBusinessDevelopments');
         const response = await axios.get(`${route}/`, {
-            params: {
-                limit: limit,
-                page: page,
-                config: config
-            },
+            params: { limit, page, config, enteredBy, entryDate },
             withCredentials: true,
         });
 

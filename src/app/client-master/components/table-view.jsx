@@ -1,6 +1,6 @@
 import React from "react";
 import { Table } from "@/components";
-import { columns } from "./column";
+import { getColumns } from "./column";
 
 export const ClientsTableView = ({
   data,
@@ -8,7 +8,10 @@ export const ClientsTableView = ({
   setCurrentPage,
   setPageSize,
   totalClients,
+  handleFilter,
 }) => {
+  const columns = getColumns();
+
   return (
     <>
       <Table
@@ -19,6 +22,7 @@ export const ClientsTableView = ({
         total={totalClients}
         columns={columns}
         entityName="Clients"
+        handleChange={handleFilter}
       />
     </>
   );

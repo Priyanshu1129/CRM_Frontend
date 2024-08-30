@@ -37,7 +37,6 @@ export const ProtectedPage = ({ children }) => {
     }, [currentPath, router]);
 
     const isPublicRoute = publicRoutes.includes(currentPath);
-    console.log('currentPath2', currentPath);
 
     const Wrapper = isPublicRoute ? NoLayout : PrivateLayout;
 

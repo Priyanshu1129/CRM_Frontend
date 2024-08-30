@@ -3,12 +3,12 @@ import { registrationActions } from "@/redux/slices/registrationSlice"
 import { serverURL } from "@/config/config";
 const route = `${serverURL}/registration`
 
-export const getAllRegistrations = ({ page = null, limit = null, config = false }) => async (dispatch) => {
+export const getAllRegistrations = ({ page = null, limit = null, config = false, entryDate = "", enteredBy = "" }) => async (dispatch) => {
     try {
         dispatch(registrationActions.getAllRegistrationsRequest());
         console.log('getAllRegistrations');
         const response = await axios.get(`${route}/`, {
-            params: { limit, page, config },
+            params: { limit, page, config, enteredBy, entryDate },
             withCredentials: true,
         });
 

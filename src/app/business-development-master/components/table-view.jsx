@@ -1,6 +1,6 @@
 import React from "react";
 import { Table } from "@/components";
-import { columns } from "./columns";
+import { getColumns } from "./columns";
 
 export const BusinessDevelopmentTableView = ({
   setCurrentPage,
@@ -8,7 +8,9 @@ export const BusinessDevelopmentTableView = ({
   loading,
   data,
   total,
+  handleFilter,
 }) => {
+  const columns = getColumns();
   return (
     <>
       <Table
@@ -17,6 +19,7 @@ export const BusinessDevelopmentTableView = ({
         loading={loading}
         data={data}
         columns={columns}
+        handleChange={handleFilter}
         entityName="Business Developments"
         total={total}
       />

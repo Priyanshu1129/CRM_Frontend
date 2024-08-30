@@ -1,13 +1,15 @@
 import React from "react";
 import { Table } from "@/components";
-import { columns } from "./columns";
+import { getColumns } from "./columns";
 export const TendersTableView = ({
   setCurrentPage,
   setPageSize,
   loading,
   data,
   total,
+  handleFilter,
 }) => {
+  const columns = getColumns();
   return (
     <>
       <Table
@@ -15,6 +17,7 @@ export const TendersTableView = ({
         setPageSize={setPageSize}
         loading={loading}
         data={data}
+        handleChange={handleFilter}
         total={total}
         columns={columns}
         entityName="Contacts"
