@@ -14,7 +14,7 @@ export const getAllClients = ({ page = null, limit = null, config = false, indus
         }
         console.log('getAllClients-request-config', config);
         const response = await axios.get(`${route}/`, {
-            params: { limit, page, config, industry, subIndustry, territory, enteredBy, name, entryDate },
+            params: { limit, page, config, industry, subIndustry, territory, enteredBy, name, entry_date: entryDate },
             withCredentials: true,
         });
 

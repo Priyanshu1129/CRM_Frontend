@@ -9,7 +9,7 @@ export const getAllBusinessDevelopments = ({ page = null, limit = null, config =
         dispatch(businessDevelopmentActions.getAllBusinessDevelopmentsRequest());
         console.log('getAllBusinessDevelopments');
         const response = await axios.get(`${route}/`, {
-            params: { limit, page, config, enteredBy, entryDate },
+            params: { limit, page, config, enteredBy, entry_date:entryDate },
             withCredentials: true,
         });
 

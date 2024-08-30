@@ -14,7 +14,7 @@ export const getAllTenders = ({ page = null, limit = null, config = false, entry
         }
         console.log('getAllTenders-config', config);
         const response = await axios.get(`${route}/`, {
-            params: { limit, page, config, enteredBy, entryDate },
+            params: { limit, page, config, enteredBy, entry_date: entryDate },
             withCredentials: true,
         });
         console.log('get-all-tender-res-data', response.data);
