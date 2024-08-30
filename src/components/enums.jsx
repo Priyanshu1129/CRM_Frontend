@@ -17,7 +17,7 @@ import { getAllContacts } from "@/redux/actions/contactAction";
 import { getAllTenders } from "@/redux/actions/tenderAction";
 import { getAllOpportunities } from "@/redux/actions/opportunityAction";
 
-export const IndustrySelector = ({ name, label, rules }) => {
+export const IndustrySelector = ({ name = "industry", label, rules }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const { status, data, error } = useSelector(
@@ -47,7 +47,12 @@ export const IndustrySelector = ({ name, label, rules }) => {
   }, [status, data]);
 
   return (
-    <Form.Item name={name} label={label} rules={rules}>
+    <Form.Item
+      style={{ width: "100%" }}
+      name={name}
+      label={label}
+      rules={rules}
+    >
       <Select
         showSearch
         loading={loading}

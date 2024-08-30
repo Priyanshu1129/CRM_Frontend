@@ -5,7 +5,7 @@ import { mastersConfigActions } from "@/redux/slices/configurationSlice";
 
 const route = `${serverURL}/tender`
 
-export const getAllTenders = ({ page = null, limit = null, config = false }) => async (dispatch) => {
+export const getAllTenders = ({ page = null, limit = null, config = false, entryDate = "", enteredBy = "" }) => async (dispatch) => {
     try {
         if (config) {
             dispatch(mastersConfigActions.getConfigTendersRequest());
@@ -14,11 +14,7 @@ export const getAllTenders = ({ page = null, limit = null, config = false }) => 
         }
         console.log('getAllTenders-config', config);
         const response = await axios.get(`${route}/`, {
-            params: {
-                limit,
-                page,
-                config
-            },
+            params: { limit, page, config, enteredBy, entryDate },
             withCredentials: true,
         });
         console.log('get-all-tender-res-data', response.data);

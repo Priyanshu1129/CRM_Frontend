@@ -18,3 +18,4 @@ export * from "./form-header";
 export * from "./bulkUploadModal";
 export * from "./imageUpload";
 export * from "./table-actions";
+export * from "./table-filter-options"

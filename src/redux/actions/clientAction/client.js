@@ -5,7 +5,7 @@ import { mastersConfigActions } from "@/redux/slices/configurationSlice";
 
 const route = `${serverURL}/client`
 
-export const getAllClients = ({ page = null, limit = null, config = false }) => async (dispatch) => {
+export const getAllClients = ({ page = null, limit = null, config = false, industry = "", subIndustry = "", territory = "", enteredBy = "", name, entryDate }) => async (dispatch) => {
     try {
         if (config) {
             dispatch(mastersConfigActions.getConfigClientsRequest());
@@ -14,7 +14,7 @@ export const getAllClients = ({ page = null, limit = null, config = false }) => 
         }
         console.log('getAllClients-request-config', config);
         const response = await axios.get(`${route}/`, {
-            params: { limit, page, config },
+            params: { limit, page, config, industry, subIndustry, territory, enteredBy, name, entryDate },
             withCredentials: true,
         });
 

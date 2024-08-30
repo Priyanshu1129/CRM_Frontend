@@ -1,6 +1,6 @@
 import React from "react";
 import { Table } from "@/components";
-import { columns } from "./columns";
+import { getColumns } from "./columns";
 
 export const ContactsTableView = ({
   setCurrentPage,
@@ -8,7 +8,9 @@ export const ContactsTableView = ({
   loading,
   data,
   total,
+  handleFilter,
 }) => {
+  const columns = getColumns();
   return (
     <>
       <Table
@@ -17,6 +19,7 @@ export const ContactsTableView = ({
         loading={loading}
         data={data}
         total={total}
+        handleChange={handleFilter}
         columns={columns}
         entityName="Contacts"
       />

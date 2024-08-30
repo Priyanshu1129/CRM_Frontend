@@ -4,7 +4,7 @@ import { serverURL } from "@/config/config";
 import { mastersConfigActions } from "@/redux/slices/configurationSlice";
 const route = `${serverURL}/opportunity`
 
-export const getAllOpportunities = ({ page = null, limit = null, config = false }) => async (dispatch) => {
+export const getAllOpportunities = ({ page = null, limit = null, config = false, entryDate = "", enteredBy = "" }) => async (dispatch) => {
     try {
         if (config) {
             dispatch(mastersConfigActions.getConfigOpportunitiesRequest());
@@ -13,7 +13,7 @@ export const getAllOpportunities = ({ page = null, limit = null, config = false 
         }
         console.log('getAllOpportunities config', config);
         const response = await axios.get(`${route}/`, {
-            params: { limit, page, config },
+            params: { limit, page, config, enteredBy, entryDate },
             withCredentials: true,
         });
 
