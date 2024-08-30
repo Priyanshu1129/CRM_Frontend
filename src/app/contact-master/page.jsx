@@ -98,7 +98,7 @@ const ContactMaster = () => {
           subIndustry,
           territory,
           enteredBy,
-          entryDate: currentSortField == "entryDate" ? currentSortOrder : "1",
+          entryDate: currentSortField == "entryDate" ? currentSortOrder : "",
         })
       );
     }

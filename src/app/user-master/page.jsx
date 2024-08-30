@@ -61,6 +61,7 @@ const UserMaster = () => {
       dispatch(userActions.clearGetAllUsersError());
     }
   }, [dispatch, status, data?.users, error]);
+
   return (
     <>
       <ListHeader

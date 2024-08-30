@@ -99,10 +99,10 @@ const ClientMaster = () => {
           subIndustry,
           territory,
           enteredBy,
-          name: currentSortField == "name" ? currentSortOrder : "1",
-          entryDate: currentSortField == "entryDate" ? currentSortOrder : "1",
+          name: currentSortField == "name" ? currentSortOrder : "",
+          entryDate: currentSortField == "entryDate" ? currentSortOrder : "",
         })
-      );
+      ); 
     }
   };
 
