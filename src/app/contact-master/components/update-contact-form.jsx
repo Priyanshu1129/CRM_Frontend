@@ -77,7 +77,11 @@ export const UpdateContactForm = ({ contact }) => {
           ? (contact.mobilePhone?.toString().match(/^\+\d+/) || ["+1"])[0]
           : "+1"
       );
-      form.setFieldsValue(contactInitialValues);
+      form.setFieldsValue({
+        ...contactInitialValues,
+        phone: contact.phone?.replace(/^\+\d+\s*/, ""),
+        mobilePhone: contact.mobilePhone?.replace(/^\+\d+\s*/, ""),
+      });
       initialValues.current = contactInitialValues;
     }
   }, [contact, form]);

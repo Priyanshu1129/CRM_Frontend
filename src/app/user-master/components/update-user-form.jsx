@@ -58,6 +58,10 @@ export const UpdateUserForm = ({ user }) => {
           : "+1"
       );
       form.setFieldsValue(userInitialValues);
+      form.setFieldsValue({
+        ...userInitialValues,
+        phone: user.phone?.replace(/^\+\d+\s*/, ""),
+      });
       initialValues.current = userInitialValues;
     }
   }, [user, form]);
