@@ -34,7 +34,7 @@ export const ListHeader = ({
         }}
       >
         <ListTitleButton toPath={toPath} buttonText={buttonText} />
-        {pageName == "client" && <FilterComponent />}
+        {pageName == "client" && view == "card" && <FilterComponent />}
       </Space>
       <Space
         style={{
