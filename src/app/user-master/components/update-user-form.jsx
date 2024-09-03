@@ -100,7 +100,7 @@ export const UpdateUserForm = ({ user }) => {
 
     const updatedValues = {
       ...values,
-      phone: `${values.phoneCountryCode} ${values.phone}`,
+      phone: `${phoneCountryCode} ${values.phone}`,
     };
 
     const changedValues = getChangedValues(initialValues, updatedValues);

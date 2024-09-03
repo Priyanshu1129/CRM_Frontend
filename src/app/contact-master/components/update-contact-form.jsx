@@ -121,9 +121,11 @@ export const UpdateContactForm = ({ contact }) => {
 
     const updatedValues = {
       ...values,
-      phone: `${values.phoneCountryCode} ${values.phone}`,
-      mobilePhone: `${values.mobilePhoneCountryCode} ${values.mobilePhone}`,
+      phone: `${phoneCountryCode} ${values.phone}`,
+      mobilePhone: `${mobileCountryCode} ${values.mobilePhone}`,
     };
+
+    console.log(updatedValues);
 
     const changedValues = getChangedValues(initialValues, updatedValues);
 
