@@ -73,7 +73,7 @@ const AddUser = () => {
       avatar: avatarChanged ? avatar : null,
       phone: `${phoneCountryCode} ${values.phone}`,
     };
-
+    console.log("format", formattedValues);
     setLoading(true);
     dispatch(createUser(formattedValues));
   };
