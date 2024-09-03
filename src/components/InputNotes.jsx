@@ -27,17 +27,12 @@ export const InputNotes = () => {
         <>
           {fields.map((field, index) => (
             <Col span={8} key={field.key}>
-              <Form.Item
-                {...formItemLayout}
-                label={index === 0 ? "Notes" : ""}
-                required={false}
-              >
+              <Form.Item {...formItemLayout} required={false}>
                 <Form.Item
                   {...field}
                   validateTrigger={["onChange", "onBlur"]}
                   rules={[
                     {
-                      required: true,
                       whitespace: true,
                       message: "Please input note's name or delete this field.",
                     },
@@ -46,7 +41,7 @@ export const InputNotes = () => {
                 >
                   <Input.TextArea placeholder="Notes.." />
                 </Form.Item>
-                {fields.length > 1 ? (
+                {fields.length >= 1 ? (
                   <MinusCircleOutlined
                     className="dynamic-delete-button"
                     onClick={() => remove(field.name)}
