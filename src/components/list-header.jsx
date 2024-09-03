@@ -10,10 +10,12 @@ export const ListHeader = ({
   setRefresh,
   toPath,
   buttonText,
-  SearchType,
+  pageName,
   view,
+  FilterComponent,
 }) => {
   const screens = Grid.useBreakpoint();
+
   return (
     <div
       style={{
@@ -23,12 +25,23 @@ export const ListHeader = ({
         justifyContent: "space-between",
       }}
     >
-      <ListTitleButton toPath={toPath} buttonText={buttonText} />
       <Space
         style={{
           display: "flex",
           alignItems: "center",
           gap: 12,
+          marginTop: screens.xs ? "1.6rem" : undefined,
+        }}
+      >
+        <ListTitleButton toPath={toPath} buttonText={buttonText} />
+        {pageName == "client" && view == "card" && <FilterComponent />}
+      </Space>
+      <Space
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 12,
+          marginTop: screens.xs ? "1.6rem" : undefined,
         }}
       >
         <Button
@@ -38,17 +51,10 @@ export const ListHeader = ({
             setRefresh(true);
           }}
           size={screens.xs ? "middle" : "large"}
-          style={{
-            marginTop: screens.xs ? "1.6rem" : "0rem",
-          }}
         />
 
-        <Space
-          style={{
-            marginTop: screens.xs ? "1.6rem" : undefined,
-          }}
-        >
-          {SearchType && <ListSearch SearchType={SearchType} />}
+        <Space>
+          {pageName && <ListSearch pageName={pageName} />}
           {!screens.xs && view ? (
             <Radio.Group
               size="large"

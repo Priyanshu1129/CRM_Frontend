@@ -9,36 +9,36 @@ import {
 } from ".";
 import { useRouter } from "next/navigation";
 
-export const ListSearch = ({ SearchType }) => {
+export const ListSearch = ({ pageName }) => {
   const screens = Grid.useBreakpoint();
   const [input, setInput] = useState("");
   const router = useRouter();
   const renderSelector = () => {
     const size = screens.xs ? "middle" : "large";
-    switch (SearchType) {
+    switch (pageName) {
       case "client":
         return (
-          <ClientSelector setInput={setInput} size={size} name={SearchType} />
+          <ClientSelector setInput={setInput} size={size} name={pageName} />
         );
       case "contact":
         return (
-          <ContactSelector setInput={setInput} size={size} name={SearchType} />
+          <ContactSelector setInput={setInput} size={size} name={pageName} />
         );
       case "opportunity":
         return (
           <OpportunitySelector
             setInput={setInput}
             size={size}
-            name={SearchType}
+            name={pageName}
           />
         );
       case "tender":
         return (
-          <TenderSelector setInput={setInput} size={size} name={SearchType} />
+          <TenderSelector setInput={setInput} size={size} name={pageName} />
         );
       case "user":
         return (
-          <UserSelector setInput={setInput} size={size} name={SearchType} />
+          <UserSelector setInput={setInput} size={size} name={pageName} />
         );
       default:
         return null; // or you could render a fallback component here
@@ -46,11 +46,11 @@ export const ListSearch = ({ SearchType }) => {
   };
 
   useEffect(() => {
-    if (input && SearchType) {
-      let url = `/${SearchType}-master/${SearchType}-details/${input}`;
+    if (input && pageName) {
+      let url = `/${pageName}-master/${pageName}-details/${input}`;
       router.push(url);
     }
-  }, [input, router, SearchType]);
+  }, [input, router, pageName]);
 
   return (
     <div>

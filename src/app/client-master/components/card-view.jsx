@@ -4,6 +4,8 @@ import { PaginationTotal } from "@/components";
 
 import { ClientCard, ClientCardSkeleton } from "./card";
 
+
+
 export const ClientsCardView = ({
   data,
   loading,

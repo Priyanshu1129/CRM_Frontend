@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   getAllIndustries,
@@ -6,13 +6,14 @@ import {
   getAllTerritories,
 } from "@/redux/actions/configurationAction";
 import { getAllUsers } from "@/redux/actions/userAction";
-export const GetIndustries = () => {
+
+export const useIndustries = () => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  const { status, data, error } = useSelector(
+  const { status, data } = useSelector(
     (state) => state.industry.getAllIndustries
   );
-  let [industries, setIndustries] = useState(data?.data);
+  const [industries, setIndustries] = useState(data?.data);
 
   const fetchAllIndustries = useCallback(() => {
     if (!industries) {
@@ -25,22 +26,26 @@ export const GetIndustries = () => {
   }, [fetchAllIndustries]);
 
   useEffect(() => {
-    if (status == "pending") {
+    if (status === "pending") {
       setLoading(true);
-    } else if (status == "success" && data?.status == "success") {
-      setIndustries(data?.data);
+    } else if (status === "success" && data?.status === "success") {
+      if (data?.data !== industries) {
+        setIndustries(data?.data);
+      }
       setLoading(false);
     } else {
       setLoading(false);
     }
-  }, [status, data]);
+  }, [status, data, industries]);
 
-  industries = industries?.map(({ _id, label }) => ({
-    value: _id,
-    text: label,
-  }));
+  const transformedIndustries = useMemo(() => {
+    return industries?.map(({ _id, label }) => ({
+      value: _id,
+      text: label,
+    }));
+  }, [industries]);
 
-  return industries ?? [];
+  return { industries: transformedIndustries ?? [], loading };
 };
 
 export const GetSubIndustries = () => {

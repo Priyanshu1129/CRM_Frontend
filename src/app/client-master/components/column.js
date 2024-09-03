@@ -1,8 +1,7 @@
 import { TableActions, CustomAvatar, Text } from "@/components";
 import { Space } from "antd";
-import { GetIndustries, GetSubIndustries, GetTerritories, GetUsers } from "@/components";
 
-export const getColumns = () => {
+export const GetColumns = ({ industries, subIndustries, territories, users }) => {
 
     const columns = [
         {
@@ -40,7 +39,7 @@ export const getColumns = () => {
             title: "Entered By",
             dataIndex: "enteredBy",
             key: "enteredBy",
-            filters: GetUsers(),
+            filters: users || [],
             width: 200,
             render: (enteredBy) => enteredBy ? `${enteredBy.firstName} ${enteredBy.lastName}` : "N/A",
         },
@@ -48,7 +47,7 @@ export const getColumns = () => {
             title: "Industry",
             dataIndex: ["industry", "label"],
             key: "industry",
-            filters: GetIndustries(),
+            filters: industries || [],
             width: 200,
             render: (industry) => industry || "N/A",
         },
@@ -56,7 +55,7 @@ export const getColumns = () => {
             title: "Sub-Industry",
             dataIndex: ["subIndustry", "label"],
             key: "subIndustry",
-            filters: GetSubIndustries(),
+            filters: subIndustries || [],
             onFilter: (value, record) => { return true },
             filterSearch: true,
             width: 200,
@@ -66,7 +65,7 @@ export const getColumns = () => {
             title: "Territory",
             dataIndex: ["territory", "label"],
             key: "territory",
-            filters: GetTerritories(),
+            filters: territories || [],
             onFilter: (value, record) => { return true },
 
             filterSearch: true,
@@ -176,6 +175,3 @@ export const getColumns = () => {
     ];
     return columns;
 }
-
-
-

@@ -98,7 +98,7 @@ const TenderMaster = () => {
           subIndustry,
           territory,
           enteredBy,
-          entryDate: currentSortField == "entryDate" ? currentSortOrder : "1",
+          entryDate: currentSortField == "entryDate" ? currentSortOrder : "",
         })
       );
     }
@@ -109,7 +109,7 @@ const TenderMaster = () => {
       <ListHeader
         toPath={"/tender-master/add-tender"}
         buttonText={"Add new tender"}
-        SearchType={"tender"}
+        pageName={"tender"}
         setRefresh={setRefresh}
       />
       {view == "table" ? (

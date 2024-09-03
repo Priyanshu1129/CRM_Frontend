@@ -14,8 +14,8 @@ export const userFormRules = {
         { required: true, message: 'Role is required' }
     ],
     phone: [
-        { required: true, message: 'Phone number is required' },
-        { pattern: /^[0-9]{10}$/, message: 'Phone number must be 10 digits' }
+        { required: false, message: "Phone number is required" },
+        { pattern: /^[0-9]{7,10}$/, message: "Phone number must be between 7 and 10 digits" },
     ],
     email: [
         { required: true, message: 'Email is required' },
@@ -108,11 +108,11 @@ export const contactFormRules = {
     jobTitle: [{ required: true, message: "Job Title is required" }],
     phone: [
         { required: false, message: "Phone number is required" },
-        { pattern: /^[0-9]{10}$/, message: "Phone number must be 10 digits" },
+        { pattern: /^[0-9]{7,10}$/, message: "Phone number must be between 7 and 10 digits" },
     ],
     mobilePhone: [
         { required: false, message: "Mobile Phone is required" },
-        { pattern: /^[0-9]{10}$/, message: "Mobile Phone must be 10 digits" },
+        { pattern: /^[0-9]{7,10}$/, message: "Mobile Phone must be between 7 and 10 digits" },
     ],
     workEmail: [
         { required: true, message: "Work Email is required" },

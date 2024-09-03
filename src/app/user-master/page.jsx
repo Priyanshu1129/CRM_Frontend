@@ -61,12 +61,13 @@ const UserMaster = () => {
       dispatch(userActions.clearGetAllUsersError());
     }
   }, [dispatch, status, data?.users, error]);
+
   return (
     <>
       <ListHeader
         toPath={"/user-master/add-user"}
         buttonText={"Add new user"}
-        SearchType={"user"}
+        pageName={"user"}
         setRefresh={setRefresh}
       />
       {view == "table" ? (

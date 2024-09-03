@@ -21,6 +21,7 @@ import { contactActions } from "@/redux/slices/contactSlice";
 import { updateContact } from "@/redux/actions/contactAction";
 import { ClientSelector } from "@/components";
 import { getChangedValues } from "@/utilities/getChangedValues";
+import { countryCode } from "@/config/data";
 
 export const UpdateContactForm = ({ contact }) => {
   const [loading, setLoading] = useState(false);
@@ -29,6 +30,9 @@ export const UpdateContactForm = ({ contact }) => {
   const dispatch = useDispatch();
 
   const { status, error } = useSelector((state) => state.contact.updateContact);
+
+  const [phoneCountryCode, setPhoneCountryCode] = useState("+1");
+  const [mobileCountryCode, setMobileCountryCode] = useState("+1");
 
   const initialValues = useRef({});
   const [avatarChanged, setAvatarChanged] = useState(false);
@@ -42,8 +46,6 @@ export const UpdateContactForm = ({ contact }) => {
         gender: contact.gender,
         client: contact.client,
         jobTitle: contact.jobTitle,
-        phone: contact.phone,
-        mobilePhone: contact.mobilePhone,
         workEmail: contact.workEmail,
         personalEmail: contact.personalEmail,
         archeType: contact.archeType,
@@ -52,7 +54,29 @@ export const UpdateContactForm = ({ contact }) => {
         memorableInfo: contact.memorableInfo,
         detailsConfirmation: contact.detailsConfirmation,
         avatar: contact.avatar,
+        phone: contact.phone
+          ? contact.phone?.toString().replace(/^\+\d+/, "")
+          : "",
+        mobilePhone: contact.mobilePhone
+          ? contact.mobilePhone?.toString().replace(/^\+\d+/, "")
+          : "",
+        phoneCountryCode: contact.phone
+          ? (contact.phone?.toString().match(/^\+\d+/) || ["+1"])[0]
+          : "+1",
+        mobileCountryCode: contact.mobilePhone
+          ? (contact.mobilePhone?.toString().match(/^\+\d+/) || ["+1"])[0]
+          : "+1",
       };
+      setPhoneCountryCode(
+        contact.phone
+          ? (contact.phone?.toString().match(/^\+\d+/) || ["+1"])[0]
+          : "+1"
+      );
+      setMobileCountryCode(
+        contact.mobilePhone
+          ? (contact.mobilePhone?.toString().match(/^\+\d+/) || ["+1"])[0]
+          : "+1"
+      );
       form.setFieldsValue(contactInitialValues);
       initialValues.current = contactInitialValues;
     }
@@ -95,7 +119,15 @@ export const UpdateContactForm = ({ contact }) => {
 
     // Compare current values with initial values and get only changed values
 
-    const changedValues = getChangedValues(initialValues, values);
+    const updatedValues = {
+      ...values,
+      phone: `${phoneCountryCode} ${values.phone}`,
+      mobilePhone: `${mobileCountryCode} ${values.mobilePhone}`,
+    };
+
+    console.log(updatedValues);
+
+    const changedValues = getChangedValues(initialValues, updatedValues);
 
     if (avatarChanged) {
       changedValues.avatar = avatar;
@@ -182,7 +214,24 @@ export const UpdateContactForm = ({ contact }) => {
               label="Phone"
               rules={contactFormRules.phone}
             >
-              <Input />
+              <Input
+                addonBefore={
+                  <Select
+                    defaultValue={phoneCountryCode}
+                    onChange={setPhoneCountryCode}
+                  >
+                    {countryCode.map((country) => (
+                      <Select.Option
+                        key={country.code}
+                        value={country.dial_code}
+                      >
+                        {country.dial_code}
+                      </Select.Option>
+                    ))}
+                  </Select>
+                }
+                type="number"
+              />
             </Form.Item>
           </Col>
           <Col span={8}>
@@ -191,9 +240,27 @@ export const UpdateContactForm = ({ contact }) => {
               label="Mobile Phone"
               rules={contactFormRules.mobilePhone}
             >
-              <Input />
+              <Input
+                addonBefore={
+                  <Select
+                    defaultValue={mobileCountryCode}
+                    onChange={setMobileCountryCode}
+                  >
+                    {countryCode.map((country) => (
+                      <Select.Option
+                        key={country.code}
+                        value={country.dial_code}
+                      >
+                        {country.dial_code}
+                      </Select.Option>
+                    ))}
+                  </Select>
+                }
+                type="number"
+              />
             </Form.Item>
           </Col>
+
           <Col span={8}>
             <Form.Item
               name="workEmail"

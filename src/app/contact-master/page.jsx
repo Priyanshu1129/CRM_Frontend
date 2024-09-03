@@ -98,7 +98,7 @@ const ContactMaster = () => {
           subIndustry,
           territory,
           enteredBy,
-          entryDate: currentSortField == "entryDate" ? currentSortOrder : "1",
+          entryDate: currentSortField == "entryDate" ? currentSortOrder : "",
         })
       );
     }
@@ -109,7 +109,7 @@ const ContactMaster = () => {
       <ListHeader
         toPath={"/contact-master/add-contact"}
         buttonText={"Add new contact"}
-        SearchType={"contact"}
+        pageName={"contact"}
         setRefresh={setRefresh}
       />
       {view == "table" ? (

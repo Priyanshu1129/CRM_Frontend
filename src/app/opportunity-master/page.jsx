@@ -105,7 +105,7 @@ const OpportunityMaster = () => {
           subIndustry,
           territory,
           enteredBy,
-          entryDate: currentSortField == "entryDate" ? currentSortOrder : "1",
+          entryDate: currentSortField == "entryDate" ? currentSortOrder : "",
         })
       );
     }
@@ -116,7 +116,7 @@ const OpportunityMaster = () => {
       <ListHeader
         toPath={"/opportunity-master/add-opportunity"}
         buttonText={"Add new opportunity"}
-        SearchType={"opportunity"}
+        pageName={"opportunity"}
         setRefresh={setRefresh}
       />
       {view == "table" ? (
