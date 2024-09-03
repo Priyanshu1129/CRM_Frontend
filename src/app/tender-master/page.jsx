@@ -109,7 +109,7 @@ const TenderMaster = () => {
       <ListHeader
         toPath={"/tender-master/add-tender"}
         buttonText={"Add new tender"}
-        SearchType={"tender"}
+        pageName={"tender"}
         setRefresh={setRefresh}
       />
       {view == "table" ? (

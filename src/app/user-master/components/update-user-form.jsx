@@ -20,12 +20,14 @@ import { userFormRules } from "@/utilities/formValidationRules";
 import { updateUser } from "@/redux/actions/userAction";
 import { userActions } from "@/redux/slices/userSlice";
 import { getChangedValues } from "@/utilities/getChangedValues";
+import { countryCode } from "@/config/data";
 
 export const UpdateUserForm = ({ user }) => {
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
   const screens = Grid.useBreakpoint();
   const dispatch = useDispatch();
+  const [phoneCountryCode, setPhoneCountryCode] = useState("+1");
 
   const { status, error } = useSelector((state) => state.user.updateUser);
 
@@ -40,13 +42,21 @@ export const UpdateUserForm = ({ user }) => {
         lastName: user.lastName,
         gender: user.gender,
         role: user.role,
-        phone: user.phone,
         email: user.email,
         country: user.address?.country,
         state: user.address?.state,
         city: user.address?.city,
         avatar: user.avatar,
+        phone: user.phone ? user.phone?.toString().replace(/^\+\d+/, "") : "",
+        phoneCountryCode: user.phone
+          ? (user.phone?.toString().match(/^\+\d+/) || ["+1"])[0]
+          : "+1",
       };
+      setPhoneCountryCode(
+        user.phone
+          ? (user.phone?.toString().match(/^\+\d+/) || ["+1"])[0]
+          : "+1"
+      );
       form.setFieldsValue(userInitialValues);
       initialValues.current = userInitialValues;
     }
@@ -88,7 +98,12 @@ export const UpdateUserForm = ({ user }) => {
 
     // Compare current values with initial values and get only changed values
 
-    const changedValues = getChangedValues(initialValues, values);
+    const updatedValues = {
+      ...values,
+      phone: `${values.phoneCountryCode} ${values.phone}`,
+    };
+
+    const changedValues = getChangedValues(initialValues, updatedValues);
 
     if (avatarChanged) {
       changedValues.avatar = avatar;
@@ -166,8 +181,22 @@ export const UpdateUserForm = ({ user }) => {
           </Form.Item>
         </Col>
         <Col span={colSpan}>
-          <Form.Item label="Phone" name="phone" rules={userFormRules.phone}>
-            <Input type="number" />
+          <Form.Item name="phone" label="Phone" rules={userFormRules.phone}>
+            <Input
+              addonBefore={
+                <Select
+                  defaultValue={phoneCountryCode}
+                  onChange={setPhoneCountryCode}
+                >
+                  {countryCode.map((country) => (
+                    <Select.Option key={country.code} value={country.dial_code}>
+                      {country.dial_code}
+                    </Select.Option>
+                  ))}
+                </Select>
+              }
+              type="number"
+            />
           </Form.Item>
         </Col>
         <Col span={colSpan}>

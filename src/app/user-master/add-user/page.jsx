@@ -17,14 +17,16 @@ import { FormHeader, ImageUpload } from "@/components";
 import { userFormRules } from "@/utilities/formValidationRules";
 import { createUser } from "@/redux/actions/userAction/user";
 import { userActions } from "@/redux/slices/userSlice";
+import { countryCode } from "@/config/data";
 
 const AddUser = () => {
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
   const screens = Grid.useBreakpoint();
+
   const dispatch = useDispatch();
   const { status, data, error } = useSelector((state) => state.user.createUser);
-
+  const [phoneCountryCode, setPhoneCountryCode] = useState("+1");
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
@@ -69,6 +71,7 @@ const AddUser = () => {
     const formattedValues = {
       ...values,
       avatar: avatarChanged ? avatar : null,
+      phone: `${phoneCountryCode} ${values.phone}`,
     };
 
     setLoading(true);
@@ -151,7 +154,24 @@ const AddUser = () => {
             </Col>
             <Col span={8}>
               <Form.Item label="Phone" name="phone" rules={userFormRules.phone}>
-                <Input type="number" />
+                <Input
+                  addonBefore={
+                    <Select
+                      defaultValue={phoneCountryCode}
+                      onChange={setPhoneCountryCode}
+                    >
+                      {countryCode.map((country) => (
+                        <Select.Option
+                          key={country.code}
+                          value={country.dial_code}
+                        >
+                          {country.dial_code}
+                        </Select.Option>
+                      ))}
+                    </Select>
+                  }
+                  type="number"
+                />
               </Form.Item>
             </Col>
             <Col span={8}>

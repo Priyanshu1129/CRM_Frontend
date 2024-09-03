@@ -14,7 +14,6 @@ import {
   Col,
   Checkbox,
 } from "antd";
-
 import { ArcheTypeSelector, RelationshipDegreeSelector } from "../enums";
 import {
   FormHeader,
@@ -27,6 +26,9 @@ import { contactActions } from "@/redux/slices/contactSlice";
 import { createContact } from "@/redux/actions/contactAction";
 import { ClientSelector } from "@/components";
 import { notification } from "antd";
+import { countryCode } from "@/config/data";
+
+const { Option } = Select;
 
 const AddContact = () => {
   const [loading, setLoading] = useState(false);
@@ -39,6 +41,9 @@ const AddContact = () => {
 
   const [avatarChanged, setAvatarChanged] = useState(false);
   const [avatar, setAvatar] = useState(null);
+
+  const [phoneCountryCode, setPhoneCountryCode] = useState("+1");
+  const [mobileCountryCode, setMobileCountryCode] = useState("+1");
 
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -83,6 +88,8 @@ const AddContact = () => {
       ...values,
       entryDate: "2024-08-24T00:00:00.000Z",
       avatar: avatarChanged ? avatar : null,
+      phone: `${phoneCountryCode} ${values.phone}`,
+      mobilePhone: `${mobileCountryCode} ${values.mobilePhone}`,
     };
     console.log("submit", newValues);
     dispatch(createContact(newValues));
@@ -173,7 +180,21 @@ const AddContact = () => {
                 label="Phone"
                 rules={contactFormRules.phone}
               >
-                <Input type="number" />
+                <Input
+                  addonBefore={
+                    <Select
+                      defaultValue={phoneCountryCode}
+                      onChange={setPhoneCountryCode}
+                    >
+                      {countryCode.map((country) => (
+                        <Option key={country.code} value={country.dial_code}>
+                          {country.dial_code}
+                        </Option>
+                      ))}
+                    </Select>
+                  }
+                  type="number"
+                />
               </Form.Item>
             </Col>
             <Col span={8}>
@@ -182,7 +203,21 @@ const AddContact = () => {
                 label="Mobile Phone"
                 rules={contactFormRules.mobilePhone}
               >
-                <Input type="number" />
+                <Input
+                  addonBefore={
+                    <Select
+                      defaultValue={mobileCountryCode}
+                      onChange={setMobileCountryCode}
+                    >
+                      {countryCode.map((country) => (
+                        <Option key={country.code} value={country.dial_code}>
+                          {country.dial_code}
+                        </Option>
+                      ))}
+                    </Select>
+                  }
+                  type="number"
+                />
               </Form.Item>
             </Col>
             <Col span={8}>

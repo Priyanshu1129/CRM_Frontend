@@ -67,7 +67,7 @@ const UserMaster = () => {
       <ListHeader
         toPath={"/user-master/add-user"}
         buttonText={"Add new user"}
-        SearchType={"user"}
+        pageName={"user"}
         setRefresh={setRefresh}
       />
       {view == "table" ? (

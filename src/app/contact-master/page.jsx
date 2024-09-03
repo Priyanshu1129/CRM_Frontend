@@ -109,7 +109,7 @@ const ContactMaster = () => {
       <ListHeader
         toPath={"/contact-master/add-contact"}
         buttonText={"Add new contact"}
-        SearchType={"contact"}
+        pageName={"contact"}
         setRefresh={setRefresh}
       />
       {view == "table" ? (

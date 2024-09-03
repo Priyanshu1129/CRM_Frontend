@@ -6,20 +6,22 @@ import { ClientsCardView, ClientsTableView } from "./components";
 import { getAllClients } from "@/redux/actions/clientAction";
 import { clientActions } from "@/redux/slices/clientSlice";
 import { notification } from "antd";
-import { ClientSelector } from "@/components";
-
+import { Filter } from "./components/CardFilter";
 const ClientMaster = () => {
   const [view, setView] = useState("card");
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(12);
   const [loading, setLoading] = useState(false);
   const [refresh, setRefresh] = useState(false);
+
   const prevFiltersRef = useRef({});
   const prevSorterRef = useRef({});
   const dispatch = useDispatch();
+
   const { status, data, error } = useSelector(
     (state) => state.client.getAllClients
   );
+
   const [clients, setClients] = useState(data?.clients);
 
   const fetchAllClients = useCallback(() => {
@@ -102,7 +104,7 @@ const ClientMaster = () => {
           name: currentSortField == "name" ? currentSortOrder : "",
           entryDate: currentSortField == "entryDate" ? currentSortOrder : "",
         })
-      ); 
+      );
     }
   };
 
@@ -111,10 +113,11 @@ const ClientMaster = () => {
       <ListHeader
         toPath={"/client-master/add-client"}
         buttonText={"Add new client"}
-        SearchType={"client"}
+        pageName={"client"}
         setRefresh={setRefresh}
         setView={setView}
         view={view}
+        FilterComponent={Filter}
       />
       {view == "table" ? (
         <ClientsTableView

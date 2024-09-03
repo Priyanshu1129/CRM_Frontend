@@ -22,25 +22,14 @@ const formItemLayout = {
 
 export const InputNotes = () => {
   return (
-    <Form.List
-      name="notes"
-      // rules={[
-      //   {
-      //     validator: async (_, names) => {
-      //       if (!names || names.length < 2) {
-      //         return Promise.reject(new Error("At least 2 passengers"));
-      //       }
-      //     },
-      //   },
-      // ]}
-    >
+    <Form.List name="notes">
       {(fields, { add, remove }, { errors }) => (
         <>
           {fields.map((field, index) => (
             <Col span={8} key={field.key}>
               <Form.Item
                 {...formItemLayout}
-                label={index === 0 ? "Passengers" : ""}
+                label={index === 0 ? "Notes" : ""}
                 required={false}
               >
                 <Form.Item
@@ -50,8 +39,7 @@ export const InputNotes = () => {
                     {
                       required: true,
                       whitespace: true,
-                      message:
-                        "Please input passenger's name or delete this field.",
+                      message: "Please input note's name or delete this field.",
                     },
                   ]}
                   noStyle
