@@ -188,7 +188,7 @@ const AddContact = () => {
                     >
                       {countryCode.map((country) => (
                         <Option key={country.code} value={country.dial_code}>
-                          {country.dial_code}
+                          {country.dial_code} {country.code}
                         </Option>
                       ))}
                     </Select>
@@ -211,7 +211,7 @@ const AddContact = () => {
                     >
                       {countryCode.map((country) => (
                         <Option key={country.code} value={country.dial_code}>
-                          {country.dial_code}
+                          {country.dial_code} {country.code}
                         </Option>
                       ))}
                     </Select>

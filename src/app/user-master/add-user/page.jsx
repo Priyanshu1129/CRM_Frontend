@@ -165,7 +165,7 @@ const AddUser = () => {
                           key={country.code}
                           value={country.dial_code}
                         >
-                          {country.dial_code}
+                          {country.dial_code} {country.code}
                         </Select.Option>
                       ))}
                     </Select>

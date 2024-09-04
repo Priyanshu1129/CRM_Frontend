@@ -23,6 +23,8 @@ import { ClientSelector } from "@/components";
 import { getChangedValues } from "@/utilities/getChangedValues";
 import { countryCode } from "@/config/data";
 
+let { Option } = Select;
+
 export const UpdateContactForm = ({ contact }) => {
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
@@ -221,16 +223,13 @@ export const UpdateContactForm = ({ contact }) => {
               <Input
                 addonBefore={
                   <Select
-                    defaultValue={phoneCountryCode}
+                    value={phoneCountryCode}
                     onChange={setPhoneCountryCode}
                   >
                     {countryCode.map((country) => (
-                      <Select.Option
-                        key={country.code}
-                        value={country.dial_code}
-                      >
-                        {country.dial_code}
-                      </Select.Option>
+                      <Option key={country.code} value={country.dial_code}>
+                        {country.dial_code} {country.code}
+                      </Option>
                     ))}
                   </Select>
                 }
@@ -247,16 +246,13 @@ export const UpdateContactForm = ({ contact }) => {
               <Input
                 addonBefore={
                   <Select
-                    defaultValue={mobileCountryCode}
+                    value={mobileCountryCode}
                     onChange={setMobileCountryCode}
                   >
                     {countryCode.map((country) => (
-                      <Select.Option
-                        key={country.code}
-                        value={country.dial_code}
-                      >
-                        {country.dial_code}
-                      </Select.Option>
+                      <Option key={country.code} value={country.dial_code}>
+                        {country.dial_code} {country.code}
+                      </Option>
                     ))}
                   </Select>
                 }
