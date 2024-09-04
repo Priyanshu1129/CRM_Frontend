@@ -34,9 +34,10 @@ export const UpdateUserForm = ({ user }) => {
   const initialValues = useRef({});
   const [avatarChanged, setAvatarChanged] = useState(false);
   const [avatar, setAvatar] = useState(null);
-
   useEffect(() => {
     if (user) {
+      const [extractedCountryCode, extractedPhoneNumber] =
+        user.phone?.split(" ");
       const userInitialValues = {
         firstName: user.firstName,
         lastName: user.lastName,
@@ -47,24 +48,16 @@ export const UpdateUserForm = ({ user }) => {
         state: user.address?.state,
         city: user.address?.city,
         avatar: user.avatar,
-        phone: user.phone ? user.phone?.toString().replace(/^\+\d+/, "") : "",
-        phoneCountryCode: user.phone
-          ? (user.phone?.toString().match(/^\+\d+/) || ["+1"])[0]
-          : "+1",
+        phone: extractedPhoneNumber || "",
+        phoneCountryCode: extractedCountryCode || "",
       };
-      setPhoneCountryCode(
-        user.phone
-          ? (user.phone?.toString().match(/^\+\d+/) || ["+1"])[0]
-          : "+1"
-      );
+      console.log("extractedCountryCode", typeof extractedCountryCode);
+      setPhoneCountryCode(extractedCountryCode);
       form.setFieldsValue(userInitialValues);
-      form.setFieldsValue({
-        ...userInitialValues,
-        phone: user.phone?.replace(/^\+\d+\s*/, ""),
-      });
       initialValues.current = userInitialValues;
     }
   }, [user, form]);
+  console.log("code", phoneCountryCode);
 
   useEffect(() => {
     if (status === "pending") {
@@ -188,13 +181,10 @@ export const UpdateUserForm = ({ user }) => {
           <Form.Item name="phone" label="Phone" rules={userFormRules.phone}>
             <Input
               addonBefore={
-                <Select
-                  defaultValue={phoneCountryCode}
-                  onChange={setPhoneCountryCode}
-                >
+                <Select value={phoneCountryCode} onChange={setPhoneCountryCode}>
                   {countryCode.map((country) => (
                     <Select.Option key={country.code} value={country.dial_code}>
-                      {country.dial_code}
+                      {country.dial_code} {country.code}
                     </Select.Option>
                   ))}
                 </Select>
