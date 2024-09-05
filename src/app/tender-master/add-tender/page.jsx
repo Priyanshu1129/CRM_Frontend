@@ -70,7 +70,7 @@ const AddTender = () => {
       evaluationDate: values?.evaluationDate?.format("YYYY-MM-DD"),
       bondIssueDate: values?.bondIssueDate?.format("YYYY-MM-DD"),
       bondExpiry: values?.bondExpiry?.format("YYYY-MM-DD"),
-      entryDate: "2024-08-24T00:00:00.000Z",
+      entryDate: new Date().toISOString(),
     };
     dispatch(createTender(formattedValues));
   };

@@ -17,7 +17,7 @@ import { FormHeader, ImageUpload } from "@/components";
 import { userFormRules } from "@/utilities/formValidationRules";
 import { createUser } from "@/redux/actions/userAction/user";
 import { userActions } from "@/redux/slices/userSlice";
-import { countryCode } from "@/config/data";
+import { InputPhoneNumber } from "@/components";
 
 const AddUser = () => {
   const [loading, setLoading] = useState(false);
@@ -153,26 +153,13 @@ const AddUser = () => {
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item label="Phone" name="phone" rules={userFormRules.phone}>
-                <Input
-                  addonBefore={
-                    <Select
-                      defaultValue={phoneCountryCode}
-                      onChange={setPhoneCountryCode}
-                    >
-                      {countryCode.map((country) => (
-                        <Select.Option
-                          key={country.code}
-                          value={country.dial_code}
-                        >
-                          {country.dial_code} {country.code}
-                        </Select.Option>
-                      ))}
-                    </Select>
-                  }
-                  type="number"
-                />
-              </Form.Item>
+              <InputPhoneNumber
+                name="phone"
+                label="Phone Number"
+                rules={userFormRules.phone}
+                phoneCountryCode={phoneCountryCode}
+                setPhoneCountryCode={setPhoneCountryCode}
+              />
             </Col>
             <Col span={8}>
               <Form.Item label="Email" name="email" rules={userFormRules.email}>

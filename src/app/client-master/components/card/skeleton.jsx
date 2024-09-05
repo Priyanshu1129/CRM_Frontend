@@ -3,6 +3,7 @@ import { Card, Skeleton, Space } from "antd";
 import { Text } from "@/components";
 
 export const ClientCardSkeleton = () => {
+
   return (
     <Card
       size="small"

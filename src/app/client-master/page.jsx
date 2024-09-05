@@ -49,8 +49,10 @@ const ClientMaster = () => {
 
   useEffect(() => {
     if (status == "pending") {
+      console.log("pending", status);
       setLoading(true);
     } else if (status == "success") {
+      console.log("success", status);
       setClients(data?.clients);
       setLoading(false);
       setRefresh(false);

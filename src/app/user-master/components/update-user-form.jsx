@@ -20,7 +20,7 @@ import { userFormRules } from "@/utilities/formValidationRules";
 import { updateUser } from "@/redux/actions/userAction";
 import { userActions } from "@/redux/slices/userSlice";
 import { getChangedValues } from "@/utilities/getChangedValues";
-import { countryCode } from "@/config/data";
+import { InputPhoneNumber } from "@/components";
 
 export const UpdateUserForm = ({ user }) => {
   const [loading, setLoading] = useState(false);
@@ -128,6 +128,15 @@ export const UpdateUserForm = ({ user }) => {
 
   const colSpan = screens.xs ? 24 : screens.sm ? 12 : screens.md && 8;
 
+  const handleSearch = (inputValue) => {
+    return countryCode.filter(
+      (country) =>
+        country.dial_code.toLowerCase().includes(inputValue.toLowerCase()) ||
+        country.code.toLowerCase().includes(inputValue.toLowerCase()) ||
+        country.name.toLowerCase().includes(inputValue.toLowerCase())
+    );
+  };
+
   return (
     <Form form={form} layout="vertical" onFinish={onFinish} size="default">
       <Row gutter={24}>
@@ -178,20 +187,13 @@ export const UpdateUserForm = ({ user }) => {
           </Form.Item>
         </Col>
         <Col span={colSpan}>
-          <Form.Item name="phone" label="Phone" rules={userFormRules.phone}>
-            <Input
-              addonBefore={
-                <Select value={phoneCountryCode} onChange={setPhoneCountryCode}>
-                  {countryCode.map((country) => (
-                    <Select.Option key={country.code} value={country.dial_code}>
-                      {country.dial_code} {country.code}
-                    </Select.Option>
-                  ))}
-                </Select>
-              }
-              type="number"
-            />
-          </Form.Item>
+          <InputPhoneNumber
+            name="phone"
+            label="Phone Number"
+            rules={userFormRules.phone}
+            phoneCountryCode={phoneCountryCode}
+            setPhoneCountryCode={setPhoneCountryCode}
+          />
         </Col>
         <Col span={colSpan}>
           <Form.Item label="Email" name="email" rules={userFormRules.email}>

@@ -70,7 +70,7 @@ const AddRegistration = () => {
       ...values,
       registrationDate: values.registrationDate.format("YYYY-MM-DD"),
       expiryDate: values.expiryDate.format("YYYY-MM-DD"),
-      entryDate: "2024-08-24T00:00:00.000Z",
+      entryDate: new Date().toISOString(),
       websiteDetails: {
         username: values.username || null,
         password: values.password || null,
