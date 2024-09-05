@@ -294,6 +294,7 @@ export const Filter = () => {
       territory: [],
       users: [],
     });
+    handleFilter();
     setVisible(false); // Close the dropdown when "Cancel" is clicked
   };
 
@@ -331,7 +332,7 @@ export const Filter = () => {
       <Menu.Divider />
       <Menu.Item>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <Button onClick={handleCancel}>Cancel</Button>
+          <Button onClick={handleCancel}>Reset</Button>
           <Button type="primary" onClick={handleFilter}>
             OK
           </Button>
