@@ -68,6 +68,7 @@ export const UpdateContactForm = ({ contact }) => {
         mobileCountryCode: contact.mobilePhone
           ? (contact.mobilePhone?.toString().match(/^\+\d+/) || ["+1"])[0]
           : "+1",
+          notes: contact.notes,  
       };
       setPhoneCountryCode(
         contact.phone
@@ -317,7 +318,9 @@ export const UpdateContactForm = ({ contact }) => {
             </Form.Item>
           </Col>
           <Col span={24}>
-            <InputNotes />
+          <Form.Item name="notes" label="Notes">
+              <InputNotes />
+            </Form.Item>
           </Col>
           <Col span={24}>
             <Form.Item>
