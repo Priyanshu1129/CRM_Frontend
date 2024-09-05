@@ -7,14 +7,10 @@ const route = `${serverURL}/client`
 
 export const getAllClients = ({ page = null, limit = null, config = false, industry = "", subIndustry = "", territory = "", enteredBy = "", name, entryDate }) => async (dispatch) => {
     try {
-        console.log("industry", industry);
-        console.log("sub-industry", subIndustry);
-        console.log("name", name);
-        console.log("entryDate", entryDate);
         if (config) {
             dispatch(mastersConfigActions.getConfigClientsRequest());
         } else {
-            // dispatch(clientActions.getAllClientsRequest());
+            dispatch(clientActions.getAllClientsRequest());
         }
         console.log('getAllClients-request-config', config);
         const response = await axios.get(`${route}/`, {
