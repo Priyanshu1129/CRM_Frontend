@@ -27,6 +27,7 @@ import { createContact } from "@/redux/actions/contactAction";
 import { ClientSelector } from "@/components";
 import { notification } from "antd";
 import { countryCode } from "@/config/data";
+import { InputPhoneNumber } from "@/components";
 
 const { Option } = Select;
 
@@ -175,50 +176,22 @@ const AddContact = () => {
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item
+              <InputPhoneNumber
                 name="phone"
-                label="Phone"
+                label="Phone Number"
                 rules={contactFormRules.phone}
-              >
-                <Input
-                  addonBefore={
-                    <Select
-                      defaultValue={phoneCountryCode}
-                      onChange={setPhoneCountryCode}
-                    >
-                      {countryCode.map((country) => (
-                        <Option key={country.code} value={country.dial_code}>
-                          {country.dial_code} {country.code}
-                        </Option>
-                      ))}
-                    </Select>
-                  }
-                  type="number"
-                />
-              </Form.Item>
+                phoneCountryCode={phoneCountryCode}
+                setPhoneCountryCode={setPhoneCountryCode}
+              />
             </Col>
             <Col span={8}>
-              <Form.Item
+              <InputPhoneNumber
                 name="mobilePhone"
                 label="Mobile Phone"
                 rules={contactFormRules.mobilePhone}
-              >
-                <Input
-                  addonBefore={
-                    <Select
-                      defaultValue={mobileCountryCode}
-                      onChange={setMobileCountryCode}
-                    >
-                      {countryCode.map((country) => (
-                        <Option key={country.code} value={country.dial_code}>
-                          {country.dial_code} {country.code}
-                        </Option>
-                      ))}
-                    </Select>
-                  }
-                  type="number"
-                />
-              </Form.Item>
+                phoneCountryCode={mobileCountryCode}
+                setPhoneCountryCode={setMobileCountryCode}
+              />
             </Col>
             <Col span={8}>
               <Form.Item

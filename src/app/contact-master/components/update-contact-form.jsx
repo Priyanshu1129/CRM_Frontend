@@ -21,9 +21,7 @@ import { contactActions } from "@/redux/slices/contactSlice";
 import { updateContact } from "@/redux/actions/contactAction";
 import { ClientSelector } from "@/components";
 import { getChangedValues } from "@/utilities/getChangedValues";
-import { countryCode } from "@/config/data";
-
-let { Option } = Select;
+import { InputPhoneNumber } from "@/components";
 
 export const UpdateContactForm = ({ contact }) => {
   const [loading, setLoading] = useState(false);
@@ -68,7 +66,7 @@ export const UpdateContactForm = ({ contact }) => {
         mobileCountryCode: contact.mobilePhone
           ? (contact.mobilePhone?.toString().match(/^\+\d+/) || ["+1"])[0]
           : "+1",
-          notes: contact.notes,  
+        notes: contact.notes,
       };
       setPhoneCountryCode(
         contact.phone
@@ -216,50 +214,22 @@ export const UpdateContactForm = ({ contact }) => {
             </Form.Item>
           </Col>
           <Col span={8}>
-            <Form.Item
+            <InputPhoneNumber
               name="phone"
-              label="Phone"
+              label="Phone Number"
               rules={contactFormRules.phone}
-            >
-              <Input
-                addonBefore={
-                  <Select
-                    value={phoneCountryCode}
-                    onChange={setPhoneCountryCode}
-                  >
-                    {countryCode.map((country) => (
-                      <Option key={country.code} value={country.dial_code}>
-                        {country.dial_code} {country.code}
-                      </Option>
-                    ))}
-                  </Select>
-                }
-                type="number"
-              />
-            </Form.Item>
+              phoneCountryCode={phoneCountryCode}
+              setPhoneCountryCode={setPhoneCountryCode}
+            />
           </Col>
           <Col span={8}>
-            <Form.Item
+            <InputPhoneNumber
               name="mobilePhone"
               label="Mobile Phone"
               rules={contactFormRules.mobilePhone}
-            >
-              <Input
-                addonBefore={
-                  <Select
-                    value={mobileCountryCode}
-                    onChange={setMobileCountryCode}
-                  >
-                    {countryCode.map((country) => (
-                      <Option key={country.code} value={country.dial_code}>
-                        {country.dial_code} {country.code}
-                      </Option>
-                    ))}
-                  </Select>
-                }
-                type="number"
-              />
-            </Form.Item>
+              phoneCountryCode={mobileCountryCode}
+              setPhoneCountryCode={setMobileCountryCode}
+            />
           </Col>
 
           <Col span={8}>
@@ -318,7 +288,7 @@ export const UpdateContactForm = ({ contact }) => {
             </Form.Item>
           </Col>
           <Col span={24}>
-          <Form.Item name="notes" label="Notes">
+            <Form.Item name="notes" label="Notes">
               <InputNotes />
             </Form.Item>
           </Col>
