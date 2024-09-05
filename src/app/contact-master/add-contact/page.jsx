@@ -86,7 +86,7 @@ const AddContact = () => {
     setLoading(true);
     let newValues = {
       ...values,
-      entryDate: "2024-08-24T00:00:00.000Z",
+      entryDate: new Date().toISOString(),
       avatar: avatarChanged ? avatar : null,
       phone: `${phoneCountryCode} ${values.phone}`,
       mobilePhone: `${mobileCountryCode} ${values.mobilePhone}`,

@@ -75,7 +75,7 @@ const AddBusinessDevelopment = () => {
     // setLoading(true);
     let newValues = {
       ...values,
-      entryDate: "2024-08-24T00:00:00.000Z",
+      entryDate: new Date().toISOString(),
     };
     dispatch(createBusinessDevelopment(newValues));
   };
