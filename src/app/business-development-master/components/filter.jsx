@@ -123,7 +123,7 @@ export const Filter = ({ filters, setFilters, setFilter }) => {
         icon={<FilterOutlined />}
         onClick={() => setVisible(true)} // Open dropdown on button click
       >
-        {!screens.xs ? "Filter Business Development" : null}
+        {!screens.xs ? "Filter" : null}
         <DownOutlined />
       </Button>
     </Dropdown>
