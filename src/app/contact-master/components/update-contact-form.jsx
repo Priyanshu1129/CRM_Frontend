@@ -15,7 +15,7 @@ import {
   notification,
 } from "antd";
 import { ArcheTypeSelector, RelationshipDegreeSelector } from "../enums";
-import { InputNotes, ImageUpload } from "@/components";
+import { InputNotes, ImageUpload, TerritorySelector } from "@/components";
 import { contactFormRules } from "@/utilities/formValidationRules";
 import { contactActions } from "@/redux/slices/contactSlice";
 import { updateContact } from "@/redux/actions/contactAction";
@@ -49,8 +49,9 @@ export const UpdateContactForm = ({ contact }) => {
         workEmail: contact.workEmail,
         personalEmail: contact.personalEmail,
         archeType: contact.archeType,
+        territory: contact.territory,
         relationshipDegree: contact.relationshipDegree,
-        city: contact.city,
+        country: contact.country,
         memorableInfo: contact.memorableInfo,
         detailsConfirmation: contact.detailsConfirmation,
         avatar: contact.avatar,
@@ -265,9 +266,20 @@ export const UpdateContactForm = ({ contact }) => {
             />
           </Col>
           <Col span={8}>
-            <Form.Item name="city" label="City" rules={contactFormRules.city}>
+            <Form.Item
+              name="country"
+              label="Country"
+              rules={contactFormRules.city}
+            >
               <Input />
             </Form.Item>
+          </Col>
+          <Col span={8}>
+            <TerritorySelector
+              label="Territory"
+              name="territory"
+              rules={contactFormRules.territory}
+            />
           </Col>
           <Col span={8}>
             <Form.Item

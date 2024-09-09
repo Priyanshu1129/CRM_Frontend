@@ -6,6 +6,7 @@ import { RegistrationsTableView, RegistrationsCardView } from "./components";
 import { notification } from "antd";
 import { registrationActions } from "@/redux/slices/registrationSlice";
 import { getAllRegistrations } from "@/redux/actions/registrationAction";
+import { Filter } from "./components/filter";
 
 const RegistrationMaster = () => {
   const [view, setView] = useState("table");
@@ -13,7 +14,9 @@ const RegistrationMaster = () => {
   const [refresh, setRefresh] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(12);
-  const prevFiltersRef = useRef({});
+  const [filters, setFilters] = useState({});
+  const [filter, setFilter] = useState(false);
+
   const prevSorterRef = useRef({});
   const dispatch = useDispatch();
   const { status, data, error } = useSelector(
@@ -26,9 +29,13 @@ const RegistrationMaster = () => {
       !registrations ||
       currentPage !== Number(data?.page) ||
       pageSize !== Number(data?.limit) ||
-      refresh
+      refresh ||
+      (filter && filters)
     ) {
-      dispatch(getAllRegistrations({ page: currentPage, limit: pageSize }));
+      dispatch(
+        getAllRegistrations({ page: currentPage, limit: pageSize, ...filters })
+      );
+      setFilter(false);
     }
   }, [
     dispatch,
@@ -38,11 +45,19 @@ const RegistrationMaster = () => {
     data?.page,
     data?.limit,
     refresh,
+    filter,
+    filters,
   ]);
 
   useEffect(() => {
     fetchAllRegistrations();
   }, [fetchAllRegistrations]);
+
+  useEffect(() => {
+    if (filter) {
+      fetchAllRegistrations();
+    }
+  }, [filter, filters, fetchAllRegistrations]);
 
   useEffect(() => {
     if (status == "pending") {
@@ -64,43 +79,29 @@ const RegistrationMaster = () => {
     }
   }, [dispatch, status, data?.registrations, error]);
 
-  const handleFilter = (pagination, filters, sorter) => {
+  const handleFilter = (pagination, tableFilters, sorter) => {
     let { field: currentSortField, order: currentSortOrder } = sorter || {};
     const prevSortField = prevSorterRef.current?.field;
     const prevSortOrder = prevSorterRef.current?.order;
-
-    // Compare filters
-    const hasFiltersChanged =
-      JSON.stringify(filters) !== JSON.stringify(prevFiltersRef.current);
 
     // Compare sorter by field and order
     const hasSorterChanged =
       currentSortField !== prevSortField || currentSortOrder !== prevSortOrder;
 
-    // Update refs with the current filters and sorter
-    prevFiltersRef.current = filters;
     prevSorterRef.current = {
       field: currentSortField,
       order: currentSortOrder,
     };
 
-    if (hasFiltersChanged || hasSorterChanged) {
-      const industry = filters?.industry || "";
-      const subIndustry = filters?.subIndustry || "";
-      const territory = filters?.territory || "";
-      const enteredBy = filters?.enteredBy || "";
-
+    if (hasSorterChanged) {
       // Dispatch the getAllClients action with the applied filters and sorting
       currentSortOrder = currentSortOrder == "descend" ? "-1" : "1";
-      dispatch(
-        getAllRegistrations({
-          industry,
-          subIndustry,
-          territory,
-          enteredBy,
-          entryDate: currentSortField == "entryDate" ? currentSortOrder : "",
-        })
-      );
+      setFilters({
+        ...filters,
+        entryDate: currentSortField == "entryDate" ? currentSortOrder : "",
+      });
+      setFilter(true);
+      fetchAllRegistrations();
     }
   };
 
@@ -110,6 +111,10 @@ const RegistrationMaster = () => {
         toPath={"/registration-master/add-registration"}
         buttonText={"Add new registration"}
         setRefresh={setRefresh}
+        setFilter={setFilter}
+        setFilters={setFilters}
+        filters={filters}
+        FilterComponent={Filter}
       />
       {view == "table" ? (
         <RegistrationsTableView

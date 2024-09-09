@@ -1,65 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { DownOutlined, FilterOutlined } from "@ant-design/icons";
 import { Button, Dropdown, Menu, Checkbox, Grid } from "antd";
-import { useDispatch } from "react-redux";
-import {
-  useIndustries,
-  useSubIndustries,
-  useTerritories,
-  useUsers,
-} from "@/hooks";
-import { getAllClients } from "@/redux/actions/clientAction";
+import { useUsers } from "@/hooks";
 
-export const Filter = () => {
-  const dispatch = useDispatch();
+export const Filter = ({ filters, setFilters, setFilter }) => {
   const screens = Grid.useBreakpoint();
   const [filterItems, setFilterItems] = useState([]);
   const [selectedItems, setSelectedItems] = useState({
-    industry: [],
-    "sub-industry": [],
-    territory: [],
     users: [],
   });
   const [visible, setVisible] = useState(false);
 
   // Fetch data using custom hooks
-  const { industries, loading: industriesLoading } = useIndustries();
-  const { subIndustries, loading: subIndustriesLoading } = useSubIndustries();
-  const { territories, loading: territoriesLoading } = useTerritories();
   const { users, loading: usersLoading } = useUsers();
 
   useEffect(() => {
-    if (
-      !industriesLoading &&
-      !subIndustriesLoading &&
-      !territoriesLoading &&
-      !usersLoading
-    ) {
+    if (!usersLoading) {
       const items = [
-        {
-          key: "industry",
-          label: "Industry",
-          children: industries.map(({ value, text }) => ({
-            key: value,
-            label: text,
-          })),
-        },
-        {
-          key: "sub-industry",
-          label: "Sub-Industry",
-          children: subIndustries.map(({ value, text }) => ({
-            key: value,
-            label: text,
-          })),
-        },
-        {
-          key: "territory",
-          label: "Territory",
-          children: territories.map(({ value, text }) => ({
-            key: value,
-            label: text,
-          })),
-        },
         {
           key: "users",
           label: "Users",
@@ -72,16 +29,7 @@ export const Filter = () => {
 
       setFilterItems(items);
     }
-  }, [
-    industries,
-    subIndustries,
-    territories,
-    users,
-    industriesLoading,
-    subIndustriesLoading,
-    territoriesLoading,
-    usersLoading,
-  ]);
+  }, [users, usersLoading]);
 
   const onSelectChange = (parentKey, childKey, checked) => {
     setSelectedItems((prevSelectedItems) => {
@@ -97,44 +45,30 @@ export const Filter = () => {
   };
 
   const handleFilter = () => {
-    const filters = {
-      industry: selectedItems.industry,
-      subIndustry: selectedItems["sub-industry"],
-      territory: selectedItems.territory,
+    console.log("filters", filters);
+    const updatedFilters = {
+      ...filters,
       enteredBy: selectedItems.users,
     };
+    console.log("updatedFilters", updatedFilters);
+    setFilters(updatedFilters);
 
-    dispatch(getAllClients(filters));
-    setVisible(false); // Close the dropdown when "OK" is clicked
+    setFilter(true);
+    setVisible(false);
   };
-
   const handleCancel = () => {
-    const {
-      industry,
-      "sub-industry": subIndustry,
-      territory,
-      users,
-    } = selectedItems;
+    const { users } = selectedItems;
 
     // Check if any array contains items
-    if (
-      industry.length !== 0 ||
-      subIndustry.length !== 0 ||
-      territory.length !== 0 ||
-      users.length !== 0
-    ) {
+    if (users.length !== 0) {
       setSelectedItems({
-        industry: [],
-        "sub-industry": [],
-        territory: [],
         users: [],
       });
     }
     handleFilter();
-
-    // Always close the dropdown when "Cancel" is clicked
     setVisible(false);
   };
+
   const menu = (
     <Menu>
       {filterItems.map((parent) =>
@@ -189,7 +123,7 @@ export const Filter = () => {
         icon={<FilterOutlined />}
         onClick={() => setVisible(true)} // Open dropdown on button click
       >
-        {!screens.xs ? "Filter Clients" : null}
+        {!screens.xs ? "Filter Opportunities" : null}
         <DownOutlined />
       </Button>
     </Dropdown>

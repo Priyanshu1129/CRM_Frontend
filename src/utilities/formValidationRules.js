@@ -126,7 +126,10 @@ export const contactFormRules = {
     relationshipDegree: [
         { required: true, message: "Relationship Degree is required" },
     ],
-    city: [{ required: true, message: "City is required" }],
+    city: [{ required: true, message: "Country is required" }],
+    territory: [
+        { required: true, message: "Please select a territory!" },
+    ],
     memorableInfo: [
         { required: false, message: "This field is required" },
         { min: 3, message: "Must be at least 3 characters" },

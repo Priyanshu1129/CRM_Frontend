@@ -6,6 +6,7 @@ import { TendersTableView, TendersCardView } from "./components";
 import { notification } from "antd";
 import { tenderActions } from "@/redux/slices/tenderSlice";
 import { getAllTenders } from "@/redux/actions/tenderAction";
+import { Filter } from "./components/filter";
 
 const TenderMaster = () => {
   const [view, setView] = useState("table");
@@ -13,7 +14,8 @@ const TenderMaster = () => {
   const [refresh, setRefresh] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(12);
-  const prevFiltersRef = useRef({});
+  const [filters, setFilters] = useState({});
+  const [filter, setFilter] = useState(false);
   const prevSorterRef = useRef({});
   const dispatch = useDispatch();
   const { status, data, error } = useSelector(
@@ -26,9 +28,13 @@ const TenderMaster = () => {
       !tenders ||
       currentPage !== Number(data?.page) ||
       pageSize !== Number(data?.limit) ||
-      refresh
+      refresh ||
+      (filters && filter)
     ) {
-      dispatch(getAllTenders({ page: currentPage, limit: pageSize }));
+      dispatch(
+        getAllTenders({ page: currentPage, limit: pageSize, ...filters })
+      );
+      setFilter(false);
     }
   }, [
     dispatch,
@@ -38,11 +44,19 @@ const TenderMaster = () => {
     data?.page,
     data?.limit,
     refresh,
+    filters,
+    filter,
   ]);
 
   useEffect(() => {
     fetchAllTenders();
   }, [fetchAllTenders]);
+
+  useEffect(() => {
+    if (filter) {
+      fetchAllTenders();
+    }
+  }, [filter, filters, fetchAllTenders]);
 
   useEffect(() => {
     if (status == "pending") {
@@ -64,43 +78,31 @@ const TenderMaster = () => {
     }
   }, [dispatch, status, data?.tenders, error]);
 
-  const handleFilter = (pagination, filters, sorter) => {
+  const handleFilter = (pagination, tableFilters, sorter) => {
     let { field: currentSortField, order: currentSortOrder } = sorter || {};
     const prevSortField = prevSorterRef.current?.field;
     const prevSortOrder = prevSorterRef.current?.order;
-
-    // Compare filters
-    const hasFiltersChanged =
-      JSON.stringify(filters) !== JSON.stringify(prevFiltersRef.current);
 
     // Compare sorter by field and order
     const hasSorterChanged =
       currentSortField !== prevSortField || currentSortOrder !== prevSortOrder;
 
     // Update refs with the current filters and sorter
-    prevFiltersRef.current = filters;
     prevSorterRef.current = {
       field: currentSortField,
       order: currentSortOrder,
     };
 
-    if (hasFiltersChanged || hasSorterChanged) {
-      const industry = filters?.industry || "";
-      const subIndustry = filters?.subIndustry || "";
-      const territory = filters?.territory || "";
-      const enteredBy = filters?.enteredBy || "";
-
+    if (hasSorterChanged) {
       // Dispatch the getAllClients action with the applied filters and sorting
       currentSortOrder = currentSortOrder == "descend" ? "-1" : "1";
-      dispatch(
-        getAllTenders({
-          industry,
-          subIndustry,
-          territory,
-          enteredBy,
-          entryDate: currentSortField == "entryDate" ? currentSortOrder : "",
-        })
-      );
+
+      setFilters({
+        ...filters,
+        entryDate: currentSortField == "entryDate" ? currentSortOrder : "",
+      });
+      setFilter(true);
+      fetchAllTenders();
     }
   };
 
@@ -111,6 +113,10 @@ const TenderMaster = () => {
         buttonText={"Add new tender"}
         pageName={"tender"}
         setRefresh={setRefresh}
+        setFilter={setFilter}
+        setFilters={setFilters}
+        filters={filters}
+        FilterComponent={Filter}
       />
       {view == "table" ? (
         <TendersTableView

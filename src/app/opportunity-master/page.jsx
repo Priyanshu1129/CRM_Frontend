@@ -6,6 +6,7 @@ import { OpportunitiesTableView, OpportunitiesCardView } from "./components";
 import { notification } from "antd";
 import { opportunityActions } from "@/redux/slices/opportunitySlice";
 import { getAllOpportunities } from "@/redux/actions/opportunityAction";
+import { Filter } from "./components/filter";
 
 const OpportunityMaster = () => {
   const [view, setView] = useState("table");
@@ -13,7 +14,8 @@ const OpportunityMaster = () => {
   const [refresh, setRefresh] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(12);
-  const prevFiltersRef = useRef({});
+  const [filters, setFilters] = useState({});
+  const [filter, setFilter] = useState(false);
   const prevSorterRef = useRef({});
   const dispatch = useDispatch();
   const { status, data, error } = useSelector(
@@ -22,20 +24,17 @@ const OpportunityMaster = () => {
   const [opportunities, setOpportunities] = useState(data?.opportunities);
 
   const fetchAllOpportunities = useCallback(() => {
-    console.log("Fetching opportunities with:", {
-      opportunities,
-      currentPage,
-      pageSize,
-      dataPage: data?.page,
-      dataLimit: data?.limit,
-    });
     if (
       !opportunities ||
       currentPage !== Number(data?.page) ||
       pageSize !== Number(data?.limit) ||
-      refresh
+      refresh ||
+      (filters && filter)
     ) {
-      dispatch(getAllOpportunities({ page: currentPage, limit: pageSize }));
+      dispatch(
+        getAllOpportunities({ page: currentPage, limit: pageSize, ...filters })
+      );
+      setFilter(false);
     }
   }, [
     dispatch,
@@ -45,11 +44,19 @@ const OpportunityMaster = () => {
     data?.page,
     data?.limit,
     refresh,
+    filters,
+    filter,
   ]);
 
   useEffect(() => {
     fetchAllOpportunities();
   }, [fetchAllOpportunities]);
+
+  useEffect(() => {
+    if (filter) {
+      fetchAllOpportunities();
+    }
+  }, [filter, filters, fetchAllOpportunities]);
 
   useEffect(() => {
     if (status == "pending") {
@@ -71,43 +78,29 @@ const OpportunityMaster = () => {
     }
   }, [dispatch, status, data?.opportunities, error]);
 
-  const handleFilter = (pagination, filters, sorter) => {
+  const handleFilter = (pagination, tableFilters, sorter) => {
     let { field: currentSortField, order: currentSortOrder } = sorter || {};
     const prevSortField = prevSorterRef.current?.field;
     const prevSortOrder = prevSorterRef.current?.order;
-
-    // Compare filters
-    const hasFiltersChanged =
-      JSON.stringify(filters) !== JSON.stringify(prevFiltersRef.current);
 
     // Compare sorter by field and order
     const hasSorterChanged =
       currentSortField !== prevSortField || currentSortOrder !== prevSortOrder;
 
-    // Update refs with the current filters and sorter
-    prevFiltersRef.current = filters;
     prevSorterRef.current = {
       field: currentSortField,
       order: currentSortOrder,
     };
 
-    if (hasFiltersChanged || hasSorterChanged) {
-      const industry = filters?.industry || "";
-      const subIndustry = filters?.subIndustry || "";
-      const territory = filters?.territory || "";
-      const enteredBy = filters?.enteredBy || "";
-
+    if (hasSorterChanged) {
       // Dispatch the getAllClients action with the applied filters and sorting
       currentSortOrder = currentSortOrder == "descend" ? "-1" : "1";
-      dispatch(
-        getAllOpportunities({
-          industry,
-          subIndustry,
-          territory,
-          enteredBy,
-          entryDate: currentSortField == "entryDate" ? currentSortOrder : "",
-        })
-      );
+      setFilters({
+        ...filters,
+        entryDate: currentSortField == "entryDate" ? currentSortOrder : "",
+      });
+      setFilter(true);
+      fetchAllOpportunities();
     }
   };
 
@@ -118,6 +111,10 @@ const OpportunityMaster = () => {
         buttonText={"Add new opportunity"}
         pageName={"opportunity"}
         setRefresh={setRefresh}
+        setFilter={setFilter}
+        setFilters={setFilters}
+        filters={filters}
+        FilterComponent={Filter}
       />
       {view == "table" ? (
         <OpportunitiesTableView

@@ -4,7 +4,7 @@ import { serverURL } from "@/config/config";
 import { mastersConfigActions } from "@/redux/slices/configurationSlice";
 const route = `${serverURL}/contact`
 
-export const getAllContacts = ({ page = null, limit = null, config = false, entryDate = "", enteredBy = "" }) => async (dispatch) => {
+export const getAllContacts = ({ page = null, limit = null, config = false, entryDate = "", enteredBy = "", territory = "", client = "" }) => async (dispatch) => {
     try {
         if (config) {
             dispatch(mastersConfigActions.getConfigContactsRequest());
@@ -13,7 +13,7 @@ export const getAllContacts = ({ page = null, limit = null, config = false, entr
         }
         console.log('getAllContactsRequest Config', config);
         const response = await axios.get(`${route}/`, {
-            params: { limit, page, config, enteredBy, entry_date: entryDate },
+            params: { limit, page, config, enteredBy, territory, client, entry_date: entryDate },
             withCredentials: true,
         });
 

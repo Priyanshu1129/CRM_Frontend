@@ -20,3 +20,4 @@ export * from "./imageUpload";
 export * from "./table-actions";
 export * from "./table-filter-options"
 export * from "./phone-number-input";
+export * from "./filter"

@@ -23,7 +23,6 @@ export const getColumns = () => {
             title: "Entered By",
             dataIndex: "enteredBy",
             key: "enteredBy",
-            filters: GetUsers(),
             width: 200,
             render: (enteredBy) => enteredBy ? `${enteredBy.firstName} ${enteredBy.lastName}` : "N/A",
         },

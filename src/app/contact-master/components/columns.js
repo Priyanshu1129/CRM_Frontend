@@ -1,4 +1,4 @@
-import { TableActions, CustomAvatar, Text, GetUsers } from "@/components";
+import { TableActions, CustomAvatar, Text } from "@/components";
 import { Space } from "antd";
 
 export const getColumns = () => {
@@ -30,7 +30,6 @@ export const getColumns = () => {
             title: "Entered By",
             dataIndex: "enteredBy",
             key: "enteredBy",
-            filters: GetUsers(),
             width: 200,
             render: (enteredBy) => enteredBy ? `${enteredBy.firstName} ${enteredBy.lastName}` : "N/A",
         },
@@ -99,10 +98,18 @@ export const getColumns = () => {
             width: 150,
         },
         {
-            title: "City",
-            dataIndex: "city",
-            key: "city",
-            width: 150,
+            title: "Territory",
+            dataIndex: ["territory", "label"],
+            key: "territory",
+            width: 200,
+            render: (territory) => territory || "N/A",
+        },
+        {
+            title: "Country",
+            dataIndex: "country",
+            key: "country",
+            width: 200,
+            render: (territory) => territory || "N/A",
         },
         {
             title: "Arche Type",
@@ -111,13 +118,13 @@ export const getColumns = () => {
             render: (text) => text || "N/A",
             width: 150,
         },
-        {
-            title: "Details Confirmation",
-            dataIndex: "detailsConfirmation",
-            key: "detailsConfirmation",
-            width: 200,
-            render: (value) => (value ? "Yes" : "No"),
-        },
+        // {
+        //     title: "Details Confirmation",
+        //     dataIndex: "detailsConfirmation",
+        //     key: "detailsConfirmation",
+        //     width: 200,
+        //     render: (value) => (value ? "Yes" : "No"),
+        // },
         {
             title: "Action",
             key: "operation",

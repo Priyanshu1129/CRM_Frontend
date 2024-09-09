@@ -20,6 +20,7 @@ import {
   InputNotes,
   ImageUpload,
   BulkUploadModal,
+  TerritorySelector,
 } from "@/components";
 import { contactFormRules } from "@/utilities/formValidationRules";
 import { contactActions } from "@/redux/slices/contactSlice";
@@ -226,9 +227,20 @@ const AddContact = () => {
               />
             </Col>
             <Col span={8}>
-              <Form.Item name="city" label="City" rules={contactFormRules.city}>
+              <Form.Item
+                name="country"
+                label="Country"
+                rules={contactFormRules.city}
+              >
                 <Input />
               </Form.Item>
+            </Col>
+            <Col span={8}>
+              <TerritorySelector
+                label="Territory"
+                name="territory"
+                rules={contactFormRules.territory}
+              />
             </Col>
             <Col span={8}>
               <Form.Item

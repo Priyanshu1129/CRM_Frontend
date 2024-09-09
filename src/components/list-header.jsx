@@ -13,6 +13,9 @@ export const ListHeader = ({
   pageName,
   view,
   FilterComponent,
+  setFilter,
+  filters,
+  setFilters,
 }) => {
   const screens = Grid.useBreakpoint();
 
@@ -34,7 +37,13 @@ export const ListHeader = ({
         }}
       >
         <ListTitleButton toPath={toPath} buttonText={buttonText} />
-        {pageName == "client" && view == "card" && <FilterComponent />}
+        {pageName !== "user" && FilterComponent && (
+          <FilterComponent
+            filters={filters}
+            setFilters={setFilters}
+            setFilter={setFilter}
+          />
+        )}
       </Space>
       <Space
         style={{

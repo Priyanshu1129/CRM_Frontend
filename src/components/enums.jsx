@@ -321,8 +321,7 @@ export const SalesSubStageSelector = ({ name, label, rules }) => {
   );
 };
 
-export const 
-TerritorySelector = ({ name, label, rules }) => {
+export const TerritorySelector = ({ name, label, rules }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const { status, data, error } = useSelector(
@@ -450,10 +449,10 @@ export const ClientSelector = ({
 
   const [clients, setClients] = useState(data?.clients);
   const fetchAllClients = useCallback(() => {
-    if (!clients) {
+    if (!data) {
       dispatch(getAllClients({ config: true }));
     }
-  }, [dispatch, clients]);
+  }, [dispatch, data]);
 
   useEffect(() => {
     fetchAllClients();
