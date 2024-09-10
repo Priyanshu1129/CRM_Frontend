@@ -82,7 +82,11 @@ const AddBusinessDevelopment = () => {
 
   return (
     <>
-      <FormHeader setUploadModal={setUploadModal} backButtonText={"Return"} />
+      <FormHeader
+        fileUpload={true}
+        setUploadModal={setUploadModal}
+        backButtonText={"Return"}
+      />
       <Space
         direction="vertical"
         style={{
@@ -221,6 +225,11 @@ const AddBusinessDevelopment = () => {
             </Col>
           </Row>
         </Form>
+        <BulkUploadModal
+          setUploadModal={setUploadModal}
+          uploadModal={uploadModal}
+          resource="bd"
+        />
       </Space>
     </>
   );
