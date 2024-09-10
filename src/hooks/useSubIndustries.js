@@ -9,10 +9,10 @@ export const useSubIndustries = () => {
     const [subIndustries, setSubIndustries] = useState(data?.data);
 
     const fetchAllSubIndustries = useCallback(() => {
-        if (!subIndustries) {
+        if (!data) {
             dispatch(getAllSubIndustries());
         }
-    }, [dispatch, subIndustries]);
+    }, [dispatch, data]);
 
     useEffect(() => {
         fetchAllSubIndustries();

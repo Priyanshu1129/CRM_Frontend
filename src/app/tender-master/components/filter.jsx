@@ -7,7 +7,7 @@ export const Filter = ({ filters, setFilters, setFilter }) => {
   const screens = Grid.useBreakpoint();
   const [filterItems, setFilterItems] = useState([]);
   const [selectedItems, setSelectedItems] = useState({
-    users: [],
+    user: [],
   });
   const [visible, setVisible] = useState(false);
 
@@ -16,9 +16,9 @@ export const Filter = ({ filters, setFilters, setFilter }) => {
 
   useEffect(() => {
     if (!usersLoading) {
-      const items = [
+      const newItems = [
         {
-          key: "users",
+          key: "user",
           label: "Users",
           children: users.map(({ value, text }) => ({
             key: value,
@@ -27,9 +27,12 @@ export const Filter = ({ filters, setFilters, setFilter }) => {
         },
       ];
 
-      setFilterItems(items);
+      // Only update if the items have changed
+      if (JSON.stringify(newItems) !== JSON.stringify(filterItems)) {
+        setFilterItems(newItems);
+      }
     }
-  }, [users, usersLoading]);
+  }, [users, usersLoading, filterItems]);
 
   const onSelectChange = (parentKey, childKey, checked) => {
     setSelectedItems((prevSelectedItems) => {
@@ -47,23 +50,30 @@ export const Filter = ({ filters, setFilters, setFilter }) => {
   const handleFilter = () => {
     const updatedFilters = {
       ...filters,
-      enteredBy: selectedItems.users,
+      enteredBy: selectedItems.user,
     };
     setFilters(updatedFilters);
 
     setFilter(true);
     setVisible(false);
   };
-  const handleCancel = () => {
-    const { users } = selectedItems;
+  const handleReset = () => {
+    const { user } = selectedItems;
 
-    // Check if any array contains items
-    if (users.length !== 0) {
+    if (user.length !== 0) {
       setSelectedItems({
-        users: [],
+        user: [],
       });
+
+      // Update the filters after resetting
+      const updatedFilters = {
+        ...filters,
+        enteredBy: [],
+      };
+      setFilters(updatedFilters);
+      setFilter(true);
     }
-    handleFilter();
+
     setVisible(false);
   };
 
@@ -107,7 +117,7 @@ export const Filter = ({ filters, setFilters, setFilter }) => {
             gap: "4px",
           }}
         >
-          <Button onClick={handleCancel}>Reset</Button>
+          <Button onClick={handleReset}>Reset</Button>
           <Button type="primary" onClick={handleFilter}>
             OK
           </Button>

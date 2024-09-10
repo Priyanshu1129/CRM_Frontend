@@ -11,10 +11,10 @@ export const useIndustries = () => {
     const [industries, setIndustries] = useState(data?.data);
 
     const fetchAllIndustries = useCallback(() => {
-        if (!industries) {
+        if (!data) {
             dispatch(getAllIndustries());
         }
-    }, [dispatch, industries]);
+    }, [dispatch, data]);
 
     useEffect(() => {
         fetchAllIndustries();

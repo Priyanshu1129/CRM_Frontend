@@ -9,10 +9,10 @@ export const useUsers = () => {
     const [users, setUsers] = useState(data?.users);
 
     const fetchAllUsers = useCallback(() => {
-        if (!users) {
+        if (!data) {
             dispatch(getAllUsers({ config: true }));
         }
-    }, [dispatch, users]);
+    }, [dispatch, data]);
 
     useEffect(() => {
         fetchAllUsers();

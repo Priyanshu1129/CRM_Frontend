@@ -9,10 +9,10 @@ export const useTerritories = () => {
     const [territories, setTerritories] = useState(data?.data);
 
     const fetchAllTerritories = useCallback(() => {
-        if (!territories) {
+        if (!data) {
             dispatch(getAllTerritories());
         }
-    }, [dispatch, territories]);
+    }, [dispatch, data]);
 
     useEffect(() => {
         fetchAllTerritories();

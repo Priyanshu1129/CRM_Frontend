@@ -15,7 +15,7 @@ export const Filter = ({ filters, setFilters, setFilter }) => {
     industry: [],
     "sub-industry": [],
     territory: [],
-    users: [],
+    user: [],
   });
   const [visible, setVisible] = useState(false);
 
@@ -32,7 +32,7 @@ export const Filter = ({ filters, setFilters, setFilter }) => {
       !territoriesLoading &&
       !usersLoading
     ) {
-      const items = [
+      const newItems = [
         {
           key: "industry",
           label: "Industry",
@@ -67,7 +67,10 @@ export const Filter = ({ filters, setFilters, setFilter }) => {
         },
       ];
 
-      setFilterItems(items);
+      // Only update if the items have changed
+      if (JSON.stringify(newItems) !== JSON.stringify(filterItems)) {
+        setFilterItems(newItems);
+      }
     }
   }, [
     industries,
@@ -78,6 +81,7 @@ export const Filter = ({ filters, setFilters, setFilter }) => {
     subIndustriesLoading,
     territoriesLoading,
     usersLoading,
+    filterItems,
   ]);
 
   const onSelectChange = (parentKey, childKey, checked) => {
@@ -100,7 +104,7 @@ export const Filter = ({ filters, setFilters, setFilter }) => {
       industry: selectedItems.industry,
       subIndustry: selectedItems["sub-industry"],
       territory: selectedItems.territory,
-      enteredBy: selectedItems.users,
+      enteredBy: selectedItems.user,
     };
     console.log("updatedFilters", updatedFilters);
     setFilters(updatedFilters);
@@ -108,12 +112,12 @@ export const Filter = ({ filters, setFilters, setFilter }) => {
     setFilter(true);
     setVisible(false);
   };
-  const handleCancel = () => {
+  const handleReset = () => {
     const {
       industry,
       "sub-industry": subIndustry,
       territory,
-      users,
+      user,
     } = selectedItems;
 
     // Check if any array contains items
@@ -121,18 +125,29 @@ export const Filter = ({ filters, setFilters, setFilter }) => {
       industry.length !== 0 ||
       subIndustry.length !== 0 ||
       territory.length !== 0 ||
-      users.length !== 0
+      user.length !== 0
     ) {
+      // Reset selected items
       setSelectedItems({
         industry: [],
         "sub-industry": [],
         territory: [],
-        users: [],
+        user: [],
       });
-    }
-    handleFilter();
 
-    // Always close the dropdown when "Cancel" is clicked
+      // Update the filters after resetting
+      const updatedFilters = {
+        ...filters,
+        industry: [],
+        subIndustry: [],
+        territory: [],
+        enteredBy: [],
+      };
+      setFilters(updatedFilters);
+      setFilter(true);
+    }
+
+    // Always close the dropdown when "Reset" is clicked
     setVisible(false);
   };
 
@@ -176,7 +191,7 @@ export const Filter = ({ filters, setFilters, setFilter }) => {
             gap: "4px",
           }}
         >
-          <Button onClick={handleCancel}>Reset</Button>
+          <Button onClick={handleReset}>Reset</Button>
           <Button type="primary" onClick={handleFilter}>
             OK
           </Button>

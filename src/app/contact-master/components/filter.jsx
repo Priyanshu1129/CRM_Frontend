@@ -20,7 +20,7 @@ export const Filter = ({ filters, setFilters, setFilter }) => {
 
   useEffect(() => {
     if (!territoriesLoading && !usersLoading && !clientsLoading) {
-      const items = [
+      const newItems = [
         {
           key: "territory",
           label: "Territory",
@@ -47,7 +47,9 @@ export const Filter = ({ filters, setFilters, setFilter }) => {
         },
       ];
 
-      setFilterItems(items);
+      if (JSON.stringify(newItems) !== JSON.stringify(filterItems)) {
+        setFilterItems(newItems);
+      }
     }
   }, [
     territories,
@@ -56,6 +58,7 @@ export const Filter = ({ filters, setFilters, setFilter }) => {
     territoriesLoading,
     usersLoading,
     clientsLoading,
+    filterItems,
   ]);
 
   const onSelectChange = (parentKey, childKey, checked) => {
@@ -83,19 +86,30 @@ export const Filter = ({ filters, setFilters, setFilter }) => {
     setFilter(true);
     setVisible(false);
   };
-  const handleCancel = () => {
-    const { territory, user, client } = selectedItems;
+  const handleReset = () => {
+    const { client, territory, user } = selectedItems;
 
     // Check if any array contains items
-    if (territory.length !== 0 || user.length !== 0 || client.length !== 0) {
+    if (client.length !== 0 || territory.length !== 0 || user.length !== 0) {
+      // Reset selected items
       setSelectedItems({
+        client: [],
         territory: [],
         user: [],
-        client: [],
       });
-    }
-    handleFilter();
 
+      // Update the filters after resetting
+      const updatedFilters = {
+        ...filters,
+        client: [],
+        territory: [],
+        enteredBy: [],
+      };
+      setFilters(updatedFilters);
+      setFilter(true);
+    }
+
+    // Always close the dropdown when "Reset" is clicked
     setVisible(false);
   };
 
@@ -139,7 +153,7 @@ export const Filter = ({ filters, setFilters, setFilter }) => {
             gap: "4px",
           }}
         >
-          <Button onClick={handleCancel}>Reset</Button>
+          <Button onClick={handleReset}>Reset</Button>
           <Button type="primary" onClick={handleFilter}>
             OK
           </Button>
