@@ -100,7 +100,13 @@ export const Filter = ({ filters, setFilters, setFilter }) => {
       )}
       <Menu.Divider />
       <Menu.Item>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            gap: "4px",
+          }}
+        >
           <Button onClick={handleCancel}>Reset</Button>
           <Button type="primary" onClick={handleFilter}>
             OK

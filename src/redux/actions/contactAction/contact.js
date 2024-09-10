@@ -67,7 +67,7 @@ export const getContact = (contactId) => async (dispatch) => {
 
 export const createContact = (contactData) => async (dispatch) => {
     try {
-        console.log("create-contactData", contactData);
+        console.log("create-contact-req-data", contactData);
         dispatch(contactActions.createContactRequest());
 
         const response = await axios.post(
