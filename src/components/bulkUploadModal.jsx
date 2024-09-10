@@ -22,10 +22,13 @@ export const BulkUploadModal = ({ uploadModal, setUploadModal, resource }) => {
     fileList.forEach((file) => {
       formData.append("dataFile", file);
     });
+    
     setUploading(true);
     fetch(`${serverURL}/upload/${resource}?check=${check}`, {
       method: "POST",
       body: formData,
+      credentials: 'include'
+     
     })
       .then((res) => res.json())
       .then((res) => {
