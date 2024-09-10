@@ -58,7 +58,7 @@ export const Filter = ({ filters, setFilters, setFilter }) => {
           })),
         },
         {
-          key: "users",
+          key: "user",
           label: "Users",
           children: users.map(({ value, text }) => ({
             key: value,
@@ -98,7 +98,7 @@ export const Filter = ({ filters, setFilters, setFilter }) => {
   };
 
   const handleFilter = () => {
-    console.log("filters", filters);
+
     const updatedFilters = {
       ...filters,
       industry: selectedItems.industry,
@@ -106,7 +106,6 @@ export const Filter = ({ filters, setFilters, setFilter }) => {
       territory: selectedItems.territory,
       enteredBy: selectedItems.user,
     };
-    console.log("updatedFilters", updatedFilters);
     setFilters(updatedFilters);
 
     setFilter(true);
