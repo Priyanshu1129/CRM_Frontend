@@ -25,7 +25,10 @@ import {
 } from "@/components";
 import { RevenueInput } from "./revenueInput";
 import { opportunityFormRules } from "@/utilities/formValidationRules";
-import { updateOpportunity } from "@/redux/actions/opportunityAction";
+import {
+  updateOpportunity,
+  getAllOpportunities,
+} from "@/redux/actions/opportunityAction";
 import { opportunityActions } from "@/redux/slices/opportunitySlice";
 import {
   getChangedValues,
@@ -80,6 +83,7 @@ export const UpdateOpportunityForm = ({ opportunity }) => {
         description: "Opportunity updated successfully.",
       });
       dispatch(opportunityActions.clearUpdateOpportunityStatus());
+      dispatch(getAllOpportunities({}));
     } else if (status === "failed") {
       setLoading(false);
       notification.error({

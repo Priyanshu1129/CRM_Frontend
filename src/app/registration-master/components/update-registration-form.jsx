@@ -23,7 +23,10 @@ import {
 import { RegistrationStatusSelector } from "../enums";
 import { registrationFormRules } from "@/utilities/formValidationRules";
 import { registrationActions } from "@/redux/slices/registrationSlice";
-import { updateRegistration } from "@/redux/actions/registrationAction";
+import {
+  updateRegistration,
+  getAllRegistrations,
+} from "@/redux/actions/registrationAction";
 import { getChangedValues } from "@/utilities/getChangedValues";
 import moment from "moment";
 
@@ -72,6 +75,7 @@ export const UpdateRegistrationForm = ({ registration }) => {
         message: "Success",
         description: "Registration updated successfully.",
       });
+      dispatch(getAllRegistrations({}));
       dispatch(registrationActions.clearUpdateRegistrationStatus());
     } else if (status === "failed") {
       setLoading(false);

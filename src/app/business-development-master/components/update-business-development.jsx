@@ -14,7 +14,10 @@ import {
 } from "@/components";
 import { businessDevelopmentActions } from "@/redux/slices/businessDevelopmentSlice";
 import { businessDevelopmentFormRules } from "@/utilities/formValidationRules";
-import { updateBusinessDevelopment } from "@/redux/actions/businessDevelopmentAction";
+import {
+  updateBusinessDevelopment,
+  getAllBusinessDevelopments,
+} from "@/redux/actions/businessDevelopmentAction";
 import { getChangedValues } from "@/utilities/getChangedValues";
 
 export const UpdateBusinessDevelopmentForm = ({ businessDevelopment }) => {
@@ -59,6 +62,7 @@ export const UpdateBusinessDevelopmentForm = ({ businessDevelopment }) => {
         message: "Success",
         description: "Business development updated successfully.",
       });
+      dispatch(getAllBusinessDevelopments({}));
       dispatch(
         businessDevelopmentActions.clearUpdateBusinessDevelopmentStatus()
       );

@@ -29,7 +29,7 @@ import {
 } from "@/components";
 import { clientActions } from "@/redux/slices/clientSlice";
 import { clientFormRules } from "@/utilities/formValidationRules";
-import { updateClient } from "@/redux/actions/clientAction";
+import { updateClient, getAllClients } from "@/redux/actions/clientAction";
 import { getChangedValues } from "@/utilities/getChangedValues";
 
 export const UpdateClientForm = ({ client }) => {
@@ -83,6 +83,7 @@ export const UpdateClientForm = ({ client }) => {
         message: "Success",
         description: "Client updated successfully.",
       });
+      dispatch(getAllClients({}));
       dispatch(clientActions.clearUpdateClientStatus());
     } else if (status === "failed") {
       setLoading(false);

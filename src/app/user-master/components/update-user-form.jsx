@@ -17,7 +17,7 @@ import {
 import moment from "moment";
 import { ImageUpload } from "@/components";
 import { userFormRules } from "@/utilities/formValidationRules";
-import { updateUser } from "@/redux/actions/userAction";
+import { updateUser, getAllUsers } from "@/redux/actions/userAction";
 import { userActions } from "@/redux/slices/userSlice";
 import { getChangedValues } from "@/utilities/getChangedValues";
 import { InputPhoneNumber } from "@/components";
@@ -68,6 +68,7 @@ export const UpdateUserForm = ({ user }) => {
         message: "Success",
         description: "User updated successfully.",
       });
+      dispatch(getAllUsers({}));
       dispatch(userActions.clearUpdateUserStatus());
     } else if (status === "failed") {
       setLoading(false);

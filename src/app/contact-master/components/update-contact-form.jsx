@@ -18,7 +18,7 @@ import { ArcheTypeSelector, RelationshipDegreeSelector } from "../enums";
 import { InputNotes, ImageUpload, TerritorySelector } from "@/components";
 import { contactFormRules } from "@/utilities/formValidationRules";
 import { contactActions } from "@/redux/slices/contactSlice";
-import { updateContact } from "@/redux/actions/contactAction";
+import { updateContact, getAllContacts } from "@/redux/actions/contactAction";
 import { ClientSelector } from "@/components";
 import { getChangedValues } from "@/utilities/getChangedValues";
 import { InputPhoneNumber } from "@/components";
@@ -97,6 +97,7 @@ export const UpdateContactForm = ({ contact }) => {
         message: "Success",
         description: "Contact updated successfully.",
       });
+      dispatch(getAllContacts({}));
       dispatch(contactActions.clearUpdateContactStatus());
     } else if (status === "failed") {
       setLoading(false);
