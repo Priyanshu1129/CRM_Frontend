@@ -29,11 +29,11 @@ export const getColumns = () => {
     {
       title: "Client",
       dataIndex: ["client", "name"],
-      key: "partneredWith",
+      key: "client",
       width: 150,
     },
     {
-      title: "Partnered With",
+      title: "In Partnership",
       dataIndex: "partneredWith",
       key: "partneredWith",
       width: 150,

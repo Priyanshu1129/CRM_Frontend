@@ -109,7 +109,7 @@ const AddOpportunity = () => {
             <Col span={8}>
               <Form.Item
                 name="partneredWith"
-                label="Partnered With"
+                label="In Partnership"
                 rules={opportunityFormRules.partneredWith}
               >
                 <Input />

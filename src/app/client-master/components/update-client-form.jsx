@@ -170,7 +170,7 @@ export const UpdateClientForm = ({ client }) => {
           <Col span={colSpan}>
             <Form.Item
               name="offering"
-              label="What do they offer?"
+              label="About"
               rules={clientFormRules.offering}
             >
               <Input />

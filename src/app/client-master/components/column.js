@@ -64,7 +64,7 @@ export const GetColumns = ({ industries, subIndustries, territories, users }) =>
             render: (territory) => territory || "N/A",
         },
         {
-            title: "Offering",
+            title: "About",
             dataIndex: "offering",
             key: "offering",
             width: 150,
