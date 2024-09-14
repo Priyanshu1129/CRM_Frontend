@@ -485,7 +485,7 @@ export const Filter = ({ filters, setFilters, setFilter }) => {
         },
         {
           key: "user",
-          label: "Users",
+          label: "Entered By",
           children: users.map(({ value, text }) => ({
             key: value,
             label: text,

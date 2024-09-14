@@ -166,7 +166,7 @@ export const Filter = ({ filters, setFilters, setFilter }) => {
       const items = [
         {
           key: "user",
-          label: "Users",
+          label: "Entered By",
           children: users.map(({ value, text }) => ({
             key: value,
             label: text,
@@ -194,12 +194,10 @@ export const Filter = ({ filters, setFilters, setFilter }) => {
   }, []);
 
   const handleFilter = () => {
-    console.log("filters", filters);
     const updatedFilters = {
       ...filters,
       enteredBy: selectedItems.user,
     };
-    console.log("updatedFilters", updatedFilters);
     setFilters(updatedFilters);
 
     setFilter(true);
