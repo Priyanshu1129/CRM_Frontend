@@ -1,6 +1,7 @@
 import { TableActions } from "@/components";
+import { convertCurrency } from "@/utilities/convertCurrency";
 
-export const getColumns = () => {
+export const getColumns = ({ selectedCurrency }) => {
 
   const columns = [
     {
@@ -80,21 +81,24 @@ export const getColumns = () => {
       dataIndex: "potentialTopLine",
       key: "potentialTopLine",
       width: 150,
-      render: (text) => text?.toLocaleString() || "N/A",
+      // render: (text) => text?.toLocaleString() || "N/A",
+      render: (value) => value || value == 0?  convertCurrency(value, selectedCurrency) : 'N/A',
     },
     {
       title: "Potential Offset",
       dataIndex: "potentialOffset",
       key: "potentialOffset",
       width: 150,
-      render: (text) => text?.toLocaleString() || "N/A",
+      // render: (text) => text?.toLocaleString() || "N/A",
+      render: (value) => value || value == 0?  convertCurrency(value, selectedCurrency) : 'N/A',
     },
     {
       title: "Potential Revenue",
       dataIndex: "potentialRevenue",
       key: "potentialRevenue",
       width: 150,
-      render: (text) => text?.toLocaleString() || "N/A",
+      // render: (text) => text?.toLocaleString() || "N/A",
+      render: (value) => value || value == 0?  convertCurrency(value, selectedCurrency) : 'N/A',
     },
     // {
     //   title: "Notes",

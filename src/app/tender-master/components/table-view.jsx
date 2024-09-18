@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Table } from "@/components";
+import { useSelector } from "react-redux";
 import { getColumns } from "./columns";
-import { useCurrencies } from "@/hooks/useCurrency";
 export const TendersTableView = ({
   setCurrentPage,
   setPageSize,
@@ -10,13 +10,17 @@ export const TendersTableView = ({
   total,
   handleFilter,
 }) => {
-  const { currencies, loading: currenciesLoading } = useCurrencies();
-  const [selectedCurrency, setSelectedCurrency] = useState("1");
+  const [selectedCurrency, setSelectedCurrency] = useState(1);
+  const { currency } = useSelector((state) => state.currency.viewCurrency);
+
+  useEffect(() => {
+    if (currency) {
+      setSelectedCurrency(currency);
+    }
+  }, [currency]);
 
   const columns = getColumns({
-    currencies,
     selectedCurrency,
-    setSelectedCurrency,
   });
 
   return (

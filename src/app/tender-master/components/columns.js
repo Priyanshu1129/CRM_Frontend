@@ -1,8 +1,7 @@
 import { TableActions } from "@/components";
 import { convertCurrency } from "@/utilities/convertCurrency";
-import { DownOutlined } from "@ant-design/icons";
 
-export const getColumns = ({ currencies, selectedCurrency, setSelectedCurrency }) => {
+export const getColumns = ({ selectedCurrency }) => {
 
 
     const columns = [
@@ -88,15 +87,7 @@ export const getColumns = ({ currencies, selectedCurrency, setSelectedCurrency }
         {
             title: "Bond Value",
             dataIndex: "bondValue",
-            filters: currencies || [],
-            onFilter: (value, record) => {
-                setSelectedCurrency(value)
-                return true
-            },
-            filterIcon: () => <DownOutlined />,
-            filterSearch: true,
-            filterMultiple: false,
-            render: (value) => value ? convertCurrency(value, selectedCurrency, currencies) : 'N/A',
+            render: (value) => value || value == 0?  convertCurrency(value, selectedCurrency) : 'N/A',
             key: "bondValue",
             width: 140,
         },

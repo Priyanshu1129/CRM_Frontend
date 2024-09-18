@@ -22,3 +22,4 @@ export * from "./table-filter-options"
 export * from "./phone-number-input";
 export * from "./filter";
 export * from "./currency-filter";
+export * from "./currency-change-dropdown";

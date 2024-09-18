@@ -1,7 +1,7 @@
 import { TableActions } from "@/components";
-import { GetUsers } from "@/components";
+import { convertCurrency } from "@/utilities/convertCurrency";
 
-export const getColumns = () => {
+export const getColumns = ({selectedCurrency}) => {
 
   const columns = [
     {
@@ -97,21 +97,24 @@ export const getColumns = () => {
       dataIndex: "salesTopLine",
       key: "salesTopLine",
       width: 150,
-      render: (text) => text || 'N/A',
+      // render: (text) => text || 'N/A',
+      render: (value) => value || value == 0?  convertCurrency(value, selectedCurrency) : 'N/A',
     },
     {
       title: "Offsets",
       dataIndex: "offsets",
       key: "offsets",
       width: 120,
-      render: (text) => text || 'N/A',
+      // render: (text) => text || 'N/A',
+      render: (value) => value || value == 0?  convertCurrency(value, selectedCurrency) : 'N/A',
     },
     {
       title: "Total Revenue",
       dataIndex: "totalRevenue",
       key: "revenue",
       width: 120,
-      render: (text) => text || 'N/A',
+      // render: (text) => text || 'N/A',
+      render: (value) => value || value == 0 ? convertCurrency(value, selectedCurrency) : 'N/A',
     },
     {
       title: "Confidence Level",
@@ -125,7 +128,8 @@ export const getColumns = () => {
       dataIndex: "expectedSales",
       key: "expectedSales",
       width: 150,
-      render: (text) => text.toString() || 'N/A',
+      // render: (text) => text.toString() || 'N/A',
+      render: (value) => value || value == 0? convertCurrency(value, selectedCurrency) : 'N/A',
     },
     {
       title: "Action",

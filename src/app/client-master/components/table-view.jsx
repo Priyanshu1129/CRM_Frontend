@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Table } from "@/components";
-import { GetColumns } from "./column";
-import { useCurrencies } from "@/hooks";
+import { getColumns } from "./column";
+import { useSelector } from "react-redux";
 
 export const ClientsTableView = ({
   data,
@@ -11,13 +11,18 @@ export const ClientsTableView = ({
   totalClients,
   handleFilter,
 }) => {
-  const { currencies, loading: currenciesLoading } = useCurrencies();
-  const [selectedCurrency, setSelectedCurrency] = useState("1");
 
-  const columns = GetColumns({
-    currencies,
+  const [selectedCurrency, setSelectedCurrency] = useState(1);
+  const { currency } = useSelector((state) => state.currency.viewCurrency);
+
+  useEffect(() => {
+    if (currency) {
+      setSelectedCurrency(currency);
+    }
+  }, [currency]);
+
+  const columns = getColumns({
     selectedCurrency,
-    setSelectedCurrency,
   });
 
   return (

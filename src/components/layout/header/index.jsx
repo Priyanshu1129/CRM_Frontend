@@ -1,7 +1,11 @@
 import React from "react";
 import { Button, Layout, theme, Space } from "antd";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
-import { Notifications, CurrentUser } from "@/components";
+import {
+  Notifications,
+  CurrentUser,
+  CurrencyChangeDropDown,
+} from "@/components";
 
 const { Header: AntHeader } = Layout;
 const Header = () => {
@@ -25,6 +29,7 @@ const Header = () => {
     <>
       <AntHeader style={headerStyles}>
         <Space align="center" size="middle">
+          <CurrencyChangeDropDown />
           <Notifications />
           <CurrentUser />
         </Space>

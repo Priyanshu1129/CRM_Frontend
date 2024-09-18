@@ -5,6 +5,9 @@ const initialCurrencyState = {
         status: "idle",
         error: null,
         data: null,
+    },
+    viewCurrency: {
+        currency: 1
     }
 }
 
@@ -30,6 +33,9 @@ const currencySlice = createSlice({
         },
         clearGetAllCurrenciesError: (state) => {
             state.getAllCurrencies.error = null;
+        },
+        setViewCurrency: (state, action) => {
+            state.viewCurrency.currency = action.payload;
         }
     }
 })

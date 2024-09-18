@@ -2,7 +2,7 @@ import { TableActions, CustomAvatar, Text } from "@/components";
 import { Space } from "antd";
 import { convertCurrency } from "@/utilities/convertCurrency";
 
-export const GetColumns = ({ currencies, selectedCurrency, setSelectedCurrency, }) => {
+export const getColumns = ({ selectedCurrency, }) => {
 
     const columns = [
         {
@@ -89,8 +89,7 @@ export const GetColumns = ({ currencies, selectedCurrency, setSelectedCurrency, 
             title: "Market Cap",
             dataIndex: "marketCap",
             key: "marketCap",
-            filters: currencies || [],
-            render: (value) => value ? convertCurrency(value, selectedCurrency, currencies) : 'N/A',
+            render: (value) => value ?? 'N/A',
             width: 150,
         },
         {
@@ -98,7 +97,8 @@ export const GetColumns = ({ currencies, selectedCurrency, setSelectedCurrency, 
             dataIndex: "annualRevenue",
             key: "annualRevenue",
             width: 150,
-            render: (revenue) => revenue ? `$${revenue.toLocaleString()}` : "N/A",
+            // render: (revenue) => revenue ? `$${revenue.toLocaleString()}` : "N/A",
+            render: (value) => value || value == 0?  convertCurrency(value, selectedCurrency) : 'N/A',
         },
         {
             title: "Employee Strength",
@@ -147,7 +147,8 @@ export const GetColumns = ({ currencies, selectedCurrency, setSelectedCurrency, 
             dataIndex: "lifeTimeValue",
             key: "lifeTimeValue",
             width: 150,
-            render: (value) => value ? `$${value.toLocaleString()}` : "N/A",
+            // render: (value) => value ? `$${value.toLocaleString()}` : "N/A",
+            render: (value) => value || value == 0?  convertCurrency(value, selectedCurrency) : 'N/A',
         },
         {
             title: "Priority",

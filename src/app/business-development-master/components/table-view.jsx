@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Table } from "@/components";
 import { getColumns } from "./columns";
+import { useSelector } from "react-redux";
 
 export const BusinessDevelopmentTableView = ({
   setCurrentPage,
@@ -10,7 +11,19 @@ export const BusinessDevelopmentTableView = ({
   total,
   handleFilter,
 }) => {
-  const columns = getColumns();
+  const [selectedCurrency, setSelectedCurrency] = useState(1);
+  const { currency } = useSelector((state) => state.currency.viewCurrency);
+
+  useEffect(() => {
+    if (currency) {
+      setSelectedCurrency(currency);
+    }
+  }, [currency]);
+
+  const columns = getColumns({
+    selectedCurrency,
+  });
+
   return (
     <>
       <Table
