@@ -3,3 +3,4 @@ export * from "./useSubIndustries";
 export * from "./useTerritories";
 export * from "./useUsers";
 export * from "./useClients"
+export * from "./useCurrency"

@@ -72,11 +72,11 @@ const AddRegistration = () => {
       expiryDate: values.expiryDate.format("YYYY-MM-DD"),
       entryDate: new Date().toISOString(),
       websiteDetails: {
+        link: values.link || null,
         username: values.username || null,
         password: values.password || null,
       },
     };
-    console.log("submit", formattedValues);
     dispatch(createRegistration(formattedValues));
   };
 
@@ -120,6 +120,15 @@ const AddRegistration = () => {
                 label="Registration Status"
                 rules={registrationFormRules.registrationStatus}
               />
+            </Col>
+            <Col span={8}>
+              <Form.Item
+                name="link"
+                label="Website Link"
+                rules={registrationFormRules.websiteLink}
+              >
+                <Input />
+              </Form.Item>
             </Col>
             <Col span={8}>
               <Form.Item

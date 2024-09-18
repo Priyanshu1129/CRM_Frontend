@@ -1,7 +1,8 @@
 import { TableActions, CustomAvatar, Text } from "@/components";
 import { Space } from "antd";
+import { convertCurrency } from "@/utilities/convertCurrency";
 
-export const GetColumns = ({ industries, subIndustries, territories, users }) => {
+export const GetColumns = ({ currencies, selectedCurrency, setSelectedCurrency, }) => {
 
     const columns = [
         {
@@ -88,8 +89,9 @@ export const GetColumns = ({ industries, subIndustries, territories, users }) =>
             title: "Market Cap",
             dataIndex: "marketCap",
             key: "marketCap",
+            filters: currencies || [],
+            render: (value) => value ? convertCurrency(value, selectedCurrency, currencies) : 'N/A',
             width: 150,
-            render: (marketCap) => marketCap || "N/A",
         },
         {
             title: "Annual Revenue",

@@ -15,6 +15,7 @@ import {
   notification,
 } from "antd";
 import { StageSelector } from "../enums";
+import { CurrencyAmountInput } from "@/components/currency-amount-input";
 import {
   ClientSelector,
   OpportunitySelector,
@@ -32,6 +33,7 @@ const AddTender = () => {
   const [form] = Form.useForm();
   const screens = Grid.useBreakpoint();
   const dispatch = useDispatch();
+  const [currency, setCurrency] = useState(1);
 
   const { status, error } = useSelector((state) => state.tender.createTender);
 
@@ -62,8 +64,10 @@ const AddTender = () => {
 
   const onFinish = (values) => {
     setLoading(true);
+    const bondValueInUSD = parseFloat(values?.bondValue / currency).toFixed(2);
     const formattedValues = {
       ...values,
+      bondValue: bondValueInUSD,
       rfpDate: values?.rfpDate.format("YYYY-MM-DD"),
       submissionDueDate: values?.submissionDueDate?.format("YYYY-MM-DD"),
       submissionDate: values?.submissionDate?.format("YYYY-MM-DD"),
@@ -168,13 +172,13 @@ const AddTender = () => {
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item
+              <CurrencyAmountInput
                 name="bondValue"
                 label="Bond Value"
                 rules={tenderFormRules.bondValue}
-              >
-                <Input type="number" />
-              </Form.Item>
+                currency={currency}
+                setCurrency={setCurrency}
+              />
             </Col>
             <Col span={8}>
               <Form.Item

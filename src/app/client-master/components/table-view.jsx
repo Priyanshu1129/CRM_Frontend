@@ -1,12 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Table } from "@/components";
 import { GetColumns } from "./column";
-import {
-  useIndustries,
-  useSubIndustries,
-  useTerritories,
-  useUsers,
-} from "@/hooks";
+import { useCurrencies } from "@/hooks";
 
 export const ClientsTableView = ({
   data,
@@ -16,15 +11,14 @@ export const ClientsTableView = ({
   totalClients,
   handleFilter,
 }) => {
-  const { industries } = useIndustries();
-  const { subIndustries } = useSubIndustries();
-  const { territories } = useTerritories();
-  const { users } = useUsers();
-  const [columns, setColumns] = useState([]);
-  useEffect(() => {
-    const value = GetColumns({ industries, subIndustries, territories, users });
-    setColumns(value);
-  }, [industries, subIndustries, territories, users]);
+  const { currencies, loading: currenciesLoading } = useCurrencies();
+  const [selectedCurrency, setSelectedCurrency] = useState("1");
+
+  const columns = GetColumns({
+    currencies,
+    selectedCurrency,
+    setSelectedCurrency,
+  });
 
   return (
     <>

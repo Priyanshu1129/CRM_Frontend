@@ -48,6 +48,7 @@ export const UpdateRegistrationForm = ({ registration }) => {
         client: registration.client,
         registrationChamp: registration.registrationChamp,
         status: registration.status,
+        link: registration.websiteDetails?.link,
         username: registration.websiteDetails?.username,
         password: registration.websiteDetails?.password,
         otherDetails: registration.otherDetails,
@@ -93,9 +94,6 @@ export const UpdateRegistrationForm = ({ registration }) => {
 
     const changedValues = getChangedValues(initialValues, values);
 
-    console.log("Changed values:", changedValues);
-
-    // Dispatch only if there are changed values
     if (Object.keys(changedValues).length > 0) {
       dispatch(updateRegistration(changedValues, registration._id));
     } else {
@@ -137,6 +135,15 @@ export const UpdateRegistrationForm = ({ registration }) => {
               label="Registration Status"
               rules={registrationFormRules.registrationStatus}
             />
+          </Col>
+          <Col span={8}>
+            <Form.Item
+              name="link"
+              label="Website Link"
+              rules={registrationFormRules.websiteLink}
+            >
+              <Input />
+            </Form.Item>
           </Col>
           <Col span={8}>
             <Form.Item

@@ -18,7 +18,8 @@ import {
     solutionReducer,
     subSolutionReducer,
     territoryReducer,
-    mastersConfigReducer
+    mastersConfigReducer,
+    currencyReducer
 } from './slices/configurationSlice';
 import { userReducer } from './slices/userSlice';
 import { teamReducer } from './slices/teamSlice';
@@ -54,9 +55,9 @@ const store = configureStore({
         tender: tenderReducer,
         stage: stageReducer,
         registration: registrationReducer,
-        registrationStatus: registrationStatusReducer
-    },
-    devTools: true
+        registrationStatus: registrationStatusReducer,
+        currency: currencyReducer
+    }
 })
 
 export default store;

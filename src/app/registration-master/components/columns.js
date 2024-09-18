@@ -41,9 +41,16 @@ export const getColumns = () => {
             render: (text) => text || "N/A",
         },
         {
-            title: "Website Username",
+            title: "Website",
+            dataIndex: ["websiteDetails", "link"],
+            key: "link",
+            width: 200,
+            render: (text) => text || "N/A",
+        },
+        {
+            title: "Username",
             dataIndex: ["websiteDetails", "username"],
-            key: "websiteUsername",
+            key: "username",
             width: 200,
             render: (text) => text || "N/A",
         },

@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Table } from "@/components";
 import { getColumns } from "./columns";
+import { useCurrencies } from "@/hooks/useCurrency";
 export const TendersTableView = ({
   setCurrentPage,
   setPageSize,
@@ -9,7 +10,15 @@ export const TendersTableView = ({
   total,
   handleFilter,
 }) => {
-  const columns = getColumns();
+  const { currencies, loading: currenciesLoading } = useCurrencies();
+  const [selectedCurrency, setSelectedCurrency] = useState("1");
+
+  const columns = getColumns({
+    currencies,
+    selectedCurrency,
+    setSelectedCurrency,
+  });
+
   return (
     <>
       <Table

@@ -1,6 +1,9 @@
-import { TableActions, GetUsers } from "@/components";
+import { TableActions } from "@/components";
+import { convertCurrency } from "@/utilities/convertCurrency";
+import { DownOutlined } from "@ant-design/icons";
 
-export const getColumns = () => {
+export const getColumns = ({ currencies, selectedCurrency, setSelectedCurrency }) => {
+
 
     const columns = [
         {
@@ -85,9 +88,17 @@ export const getColumns = () => {
         {
             title: "Bond Value",
             dataIndex: "bondValue",
+            filters: currencies || [],
+            onFilter: (value, record) => {
+                setSelectedCurrency(value)
+                return true
+            },
+            filterIcon: () => <DownOutlined />,
+            filterSearch: true,
+            filterMultiple: false,
+            render: (value) => value ? convertCurrency(value, selectedCurrency, currencies) : 'N/A',
             key: "bondValue",
-            render: (value) => value ? `$${value}` : 'N/A',
-            width: 120,
+            width: 140,
         },
         {
             title: "Bond Issue Date",

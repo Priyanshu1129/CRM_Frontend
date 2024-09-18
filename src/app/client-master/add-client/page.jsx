@@ -90,7 +90,6 @@ const AddClient = () => {
       entryDate: new Date().toISOString(),
       avatar: avatarChanged ? avatar : null,
     };
-    console.log("submit", newValues);
     dispatch(createClient(newValues));
   };
 
