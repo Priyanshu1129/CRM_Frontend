@@ -15,13 +15,14 @@ import {
   notification,
 } from "antd";
 import { StageSelector } from "../enums";
-import { CurrencyAmountInput } from "@/components/currency-amount-input";
+
 import {
   ClientSelector,
   OpportunitySelector,
   UserSelector,
   FormHeader,
   BulkUploadModal,
+  CurrencyAmountInput
 } from "@/components";
 import { tenderActions } from "@/redux/slices/tenderSlice";
 import { createTender } from "@/redux/actions/tenderAction";

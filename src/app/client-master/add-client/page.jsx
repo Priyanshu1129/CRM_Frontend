@@ -29,6 +29,7 @@ import {
   ContactSelector,
   ImageUpload,
   BulkUploadModal,
+  CurrencyAmountInput,
 } from "@/components";
 import { clientActions } from "@/redux/slices/clientSlice";
 import { clientFormRules } from "@/utilities/formValidationRules";
@@ -40,6 +41,7 @@ const AddClient = () => {
   const [form] = Form.useForm();
   const screens = Grid.useBreakpoint();
   const dispatch = useDispatch();
+  const [currency, setCurrency] = useState(1);
 
   const { status, error } = useSelector((state) => state.client.createClient);
 
@@ -85,8 +87,13 @@ const AddClient = () => {
 
   const onFinish = (values) => {
     setLoading(true);
+    const annualRevenueInUSD = parseFloat(
+      values?.annualRevenue / currency
+    ).toFixed(2);
+
     let newValues = {
       ...values,
+      annualRevenue: annualRevenueInUSD,
       entryDate: new Date().toISOString(),
       avatar: avatarChanged ? avatar : null,
     };
@@ -197,13 +204,13 @@ const AddClient = () => {
               />
             </Col>
             <Col span={colSpan}>
-              <Form.Item
-                label="Annual Revenue"
+              <CurrencyAmountInput
                 name="annualRevenue"
+                label="Annual Revenue"
                 rules={clientFormRules.annualRevenue}
-              >
-                <Input type="number" min={0} />
-              </Form.Item>
+                currency={currency}
+                setCurrency={setCurrency}
+              />
             </Col>
             <Col span={colSpan}>
               <ClassificationsSelector

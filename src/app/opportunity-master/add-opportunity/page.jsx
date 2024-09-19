@@ -23,6 +23,7 @@ import {
   UserSelector,
   ClientSelector,
   TenderSelector,
+  CurrencyAmountInput,
 } from "@/components";
 import { opportunityFormRules } from "@/utilities/formValidationRules";
 import { opportunityActions } from "@/redux/slices/opportunitySlice";
@@ -34,6 +35,7 @@ const AddOpportunity = () => {
   const [form] = Form.useForm();
   const screens = Grid.useBreakpoint();
   const dispatch = useDispatch();
+  const [currency, setCurrency] = useState(1);
 
   const { status, error } = useSelector(
     (state) => state.opportunity.createOpportunity
@@ -66,11 +68,16 @@ const AddOpportunity = () => {
 
   const onFinish = (values) => {
     setLoading(true);
+    const salesTopLineInUSD = parseFloat(
+      values?.salesTopLine / currency
+    ).toFixed(2);
+    const offsetsInUSD = parseFloat(values?.offsets / currency).toFixed(2);
     let newValues = {
       ...values,
+      salesTopLine: salesTopLineInUSD,
+      offsets: offsetsInUSD,
       entryDate: new Date().toISOString(),
     };
-    console.log("submit", newValues);
     dispatch(createOpportunity(newValues));
   };
 
@@ -176,22 +183,22 @@ const AddOpportunity = () => {
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item
+              <CurrencyAmountInput
                 name="salesTopLine"
                 label="Sales Top-Line"
                 rules={opportunityFormRules.salesTopLine}
-              >
-                <Input type="number" />
-              </Form.Item>
+                currency={currency}
+                setCurrency={setCurrency}
+              />
             </Col>
             <Col span={8}>
-              <Form.Item
+              <CurrencyAmountInput
                 name="offsets"
                 label="Offsets"
                 rules={opportunityFormRules.offsets}
-              >
-                <Input type="number" />
-              </Form.Item>
+                currency={currency}
+                setCurrency={setCurrency}
+              />
             </Col>
             <Col span={24}>
               <RevenueInput rules={opportunityFormRules.revenue} />
@@ -199,7 +206,7 @@ const AddOpportunity = () => {
             <Col span={24}>
               <Form.Item>
                 <Space>
-                  <Button type="primary" htmlType="submit">
+                  <Button loading={false} type="primary" htmlType="submit">
                     Submit
                   </Button>
                   <Button

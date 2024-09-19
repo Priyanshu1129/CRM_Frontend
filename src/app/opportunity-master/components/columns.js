@@ -1,7 +1,7 @@
 import { TableActions } from "@/components";
 import { convertCurrency } from "@/utilities/convertCurrency";
 
-export const getColumns = ({selectedCurrency}) => {
+export const getColumns = ({ selectedCurrency }) => {
 
   const columns = [
     {
@@ -93,43 +93,39 @@ export const getColumns = ({selectedCurrency}) => {
       width: 200,
     },
     {
-      title: "Sales Top Line",
+      title: `Sales Top Line (${selectedCurrency?.key})`,
       dataIndex: "salesTopLine",
       key: "salesTopLine",
       width: 150,
-      // render: (text) => text || 'N/A',
-      render: (value) => value || value == 0?  convertCurrency(value, selectedCurrency) : 'N/A',
+      render: (value) => value || value == 0 ? convertCurrency(value, selectedCurrency?.value) : 'N/A',
     },
     {
-      title: "Offsets",
+      title: `Offsets (${selectedCurrency?.key})`,
       dataIndex: "offsets",
       key: "offsets",
       width: 120,
-      // render: (text) => text || 'N/A',
-      render: (value) => value || value == 0?  convertCurrency(value, selectedCurrency) : 'N/A',
+      render: (value) => value || value == 0?  convertCurrency(value, selectedCurrency?.value) : 'N/A',
     },
     {
-      title: "Total Revenue",
+      title: `Total Revenue (${selectedCurrency?.key})`,
       dataIndex: "totalRevenue",
       key: "revenue",
       width: 120,
-      // render: (text) => text || 'N/A',
-      render: (value) => value || value == 0 ? convertCurrency(value, selectedCurrency) : 'N/A',
+      render: (value) => value || value == 0 ? convertCurrency(value, selectedCurrency?.value) : 'N/A',
     },
     {
       title: "Confidence Level",
       dataIndex: "confidenceLevel",
       key: "confidenceLevel",
-      render: (text) => `${text}%`,
+      render: (text) => `${ text } % `,
       width: 150,
     },
     {
-      title: "Expected Sales",
+      title: `Expected Sales (${selectedCurrency?.key})`,
       dataIndex: "expectedSales",
       key: "expectedSales",
       width: 150,
-      // render: (text) => text.toString() || 'N/A',
-      render: (value) => value || value == 0? convertCurrency(value, selectedCurrency) : 'N/A',
+      render: (value) => value || value == 0? convertCurrency(value, selectedCurrency?.value) : 'N/A',
     },
     {
       title: "Action",
@@ -137,7 +133,7 @@ export const getColumns = ({selectedCurrency}) => {
       fixed: "right",
       width: 100,
       render: (_, record) => (
-        <TableActions showUrl={`/opportunity-master/opportunity-details/${record._id}`} />
+        <TableActions showUrl={`/ opportunity - master / opportunity - details / ${ record._id }`} />
       ),
     },
   ];

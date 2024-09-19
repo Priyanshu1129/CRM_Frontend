@@ -93,12 +93,11 @@ export const getColumns = ({ selectedCurrency, }) => {
             width: 150,
         },
         {
-            title: "Annual Revenue",
+            title: `Annual Revenue (${selectedCurrency?.key})`,
             dataIndex: "annualRevenue",
             key: "annualRevenue",
             width: 150,
-            // render: (revenue) => revenue ? `$${revenue.toLocaleString()}` : "N/A",
-            render: (value) => value || value == 0?  convertCurrency(value, selectedCurrency) : 'N/A',
+            render: (value) => value || value == 0 ? convertCurrency(value, selectedCurrency?.value) : 'N/A',
         },
         {
             title: "Employee Strength",
@@ -143,12 +142,11 @@ export const getColumns = ({ selectedCurrency, }) => {
             render: (status) => status || "N/A",
         },
         {
-            title: "LifeTime Value",
+            title: `LifeTime Value (${selectedCurrency?.key})`,
             dataIndex: "lifeTimeValue",
             key: "lifeTimeValue",
             width: 150,
-            // render: (value) => value ? `$${value.toLocaleString()}` : "N/A",
-            render: (value) => value || value == 0?  convertCurrency(value, selectedCurrency) : 'N/A',
+            render: (value) => value || value == 0 ? convertCurrency(value, selectedCurrency?.value) : 'N/A',
         },
         {
             title: "Priority",

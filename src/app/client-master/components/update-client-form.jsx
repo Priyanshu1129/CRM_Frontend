@@ -26,6 +26,7 @@ import {
   UserSelector,
   ImageUpload,
   ContactSelector,
+  CurrencyAmountInput,
 } from "@/components";
 import { clientActions } from "@/redux/slices/clientSlice";
 import { clientFormRules } from "@/utilities/formValidationRules";
@@ -37,6 +38,7 @@ export const UpdateClientForm = ({ client }) => {
   const [form] = Form.useForm();
   const screens = Grid.useBreakpoint();
   const dispatch = useDispatch();
+  const [currency, setCurrency] = useState(1);
 
   const { status, error } = useSelector((state) => state.client.updateClient);
 
@@ -55,7 +57,7 @@ export const UpdateClientForm = ({ client }) => {
         incorporationType: client.incorporationType,
         listedCompany: client.listedCompany,
         marketCap: client.marketCap,
-        annualRevenue: client.annualRevenue,
+        annualRevenue: client.annualRevenue * currency,
         classification: client.classification,
         totalEmployeeStrength: client.totalEmployeeStrength,
         itEmployeeStrength: client.itEmployeeStrength,
@@ -65,14 +67,14 @@ export const UpdateClientForm = ({ client }) => {
         relatedContacts: client.relatedContacts,
         priority: client.priority,
         avatar: client.avatar,
-        lifeTimeValue: client.lifeTimeValue,
+        lifeTimeValue: client.lifeTimeValue * currency,
       };
 
       // Set initial form values
       form.setFieldsValue(clientInitialValues);
       initialValues.current = clientInitialValues;
     }
-  }, [client, form]);
+  }, [client, form, currency]);
 
   useEffect(() => {
     if (status === "pending") {
@@ -115,11 +117,13 @@ export const UpdateClientForm = ({ client }) => {
     if (avatarChanged) {
       changedValues.avatar = avatar;
     }
-
-    console.log("Changed values:", changedValues);
-
     // Dispatch only if there are changed values
     if (Object.keys(changedValues).length > 0) {
+      if (changedValues.annualRevenue) {
+        changedValues.annualRevenue = parseFloat(
+          values?.annualRevenue / currency
+        ).toFixed(2);
+      }
       dispatch(updateClient(changedValues, client._id));
     } else {
       setLoading(false);
@@ -210,13 +214,13 @@ export const UpdateClientForm = ({ client }) => {
             />
           </Col>
           <Col span={colSpan}>
-            <Form.Item
-              label="Annual Revenue"
+            <CurrencyAmountInput
               name="annualRevenue"
+              label="Annual Revenue"
               rules={clientFormRules.annualRevenue}
-            >
-              <Input type="number" />
-            </Form.Item>
+              currency={currency}
+              setCurrency={setCurrency}
+            />
           </Col>
           <Col span={colSpan}>
             <ClassificationsSelector
@@ -287,19 +291,18 @@ export const UpdateClientForm = ({ client }) => {
             </Form.Item>
           </Col>
           <Col span={colSpan}>
-            <Form.Item label="Life Time Value" name="lifeTimeValue">
-              <Input disabled />
-            </Form.Item>
+            <CurrencyAmountInput
+              label="Life Time Value"
+              name="lifeTimeValue"
+              currency={currency}
+              setCurrency={setCurrency}
+              disabled={true}
+            />
           </Col>
           <Col span={24}>
             <Form.Item>
               <Space>
-                <Button
-                  // disabled
-                  type="primary"
-                  htmlType="submit"
-                  loading={loading}
-                >
+                <Button type="primary" htmlType="submit" loading={loading}>
                   Update
                 </Button>
                 <Button

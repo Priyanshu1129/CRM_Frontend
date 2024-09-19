@@ -14,7 +14,6 @@ import {
 } from "antd";
 
 import { FormHeader } from "@/components";
-import { RevenueInput } from "../components/revenueInput";
 import {
   IndustrySelector,
   InputNotes,
@@ -25,6 +24,7 @@ import {
   ClientSelector,
   ContactSelector,
   BulkUploadModal,
+  CurrencyAmountInput,
 } from "@/components";
 import { businessDevelopmentActions } from "@/redux/slices/businessDevelopmentSlice";
 import { createBusinessDevelopment } from "@/redux/actions/businessDevelopmentAction";
@@ -32,6 +32,7 @@ import { businessDevelopmentFormRules } from "@/utilities/formValidationRules";
 const AddBusinessDevelopment = () => {
   const [loading, setLoading] = useState(false);
   const [uploadModal, setUploadModal] = useState(false);
+  const [currency, setCurrency] = useState(1);
   const [form] = Form.useForm();
   const screens = Grid.useBreakpoint();
   const dispatch = useDispatch();
@@ -72,9 +73,18 @@ const AddBusinessDevelopment = () => {
   }, [status, error, dispatch]);
 
   const onFinish = (values) => {
-    // setLoading(true);
+    setLoading(true);
+    const potentialTopLineInUSD = parseFloat(
+      values?.potentialTopLine / currency
+    ).toFixed(2);
+    const potentialOffsetInUSD = parseFloat(
+      values?.potentialOffset / currency
+    ).toFixed(2);
+
     let newValues = {
       ...values,
+      potentialTopLine: potentialTopLineInUSD,
+      potentialOffset: potentialOffsetInUSD,
       entryDate: new Date().toISOString(),
     };
     dispatch(createBusinessDevelopment(newValues));
@@ -179,22 +189,22 @@ const AddBusinessDevelopment = () => {
               />
             </Col>
             <Col span={8}>
-              <Form.Item
+              <CurrencyAmountInput
                 name="potentialTopLine"
                 label="Potential TopLine"
                 rules={businessDevelopmentFormRules.potentialTopLine}
-              >
-                <Input type="number" />
-              </Form.Item>
+                currency={currency}
+                setCurrency={setCurrency}
+              />
             </Col>
             <Col span={8}>
-              <Form.Item
+              <CurrencyAmountInput
                 name="potentialOffset"
                 label="Potential Offsets"
                 rules={businessDevelopmentFormRules.potentialOffset}
-              >
-                <Input type="number" />
-              </Form.Item>
+                currency={currency}
+                setCurrency={setCurrency}
+              />
             </Col>
             <Col span={24}>
               <Form.Item

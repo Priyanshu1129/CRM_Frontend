@@ -7,7 +7,7 @@ const initialCurrencyState = {
         data: null,
     },
     viewCurrency: {
-        currency: 1
+        currency: null
     }
 }
 

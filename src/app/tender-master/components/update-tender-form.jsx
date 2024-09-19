@@ -18,6 +18,7 @@ import {
   ClientSelector,
   OpportunitySelector,
   UserSelector,
+  CurrencyAmountInput,
 } from "@/components";
 import { StageSelector } from "../enums";
 import moment from "moment";
@@ -31,6 +32,7 @@ export const UpdateTenderForm = ({ tender }) => {
   const [form] = Form.useForm();
   const screens = Grid.useBreakpoint();
   const dispatch = useDispatch();
+  const [currency, setCurrency] = useState(1);
 
   const { status, error } = useSelector((state) => state.tender.updateTender);
 
@@ -59,7 +61,7 @@ export const UpdateTenderForm = ({ tender }) => {
         rfpSource: tender.rfpSource,
         associatedOpportunity: tender.associatedOpportunity,
         bond: tender.bond,
-        bondValue: tender.bondValue,
+        bondValue: tender.bondValue * currency,
         submissionMode: tender.submissionMode,
         officer: tender.officer,
         bidManager: tender.bidManager,
@@ -69,7 +71,7 @@ export const UpdateTenderForm = ({ tender }) => {
       form.setFieldsValue(tenderInitialValues);
       initialValues.current = tenderInitialValues;
     }
-  }, [tender, form]);
+  }, [tender, form, currency]);
 
   useEffect(() => {
     if (status === "pending") {
@@ -98,10 +100,13 @@ export const UpdateTenderForm = ({ tender }) => {
 
     const changedValues = getChangedValues(initialValues, values);
 
-    console.log("Changed values:", changedValues);
-
     // Dispatch only if there are changed values
     if (Object.keys(changedValues).length > 0) {
+      if (changedValues.bondValue) {
+        changedValues.bondValue = parseFloat(
+          values?.bondValue / currency
+        ).toFixed(2);
+      }
       dispatch(updateTender(changedValues, tender._id));
     } else {
       setLoading(false);
@@ -186,13 +191,13 @@ export const UpdateTenderForm = ({ tender }) => {
             </Form.Item>
           </Col>
           <Col span={colSpan}>
-            <Form.Item
+            <CurrencyAmountInput
               name="bondValue"
               label="Bond Value"
               rules={tenderFormRules.bondValue}
-            >
-              <Input type="number" />
-            </Form.Item>
+              currency={currency}
+              setCurrency={setCurrency}
+            />
           </Col>
           <Col span={colSpan}>
             <Form.Item

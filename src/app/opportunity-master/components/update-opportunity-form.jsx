@@ -22,6 +22,7 @@ import {
   UserSelector,
   ClientSelector,
   TenderSelector,
+  CurrencyAmountInput,
 } from "@/components";
 import { RevenueInput } from "./revenueInput";
 import { opportunityFormRules } from "@/utilities/formValidationRules";
@@ -40,6 +41,7 @@ export const UpdateOpportunityForm = ({ opportunity }) => {
   const [form] = Form.useForm();
   const screens = Grid.useBreakpoint();
   const dispatch = useDispatch();
+  const [currency, setCurrency] = useState(1);
 
   const { status, error } = useSelector(
     (state) => state.opportunity.updateOpportunity
@@ -64,14 +66,14 @@ export const UpdateOpportunityForm = ({ opportunity }) => {
         salesStage: opportunity.salesStage,
         salesSubStage: opportunity.salesSubStage,
         stageClarification: opportunity.stageClarification,
-        salesTopLine: opportunity.salesTopLine,
-        offsets: opportunity.offsets,
-        revenue: opportunity.revenue,
+        salesTopLine: opportunity.salesTopLine * currency,
+        offsets: opportunity.offsets * currency,
+        revenue: opportunity.revenue * currency,
       };
       form.setFieldsValue(opportunityInitialValues);
       initialValues.current = opportunityInitialValues;
     }
-  }, [opportunity, form]);
+  }, [opportunity, form, currency]);
 
   useEffect(() => {
     if (status === "pending") {
@@ -141,6 +143,16 @@ export const UpdateOpportunityForm = ({ opportunity }) => {
 
     // Dispatch only if there are changed values
     if (Object.keys(changedValues).length > 0) {
+      if (changedValues.offsets) {
+        changedValues.offsets = parseFloat(values?.offsets / currency).toFixed(
+          2
+        );
+      }
+      if (changedValues.salesTopLine) {
+        changedValues.salesTopLine = parseFloat(
+          values?.salesTopLine / currency
+        ).toFixed(2);
+      }
       dispatch(updateOpportunity(changedValues, opportunity._id));
     } else {
       setLoading(false);
@@ -241,22 +253,22 @@ export const UpdateOpportunityForm = ({ opportunity }) => {
             </Form.Item>
           </Col>
           <Col span={8}>
-            <Form.Item
+            <CurrencyAmountInput
               name="salesTopLine"
               label="Sales Top-Line"
               rules={opportunityFormRules.salesTopLine}
-            >
-              <Input type="number" />
-            </Form.Item>
+              currency={currency}
+              setCurrency={setCurrency}
+            />
           </Col>
           <Col span={8}>
-            <Form.Item
+            <CurrencyAmountInput
               name="offsets"
               label="Offsets"
               rules={opportunityFormRules.offsets}
-            >
-              <Input type="number" />
-            </Form.Item>
+              currency={currency}
+              setCurrency={setCurrency}
+            />
           </Col>
           <Col span={24}>
             <RevenueInput rules={opportunityFormRules.revenue} />

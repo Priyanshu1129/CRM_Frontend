@@ -10,7 +10,7 @@ export const TendersTableView = ({
   total,
   handleFilter,
 }) => {
-  const [selectedCurrency, setSelectedCurrency] = useState(1);
+  const [selectedCurrency, setSelectedCurrency] = useState(null);
   const { currency } = useSelector((state) => state.currency.viewCurrency);
 
   useEffect(() => {
@@ -33,7 +33,7 @@ export const TendersTableView = ({
         handleChange={handleFilter}
         total={total}
         columns={columns}
-        entityName="Contacts"
+        entityName="Tenders"
       />
     </>
   );

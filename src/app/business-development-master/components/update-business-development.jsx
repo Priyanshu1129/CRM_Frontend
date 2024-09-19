@@ -11,6 +11,7 @@ import {
   ClientSelector,
   ContactSelector,
   InputNotes,
+  CurrencyAmountInput,
 } from "@/components";
 import { businessDevelopmentActions } from "@/redux/slices/businessDevelopmentSlice";
 import { businessDevelopmentFormRules } from "@/utilities/formValidationRules";
@@ -25,6 +26,7 @@ export const UpdateBusinessDevelopmentForm = ({ businessDevelopment }) => {
   const [form] = Form.useForm();
   const screens = Grid.useBreakpoint();
   const dispatch = useDispatch();
+  const [currency, setCurrency] = useState(1);
 
   const { status, error } = useSelector(
     (state) => state.businessDevelopment.updateBusinessDevelopment
@@ -44,14 +46,14 @@ export const UpdateBusinessDevelopmentForm = ({ businessDevelopment }) => {
         industry: businessDevelopment.industry,
         territory: businessDevelopment.territory,
         salesChamp: businessDevelopment.salesChamp,
-        potentialTopLine: businessDevelopment.potentialTopLine,
-        potentialOffset: businessDevelopment.potentialOffset,
+        potentialTopLine: businessDevelopment.potentialTopLine * currency,
+        potentialOffset: businessDevelopment.potentialOffset * currency,
         Notes: businessDevelopment.Notes,
       };
       form.setFieldsValue(businessDevelopmentInitialValues);
       initialValues.current = businessDevelopmentInitialValues;
     }
-  }, [businessDevelopment, form]);
+  }, [businessDevelopment, form, currency]);
 
   useEffect(() => {
     if (status === "pending") {
@@ -86,10 +88,18 @@ export const UpdateBusinessDevelopmentForm = ({ businessDevelopment }) => {
 
     const changedValues = getChangedValues(initialValues, values);
 
-    console.log("Changed values:", changedValues);
-
     // Dispatch only if there are changed values
     if (Object.keys(changedValues).length > 0) {
+      if (changedValues.potentialTopLine) {
+        changedValues.potentialTopLine = parseFloat(
+          values?.potentialTopLine / currency
+        ).toFixed(2);
+      }
+      if (changedValues.potentialOffset) {
+        changedValues.potentialOffset = parseFloat(
+          values?.potentialOffset / currency
+        ).toFixed(2);
+      }
       dispatch(
         updateBusinessDevelopment(changedValues, businessDevelopment._id)
       );
@@ -175,22 +185,22 @@ export const UpdateBusinessDevelopmentForm = ({ businessDevelopment }) => {
             />
           </Col>
           <Col span={colSpan}>
-            <Form.Item
+            <CurrencyAmountInput
               name="potentialTopLine"
               label="Potential TopLine"
               rules={businessDevelopmentFormRules.potentialTopLine}
-            >
-              <Input />
-            </Form.Item>
+              currency={currency}
+              setCurrency={setCurrency}
+            />
           </Col>
           <Col span={colSpan}>
-            <Form.Item
+            <CurrencyAmountInput
               name="potentialOffset"
               label="Potential Offsets"
               rules={businessDevelopmentFormRules.potentialOffset}
-            >
-              <Input />
-            </Form.Item>
+              currency={currency}
+              setCurrency={setCurrency}
+            />
           </Col>
           <Col span={24}>
             <Form.Item

@@ -7,14 +7,7 @@ import { currencyActions } from "@/redux/slices/configurationSlice";
 export const CurrencyChangeDropDown = () => {
   const { currencies, loading } = useCurrencies();
   const [selectedCurrency, setSelectedCurrency] = useState(null); // Currently selected (but unconfirmed)
-  const [confirmedCurrency, setConfirmedCurrency] = useState(null); // Confirmed currency
   const [options, setOptions] = useState([]);
-
-  const { currency: dispatchedCurrency } = useSelector(
-    (state) => state.currency.viewCurrency
-  );
-
-  console.log("dc", dispatchedCurrency);
 
   const dispatch = useDispatch();
 
@@ -26,9 +19,11 @@ export const CurrencyChangeDropDown = () => {
       // Set default currency as QAR when currencies are loaded
       const defaultCurrency = currencies.find(
         (currency) => currency.text === "QAR"
-      )?.value;
-      setSelectedCurrency(defaultCurrency);
-      setConfirmedCurrency(defaultCurrency); // Set both selected and confirmed as default
+      );
+      setSelectedCurrency({
+        key: defaultCurrency?.text,
+        value: defaultCurrency?.value,
+      });
     }
   }, [currencies]);
 
@@ -47,24 +42,14 @@ export const CurrencyChangeDropDown = () => {
     setOptions(filteredOptions);
   };
 
-  const handleCurrencyChange = (value) => {
-    setSelectedCurrency(value); // Change selection but do not confirm yet
+  const handleCurrencyChange = (value, option) => {
+    setSelectedCurrency({ value, key: option.key });
   };
-
-  const handleConfirm = () => {
-    setConfirmedCurrency(selectedCurrency); // Confirm the selected currency
-  };
-
-  const handleCancel = () => {
-    setSelectedCurrency(confirmedCurrency); // Reset to the previously confirmed currency
-  };
-
-  console.log("Confirmed Currency: ", confirmedCurrency); // This will show the confirmed selection
 
   return (
     <div>
       <Select
-        value={selectedCurrency}
+        value={selectedCurrency?.value}
         onChange={handleCurrencyChange}
         loading={loading}
         style={{ width: 100, marginRight: "20px" }}
@@ -73,10 +58,7 @@ export const CurrencyChangeDropDown = () => {
         onSearch={handleSearch}
       >
         {options?.map((currency) => (
-          <Select.Option
-            key={currency.text + currency.value}
-            value={currency.value}
-          >
+          <Select.Option key={currency.text} value={currency.value}>
             {currency.text}
           </Select.Option>
         ))}

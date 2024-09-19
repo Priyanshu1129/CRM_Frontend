@@ -1,41 +1,73 @@
-import React, { useState } from "react";
-import { Select, Button } from "antd";
+import React, { useState, useEffect } from "react";
+import { Form, Input, Select } from "antd";
+import { useCurrencies } from "@/hooks";
+import { useSelector } from "react-redux";
 
-const { Option } = Select;
-
-export const CurrencyFilterDropdown = ({
-  currencies,
-  selectedCurrency,
-  setSelectedCurrency,
+export const CurrencyAmountInput = ({
+  name,
+  label,
+  rules = [],
+  setCurrency,
+  disabled = false,
 }) => {
-  const handleCurrencyChange = (value) => {
-    setSelectedCurrency(value);
+  const { currencies, loading: currenciesLoading } = useCurrencies();
+  const [selectedCurrency, setSelectedCurrency] = useState(null); // Initially set to null
+  const [options, setOptions] = useState([]);
+  const { currency: defaultCurrency } = useSelector(
+    (state) => state.currency.viewCurrency
+  );
+
+  // Update options and set default currency when currencies are fetched
+  useEffect(() => {
+    if (currencies?.length) {
+      setOptions(currencies);
+      setSelectedCurrency(defaultCurrency?.value);
+      setCurrency(defaultCurrency?.value);
+    }
+  }, [currencies, setCurrency, defaultCurrency]);
+
+  const handleSearch = (inputValue) => {
+    const filteredOptions = currencies?.filter(
+      (currency) =>
+        currency.value.toString().includes(inputValue.toLowerCase()) ||
+        currency.text.toLowerCase().includes(inputValue.toLowerCase())
+    );
+    setOptions(filteredOptions);
   };
 
-  console.log("filter", currencies);
+  const handleCurrencyChange = (value) => {
+    setSelectedCurrency(value);
+    setCurrency && setCurrency(value);
+  };
+
   return (
-    <div style={{ padding: 8 }}>
-      <Select
-        placeholder="Select currency"
-        onChange={handleCurrencyChange}
-        open
-        style={{ width: 120, marginBottom: 8 }}
-        defaultValue={selectedCurrency}
-      >
-        {currencies?.map((currency) => (
-          <Option key={currency.value} value={currency.value}>
-            {currency.text}
-          </Option>
-        ))}
-      </Select>
-      {/* <Button
-        type="primary"
-        onClick={() => confirm()}
-        style={{ marginRight: 8 }}
-      >
-        Apply
-      </Button>
-      <Button onClick={() => clearFilters()}>Reset</Button> */}
-    </div>
+    <Form.Item name={name} label={label} rules={rules}>
+      <Input
+        addonBefore={
+          <Select
+            style={{ width: "70px" }}
+            value={selectedCurrency}
+            onChange={handleCurrencyChange}
+            filterOption={false}
+            onSearch={handleSearch}
+            loading={currenciesLoading}
+            disabled
+          >
+            {options?.length ? (
+              options.map((currency, idx) => (
+                <Select.Option key={idx} value={currency.value}>
+                  {currency.text}
+                </Select.Option>
+              ))
+            ) : (
+              <Select.Option disabled>No options available</Select.Option>
+            )}
+          </Select>
+        }
+        type="number"
+        placeholder="Enter amount"
+        disabled={disabled}
+      />
+    </Form.Item>
   );
 };

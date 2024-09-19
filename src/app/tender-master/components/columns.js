@@ -85,9 +85,9 @@ export const getColumns = ({ selectedCurrency }) => {
             width: 100,
         },
         {
-            title: "Bond Value",
+            title: `Bond Value (${selectedCurrency?.key})`,
             dataIndex: "bondValue",
-            render: (value) => value || value == 0?  convertCurrency(value, selectedCurrency) : 'N/A',
+            render: (value) => value || value == 0 ? convertCurrency(value, selectedCurrency?.value) : 'N/A',
             key: "bondValue",
             width: 140,
         },
