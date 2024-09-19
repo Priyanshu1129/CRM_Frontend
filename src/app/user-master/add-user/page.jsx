@@ -73,15 +73,16 @@ const AddUser = () => {
       avatar: avatarChanged ? avatar : null,
       phone: `${phoneCountryCode} ${values.phone}`,
     };
-    console.log("format", formattedValues);
+
     setLoading(true);
     dispatch(createUser(formattedValues));
   };
 
   const roles = [
-    { label: "Viewer", value: "viewer" },
     { label: "Admin", value: "admin" },
+    { label: "Super User", value: "superuser" },
     { label: "User", value: "user" },
+    { label: "Viewer", value: "viewer" },
   ];
 
   return (
