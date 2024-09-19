@@ -104,7 +104,7 @@ export const getColumns = ({ selectedCurrency }) => {
       dataIndex: "offsets",
       key: "offsets",
       width: 120,
-      render: (value) => value || value == 0?  convertCurrency(value, selectedCurrency?.value) : 'N/A',
+      render: (value) => value || value == 0 ? convertCurrency(value, selectedCurrency?.value) : 'N/A',
     },
     {
       title: `Total Revenue (${selectedCurrency?.key})`,
@@ -117,7 +117,7 @@ export const getColumns = ({ selectedCurrency }) => {
       title: "Confidence Level",
       dataIndex: "confidenceLevel",
       key: "confidenceLevel",
-      render: (text) => `${ text } % `,
+      render: (text) => `${text} % `,
       width: 150,
     },
     {
@@ -125,7 +125,7 @@ export const getColumns = ({ selectedCurrency }) => {
       dataIndex: "expectedSales",
       key: "expectedSales",
       width: 150,
-      render: (value) => value || value == 0? convertCurrency(value, selectedCurrency?.value) : 'N/A',
+      render: (value) => value || value == 0 ? convertCurrency(value, selectedCurrency?.value) : 'N/A',
     },
     {
       title: "Action",
@@ -133,7 +133,7 @@ export const getColumns = ({ selectedCurrency }) => {
       fixed: "right",
       width: 100,
       render: (_, record) => (
-        <TableActions showUrl={`/ opportunity - master / opportunity - details / ${ record._id }`} />
+        <TableActions showUrl={`/opportunity-master/opportunity-details/${record._id}`} />
       ),
     },
   ];
