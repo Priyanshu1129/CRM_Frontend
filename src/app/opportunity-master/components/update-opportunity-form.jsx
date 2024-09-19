@@ -26,6 +26,7 @@ import {
 } from "@/components";
 import { RevenueInput } from "./revenueInput";
 import { opportunityFormRules } from "@/utilities/formValidationRules";
+import { convertToUSD } from "@/utilities/convertCurrency";
 import {
   updateOpportunity,
   getAllOpportunities,
@@ -131,15 +132,10 @@ export const UpdateOpportunityForm = ({ opportunity }) => {
       );
     });
 
-    console.log("Deleted items:", deletedRevenue);
-    console.log("Changed/Added items:", changedRevenue);
-
     // Merge the results into changedValues
     if (changedRevenue.length || deletedRevenue.length) {
       changedValues.revenue = [...changedRevenue, ...deletedRevenue];
     }
-
-    console.log("Final changed values:", changedValues);
 
     // Dispatch only if there are changed values
     if (Object.keys(changedValues).length > 0) {
@@ -152,6 +148,9 @@ export const UpdateOpportunityForm = ({ opportunity }) => {
         changedValues.salesTopLine = parseFloat(
           values?.salesTopLine / currency
         ).toFixed(2);
+      }
+      if (changedValues.revenue) {
+        changedValues.revenue = convertToUSD(values.revenue, currency);
       }
       dispatch(updateOpportunity(changedValues, opportunity._id));
     } else {
@@ -271,7 +270,10 @@ export const UpdateOpportunityForm = ({ opportunity }) => {
             />
           </Col>
           <Col span={24}>
-            <RevenueInput rules={opportunityFormRules.revenue} />
+            <RevenueInput
+              setCurrency={setCurrency}
+              rules={opportunityFormRules.revenue}
+            />
           </Col>
           <Col span={24}>
             <Form.Item>

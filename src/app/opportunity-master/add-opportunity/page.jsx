@@ -12,7 +12,7 @@ import {
   Col,
   notification,
 } from "antd";
-
+import { convertToUSD } from "@/utilities/convertCurrency";
 import { FormHeader, BulkUploadModal } from "@/components";
 import { RevenueInput } from "../components/revenueInput";
 import {
@@ -72,6 +72,9 @@ const AddOpportunity = () => {
       values?.salesTopLine / currency
     ).toFixed(2);
     const offsetsInUSD = parseFloat(values?.offsets / currency).toFixed(2);
+    if (values.revenue) {
+      values.revenue = convertToUSD(values.revenue, currency);
+    }
     let newValues = {
       ...values,
       salesTopLine: salesTopLineInUSD,
@@ -201,7 +204,11 @@ const AddOpportunity = () => {
               />
             </Col>
             <Col span={24}>
-              <RevenueInput rules={opportunityFormRules.revenue} />
+              <RevenueInput
+                currency={currency}
+                setCurrency={setCurrency}
+                rules={opportunityFormRules.revenue}
+              />
             </Col>
             <Col span={24}>
               <Form.Item>

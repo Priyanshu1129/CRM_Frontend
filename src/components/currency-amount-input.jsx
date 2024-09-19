@@ -5,9 +5,10 @@ import { useSelector } from "react-redux";
 export const CurrencyAmountInput = ({
   name,
   label,
-  rules = [],
   setCurrency,
   disabled = false,
+  rules = [],
+  restField = {},
 }) => {
   const { currency: defaultCurrency } = useSelector(
     (state) => state.currency.viewCurrency
@@ -20,7 +21,7 @@ export const CurrencyAmountInput = ({
   }, [setCurrency, defaultCurrency]);
 
   return (
-    <Form.Item name={name} label={label} rules={rules}>
+    <Form.Item {...restField} name={name} label={label} rules={rules}>
       <Input
         prefix={defaultCurrency?.key}
         type="number"
