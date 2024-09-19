@@ -267,11 +267,11 @@ export const businessDevelopmentFormRules = {
     ],
     potentialTopLine: [
         { required: false, message: "Potential TopLine is required." },
-        { min: 0, pattern: /^-?\d+$/, message: "Potential Offsets must be a number." },
+        // { min: 0, pattern: /^-?\d+$/, message: "Potential Offsets must be a number." },
     ],
     potentialOffset: [
         { required: false, message: "Potential Offsets is required." },
-        { pattern: /^-?\d+$/, message: "Potential Offets must be a number." },
+        // { pattern: /^-?\d+$/, message: "Potential Offets must be a number." },
     ],
     Notes: [
         { required: false, message: "Notes is required." },

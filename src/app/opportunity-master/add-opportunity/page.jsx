@@ -206,7 +206,7 @@ const AddOpportunity = () => {
             <Col span={24}>
               <Form.Item>
                 <Space>
-                  <Button loading={false} type="primary" htmlType="submit">
+                  <Button loading={loading} type="primary" htmlType="submit">
                     Submit
                   </Button>
                   <Button
