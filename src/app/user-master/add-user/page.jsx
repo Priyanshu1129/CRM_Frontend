@@ -1,89 +1,35 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
 import {
   Button,
   Form,
   Input,
   Select,
   Space,
-  Grid,
-  theme,
   Row,
   Col,
-  notification,
+  Grid,
+  theme,
 } from "antd";
-import { FormHeader, ImageUpload } from "@/components";
+import { FormHeader, ImageUpload, InputPhoneNumber } from "@/components";
+import { useAddUser } from "@/hooks/user";
 import { userFormRules } from "@/utilities/formValidationRules";
-import { createUser } from "@/redux/actions/userAction/user";
-import { userActions } from "@/redux/slices/userSlice";
-import { InputPhoneNumber } from "@/components";
 
 const AddUser = () => {
-  const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
   const screens = Grid.useBreakpoint();
-
-  const dispatch = useDispatch();
-  const { status, data, error } = useSelector((state) => state.user.createUser);
-  const [phoneCountryCode, setPhoneCountryCode] = useState("+1");
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
-  const [avatarChanged, setAvatarChanged] = useState(false);
-  const [avatar, setAvatar] = useState(null);
-
-  useEffect(() => {
-    if (status === "pending") {
-      setLoading(true);
-    } else if (status === "success") {
-      setLoading(false);
-      notification.success({
-        message: "Success",
-        description: "User created successfully.",
-      });
-      dispatch(userActions.clearCreateUserStatus());
-      // dispatch(userActions.clearCreateUserData());
-    } else if (status === "failed") {
-      setLoading(false);
-      notification.error({
-        message: "Error",
-        description: error || "Failed to add user.",
-      });
-      dispatch(userActions.clearCreateUserStatus());
-      dispatch(userActions.clearCreateUserError());
-    }
-  }, [status, error, dispatch]);
-
-  const handleAvatarChange = (fileList) => {
-    if (fileList.length > 0) {
-      const newAvatar = fileList[0].originFileObj || fileList[0].url;
-      setAvatarChanged(true);
-      setAvatar(newAvatar);
-    } else {
-      setAvatarChanged(false);
-      setAvatar(null);
-    }
-  };
-
-  const onFinish = (values) => {
-    const formattedValues = {
-      ...values,
-      avatar: avatarChanged ? avatar : null,
-      phone: `${phoneCountryCode} ${values.phone}`,
-    };
-
-    setLoading(true);
-    dispatch(createUser(formattedValues));
-  };
-
-  const roles = [
-    { label: "Admin", value: "admin" },
-    { label: "Super User", value: "superuser" },
-    { label: "User", value: "user" },
-    { label: "Viewer", value: "viewer" },
-  ];
+  const {
+    roles,
+    handleAvatarChange,
+    onFinish,
+    loading,
+    phoneCountryCode,
+    setPhoneCountryCode,
+  } = useAddUser();
 
   return (
     <>

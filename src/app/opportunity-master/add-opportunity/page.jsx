@@ -1,18 +1,6 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  Button,
-  Form,
-  Input,
-  Space,
-  Grid,
-  theme,
-  Row,
-  Col,
-  notification,
-} from "antd";
-import { convertToUSD } from "@/utilities/convertCurrency";
+import React, { useState } from "react";
+import { Button, Form, Input, Space, Grid, theme, Row, Col } from "antd";
 import { FormHeader, BulkUploadModal } from "@/components";
 import { RevenueInput } from "../components/revenueInput";
 import {
@@ -26,63 +14,18 @@ import {
   CurrencyAmountInput,
 } from "@/components";
 import { opportunityFormRules } from "@/utilities/formValidationRules";
-import { opportunityActions } from "@/redux/slices/opportunitySlice";
-import { createOpportunity } from "@/redux/actions/opportunityAction";
+import { useAddOpportunity } from "@/hooks/opportunity/useAddOpportunity";
 
 const AddOpportunity = () => {
-  const [loading, setLoading] = useState(false);
   const [uploadModal, setUploadModal] = useState(false);
   const [form] = Form.useForm();
   const screens = Grid.useBreakpoint();
-  const dispatch = useDispatch();
-  const [currency, setCurrency] = useState(1);
-
-  const { status, error } = useSelector(
-    (state) => state.opportunity.createOpportunity
-  );
 
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
-  useEffect(() => {
-    if (status === "pending") {
-      setLoading(true);
-    } else if (status === "success") {
-      setLoading(false);
-      notification.success({
-        message: "Success",
-        description: "Opportunity added successfully.",
-      });
-      dispatch(opportunityActions.clearCreateOpportunityStatus());
-    } else if (status === "failed") {
-      setLoading(false);
-      notification.error({
-        message: "Error",
-        description: error || "Failed to add opportunity.",
-      });
-      dispatch(opportunityActions.clearCreateOpportunityStatus());
-      dispatch(opportunityActions.clearCreateOpportunityError());
-    }
-  }, [status, error, dispatch]);
-
-  const onFinish = (values) => {
-    setLoading(true);
-    const salesTopLineInUSD = parseFloat(
-      values?.salesTopLine / currency
-    ).toFixed(2);
-    const offsetsInUSD = parseFloat(values?.offsets / currency).toFixed(2);
-    if (values.revenue) {
-      values.revenue = convertToUSD(values.revenue, currency);
-    }
-    let newValues = {
-      ...values,
-      salesTopLine: salesTopLineInUSD,
-      offsets: offsetsInUSD,
-      entryDate: new Date().toISOString(),
-    };
-    dispatch(createOpportunity(newValues));
-  };
+  const { loading, onFinish, currency, setCurrency } = useAddOpportunity();
 
   return (
     <>

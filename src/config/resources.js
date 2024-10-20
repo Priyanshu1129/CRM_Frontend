@@ -19,6 +19,32 @@ export const resources = [
         key: "cockpit",
         label: "Cockpit",
         icon: <DashboardOutlined />,
+        children: [
+            {
+                key: "stage-view",
+                label: "Stage View",
+            },
+            {
+                key: "funnel-view",
+                label: "Funnel View",
+            },
+            {
+                key: "summary-view",
+                label: "Summary View",
+            },
+            {
+                key: "compare-view",
+                label: "Compare View",
+            },
+            {
+                key: "target-view",
+                label: "Target View",
+            },
+            {
+                key: "trend-view",
+                label: "Trend View",
+            }
+        ]
     },
     // {
     //     key: "calendar",
@@ -86,18 +112,8 @@ export const resources = [
     //     icon: <ProjectFilled />,
     // },
     {
-        key: "administration",
-        label: "Administration",
-        icon: <CrownOutlined />,
-        children: [
-            {
-                key: "settings",
-                label: "Settings",
-            },
-            {
-                key: "audits",
-                label: "Audit Log",
-            },
-        ]
+        key: "admin-panel",
+        label: "Admin Panel",
+        icon: <CrownOutlined />
     }
 ];

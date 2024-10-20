@@ -1,53 +1,20 @@
 "use client";
-import React, { useState, useEffect, useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Grid, notification, Space, theme } from "antd";
-import { userActions } from "@/redux/slices/userSlice";
-import { UpdateUserForm } from "../../components/update-user-form";
-import { getUser } from "@/redux/actions/userAction";
+import React from "react";
+import { Grid, Space, theme } from "antd";
 import { useParams } from "next/navigation";
 import { FullScreenLoading, FormHeader } from "@/components";
+import { UpdateUserForm } from "../components/update-user-form";
+import { useFetchUserDetails } from "@/hooks/user";
 
 const UserDetails = () => {
-  const [loading, setLoading] = useState(false);
-  const screens = Grid.useBreakpoint();
-  const dispatch = useDispatch();
-  const { status, error, data } = useSelector((state) => state.user.getUser);
   const { id } = useParams();
-
-  const [user, setUser] = useState(data?.data);
+  const screens = Grid.useBreakpoint();
 
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
-  const fetchUserDetails = useCallback(() => {
-    if ((!user && id) || id !== String(user?._id)) {
-      dispatch(getUser(id));
-    }
-  }, [dispatch, id, user]);
-
-  useEffect(() => {
-    fetchUserDetails();
-  }, [fetchUserDetails]);
-
-  useEffect(() => {
-    if (status === "pending") {
-      setLoading(true);
-    } else if (status === "success") {
-      setUser(data?.data);
-      setLoading(false);
-      dispatch(userActions.clearGetUserStatus());
-    } else if (status === "failed") {
-      setLoading(false);
-      notification.error({
-        message: "Error",
-        description: error || "Failed to fetch user.",
-      });
-      dispatch(userActions.clearGetUserStatus());
-      dispatch(userActions.clearGetUserError());
-    }
-  }, [status, error, data?.data, dispatch]);
+  const { user, loading } = useFetchUserDetails(id);
 
   return (
     <>
@@ -67,4 +34,5 @@ const UserDetails = () => {
     </>
   );
 };
+
 export default UserDetails;

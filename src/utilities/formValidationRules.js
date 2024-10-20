@@ -278,3 +278,10 @@ export const businessDevelopmentFormRules = {
     ],
 };
 
+export const roleFormRules = {
+    roleName: [
+        { required: true, message: 'Role Name is required' },
+        { min: 2, message: 'Role Name must be at least 2 characters' }
+    ],
+}
+

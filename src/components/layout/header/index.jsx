@@ -6,6 +6,7 @@ import {
   CurrentUser,
   CurrencyChangeDropDown,
 } from "@/components";
+import { FullscreenButton } from "@/utilities/fullScreen";
 
 const { Header: AntHeader } = Layout;
 const Header = () => {
@@ -30,6 +31,7 @@ const Header = () => {
       <AntHeader style={headerStyles}>
         <Space align="center" size="middle">
           <CurrencyChangeDropDown />
+          <FullscreenButton />
           <Notifications />
           <CurrentUser />
         </Space>

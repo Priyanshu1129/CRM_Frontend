@@ -1,11 +1,9 @@
 "use client";
-import React, { useState, useEffect, useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
 import {
   Button,
   Form,
   Input,
-  InputNumber,
   Select,
   Space,
   Grid,
@@ -23,81 +21,30 @@ import {
   TerritorySelector,
 } from "@/components";
 import { contactFormRules } from "@/utilities/formValidationRules";
-import { contactActions } from "@/redux/slices/contactSlice";
-import { createContact } from "@/redux/actions/contactAction";
 import { ClientSelector } from "@/components";
-import { notification } from "antd";
-import { countryCode } from "@/config/data";
+import { useAddContact } from "@/hooks/contact";
 import { InputPhoneNumber } from "@/components";
 
-const { Option } = Select;
-
 const AddContact = () => {
-  const [loading, setLoading] = useState(false);
   const [uploadModal, setUploadModal] = useState(false);
   const [form] = Form.useForm();
   const screens = Grid.useBreakpoint();
-  const dispatch = useDispatch();
-
-  const { status, error } = useSelector((state) => state.contact.createContact);
-
-  const [avatarChanged, setAvatarChanged] = useState(false);
-  const [avatar, setAvatar] = useState(null);
-
-  const [phoneCountryCode, setPhoneCountryCode] = useState("+1");
-  const [mobileCountryCode, setMobileCountryCode] = useState("+1");
 
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
-  useEffect(() => {
-    if (status === "pending") {
-      setLoading(true);
-    } else if (status === "success") {
-      setLoading(false);
-      notification.success({
-        message: "Success",
-        description: "Contact added successfully.",
-      });
-      dispatch(contactActions.clearCreateContactStatus());
-      // dispatch(contactActions.clearCreateContactData());
-    } else if (status === "failed") {
-      setLoading(false);
-      notification.error({
-        message: "Error",
-        description: error || "Failed to add contact.",
-      });
-      dispatch(contactActions.clearCreateContactStatus());
-      dispatch(contactActions.clearCreateContactError());
-    }
-  }, [status, error, dispatch]);
-
-  const handleAvatarChange = (fileList) => {
-    if (fileList.length > 0) {
-      const newAvatar = fileList[0].originFileObj || fileList[0].url;
-      setAvatarChanged(true);
-      setAvatar(newAvatar);
-    } else {
-      setAvatarChanged(false);
-      setAvatar(null);
-    }
-  };
-
-  const onFinish = (values) => {
-    setLoading(true);
-    let newValues = {
-      ...values,
-      entryDate: new Date().toISOString(),
-      avatar: avatarChanged ? avatar : null,
-      phone: `${phoneCountryCode} ${values.phone}`,
-      mobilePhone: `${mobileCountryCode} ${values.mobilePhone}`,
-    };
-    console.log("submit", newValues);
-    dispatch(createContact(newValues));
-  };
-
   const colSpan = screens.xs ? 24 : screens.sm ? 12 : screens.md && 8;
+
+  const {
+    loading,
+    onFinish,
+    handleAvatarChange,
+    mobileCountryCode,
+    setMobileCountryCode,
+    phoneCountryCode,
+    setPhoneCountryCode,
+  } = useAddContact();
 
   return (
     <>

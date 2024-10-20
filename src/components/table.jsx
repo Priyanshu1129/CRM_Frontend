@@ -3,14 +3,15 @@ import { Table as AntTable } from "antd";
 import { PaginationTotal } from ".";
 
 export const Table = ({
-  setCurrentPage,
-  setPageSize,
+  setCurrentPage = 1,
+  setPageSize = 12,
   columns,
   data,
   loading,
   entityName,
-  total,
+  total = 0,
   handleChange,
+  ScrollX = 1300,
 }) => {
   return (
     <AntTable
@@ -37,7 +38,7 @@ export const Table = ({
         marginTop: "28px",
       }}
       scroll={{
-        x: 1300,
+        x: ScrollX,
       }}
     />
   );

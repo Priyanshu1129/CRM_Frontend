@@ -27,6 +27,7 @@ import { opportunityReducer } from './slices/opportunitySlice';
 import { businessDevelopmentReducer } from './slices/businessDevelopmentSlice';
 import { tenderReducer, stageReducer } from './slices/tenderSlice';
 import { registrationReducer, registrationStatusReducer } from './slices/registrationSlice';
+import { roleReducer } from './slices/roleAndPermissionSlice';
 import { authReducer } from './slices/authSlice';
 
 
@@ -50,6 +51,7 @@ const store = configureStore({
         relationshipDegree: relationshipDegreeReducer,
         user: userReducer,
         team: teamReducer,
+        role: roleReducer,
         opportunity: opportunityReducer,
         businessDevelopment: businessDevelopmentReducer,
         tender: tenderReducer,
