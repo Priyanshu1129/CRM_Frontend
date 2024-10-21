@@ -1,11 +1,9 @@
 "use client";
-import React, { useState, useEffect, useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
 import {
   Button,
   Form,
   Input,
-  notification,
   Space,
   Grid,
   theme,
@@ -20,69 +18,24 @@ import {
   ClientSelector,
   FormHeader,
   InputNotes,
-  BulkUploadModal,
 } from "@/components";
 import { RegistrationStatusSelector } from "../enums";
-import { createRegistration } from "@/redux/actions/registrationAction";
-import { registrationActions } from "@/redux/slices/registrationSlice";
 import { registrationFormRules } from "../../../utilities/formValidationRules";
+import { useAddRegistration } from "@/hooks/registration";
 
 const AddRegistration = () => {
-  const [loading, setLoading] = useState(false);
-  const [uploadModal, setUploadModal] = useState(false);
-  const [form] = Form.useForm();
   const screens = Grid.useBreakpoint();
-  const dispatch = useDispatch();
+  const [form] = Form.useForm();
 
-  const { status, error } = useSelector(
-    (state) => state.registration.createRegistration
-  );
+  const { loading, onFinish } = useAddRegistration();
 
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
-  useEffect(() => {
-    if (status === "pending") {
-      setLoading(true);
-    } else if (status === "success") {
-      setLoading(false);
-      notification.success({
-        message: "Success",
-        description: "Registration added successfully.",
-      });
-      dispatch(registrationActions.clearCreateRegistrationStatus());
-    } else if (status === "failed") {
-      setLoading(false);
-      notification.error({
-        message: "Error",
-        description: error || "Failed to add registration.",
-      });
-      dispatch(registrationActions.clearCreateRegistrationStatus());
-      dispatch(registrationActions.clearCreateRegistrationError());
-    }
-  }, [status, error, dispatch]);
-
-  const onFinish = (values) => {
-    setLoading(true);
-
-    const formattedValues = {
-      ...values,
-      registrationDate: values.registrationDate.format("YYYY-MM-DD"),
-      expiryDate: values.expiryDate.format("YYYY-MM-DD"),
-      entryDate: new Date().toISOString(),
-      websiteDetails: {
-        link: values.link || null,
-        username: values.username || null,
-        password: values.password || null,
-      },
-    };
-    dispatch(createRegistration(formattedValues));
-  };
-
   return (
     <>
-      <FormHeader setUploadModal={setUploadModal} backButtonText={"Return"} />
+      <FormHeader backButtonText={"Return"} />
       <Space
         direction="vertical"
         style={{
@@ -215,10 +168,6 @@ const AddRegistration = () => {
             </Col>
           </Row>
         </Form>
-        {/* <BulkUploadModal
-          setUploadModal={setUploadModal}
-          uploadModal={uploadModal}
-        /> */}
       </Space>
     </>
   );

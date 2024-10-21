@@ -65,5 +65,4 @@ export const useAddClient = ({ currency }) => {
         handleAvatarChange,
         onFinish
     }
-
 }

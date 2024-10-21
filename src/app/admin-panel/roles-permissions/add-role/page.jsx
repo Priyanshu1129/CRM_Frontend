@@ -1,6 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
 import {
   Button,
   Form,
@@ -13,49 +12,19 @@ import {
   Col,
   notification,
 } from "antd";
-import { FormHeader, ImageUpload } from "@/components";
+import { FormHeader } from "@/components";
 import { roleFormRules } from "@/utilities/formValidationRules";
-import { createRole } from "@/redux/actions/roleAndPermissionAction";
-import { roleActions } from "@/redux/slices/roleAndPermissionSlice";
+import { useAddRole } from "@/hooks/adminPanel/roles-Permissions";
 
 const AddRole = () => {
-  const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
   const screens = Grid.useBreakpoint();
 
-  const dispatch = useDispatch();
-  const { status, data, error } = useSelector((state) => state.role.createRole);
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
-  useEffect(() => {
-    if (status === "pending") {
-      setLoading(true);
-    } else if (status === "success") {
-      setLoading(false);
-      notification.success({
-        message: "Success",
-        description: "Role created successfully.",
-      });
-      dispatch(roleActions.clearCreateRoleStatus());
-      // dispatch(roleActions.clearCreateRoleData());
-    } else if (status === "failed") {
-      setLoading(false);
-      notification.error({
-        message: "Error",
-        description: error || "Failed to add role.",
-      });
-      dispatch(roleActions.clearCreateRoleStatus());
-      dispatch(roleActions.clearCreateRoleError());
-    }
-  }, [status, error, dispatch]);
-
-  const onFinish = (values) => {
-    setLoading(true);
-    console.log(values);
-    dispatch(createRole(values));
-  };
+  const { loading, onFinish } = useAddRole();
 
   return (
     <>
@@ -71,7 +40,6 @@ const AddRole = () => {
         }}
       >
         <Form
-          initialValues={{}}
           layout="vertical"
           form={form}
           onFinish={onFinish}
