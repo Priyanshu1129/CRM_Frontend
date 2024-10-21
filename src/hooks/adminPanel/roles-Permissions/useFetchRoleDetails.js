@@ -4,7 +4,7 @@ import {
     getRole
 } from "@/redux/actions/roleAndPermissionAction";
 import { notification } from "antd";
-
+import { roleActions } from "@/redux/slices/roleAndPermissionSlice";
 
 export const useFetchRoleDetails = (id) => {
     const [loading, setLoading] = useState(false);

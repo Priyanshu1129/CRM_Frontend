@@ -6,6 +6,7 @@ import { Title } from "../title";
 const { Sider } = Layout;
 import { resources } from "@/config";
 const { useToken } = theme;
+
 const Sidebar = ({ collapsed, setCollapsed }) => {
   const router = useRouter();
   const { token } = useToken();
