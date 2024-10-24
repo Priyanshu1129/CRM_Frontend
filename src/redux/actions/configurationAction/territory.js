@@ -107,41 +107,19 @@ export const createTerritory = (territoryData, token) => async (dispatch) => {
     }
 };
 
-export const updateTerritory = (territoryData, token, territoryId) => async (dispatch) => {
+export const updateTerritory = (territoryData, territoryId) => async (dispatch) => {
 
-    const formData = new FormData();
-    Object.entries(territoryData).forEach(([key, value]) => {
-        if (key != 'avatarUri') {
-            formData.append(key, value);
-        }
-    });
-
-    if (territoryData?.avatarUri) {
-        const fileName = territoryData.avatarUri.split('/').pop();
-        // Determine file type based on file extension
-        const fileType = fileName.split('.').pop();
-
-        // Append avatar file to FormData
-        formData.append("avatar", {
-            uri: territoryData.avatarUri,
-            type: `image/${fileType}`,
-            name: fileName
-        });
-    }
-
+   // territoryData {label : "name"}
     try {
         console.log("update-territoryData%", territoryData,);
-        console.log("update-territoryData%", formData,);
+       
         dispatch(territoryActions.updateTerritoryRequest());
         console.log("update url----------", `${route}/${territoryId}`);
         const data = await axios.put(
             `${route}/${territoryId}`,
-            formData,
+            territoryData,
             {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                    "authorization": token
-                },
+                withCredentials : true
             }
         );
         console.log('update-territory-res-data', data.data);
