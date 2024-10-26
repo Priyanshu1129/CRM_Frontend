@@ -54,41 +54,14 @@ export const getSolution = (solutionId, token) => async (dispatch) => {
     }
 };
 
-export const createSolution = (solutionData, token) => async (dispatch) => {
+export const createSolution = (solutionData) => async (dispatch) => {
     try {
-        console.log("create-solutionData", solutionData);
-        dispatch(solutionActions.createSolutionRequest());
-        const formData = new FormData();
-
-        // Append other form data to FormData
-        Object.entries(solutionData).forEach(([key, value]) => {
-            if (key != 'avatarUri') {
-                formData.append(key, value);
-            }
-        });
-
-        const fileName = solutionData.avatarUri.split('/').pop();
-        // Determine file type based on file extension
-        const fileType = fileName.split('.').pop();
-
-        // Append avatar file to FormData
-        formData.append("avatar", {
-            uri: solutionData.avatarUri,
-            type: `image/${fileType}`,
-            name: fileName
-        });
-
-        console.log("formdata-----before")
-        console.log("formdata-----", formData)
-
+        console.log(" createSolution  solutionData : ", solutionData)
         const data = await axios.post(
             `${route}/`,
-            formData,
+            solutionData,
             {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                    "authorization": token
-                },
+                withCredentials: true
             }
         );
         console.log('create-solution-res-data', data);
@@ -107,41 +80,20 @@ export const createSolution = (solutionData, token) => async (dispatch) => {
     }
 };
 
-export const updateSolution = (solutionData, token, solutionId) => async (dispatch) => {
+export const updateSolution = (solutionData, solutionId) => async (dispatch) => {
 
-    const formData = new FormData();
-    Object.entries(solutionData).forEach(([key, value]) => {
-        if (key != 'avatarUri') {
-            formData.append(key, value);
-        }
-    });
-
-    if (solutionData?.avatarUri) {
-        const fileName = solutionData.avatarUri.split('/').pop();
-        // Determine file type based on file extension
-        const fileType = fileName.split('.').pop();
-
-        // Append avatar file to FormData
-        formData.append("avatar", {
-            uri: solutionData.avatarUri,
-            type: `image/${fileType}`,
-            name: fileName
-        });
-    }
+    
 
     try {
         console.log("update-solutionData%", solutionData,);
-        console.log("update-solutionData%", formData,);
+       
         dispatch(solutionActions.updateSolutionRequest());
         console.log("update url----------", `${route}/${solutionId}`);
         const data = await axios.put(
             `${route}/${solutionId}`,
-            formData,
+            solutionData,
             {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                    "authorization": token
-                },
+                withCredentials : true
             }
         );
         console.log('update-solution-res-data', data.data);

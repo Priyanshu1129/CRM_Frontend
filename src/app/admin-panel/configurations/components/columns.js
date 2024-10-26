@@ -1,11 +1,11 @@
 import { TableActions } from "@/components";
 import { convertCurrency } from "@/utilities/convertCurrency";
 
-export const getColumns = ({ selectedCurrency, setTerritory, setVisible }) => {
+export const getColumns = ({ selectedCurrency, setUpdateConfigData, setShowUpdateConfigPopup, configType }) => {
 
     const columns = [
         {
-            title: "Territory",
+            title: `${configType}`,
             dataIndex: "text",
             key: "label",
             render: (text) => text || 'N/A',
@@ -17,13 +17,12 @@ export const getColumns = ({ selectedCurrency, setTerritory, setVisible }) => {
             fixed: "right",
             width: 120,
             render: (_, record) => {
-                const territoryRecord = {
+                const updateConfigData = {
                     label : record.text,
                     _id : record.value
                 }
-              
                 record.updateConfigPopup = true;
-                return <TableActions setTerritory={setTerritory} territoryRecord={territoryRecord} setVisible={setVisible} record={record} showUrl={`/admin-panel/configurations/territory/${record.value}`} />
+                return <TableActions setUpdateConfigData={setUpdateConfigData} updateConfigData={updateConfigData} setShowUpdateConfigPopup={setShowUpdateConfigPopup} record={record} showUrl={`/admin-panel/configurations/territory/${record.value}`} />
             },
         },
        

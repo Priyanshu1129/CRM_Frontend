@@ -9,7 +9,7 @@ export const UpdateUserForm = ({ user }) => {
   const [form] = Form.useForm();
   const screens = Grid.useBreakpoint();
 
-  const { handleUpdateUser, loading, setAvatar, setAvatarChanged } =
+  const { handleUpdateUser, loading, setAvatar, setAvatarChanged, phoneCountryCode, setPhoneCountryCode } =
     useUpdateUser({ user, form });
 
   const onFinish = (values) => {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Modal,
   Button,
@@ -12,49 +12,69 @@ import {
   Col,
   notification,
 } from "antd";
-import UpdateConfigPopup from "./updateConfigPopup";
 import { useUpdateTerritory } from "@/hooks/adminPanel/configurations/territory/useUpdateTerritory";
 import { roleFormRules } from "@/utilities/formValidationRules";
+import { useUpdateIndustry } from "@/hooks/adminPanel/configurations/industry/useUpdateIndustry";
+import { useUpdateSubIndustry } from "@/hooks/adminPanel/configurations/sub-industry/useUpdateSubIndustry";
+import { useUpdateSolution } from "@/hooks/adminPanel/configurations/solution/useUpdateSolution";
 
-const ConfigModal = ({territory, visible, setVisible}) => {
+const UpdateConfigModal = ({configType , updateConfigData, showUpdateConfigPopup, setShowUpdateConfigPopup}) => {
   const [confirmLoading, setConfirmLoading] = useState(false);
-  const [modalText, setModalText] = useState("Content of the modal");
-  
-  const {loading, onFinish} = useUpdateTerritory({setVisible, territory})
+  const [modalText, setModalText] = useState("");
+  console.log("updateConfigData in Modal : ", updateConfigData)
+  var loadAndFinish;
+
+  switch(configType){
+    case 'territory':
+      loadAndFinish = useUpdateTerritory({setShowUpdateConfigPopup, updateConfigData})
+      break;
+    case 'industry':
+      loadAndFinish = useUpdateIndustry({setShowUpdateConfigPopup, updateConfigData})
+      break;
+    case 'sub-industry':
+      loadAndFinish = useUpdateSubIndustry({setShowUpdateConfigPopup, updateConfigData})
+      break;
+    case 'solution':
+      loadAndFinish = useUpdateSolution({setShowUpdateConfigPopup, updateConfigData})
+      break;
+  }
+  const loading = loadAndFinish.loading
+  const onFinish = loadAndFinish.onFinish
 
   const showModal = () => {
-    setVisible(true);
+    setShowUpdateConfigPopup(true);
   };
 
   const handleOk = () => {
     setModalText("The modal will be closed after two seconds");
     setConfirmLoading(true);
     setTimeout(() => {
-      setVisible(false);
+      setShowUpdateConfigPopup(false);
       setConfirmLoading(false);
     }, 2000);
   };
 
   const handleCancel = () => {
     console.log("Clicked cancel button");
-    setVisible(false);
+    setShowUpdateConfigPopup(false);
   };
 
   const [form] = Form.useForm();
   const screens = Grid.useBreakpoint();
-
+  
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+  useEffect(()=>{
+    form.setFieldsValue(updateConfigData);
+  },[updateConfigData])
 
   return (
     <div>
-      <Button type="primary" onClick={showModal}>
-        Open Modal with async logic
-      </Button>
+    
       <Modal
-        title="Title"
-        visible={visible}
+        title={configType}
+        visible={showUpdateConfigPopup}
         onOk={handleOk}
         confirmLoading={confirmLoading}
         onCancel={handleCancel}
@@ -66,7 +86,7 @@ const ConfigModal = ({territory, visible, setVisible}) => {
           form={form}
           onFinish={onFinish}
           size={"default"}
-          initialValues={{...territory}}
+          // initialValues={{...updateConfigData}}
         >
           <Row gutter={24}>
             <Col span={8}>
@@ -102,4 +122,4 @@ const ConfigModal = ({territory, visible, setVisible}) => {
   );
 };
 
-export default ConfigModal;
+export default UpdateConfigModal;

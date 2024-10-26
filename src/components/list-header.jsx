@@ -4,6 +4,7 @@ import { ReloadOutlined } from "@ant-design/icons";
 import { Grid, Button, Space, Radio } from "antd";
 import { ListSearch } from "./list-search";
 import { AppstoreOutlined, UnorderedListOutlined } from "@ant-design/icons";
+import { ConfigListTitleButton } from "./config-list-title-button";
 
 export const ListHeader = ({
   setView,
@@ -16,6 +17,8 @@ export const ListHeader = ({
   setFilter,
   filters,
   setFilters,
+  type = "normal",
+  setShowCreateConfigPopup
 }) => {
   const screens = Grid.useBreakpoint();
 
@@ -36,7 +39,8 @@ export const ListHeader = ({
           marginTop: screens.xs ? "1.6rem" : undefined,
         }}
       >
-        <ListTitleButton toPath={toPath} buttonText={buttonText} />
+        {type == "config" ? <ConfigListTitleButton  buttonText={buttonText} setShowCreateConfigPopup={setShowCreateConfigPopup}/> :
+        <ListTitleButton toPath={toPath} buttonText={buttonText} />}
         {pageName !== "user" && FilterComponent && (
           <FilterComponent
             filters={filters}

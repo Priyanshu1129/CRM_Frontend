@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Table } from "@/components";
 import { useSelector } from "react-redux";
 import { getColumns } from "./columns";
-export const TerritoryTableView = ({
+export const ConfigTableView = ({
   loading,
   data,
-  setVisible,
-  setTerritory,
-  refresh
+  setShowUpdateConfigPopup,
+  setUpdateConfigData,
+  refresh,
+  setPageSize,
+  configType
   // total,
 }) => {
   const [selectedCurrency, setSelectedCurrency] = useState(null);
@@ -21,8 +23,9 @@ export const TerritoryTableView = ({
 
   const columns = getColumns({
     selectedCurrency,
-    setVisible,
-    setTerritory
+    setShowUpdateConfigPopup,
+    setUpdateConfigData,
+    configType
   });
 
   return (
@@ -35,7 +38,7 @@ export const TerritoryTableView = ({
         // handleChange={handleFilter}
         // total={total}
         columns={columns}
-        entityName="Territory"
+        entityName={`${configType}`}
       />
     </>
   );

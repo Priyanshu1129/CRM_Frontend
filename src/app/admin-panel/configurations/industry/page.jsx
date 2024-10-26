@@ -1,10 +1,11 @@
 "use client";
-import React from "react";
+
+import ConfigPage from "../components/configPage";
 
 const Configurations = () => {
   return (
     <>
-      <div>industry</div>
+     <ConfigPage configType={"industry"}/>
     </>
   );
 };

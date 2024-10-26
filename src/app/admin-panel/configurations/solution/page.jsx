@@ -5,7 +5,7 @@ import ConfigPage from "../components/configPage";
 const Configurations = () => {
   return (
     <>
-     <ConfigPage configType={"territory"}/>
+     <ConfigPage configType={"solution"}/>
     </>
   );
 };

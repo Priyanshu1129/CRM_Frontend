@@ -54,41 +54,20 @@ export const getTerritory = (territoryId, token) => async (dispatch) => {
     }
 };
 
-export const createTerritory = (territoryData, token) => async (dispatch) => {
+export const createTerritory = (territoryData) => async (dispatch) => {
+    // territoryData : {label : "NAME"}
     try {
         console.log("create-territoryData", territoryData);
         dispatch(territoryActions.createTerritoryRequest());
         const formData = new FormData();
 
-        // Append other form data to FormData
-        Object.entries(territoryData).forEach(([key, value]) => {
-            if (key != 'avatarUri') {
-                formData.append(key, value);
-            }
-        });
-
-        const fileName = territoryData.avatarUri.split('/').pop();
-        // Determine file type based on file extension
-        const fileType = fileName.split('.').pop();
-
-        // Append avatar file to FormData
-        formData.append("avatar", {
-            uri: territoryData.avatarUri,
-            type: `image/${fileType}`,
-            name: fileName
-        });
-
-        console.log("formdata-----before")
-        console.log("formdata-----", formData)
+        console.log("territory in createTerritory action", territoryData)
 
         const data = await axios.post(
             `${route}/`,
-            formData,
+            territoryData,
             {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                    "authorization": token
-                },
+               withCredentials : true
             }
         );
         console.log('create-territory-res-data', data);
@@ -109,9 +88,9 @@ export const createTerritory = (territoryData, token) => async (dispatch) => {
 
 export const updateTerritory = (territoryData, territoryId) => async (dispatch) => {
 
-   // territoryData {label : "name"}
+     
     try {
-        console.log("update-territoryData%", territoryData,);
+        console.log("update-territoryData%", territoryData, territoryId);
        
         dispatch(territoryActions.updateTerritoryRequest());
         console.log("update url----------", `${route}/${territoryId}`);
