@@ -54,41 +54,14 @@ export const getSubIndustry = (subIndustryId, token) => async (dispatch) => {
     }
 };
 
-export const createSubIndustry = (subIndustryData, token) => async (dispatch) => {
+export const createSubIndustry = (subIndustryData) => async (dispatch) => {
     try {
-        console.log("create-subIndustryData", subIndustryData);
-        dispatch(subIndustryActions.createSubIndustryRequest());
-        const formData = new FormData();
-
-        // Append other form data to FormData
-        Object.entries(subIndustryData).forEach(([key, value]) => {
-            if (key != 'avatarUri') {
-                formData.append(key, value);
-            }
-        });
-
-        const fileName = subIndustryData.avatarUri.split('/').pop();
-        // Determine file type based on file extension
-        const fileType = fileName.split('.').pop();
-
-        // Append avatar file to FormData
-        formData.append("avatar", {
-            uri: subIndustryData.avatarUri,
-            type: `image/${fileType}`,
-            name: fileName
-        });
-
-        console.log("formdata-----before")
-        console.log("formdata-----", formData)
 
         const data = await axios.post(
             `${route}/`,
-            formData,
+            subIndustryData,
             {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                    "authorization": token
-                },
+                withCredentials : true
             }
         );
         console.log('create-subIndustry-res-data', data);
@@ -107,45 +80,26 @@ export const createSubIndustry = (subIndustryData, token) => async (dispatch) =>
     }
 };
 
-export const updateSubIndustry = (subIndustryData, token, subIndustryId) => async (dispatch) => {
+export const updateSubIndustry = (subIndustryData, subIndustryId) => async (dispatch) => {
 
-    const formData = new FormData();
-    Object.entries(subIndustryData).forEach(([key, value]) => {
-        if (key != 'avatarUri') {
-            formData.append(key, value);
-        }
-    });
-
-    if (subIndustryData?.avatarUri) {
-        const fileName = subIndustryData.avatarUri.split('/').pop();
-        // Determine file type based on file extension
-        const fileType = fileName.split('.').pop();
-
-        // Append avatar file to FormData
-        formData.append("avatar", {
-            uri: subIndustryData.avatarUri,
-            type: `image/${fileType}`,
-            name: fileName
-        });
-    }
+   
 
     try {
         console.log("update-subIndustryData%", subIndustryData,);
-        console.log("update-subIndustryData%", formData,);
+        
         dispatch(subIndustryActions.updateSubIndustryRequest());
         console.log("update url----------", `${route}/${subIndustryId}`);
         const data = await axios.put(
             `${route}/${subIndustryId}`,
-            formData,
+            subIndustryData,
             {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                    "authorization": token
-                },
+                withCredentials : true
             }
         );
         console.log('update-subIndustry-res-data', data.data);
         dispatch(subIndustryActions.updateSubIndustrySuccess(data.data));
+        getAllSubIndustries()
+        
     } catch (error) {
         console.log("error", error)
         let errorMessage = "An error occurred";

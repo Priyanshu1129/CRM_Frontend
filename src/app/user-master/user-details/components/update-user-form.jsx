@@ -11,7 +11,7 @@ export const UpdateUserForm = ({ user }) => {
   const screens = Grid.useBreakpoint();
   const { loading: rolesLoading, roles = [] } = useFetchAllRoles();
 
-  const { handleUpdateUser, loading, setAvatar, setAvatarChanged , phoneCountryCode, setPhoneCountryCode} =
+  const { handleUpdateUser, loading, setAvatar, setAvatarChanged, phoneCountryCode, setPhoneCountryCode } =
     useUpdateUser({ user, form });
 
   const onFinish = (values) => {

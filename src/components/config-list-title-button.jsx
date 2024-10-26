@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 
 import { Text } from "./text";
 
-export const ListTitleButton = ({ buttonText, toPath }) => {
+export const ConfigListTitleButton = ({ buttonText, setShowCreateConfigPopup }) => {
   const screens = Grid.useBreakpoint();
   const router = useRouter();
   return (
@@ -14,7 +14,7 @@ export const ListTitleButton = ({ buttonText, toPath }) => {
       // @ts-expect-error Ant Design Icon's v5.0.1 has an issue with @types/react@^18.2.66
       icon={<PlusCircleOutlined />}
       onClick={() => {
-        if(toPath) router.push(toPath);
+        setShowCreateConfigPopup(true);
       }}
       size={screens.xs ? "middle" : "large"}
       style={{

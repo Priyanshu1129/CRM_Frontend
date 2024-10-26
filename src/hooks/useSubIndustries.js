@@ -2,17 +2,19 @@ import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllSubIndustries } from '@/redux/actions/configurationAction';
 
-export const useSubIndustries = () => {
+export const useSubIndustries = (params={}) => {
+    const {refresh = false, setRefresh=null} = params;
+
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
     const { status, data } = useSelector((state) => state.subIndustry.getAllSubIndustries);
     const [subIndustries, setSubIndustries] = useState(data?.data);
 
     const fetchAllSubIndustries = useCallback(() => {
-        if (!data) {
+        if (!data || refresh) {
             dispatch(getAllSubIndustries());
         }
-    }, [dispatch, data]);
+    }, [dispatch, data, refresh]);
 
     useEffect(() => {
         fetchAllSubIndustries();
@@ -24,6 +26,7 @@ export const useSubIndustries = () => {
         } else if (status === "success" && data?.status === "success") {
             setSubIndustries(data?.data);
             setLoading(false);
+            setRefresh && setRefresh(false);
         } else {
             setLoading(false);
         }

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getRole } from "@/redux/actions/roleAndPermissionAction";
 import { roleActions } from "@/redux/slices/roleAndPermissionSlice";
 import { notification } from "antd";
-
+import { roleActions } from "@/redux/slices/roleAndPermissionSlice";
 
 export const useFetchRoleDetails = (id) => {
     const [loading, setLoading] = useState(false);

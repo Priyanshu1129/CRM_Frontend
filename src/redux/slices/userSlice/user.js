@@ -87,6 +87,7 @@ const userSlice = createSlice({
             state.deleteUser.status = 'failed'
             state.deleteUser.error = action.payload
         },
+
         clearGetUserStatus: (state) => {
             state.getUser.status = "idle";
         },
@@ -96,9 +97,11 @@ const userSlice = createSlice({
         clearGetUserError: (state) => {
             state.getUser.error = null;
         },
+        
         clearGetAllUsersStatus: (state) => {
             state.getAllUsers.status = "idle";
         },
+    
         clearGetAllUsersData: () => {
             state.getAllUsers.data = null;
         },
