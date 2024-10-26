@@ -13,6 +13,7 @@ import {
 } from "antd";
 import { FormHeader, ImageUpload, InputPhoneNumber } from "@/components";
 import { useAddUser } from "@/hooks/user";
+import { useFetchAllRoles } from "@/hooks/adminPanel/roles-Permissions";
 import { userFormRules } from "@/utilities/formValidationRules";
 
 const AddUser = () => {
@@ -23,13 +24,13 @@ const AddUser = () => {
   } = theme.useToken();
 
   const {
-    roles,
     handleAvatarChange,
     onFinish,
     loading,
     phoneCountryCode,
     setPhoneCountryCode,
   } = useAddUser();
+  const { loading: rolesLoading, roles = [] } = useFetchAllRoles();
 
   return (
     <>
@@ -90,10 +91,10 @@ const AddUser = () => {
             </Col>
             <Col span={8}>
               <Form.Item label="Role" name="role" rules={userFormRules.role}>
-                <Select>
-                  {roles.map(({ label, value }, idx) => (
-                    <Select.Option key={idx} value={value}>
-                      {label}
+                <Select loading={rolesLoading}>
+                  {roles.map(({ name, _id }, idx) => (
+                    <Select.Option key={idx} value={_id}>
+                      {name}
                     </Select.Option>
                   ))}
                 </Select>

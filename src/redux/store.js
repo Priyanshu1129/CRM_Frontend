@@ -21,6 +21,7 @@ import {
     mastersConfigReducer,
     currencyReducer
 } from './slices/configurationSlice';
+import { pipeViewReducer } from './slices/dashboardSlice';
 import { userReducer } from './slices/userSlice';
 import { teamReducer } from './slices/teamSlice';
 import { opportunityReducer } from './slices/opportunitySlice';
@@ -34,6 +35,7 @@ import { authReducer } from './slices/authSlice';
 const store = configureStore({
     reducer: {
         auth: authReducer,
+        pipeView: pipeViewReducer,
         client: clientReducer,
         classification: classificationReducer,
         incorporationType: incorporationTypeReducer,

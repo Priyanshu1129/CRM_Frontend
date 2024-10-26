@@ -1,17 +1,12 @@
 import React from "react";
-import { ListTitleButton } from "./list-title-button";
 import { ReloadOutlined } from "@ant-design/icons";
-import { Grid, Button, Space, Radio } from "antd";
-import { ListSearch } from "./list-search";
-import { AppstoreOutlined, UnorderedListOutlined } from "@ant-design/icons";
+import { Grid, Button, Space } from "antd";
+import { SelectDate } from "./date-picker";
 
-export const ListHeader = ({
-  setView,
+export const DashboardHeader = ({
   setRefresh,
-  toPath,
-  buttonText,
-  pageName,
-  view,
+  dashboard,
+  setDate,
   FilterComponent,
   setFilter,
   filters,
@@ -26,6 +21,7 @@ export const ListHeader = ({
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
+        paddingX: "8px"
       }}
     >
       <Space
@@ -36,8 +32,8 @@ export const ListHeader = ({
           marginTop: screens.xs ? "1.6rem" : undefined,
         }}
       >
-        <ListTitleButton toPath={toPath} buttonText={buttonText} />
-        {pageName !== "user" && FilterComponent && (
+        <SelectDate onChange={(date, dateString) => setDate(date)} />
+        {FilterComponent && (
           <FilterComponent
             filters={filters}
             setFilters={setFilters}
@@ -61,26 +57,6 @@ export const ListHeader = ({
           }}
           size={screens.xs ? "middle" : "large"}
         />
-
-        {!pageName && !view && (
-          <Space>
-            {pageName && <ListSearch pageName={pageName} />}
-            {!screens.xs && view ? (
-              <Radio.Group
-                size="large"
-                value={view}
-                onChange={(e) => setView(e.target.value)}
-              >
-                <Radio.Button value="card">
-                  <AppstoreOutlined />
-                </Radio.Button>
-                <Radio.Button value="table">
-                  <UnorderedListOutlined />
-                </Radio.Button>
-              </Radio.Group>
-            ) : null}
-          </Space>
-        )}
       </Space>
     </div>
   );

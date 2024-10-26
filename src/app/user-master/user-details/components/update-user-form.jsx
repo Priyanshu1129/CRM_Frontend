@@ -4,12 +4,14 @@ import { Button, Form, Input, Select, Space, Grid, Row, Col } from "antd";
 import { ImageUpload, InputPhoneNumber } from "@/components";
 import { userFormRules } from "@/utilities/formValidationRules";
 import { useUpdateUser } from "@/hooks/user";
+import { useFetchAllRoles } from "@/hooks/adminPanel/roles-Permissions";
 
 export const UpdateUserForm = ({ user }) => {
   const [form] = Form.useForm();
   const screens = Grid.useBreakpoint();
+  const { loading: rolesLoading, roles = [] } = useFetchAllRoles();
 
-  const { handleUpdateUser, loading, setAvatar, setAvatarChanged } =
+  const { handleUpdateUser, loading, setAvatar, setAvatarChanged , phoneCountryCode, setPhoneCountryCode} =
     useUpdateUser({ user, form });
 
   const onFinish = (values) => {
@@ -30,12 +32,6 @@ export const UpdateUserForm = ({ user }) => {
       setAvatar(null);
     }
   };
-
-  const roles = [
-    { label: "Viewer", value: "viewer" },
-    { label: "Admin", value: "admin" },
-    { label: "User", value: "user" },
-  ];
 
   const colSpan = screens.xs ? 24 : screens.sm ? 12 : screens.md && 8;
 
@@ -79,10 +75,10 @@ export const UpdateUserForm = ({ user }) => {
         </Col>
         <Col span={colSpan}>
           <Form.Item label="Role" name="role" rules={userFormRules.role}>
-            <Select>
-              {roles.map(({ label, value }, idx) => (
-                <Select.Option key={idx} value={value}>
-                  {label}
+            <Select loading={rolesLoading}>
+              {roles.map(({ name, _id }, idx) => (
+                <Select.Option key={idx} value={_id}>
+                  {name}
                 </Select.Option>
               ))}
             </Select>

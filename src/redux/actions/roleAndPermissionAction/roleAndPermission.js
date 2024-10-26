@@ -1,28 +1,17 @@
 import axios from "axios";
 import { roleActions } from "@/redux/slices/roleAndPermissionSlice"
 import { serverURL } from "@/config/config";
-import { mastersConfigActions } from "@/redux/slices/configurationSlice";
 const route = `${serverURL}/role`
 
-export const getAllRoles = ({ config = false }) => async (dispatch) => {
+export const getAllRoles = () => async (dispatch) => {
     try {
-        if (config) {
-            // dispatch(mastersConfigActions.getConfigRolesRequest());
-        } else {
-            dispatch(roleActions.getAllRolesRequest());
-        }
-        console.log('getAllRoles config', config);
+        dispatch(roleActions.getAllRolesRequest());
+        console.log('get-All-Roles req');
         const response = await axios.get(`${route}/`, {
-            params: { config },
             withCredentials: true,
         });
-
         console.log('get-all-role-res-data', response?.data);
-        if (config) {
-            // dispatch(mastersConfigActions.getConfigRolesSuccess(response.data?.data))
-        } else {
-            dispatch(roleActions.getAllRolesSuccess(response.data.data));
-        }
+        dispatch(roleActions.getAllRolesSuccess(response.data.data));
     } catch (error) {
         console.log("error", error)
         let errorMessage = "An error occurred";
@@ -33,11 +22,7 @@ export const getAllRoles = ({ config = false }) => async (dispatch) => {
         } else {
             errorMessage = error.message || "Unknown error";
         }
-        if (config) {
-            dispatch(mastersConfigActions.getConfigRolesFailure());
-        } else {
-            dispatch(roleActions.getAllRolesFailure(errorMessage));
-        }
+        dispatch(roleActions.getAllRolesFailure(errorMessage));
     }
 };
 
@@ -211,3 +196,4 @@ export const deleteRole = (roleId, token) => async (dispatch) => {
         dispatch(roleActions.deleteRoleFailure(errorMessage));
     }
 };
+

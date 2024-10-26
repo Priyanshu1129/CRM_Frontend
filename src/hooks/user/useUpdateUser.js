@@ -73,5 +73,5 @@ export const useUpdateUser = ({ user, form }) => {
         }
     };
 
-    return { loading, handleUpdateUser, setAvatar, setAvatarChanged, phoneCountryCode };
+    return { loading, handleUpdateUser, setAvatar, setAvatarChanged, phoneCountryCode, setPhoneCountryCode };
 };

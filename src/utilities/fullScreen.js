@@ -14,7 +14,7 @@ export const FullscreenButton = () => {
   };
 
   return (
-    <Button icon={fullScreen ? <FullscreenOutlined /> : <FullscreenExitOutlined />} onClick={toggleFullScreen} />
+    <Button icon={fullScreen ? <FullscreenExitOutlined /> : <FullscreenOutlined />} onClick={toggleFullScreen} />
   );
 };
 

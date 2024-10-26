@@ -1,8 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-    getRole
-} from "@/redux/actions/roleAndPermissionAction";
+import { getRole } from "@/redux/actions/roleAndPermissionAction";
+import { roleActions } from "@/redux/slices/roleAndPermissionSlice";
 import { notification } from "antd";
 
 

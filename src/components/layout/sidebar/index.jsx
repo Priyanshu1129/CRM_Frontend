@@ -15,6 +15,7 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
   };
   return (
     <Sider
+      className="sidebar"
       breakpoint="lg"
       width={256}
       style={{

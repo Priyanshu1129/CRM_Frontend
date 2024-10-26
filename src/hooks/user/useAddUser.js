@@ -56,19 +56,11 @@ export const useAddUser = () => {
     dispatch(createUser(formattedValues));
   };
 
-  const roles = [
-    { label: "Admin", value: "admin" },
-    { label: "Super User", value: "superuser" },
-    { label: "User", value: "user" },
-    { label: "Viewer", value: "viewer" },
-  ];
-
   return {
     handleAvatarChange,
     onFinish,
     loading,
     phoneCountryCode,
-    setPhoneCountryCode,
-    roles,
+    setPhoneCountryCode
   };
 };

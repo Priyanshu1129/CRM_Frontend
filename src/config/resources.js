@@ -21,8 +21,8 @@ export const resources = [
         icon: <DashboardOutlined />,
         children: [
             {
-                key: "stage-view",
-                label: "Stage View",
+                key: "dashboards/pipe-view",
+                label: "Pipe View",
             },
             {
                 key: "funnel-view",
