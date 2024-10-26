@@ -5,7 +5,7 @@ import { getAllTerritories } from '@/redux/actions/configurationAction';
 export const useTerritories = (params = {}) => {
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
-    const { refresh = false, setRefresh=null} = params
+    const { refresh = false, setRefresh = null, configType = null } = params
 
     const { status, data } = useSelector((state) => state.territory.getAllTerritories);
     const [territories, setTerritories] = useState(data?.data);
@@ -17,8 +17,9 @@ export const useTerritories = (params = {}) => {
     }, [dispatch, data, refresh]);
 
     useEffect(() => {
-        fetchAllTerritories();
-    }, [fetchAllTerritories]);
+        if (!configType || configType == "territory")
+            fetchAllTerritories();
+    }, [fetchAllTerritories, configType]);
 
     useEffect(() => {
         if (status === "pending") {
@@ -30,7 +31,7 @@ export const useTerritories = (params = {}) => {
         } else {
             setLoading(false);
         }
-    }, [status, data]);
+    }, [status, data, setRefresh]);
 
     const transformedTerritories = useMemo(() => {
         return territories?.map(({ _id, label }) => ({

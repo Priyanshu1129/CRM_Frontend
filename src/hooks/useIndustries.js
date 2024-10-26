@@ -6,7 +6,7 @@ export const useIndustries = (params = {}) => {
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
 
-    const { refresh = false, setRefresh=null} = params
+    const { refresh = false, setRefresh = null, configType = null } = params
 
 
     const { status, data } = useSelector(
@@ -21,8 +21,9 @@ export const useIndustries = (params = {}) => {
     }, [dispatch, data, refresh]);
 
     useEffect(() => {
-        fetchAllIndustries();
-    }, [fetchAllIndustries]);
+        if (!configType || configType == 'industry')
+            fetchAllIndustries();
+    }, [fetchAllIndustries, configType]);
 
     useEffect(() => {
         if (status === "pending") {
@@ -36,7 +37,7 @@ export const useIndustries = (params = {}) => {
         } else {
             setLoading(false);
         }
-    }, [status, data, industries]);
+    }, [status, data, industries, setRefresh]);
 
     const transformedIndustries = useMemo(() => {
         return industries?.map(({ _id, label }) => ({

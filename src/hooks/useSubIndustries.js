@@ -2,8 +2,8 @@ import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllSubIndustries } from '@/redux/actions/configurationAction';
 
-export const useSubIndustries = (params={}) => {
-    const {refresh = false, setRefresh=null} = params;
+export const useSubIndustries = (params = {}) => {
+    const { refresh = false, setRefresh = null, configType = null } = params;
 
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
@@ -17,8 +17,9 @@ export const useSubIndustries = (params={}) => {
     }, [dispatch, data, refresh]);
 
     useEffect(() => {
-        fetchAllSubIndustries();
-    }, [fetchAllSubIndustries]);
+        if (!configType || configType == "subIndustry")
+            fetchAllSubIndustries();
+    }, [fetchAllSubIndustries, configType]);
 
     useEffect(() => {
         if (status === "pending") {
@@ -30,7 +31,7 @@ export const useSubIndustries = (params={}) => {
         } else {
             setLoading(false);
         }
-    }, [status, data]);
+    }, [status, data, setRefresh]);
 
     const transformedSubIndustries = useMemo(() => {
         return subIndustries?.map(({ _id, label }) => ({

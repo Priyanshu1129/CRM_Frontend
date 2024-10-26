@@ -2,8 +2,8 @@ import { useState, useEffect, useCallback, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllIndustries, getAllSolutions } from "@/redux/actions/configurationAction";
 
-export const useSolutions = (params={}) => {
-    const { refresh = false, setRefresh=null} = params
+export const useSolutions = (params = {}) => {
+    const { refresh = false, setRefresh = null, configType = null } = params
 
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
@@ -19,8 +19,9 @@ export const useSolutions = (params={}) => {
     }, [dispatch, data, refresh]);
 
     useEffect(() => {
-        fetchAllSolutions();
-    }, [fetchAllSolutions]);
+        if (!configType || configType == "solution")
+            fetchAllSolutions();
+    }, [fetchAllSolutions, configType]);
 
     useEffect(() => {
         if (status === "pending") {
@@ -34,7 +35,7 @@ export const useSolutions = (params={}) => {
         } else {
             setLoading(false);
         }
-    }, [status, data, solutions]);
+    }, [status, data, solutions, setRefresh]);
 
     const transformedSolutions = useMemo(() => {
         return solutions?.map(({ _id, label }) => ({
