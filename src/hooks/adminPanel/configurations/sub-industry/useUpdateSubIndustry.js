@@ -9,7 +9,7 @@ import { getAllTerritories } from "@/redux/actions/configurationAction";
 
 export const useUpdateSubIndustry = ({updateConfigData  , setShowUpdateConfigPopup}) => {
     const subIndustry = updateConfigData
-    console.log("useUpdateSubIndustry updateCOnfigData : ", updateConfigData)
+    // console.log("useUpdateSubIndustry updateCOnfigData : ", updateConfigData)
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
 
@@ -41,8 +41,7 @@ export const useUpdateSubIndustry = ({updateConfigData  , setShowUpdateConfigPop
     }, [status, error, dispatch]);
 
     const onFinish = (values) => {
-        console.log("Values int update : ------------------------------ ", values);
-        console.log("subIndustry id int update : ------------------------------ ", subIndustry._id);
+        console.log("subIndustry in update : ", values);
         setLoading(true);
         if(subIndustry.label != values.label)
             dispatch(updateSubIndustry(values,subIndustry._id));

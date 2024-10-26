@@ -47,7 +47,7 @@ export const useAddOpportunity = () => {
             ...values,
             salesTopLine: salesTopLineInUSD,
             offsets: offsetsInUSD,
-            entryDate: new Date().toISOString(),
+            // entryDate: new Date().toISOString(),
         };
         dispatch(createOpportunity(newValues));
     };
