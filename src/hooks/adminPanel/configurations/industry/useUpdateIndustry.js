@@ -40,7 +40,7 @@ export const useUpdateIndustry= ({updateConfigData  , setShowUpdateConfigPopup})
     }, [status, error, dispatch]);
 
     const onFinish = (values) => {
-        console.log("Territory int update : ", industry);
+        console.log("industry int update : ", values);
         setLoading(true);
         if(industry.label != values.label)
             dispatch(updateIndustry(values,industry._id));

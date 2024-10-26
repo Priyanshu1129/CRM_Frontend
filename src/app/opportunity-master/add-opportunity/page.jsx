@@ -1,6 +1,16 @@
 "use client";
 import React, { useState } from "react";
-import { Button, Form, Input, Space, Grid, theme, Row, Col } from "antd";
+import {
+  Button,
+  Form,
+  Input,
+  Space,
+  Grid,
+  theme,
+  Row,
+  Col,
+  DatePicker,
+} from "antd";
 import { FormHeader, BulkUploadModal } from "@/components";
 import { RevenueInput } from "../components/revenueInput";
 import {
@@ -15,6 +25,7 @@ import {
 } from "@/components";
 import { opportunityFormRules } from "@/utilities/formValidationRules";
 import { useAddOpportunity } from "@/hooks/opportunity/useAddOpportunity";
+import moment from "moment";
 
 const AddOpportunity = () => {
   const [uploadModal, setUploadModal] = useState(false);
@@ -52,6 +63,11 @@ const AddOpportunity = () => {
           onFinish={onFinish}
         >
           <Row gutter={24}>
+            <Col span={8}>
+              <Form.Item name="entryDate" label="Entry Date">
+                <DatePicker defaultValue={moment()} style={{ width: "100%" }} />
+              </Form.Item>
+            </Col>
             <Col span={8}>
               <ClientSelector
                 name="client"

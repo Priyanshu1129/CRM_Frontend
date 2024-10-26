@@ -115,9 +115,6 @@ export const updateRole = (roleData, roleId) => async (dispatch) => {
             `${route}/${roleId}`,
             roleData,
             {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
                 withCredentials: true,
             }
         );

@@ -1,8 +1,34 @@
 import { editRolePermissions } from "@/redux/actions/roleAndPermissionAction";
-import { useDispatch } from "react-redux";
+import { roleActions } from "@/redux/slices/roleAndPermissionSlice";
+import { notification } from "antd";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-export const useEditPermissions = ({ checkedActions }) => {
+export const useEditPermissions = ({ checkedActions, role }) => {
     const dispatch = useDispatch();
+    const [loading, setLoading] = useState(false);
+    const {status , data, error} = useSelector((state)=>state.role.editRolePermissions);
+    useEffect(() => {
+        if (status === "pending") {
+            setLoading(true);
+        } else if (status === "success") {
+            setLoading(false);
+            notification.success({
+                message: "Success",
+                description: "Permission updated successfully.",
+            });
+            // dispatch(getAllRoles({}));
+            dispatch(roleActions.clearEditRolePermissionStatus());
+        } else if (status === "failed") {
+            setLoading(false);
+            notification.error({
+                message: "Error",
+                description: error || "Failed to update Permissions",
+            });
+            dispatch(roleActions.clearEditRolePermissionStatus());
+            dispatch(roleActions.clearEditRolePermissionError());
+        }
+    }, [status, error, dispatch]);
 
     const handleUpdate = () => {
 
@@ -18,5 +44,5 @@ export const useEditPermissions = ({ checkedActions }) => {
         );
     };
 
-    return { handleUpdate }
+    return { handleUpdate, loading }
 }

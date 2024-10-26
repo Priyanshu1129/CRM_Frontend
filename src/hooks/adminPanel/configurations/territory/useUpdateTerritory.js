@@ -40,8 +40,7 @@ export const useUpdateTerritory = ({updateConfigData  , setShowUpdateConfigPopup
     }, [status, error, dispatch]);
 
     const onFinish = (values) => {
-        console.log("Values int update : ------------------------------ ", values);
-        console.log("territory id int update : ------------------------------ ", territory._id);
+        console.log("territory int update : ------------------------------ ", values);
         setLoading(true);
         if(territory.label != values.label)
             dispatch(updateTerritory(values,territory._id));

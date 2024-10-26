@@ -1,7 +1,7 @@
 import { notification } from "antd";
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateRole, getAllRoles } from "@/redux/actions/roleAndPermissionAction";
+import { updateRole, getAllRoles, getRole } from "@/redux/actions/roleAndPermissionAction";
 import { roleActions } from "@/redux/slices/roleAndPermissionSlice";
 import { getChangedValues } from "@/utilities/getChangedValues";
 
@@ -32,7 +32,7 @@ export const useUpdateRole = ({ role, form }) => {
                 message: "Success",
                 description: "Role name updated successfully.",
             });
-            dispatch(getAllRoles({}));
+            dispatch(getRole(role._id));
             dispatch(roleActions.clearUpdateRoleStatus());
         } else if (status === "failed") {
             setLoading(false);

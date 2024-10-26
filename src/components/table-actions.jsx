@@ -4,7 +4,7 @@ import { EyeOutlined, DeleteOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
 export const TableActions = ({setUpdateConfigData, updateConfigData , setShowUpdateConfigPopup = null,  showUrl = "", deleteUrl = "", record={} }) => {
   const router = useRouter();
-  console.log("record -------", record)
+  // console.log("record -------", record)
   return (
     <>
       <Space>

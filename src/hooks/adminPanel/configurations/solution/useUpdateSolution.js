@@ -40,7 +40,7 @@ export const useUpdateSolution= ({updateConfigData  , setShowUpdateConfigPopup})
     }, [status, error, dispatch]);
 
     const onFinish = (values) => {
-        console.log("Territory int update : ", solution);
+        console.log("solution int update : ", solution);
         setLoading(true);
         if(solution.label != values.label)
             dispatch(updateSolution(values,solution._id));
