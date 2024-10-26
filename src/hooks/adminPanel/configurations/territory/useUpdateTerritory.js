@@ -7,7 +7,7 @@ import { updateTerritory } from "@/redux/actions/configurationAction";
 import { territoryActions } from "@/redux/slices/configurationSlice";
 import { getAllTerritories } from "@/redux/actions/configurationAction";
 
-export const useUpdateTerritory = ({updateConfigData  , setShowUpdateConfigPopup}) => {
+export const useUpdateTerritory = ({ updateConfigData, setShowUpdateConfigPopup }) => {
     const territory = updateConfigData
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
@@ -37,14 +37,14 @@ export const useUpdateTerritory = ({updateConfigData  , setShowUpdateConfigPopup
             dispatch(territoryActions.clearUpdateTerritoryError());
             setShowUpdateConfigPopup(false);
         }
-    }, [status, error, dispatch]);
+    }, [status, error, dispatch, setShowUpdateConfigPopup]);
 
     const onFinish = (values) => {
         console.log("Values int update : ------------------------------ ", values);
         console.log("territory id int update : ------------------------------ ", territory._id);
         setLoading(true);
-        if(territory.label != values.label)
-            dispatch(updateTerritory(values,territory._id));
+        if (territory.label != values.label)
+            dispatch(updateTerritory(values, territory._id));
     };
 
     return { loading, onFinish };

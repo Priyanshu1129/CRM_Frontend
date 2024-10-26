@@ -4,7 +4,7 @@
 
 body {
   scrollbar-width: thin;
-  overflow-y: hidden;
+  /* overflow-y: hidden; */
 }
 
 /* @layer utilities {
