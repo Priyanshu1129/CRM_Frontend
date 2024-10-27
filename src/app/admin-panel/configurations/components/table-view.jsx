@@ -37,6 +37,7 @@ export const ConfigTableView = ({
         data={data}
         // handleChange={handleFilter}
         // total={total}
+        ScrollX="0"
         columns={columns}
         entityName={`${configType}`}
       />
