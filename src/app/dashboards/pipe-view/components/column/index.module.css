@@ -6,6 +6,7 @@
     padding-left: 16px;
     padding-right: 16px;
     width: 294px;
+    scrollbar-width: thin;
 
     &.solid {
         background-color: #fff;
@@ -62,6 +63,7 @@
     padding-bottom: 24px;
     /* border: 1px dashed black; */
     /* border-radius: 4px; */
+    scrollbar-width: thin;
 
     &.active {
         overflow-y: unset;

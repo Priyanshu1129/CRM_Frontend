@@ -2,9 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scrollbar-width: thin;
+}
+
 body {
-  /* scrollbar-width: thin; */
-  /* overflow-y: hidden; */
+  scrollbar-width: thin;
 }
 
 /* @layer utilities {
@@ -25,23 +28,3 @@ input[type="number"] {
 }
 
 
-
-/* Thinner scrollbar for Sidebar */
-.sidebar {
-  overflow-y: thin;
-  scrollbar-width: thin; /* For Firefox */
-  scrollbar-color: #aaa transparent; /* Firefox - custom color */
-}
-
-.sidebar::-webkit-scrollbar {
-  width: 6px; /* Thin scrollbar width for WebKit browsers */
-}
-
-.sidebar::-webkit-scrollbar-track {
-  background: transparent; /* Scrollbar track color */
-}
-
-.sidebar::-webkit-scrollbar-thumb {
-  background-color: #aaa; /* Scrollbar thumb color */
-  border-radius: 3px; /* Rounded corners */
-}

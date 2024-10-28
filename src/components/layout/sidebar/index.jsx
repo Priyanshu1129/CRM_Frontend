@@ -16,7 +16,6 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
   };
   return (
     <Sider
-      className="sidebar"
       breakpoint="lg"
       width={256}
       style={{
@@ -61,7 +60,7 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
         onClick={onClick}
         style={{
           height: "calc(100% - 64px)", // Adjust to account for header height
-          overflowY: "auto",
+          scrollbarWidth:"thin"
           // background: token.colorBgContainer,
         }}
         theme="dark"
