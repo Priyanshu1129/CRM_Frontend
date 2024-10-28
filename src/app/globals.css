@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 body {
-  scrollbar-width: thin;
+  /* scrollbar-width: thin; */
+  /* overflow-y: hidden; */
 }
 
 /* @layer utilities {

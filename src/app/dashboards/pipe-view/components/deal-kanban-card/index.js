@@ -12,6 +12,8 @@ dayjs.extend(relativeTime);
 
 
 import { CustomAvatar, Text } from "@/components";
+import ShowCurrency from "@/app/dashboards/components/ShowCurrency";
+
 
 const DealKanbanCard = ({
   id,
@@ -128,7 +130,9 @@ const DealKanbanCard = ({
                 </Text>
               </Tooltip>
             </div>
-            <Text>{price}</Text>
+            <Text>
+              <ShowCurrency value={price} />
+            </Text>
           </div>,
         ]}
       >

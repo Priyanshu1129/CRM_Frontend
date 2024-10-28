@@ -1,7 +1,7 @@
 import React from "react";
 import { ReloadOutlined } from "@ant-design/icons";
 import { Grid, Button, Space } from "antd";
-import { SelectDate } from "./date-picker";
+import { SelectDate } from "./date-selector";
 
 export const DashboardHeader = ({
   setRefresh,
@@ -21,7 +21,7 @@ export const DashboardHeader = ({
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        paddingX: "8px"
+        paddingX: "8px",
       }}
     >
       <Space

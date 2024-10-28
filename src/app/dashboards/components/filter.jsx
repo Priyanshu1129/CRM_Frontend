@@ -6,6 +6,7 @@ import {
   useSubIndustries,
   useTerritories,
   useUsers,
+  useSolutions,
 } from "@/hooks";
 
 export const Filter = ({ filters, setFilters, setFilter }) => {
@@ -17,6 +18,7 @@ export const Filter = ({ filters, setFilters, setFilter }) => {
     "sub-industry": [],
     territory: [],
     user: [],
+    solution: [],
   });
   const [open, setOpen] = useState(false);
   const [openKeys, setOpenKeys] = useState([]);
@@ -25,6 +27,7 @@ export const Filter = ({ filters, setFilters, setFilter }) => {
   const { subIndustries, loading: subIndustriesLoading } = useSubIndustries();
   const { territories, loading: territoriesLoading } = useTerritories();
   const { users, loading: usersLoading } = useUsers();
+  const { solutions, loading: solutionsLoading } = useSolutions();
 
   // Fetch and prepare filter items
   useEffect(() => {
@@ -32,7 +35,8 @@ export const Filter = ({ filters, setFilters, setFilter }) => {
       !industriesLoading &&
       !subIndustriesLoading &&
       !territoriesLoading &&
-      !usersLoading
+      !usersLoading &&
+      !solutionsLoading
     ) {
       const newItems = [
         {
@@ -60,6 +64,14 @@ export const Filter = ({ filters, setFilters, setFilter }) => {
           })),
         },
         {
+          key: "solution",
+          label: "Solution",
+          children: solutions.map(({ value, text }) => ({
+            key: value,
+            label: text,
+          })),
+        },
+        {
           key: "user",
           label: "Entered By",
           children: users.map(({ value, text }) => ({
@@ -79,9 +91,11 @@ export const Filter = ({ filters, setFilters, setFilter }) => {
     subIndustries,
     territories,
     users,
+    solutions,
     industriesLoading,
     subIndustriesLoading,
     territoriesLoading,
+    solutionsLoading,
     usersLoading,
     filterItems,
   ]);
@@ -106,6 +120,7 @@ export const Filter = ({ filters, setFilters, setFilter }) => {
       subIndustry: selectedItems["sub-industry"],
       territory: selectedItems.territory,
       enteredBy: selectedItems.user,
+      solution: selectedItems.solution,
     };
     setFilters(updatedFilters);
 
@@ -119,6 +134,7 @@ export const Filter = ({ filters, setFilters, setFilter }) => {
       "sub-industry": [],
       territory: [],
       user: [],
+      solution: [],
     });
 
     const updatedFilters = {
@@ -126,6 +142,7 @@ export const Filter = ({ filters, setFilters, setFilter }) => {
       subIndustry: [],
       territory: [],
       enteredBy: [],
+      solution: [],
     };
     setFilters(updatedFilters);
     setFilter(true);
@@ -196,18 +213,25 @@ export const Filter = ({ filters, setFilters, setFilter }) => {
         </Menu.Item>
       </Menu>
     ),
-    [filterItems, selectedItems, onSelectChange, openKeys]
+    [
+      filterItems,
+      selectedItems,
+      onSelectChange,
+      openKeys,
+      handleFilter,
+      handleReset,
+    ]
   );
 
   return (
     <Popover
       content={content}
       trigger="click"
-      visible={open}
+      open={open}
       style={{ borderRadius: "16px" }}
       overlayStyle={{ borderRadius: "8px" }}
       overlayInnerStyle={{ padding: 0, borderRadius: "8px" }}
-      onVisibleChange={setOpen}
+      onOpenChange={setOpen}
     >
       <Button size={screens.xs ? "middle" : "large"} icon={<FilterOutlined />}>
         {!screens.xs ? "Filter" : null}

@@ -18,7 +18,7 @@ export const ListHeader = ({
   filters,
   setFilters,
   type = "normal",
-  setShowCreateConfigPopup
+  setShowCreateConfigPopup,
 }) => {
   const screens = Grid.useBreakpoint();
 
@@ -39,8 +39,14 @@ export const ListHeader = ({
           marginTop: screens.xs ? "1.6rem" : undefined,
         }}
       >
-        {type == "config" ? <ConfigListTitleButton  buttonText={buttonText} setShowCreateConfigPopup={setShowCreateConfigPopup}/> :
-        <ListTitleButton toPath={toPath} buttonText={buttonText} />}
+        {type == "config" ? (
+          <ConfigListTitleButton
+            buttonText={buttonText}
+            setShowCreateConfigPopup={setShowCreateConfigPopup}
+          />
+        ) : (
+          <ListTitleButton toPath={toPath} buttonText={buttonText} />
+        )}
         {pageName !== "user" && FilterComponent && (
           <FilterComponent
             filters={filters}
@@ -66,25 +72,24 @@ export const ListHeader = ({
           size={screens.xs ? "middle" : "large"}
         />
 
-        {!pageName && !view && (
-          <Space>
-            {pageName && <ListSearch pageName={pageName} />}
-            {!screens.xs && view ? (
-              <Radio.Group
-                size="large"
-                value={view}
-                onChange={(e) => setView(e.target.value)}
-              >
-                <Radio.Button value="card">
-                  <AppstoreOutlined />
-                </Radio.Button>
-                <Radio.Button value="table">
-                  <UnorderedListOutlined />
-                </Radio.Button>
-              </Radio.Group>
-            ) : null}
-          </Space>
-        )}
+        {/* {!pageName && !view && ( */}
+        <Space>
+          {pageName && <ListSearch pageName={pageName} />}
+          {!screens.xs && view ? (
+            <Radio.Group
+              size="large"
+              value={view}
+              onChange={(e) => setView(e.target.value)}
+            >
+              <Radio.Button value="card">
+                <AppstoreOutlined />
+              </Radio.Button>
+              <Radio.Button value="table">
+                <UnorderedListOutlined />
+              </Radio.Button>
+            </Radio.Group>
+          ) : null}
+        </Space>
       </Space>
     </div>
   );
