@@ -1,4 +1,5 @@
 import { SettingOutlined } from "@ant-design/icons"
+import { PiUserGearDuotone } from "react-icons/pi";
 export const resources = [
     {
         key: "configurations",
@@ -8,7 +9,7 @@ export const resources = [
     {
         key: "roles-permissions",
         title: "Roles & Permissions",
-        icon: <SettingOutlined />
+        icon: <PiUserGearDuotone />
     },
     {
         key: "targets",

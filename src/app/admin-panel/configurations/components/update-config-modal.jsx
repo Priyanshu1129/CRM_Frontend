@@ -224,7 +224,7 @@ const UpdateConfigModal = ({
 
   useEffect(() => {
     form.setFieldsValue(updateConfigData);
-  }, [updateConfigData]);
+  }, [updateConfigData, form]);
 
   return (
     <div>
