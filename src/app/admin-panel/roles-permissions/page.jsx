@@ -14,6 +14,8 @@ const RolesAndPermissions = () => {
         buttonText={"Add new role"}
         pageName={"role"}
         setRefresh={setRefresh}
+        backButton={true}
+        backButtonText={false}
       />
       <RolesTableView data={roles} loading={loading} />
     </div>

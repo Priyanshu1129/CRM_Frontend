@@ -4,6 +4,7 @@
     overflow-x: scroll;
     overflow-y: hidden;
     overflow: scroll;
+    scrollbar-width: thin;
     display: flex;
     padding: 32px;
 }

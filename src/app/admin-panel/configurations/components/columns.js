@@ -3,7 +3,7 @@ import { convertCurrency } from "@/utilities/convertCurrency";
 import dayjs from "dayjs";
 import moment from "moment";
 
-export const getColumns = ({ selectedCurrency, setUpdateConfigData, setShowUpdateConfigPopup, configType }) => {
+export const getColumns = ({  setUpdateConfigData, setShowUpdateConfigPopup, configType }) => {
     
     const columns = [
         {

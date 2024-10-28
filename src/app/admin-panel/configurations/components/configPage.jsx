@@ -155,6 +155,8 @@ const ConfigPage = ({ configType }) => {
         pageName={configType}
         setRefresh={setRefresh}
         type={"config"}
+        backButton={true}
+        backButtonText={false}
         setShowCreateConfigPopup={setShowCreateConfigPopup}
       />
       <ConfigTableView

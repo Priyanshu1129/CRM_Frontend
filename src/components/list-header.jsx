@@ -5,6 +5,7 @@ import { Grid, Button, Space, Radio } from "antd";
 import { ListSearch } from "./list-search";
 import { AppstoreOutlined, UnorderedListOutlined } from "@ant-design/icons";
 import { ConfigListTitleButton } from "./config-list-title-button";
+import { BackButton } from ".";
 
 export const ListHeader = ({
   setView,
@@ -18,6 +19,8 @@ export const ListHeader = ({
   filters,
   setFilters,
   type = "normal",
+  backButton = false,
+  backButtonText = true,
   setShowCreateConfigPopup,
 }) => {
   const screens = Grid.useBreakpoint();
@@ -39,6 +42,7 @@ export const ListHeader = ({
           marginTop: screens.xs ? "1.6rem" : undefined,
         }}
       >
+        {backButton && <BackButton text={backButtonText} />}
         {type == "config" ? (
           <ConfigListTitleButton
             buttonText={buttonText}

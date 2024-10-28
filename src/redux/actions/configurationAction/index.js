@@ -6,3 +6,4 @@ export * from "./subSolution";
 export * from "./subIndustry";
 export * from "./territory";
 export * from "./currency";
+export * from "./configuration"

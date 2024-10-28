@@ -7,3 +7,4 @@ export * from "./subSolution";
 export * from "./territory";
 export * from "./masters"
 export * from "./currency";
+export * from "./configuration"

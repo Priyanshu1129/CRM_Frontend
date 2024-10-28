@@ -157,7 +157,7 @@ export const Filter = ({ filters, setFilters, setFilter }) => {
   const content = React.useMemo(
     () => (
       <Menu
-        style={{ borderRadius: "8px" }}
+        style={{ borderRadius: "8px", scrollbarWidth: "thin" }}
         openKeys={openKeys}
         onOpenChange={onSubMenuOpenChange}
       >
@@ -167,6 +167,7 @@ export const Filter = ({ filters, setFilters, setFilter }) => {
               onTitleClick={() => setOpen(true)}
               key={parent.key}
               title={parent.label}
+              style={{ scrollbarWidth: "thin" }}
             >
               {parent.children.map((child) => (
                 <Menu.Item key={child.key}>
