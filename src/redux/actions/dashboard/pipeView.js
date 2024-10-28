@@ -3,12 +3,13 @@ import { pipeViewActions } from "@/redux/slices/dashboardSlice";
 import { serverURL } from "@/config/config";
 const route = `${serverURL}/dashboards/pipe-view`
 
-export const getPipeView = (data) => async (dispatch) => {
+export const getPipeView = ({ particularDate, industry = "", subIndustry = "", territory = "", solution = "", enteredBy = "" }) => async (dispatch) => {
     try {
-        console.log("get-pipeView-data-req");
+        console.log("get-pipeView-data-req", solution);
         dispatch(pipeViewActions.getPipeViewRequest());
 
-        const response = await axios.post(`${route}/`, data, {
+        const response = await axios.post(`${route}/`, { particularDate }, {
+            params: { industry, subIndustry, territory, solution, enteredBy },
             withCredentials: true,
         });
         console.log('get-pipeView-details-res-data', response.data);

@@ -9,19 +9,23 @@ export const useFetchPipeView = ({ particularDate }) => {
     const dispatch = useDispatch();
     const [currentDate, setCurrentDate] = useState(null);
     const [refresh, setRefresh] = useState(false);
+    const [filters, setFilters] = useState({});
+    const [filter, setFilter] = useState(false);
     const { status, data, error } = useSelector((state) => state.pipeView.getPipeView);
     const [opportunities, setOpportunities] = useState(data?.data || { lead: [], prospect: [], qualification: [], followup: [], proposal: [], closing: [] });
 
     const fetchPipeView = useCallback(() => {
-        dispatch(getPipeView({ particularDate }));
-    }, [dispatch, particularDate])
+        console.log('filters', filters)
+        dispatch(getPipeView({ particularDate, ...filters }));
+    }, [dispatch, particularDate, filters])
 
     useEffect(() => {
-        if (refresh || currentDate != particularDate) {
+        if (refresh || currentDate != particularDate || (filter && filters)) {
             fetchPipeView();
             setCurrentDate(particularDate);
         }
-    }, [currentDate, particularDate, refresh, fetchPipeView, setCurrentDate])
+        setFilter(false);
+    }, [currentDate, particularDate, refresh, fetchPipeView, setCurrentDate, filter, filters])
 
     useEffect(() => {
         if (status === "pending") {
@@ -43,5 +47,5 @@ export const useFetchPipeView = ({ particularDate }) => {
         }
     }, [status, data, error, dispatch])
 
-    return { loading, opportunities, setRefresh };
+    return { loading, opportunities, setRefresh, setFilters, setFilter, filters };
 }

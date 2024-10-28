@@ -6,7 +6,7 @@
 // import UpdateConfigModal from "./update-config-modal";
 // import CreateConfigModal from "./create-config-modal";
 // import { ConfigTableView } from "./table-view";
-// import { useSolutions } from "@/hooks/useSolutions";
+// import { useSolutions } from "@/hooks";
 
 // const ConfigPage = ({configType}) => {
 //   const [pageSize, setPageSize] = useState(100);
@@ -90,7 +90,7 @@ import { ListHeader } from "@/components";
 import UpdateConfigModal from "./update-config-modal";
 import CreateConfigModal from "./create-config-modal";
 import { ConfigTableView } from "./table-view";
-import { useSolutions } from "@/hooks/useSolutions";
+import { useSolutions } from "@/hooks";
 
 const ConfigPage = ({ configType }) => {
   const [pageSize, setPageSize] = useState(100);

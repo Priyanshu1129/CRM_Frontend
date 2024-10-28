@@ -9,14 +9,18 @@ import { KanbanColumn } from "./components/column";
 import { DealKanbanCardMemo } from "./components/deal-kanban-card";
 import { KanbanItem } from "./components/item";
 import { stages, getStats } from "./stages";
+import ShowCurrency from "../components/ShowCurrency";
 import moment from "moment";
+import { useRouter } from "next/navigation";
 
 const PipeView = () => {
   const [particularDate, setParticularDate] = useState(moment());
-  const { loading, setRefresh, opportunities } = useFetchPipeView({
-    particularDate,
-  });
+  const { loading, setRefresh, opportunities, filters, setFilter, setFilters } =
+    useFetchPipeView({
+      particularDate,
+    });
   const [stats, setStats] = useState(null);
+  const router = useRouter();
 
   useEffect(() => {
     if (opportunities) {
@@ -24,15 +28,15 @@ const PipeView = () => {
     }
   }, [opportunities]);
 
-  console.log("stats", stats);
   return (
     <>
       <DashboardHeader
         dashboard={"Pipe View"}
         setDate={setParticularDate}
         setRefresh={setRefresh}
-        filters={[]}
-        setFilter={false}
+        setFilter={setFilter}
+        setFilters={setFilters}
+        filters={filters}
         FilterComponent={Filter}
       />
       {loading ? (
@@ -45,11 +49,16 @@ const PipeView = () => {
                 title={stage.title}
                 description={
                   <Text size="md" disabled={true}>
-                    {0}
+                    <ShowCurrency
+                      value={stats ? stats[stage.key]?.totalRevenue : 0}
+                    />
                   </Text>
                 }
                 count={stats ? stats[stage.key]?.count : 0}
                 key={index}
+                onAddClick={() =>
+                  router.push("/opportunity-master/add-opportunity")
+                }
               >
                 {opportunities &&
                   opportunities[stage.key]?.map((item, index) => {
