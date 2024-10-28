@@ -17,7 +17,7 @@ const PipeView = () => {
     particularDate,
   });
   const [stats, setStats] = useState(null);
-
+  const [filters, setFilter] = useState([])
   useEffect(() => {
     if (opportunities) {
       setStats(getStats(opportunities));

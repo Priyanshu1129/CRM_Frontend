@@ -10,6 +10,7 @@ import {
   theme,
   Row,
   Col,
+  DatePicker
 } from "antd";
 
 import {
@@ -58,7 +59,7 @@ export const UpdateOpportunityForm = ({ opportunity }) => {
         <Col span={8}>
               <Form.Item
                 name="updateDate"
-                label="Entry Date"
+                label="Update Date"
               >
                 <DatePicker style={{ width: "100%" }} />
               </Form.Item>
