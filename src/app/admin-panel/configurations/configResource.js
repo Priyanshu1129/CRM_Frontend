@@ -41,7 +41,7 @@ export const getColumns = ({ counts }) => {
             dataIndex: "key",
             key: "key",
             width: 150,
-            render: (text) => counts && counts[text] || "N/A",
+            render: (text) => counts ? counts[text] : "N/A",
         },
         {
             title: "Action",
