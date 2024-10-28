@@ -19,7 +19,8 @@ import {
     subSolutionReducer,
     territoryReducer,
     mastersConfigReducer,
-    currencyReducer
+    currencyReducer,
+    configurationReducer
 } from './slices/configurationSlice';
 import { pipeViewReducer } from './slices/dashboardSlice';
 import { userReducer } from './slices/userSlice';
@@ -41,6 +42,7 @@ const store = configureStore({
         incorporationType: incorporationTypeReducer,
         relationshipStatus: relationshipStatusReducer,
         mastersConfig: mastersConfigReducer,
+        configuration: configurationReducer,
         industry: industryReducer,
         subIndustry: subIndustryReducer,
         salesStage: salesStageReducer,

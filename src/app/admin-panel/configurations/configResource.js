@@ -5,33 +5,28 @@ import { SettingOutlined } from "@ant-design/icons"
 export const configResources = [
     {
         key: "industry",
-        title: "Industry",
-        total: '10'
+        title: "Industry"
     },
     {
         key: "sub-industry",
-        title: "Sub Industry",
-        total: '10'
+        title: "Sub Industry"
     },
     {
         key: "solution",
-        title: "Solution",
-        total: '10'
+        title: "Solution"
     },
     {
         key: "sub-solution",
-        title: "Sub Solution",
-        total: '10'
+        title: "Sub Solution"
     },
     {
         key: "territory",
-        title: "Territory",
-        total: '10'
+        title: "Territory"
     }
 ]
 
 
-export const getColumns = () => {
+export const getColumns = ({ counts }) => {
 
     const columns = [
         {
@@ -43,10 +38,10 @@ export const getColumns = () => {
         },
         {
             title: "Total",
-            dataIndex: "total",
-            key: "total",
+            dataIndex: "key",
+            key: "key",
             width: 150,
-            render: (text) => text || "N/A",
+            render: (text) => counts && counts[text] || "N/A",
         },
         {
             title: "Action",
