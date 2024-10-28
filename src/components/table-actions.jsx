@@ -9,6 +9,7 @@ export const TableActions = ({
   showUrl = "",
   deleteUrl = "",
   record = {},
+  deleteAction = true,
 }) => {
   const router = useRouter();
   return (
@@ -26,7 +27,9 @@ export const TableActions = ({
           }}
           icon={<EyeOutlined />}
         />
-        <Button size="small" href="" danger icon={<DeleteOutlined />} />
+        {deleteAction && (
+          <Button size="small" href="" danger icon={<DeleteOutlined />} />
+        )}
       </Space>
     </>
   );
