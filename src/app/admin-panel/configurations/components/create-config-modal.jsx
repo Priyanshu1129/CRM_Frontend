@@ -137,7 +137,10 @@ import { useCreateTerritory } from "@/hooks/adminPanel/configurations/territory/
 import { useCreateIndustry } from "@/hooks/adminPanel/configurations/industry/useCreateIndustry";
 import { useCreateSubIndustry } from "@/hooks/adminPanel/configurations/sub-industry/useCreateSubIndustry";
 import { useCreateSolution } from "@/hooks/adminPanel/configurations/solution/useCreateSolution";
-import { roleFormRules } from "@/utilities/formValidationRules";
+import { opportunityFormRules, roleFormRules } from "@/utilities/formValidationRules";
+import { useCreateSubSolution } from "@/hooks/adminPanel/configurations/sub-solution/useCreateSubSolution";
+import { useCreateSalesSubStage } from "@/hooks/adminPanel/configurations/sales-sub-stage/useCreateSalesSubStage";
+import { SalesStageSelector } from "@/components";
 
 const CreateConfigModal = ({
   showCreateConfigPopup,
@@ -152,6 +155,8 @@ const CreateConfigModal = ({
   const industryCreate = useCreateIndustry({ setShowCreateConfigPopup });
   const subIndustryCreate = useCreateSubIndustry({ setShowCreateConfigPopup });
   const solutionCreate = useCreateSolution({ setShowCreateConfigPopup });
+  const subSolutionCreate = useCreateSubSolution({ setShowCreateConfigPopup });
+  const salesSubStageCreate = useCreateSalesSubStage({ setShowCreateConfigPopup });
 
   // Select the correct loading and onFinish based on configType
   let loading, onFinish;
@@ -171,6 +176,14 @@ const CreateConfigModal = ({
     case "solution":
       loading = solutionCreate.loading;
       onFinish = solutionCreate.onFinish;
+      break;
+    case "sub-solution":
+      loading = subSolutionCreate.loading;
+      onFinish = subSolutionCreate.onFinish;
+      break;
+    case "sales-sub-stage":
+      loading = salesSubStageCreate.loading;
+      onFinish = salesSubStageCreate.onFinish;
       break;
     default:
       loading = false;
@@ -225,6 +238,13 @@ const CreateConfigModal = ({
                 <Input />
               </Form.Item>
             </Col>
+           { configType == "sales-sub-stage" &&  <Col span={8}>
+              <SalesStageSelector
+                name="salesStage"
+                label="Sales Stage"
+                rules={opportunityFormRules.salesStage}
+              />
+            </Col>}
             <Col span={24}>
               <Form.Item>
                 <Space>

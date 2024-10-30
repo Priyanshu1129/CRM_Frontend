@@ -22,6 +22,14 @@ export const configResources = [
     {
         key: "territory",
         title: "Territory"
+    },
+    {
+        key: "sales-stage",
+        title: "Sales Stage"
+    },
+    {
+        key: "sales-sub-stage",
+        title: "Sales Sub Stage"
     }
 ]
 

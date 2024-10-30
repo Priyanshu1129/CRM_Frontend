@@ -91,6 +91,9 @@ import UpdateConfigModal from "./update-config-modal";
 import CreateConfigModal from "./create-config-modal";
 import { ConfigTableView } from "./table-view";
 import { useSolutions } from "@/hooks";
+import { useSubSolutions } from "@/hooks/useSubSolutions";
+import {  useSalesStages } from "@/hooks/useSalesStage";
+import { useSalesSubStages } from "@/hooks/useSalesSubStage";
 
 const ConfigPage = ({ configType }) => {
   const [pageSize, setPageSize] = useState(100);
@@ -121,6 +124,21 @@ const ConfigPage = ({ configType }) => {
     setRefresh,
     configType,
   });
+  const { subSolutions, loading: subSolutionsLoading } = useSubSolutions({
+    refresh,
+    setRefresh,
+    configType,
+  });
+  const { salesStages, loading: salesStagesLoading } = useSalesStages({
+    refresh,
+    setRefresh,
+    configType,
+  });
+  const { salesSubStages, loading: salesSubStagesLoading } = useSalesSubStages({
+    refresh,
+    setRefresh,
+    configType,
+  });
 
   // Determine data and loading state based on configType
   let data, loading;
@@ -140,6 +158,18 @@ const ConfigPage = ({ configType }) => {
     case "solution":
       data = solutions;
       loading = solutionsLoading;
+      break;
+    case "sub-solution":
+      data = subSolutions;
+      loading = subSolutionsLoading;
+      break;
+    case "sales-stage":
+      data = salesStages;
+      loading = salesStagesLoading;
+      break;
+    case "sales-sub-stage":
+      data = salesSubStages;
+      loading = salesSubStagesLoading;
       break;
     default:
       data = [];
@@ -175,11 +205,13 @@ const ConfigPage = ({ configType }) => {
         showUpdateConfigPopup={showUpdateConfigPopup}
         setShowUpdateConfigPopup={setShowUpdateConfigPopup}
       />
-      <CreateConfigModal
+
+      { (configType != "sales-stage" ) && <CreateConfigModal
         configType={configType}
         showCreateConfigPopup={showCreateConfigPopup}
         setShowCreateConfigPopup={setShowCreateConfigPopup}
       />
+      }
     </>
   );
 };

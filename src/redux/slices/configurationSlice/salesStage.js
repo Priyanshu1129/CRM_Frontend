@@ -1,3 +1,5 @@
+import { getAllSalesStages } from '@/redux/actions/configurationAction';
+import { getAllStages } from '@/redux/actions/tenderAction';
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialSalesStageState = {

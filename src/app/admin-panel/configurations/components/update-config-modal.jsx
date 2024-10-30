@@ -158,7 +158,11 @@ import { useUpdateTerritory } from "@/hooks/adminPanel/configurations/territory/
 import { useUpdateIndustry } from "@/hooks/adminPanel/configurations/industry/useUpdateIndustry";
 import { useUpdateSubIndustry } from "@/hooks/adminPanel/configurations/sub-industry/useUpdateSubIndustry";
 import { useUpdateSolution } from "@/hooks/adminPanel/configurations/solution/useUpdateSolution";
-import { roleFormRules } from "@/utilities/formValidationRules";
+import { opportunityFormRules, roleFormRules } from "@/utilities/formValidationRules";
+import { useUpdateSubSolution } from "@/hooks/adminPanel/configurations/sub-solution/useUpdateSubSolution";
+import { useUpdateSalesStage } from "@/hooks/adminPanel/configurations/sales-stage/useUpdateSalesStage";
+import { useUpdateSalesSubStage } from "@/hooks/adminPanel/configurations/sales-sub-stage/useUpdateSalesSubStage";
+import { SalesStageSelector } from "@/components";
 
 const UpdateConfigModal = ({
   configType,
@@ -175,6 +179,9 @@ const UpdateConfigModal = ({
   const industryUpdate = useUpdateIndustry({ setShowUpdateConfigPopup, updateConfigData });
   const subIndustryUpdate = useUpdateSubIndustry({ setShowUpdateConfigPopup, updateConfigData });
   const solutionUpdate = useUpdateSolution({ setShowUpdateConfigPopup, updateConfigData });
+  const subSolutionUpdate = useUpdateSubSolution({ setShowUpdateConfigPopup, updateConfigData });
+  const salesStageUpdate = useUpdateSalesStage({ setShowUpdateConfigPopup, updateConfigData });
+  const salesSubStageUpdate = useUpdateSalesSubStage({ setShowUpdateConfigPopup, updateConfigData });
 
   // Select the correct loading and onFinish based on configType
   let loading, onFinish;
@@ -194,6 +201,18 @@ const UpdateConfigModal = ({
     case "solution":
       loading = solutionUpdate.loading;
       onFinish = solutionUpdate.onFinish;
+      break;
+    case "sub-solution":
+      loading = subSolutionUpdate.loading;
+      onFinish = subSolutionUpdate.onFinish;
+      break;
+    case "sales-stage":
+      loading = salesStageUpdate.loading;
+      onFinish = salesStageUpdate.onFinish;
+      break;
+    case "sales-sub-stage":
+      loading = salesSubStageUpdate.loading;
+      onFinish = salesSubStageUpdate.onFinish;
       break;
     default:
       loading = false;
@@ -253,6 +272,13 @@ const UpdateConfigModal = ({
                 <Input />
               </Form.Item>
             </Col>
+            { configType == "sales-sub-stage" &&  <Col span={8}>
+              <SalesStageSelector
+                name="salesStage"
+                label="Sales Stage"
+                // rules={opportunityFormRules.salesStage}
+              />
+            </Col>}
             <Col span={24}>
               <Form.Item>
                 <Space>

@@ -107,41 +107,17 @@ export const createSalesStage = (salesStageData, token) => async (dispatch) => {
     }
 };
 
-export const updateSalesStage = (salesStageData, token, salesStageId) => async (dispatch) => {
-
-    const formData = new FormData();
-    Object.entries(salesStageData).forEach(([key, value]) => {
-        if (key != 'avatarUri') {
-            formData.append(key, value);
-        }
-    });
-
-    if (salesStageData?.avatarUri) {
-        const fileName = salesStageData.avatarUri.split('/').pop();
-        // Determine file type based on file extension
-        const fileType = fileName.split('.').pop();
-
-        // Append avatar file to FormData
-        formData.append("avatar", {
-            uri: salesStageData.avatarUri,
-            type: `image/${fileType}`,
-            name: fileName
-        });
-    }
-
+export const updateSalesStage = (salesStageData, salesStageId) => async (dispatch) => {
+    
     try {
         console.log("update-salesStageData%", salesStageData,);
-        console.log("update-salesStageData%", formData,);
         dispatch(salesStageActions.updateSalesStageRequest());
         console.log("update url----------", `${route}/${salesStageId}`);
         const data = await axios.put(
             `${route}/${salesStageId}`,
-            formData,
+            salesStageData,
             {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                    "authorization": token
-                },
+                withCredentials : true
             }
         );
         console.log('update-salesStage-res-data', data.data);

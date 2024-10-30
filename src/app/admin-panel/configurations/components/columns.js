@@ -37,13 +37,24 @@ export const getColumns = ({  setUpdateConfigData, setShowUpdateConfigPopup, con
             render: (_, record) => {
                 const updateConfigData = {
                     label : record.text,
-                    _id : record.value
+                    _id : record.value,
+                    salesStage : record.salesStage || null
                 }
                 record.updateConfigPopup = true;
                 return <TableActions setUpdateConfigData={setUpdateConfigData} updateConfigData={updateConfigData} setShowUpdateConfigPopup={setShowUpdateConfigPopup} record={record} showUrl={`/admin-panel/configurations/territory/${record.value}`} />
             },
         },
-       
+        
     ];
+    if(configType == 'sales-sub-stage'){
+        const col = {
+            title: `Sales Stage`,
+            dataIndex: "salesStageLabel",
+            key: "sales-stage",
+            render: (text) => text || 'N/A',
+            width: 150,
+        }
+        columns.splice(2,0,col)
+    }
     return columns;
 }

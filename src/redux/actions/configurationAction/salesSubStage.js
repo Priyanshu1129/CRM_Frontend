@@ -54,41 +54,15 @@ export const getSalesSubStage = (salesSubStageId, token) => async (dispatch) => 
     }
 };
 
-export const createSalesSubStage = (salesSubStageData, token) => async (dispatch) => {
+export const createSalesSubStage = (salesSubStageData) => async (dispatch) => {
     try {
-        console.log("create-salesSubStageData", salesSubStageData);
-        dispatch(salesSubStageActions.createSalesSubStageRequest());
-        const formData = new FormData();
-
-        // Append other form data to FormData
-        Object.entries(salesSubStageData).forEach(([key, value]) => {
-            if (key != 'avatarUri') {
-                formData.append(key, value);
-            }
-        });
-
-        const fileName = salesSubStageData.avatarUri.split('/').pop();
-        // Determine file type based on file extension
-        const fileType = fileName.split('.').pop();
-
-        // Append avatar file to FormData
-        formData.append("avatar", {
-            uri: salesSubStageData.avatarUri,
-            type: `image/${fileType}`,
-            name: fileName
-        });
-
-        console.log("formdata-----before")
-        console.log("formdata-----", formData)
-
+        console.log("create-req-salesSubStageData", salesSubStageData);
+        
         const data = await axios.post(
             `${route}/`,
-            formData,
+            salesSubStageData,
             {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                    "authorization": token
-                },
+                withCredentials : true
             }
         );
         console.log('create-salesSubStage-res-data', data);
@@ -107,41 +81,17 @@ export const createSalesSubStage = (salesSubStageData, token) => async (dispatch
     }
 };
 
-export const updateSalesSubStage = (salesSubStageData, token, salesSubStageId) => async (dispatch) => {
-
-    const formData = new FormData();
-    Object.entries(salesSubStageData).forEach(([key, value]) => {
-        if (key != 'avatarUri') {
-            formData.append(key, value);
-        }
-    });
-
-    if (salesSubStageData?.avatarUri) {
-        const fileName = salesSubStageData.avatarUri.split('/').pop();
-        // Determine file type based on file extension
-        const fileType = fileName.split('.').pop();
-
-        // Append avatar file to FormData
-        formData.append("avatar", {
-            uri: salesSubStageData.avatarUri,
-            type: `image/${fileType}`,
-            name: fileName
-        });
-    }
+export const updateSalesSubStage = (salesSubStageData,salesSubStageId) => async (dispatch) => {
 
     try {
-        console.log("update-salesSubStageData%", salesSubStageData,);
-        console.log("update-salesSubStageData%", formData,);
+        console.log("update-salesSubStageData%", salesSubStageData);
         dispatch(salesSubStageActions.updateSalesSubStageRequest());
         console.log("update url----------", `${route}/${salesSubStageId}`);
         const data = await axios.put(
             `${route}/${salesSubStageId}`,
-            formData,
+            salesSubStageData,
             {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                    "authorization": token
-                },
+                withCredentials : true
             }
         );
         console.log('update-salesSubStage-res-data', data.data);

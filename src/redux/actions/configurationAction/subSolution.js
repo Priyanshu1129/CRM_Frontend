@@ -56,39 +56,12 @@ export const getSubSolution = (subSolutionId, token) => async (dispatch) => {
 
 export const createSubSolution = (subSolutionData, token) => async (dispatch) => {
     try {
-        console.log("create-subSolutionData", subSolutionData);
-        dispatch(subSolutionActions.createSubSolutionRequest());
-        const formData = new FormData();
-
-        // Append other form data to FormData
-        Object.entries(subSolutionData).forEach(([key, value]) => {
-            if (key != 'avatarUri') {
-                formData.append(key, value);
-            }
-        });
-
-        const fileName = subSolutionData.avatarUri.split('/').pop();
-        // Determine file type based on file extension
-        const fileType = fileName.split('.').pop();
-
-        // Append avatar file to FormData
-        formData.append("avatar", {
-            uri: subSolutionData.avatarUri,
-            type: `image/${fileType}`,
-            name: fileName
-        });
-
-        console.log("formdata-----before")
-        console.log("formdata-----", formData)
 
         const data = await axios.post(
             `${route}/`,
-            formData,
+            subSolutionData,
             {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                    "authorization": token
-                },
+               withCredentials : true
             }
         );
         console.log('create-subSolution-res-data', data);
@@ -107,45 +80,23 @@ export const createSubSolution = (subSolutionData, token) => async (dispatch) =>
     }
 };
 
-export const updateSubSolution = (subSolutionData, token, subSolutionId) => async (dispatch) => {
+export const updateSubSolution = (subSolutionData, subSolutionId) => async (dispatch) => {
 
-    const formData = new FormData();
-    Object.entries(subSolutionData).forEach(([key, value]) => {
-        if (key != 'avatarUri') {
-            formData.append(key, value);
-        }
-    });
-
-    if (subSolutionData?.avatarUri) {
-        const fileName = subSolutionData.avatarUri.split('/').pop();
-        // Determine file type based on file extension
-        const fileType = fileName.split('.').pop();
-
-        // Append avatar file to FormData
-        formData.append("avatar", {
-            uri: subSolutionData.avatarUri,
-            type: `image/${fileType}`,
-            name: fileName
-        });
-    }
-
+    
     try {
         console.log("update-subSolutionData%", subSolutionData,);
-        console.log("update-subSolutionData%", formData,);
         dispatch(subSolutionActions.updateSubSolutionRequest());
         console.log("update url----------", `${route}/${subSolutionId}`);
         const data = await axios.put(
             `${route}/${subSolutionId}`,
-            formData,
+            subSolutionData,
             {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                    "authorization": token
-                },
+                withCredentials : true
             }
         );
         console.log('update-subSolution-res-data', data.data);
         dispatch(subSolutionActions.updateSubSolutionSuccess(data.data));
+        dispatch(getAllSubSolutions());
     } catch (error) {
         console.log("error", error)
         let errorMessage = "An error occurred";
