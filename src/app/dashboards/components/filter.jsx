@@ -196,7 +196,7 @@ export const Filter = ({ filters, setFilters, setFilter }) => {
           )
         )}
         <Menu.Divider />
-        <Menu.Item>
+        <Menu.Item >
           <div
             style={{
               // background: "red",
@@ -234,7 +234,7 @@ export const Filter = ({ filters, setFilters, setFilter }) => {
       overlayInnerStyle={{ padding: 0, borderRadius: "8px" }}
       onOpenChange={setOpen}
     >
-      <Button size={screens.xs ? "middle" : "large"} icon={<FilterOutlined />}>
+      <Button icon={<FilterOutlined />}>
         {!screens.xs ? "Filter" : null}
         <DownOutlined />
       </Button>

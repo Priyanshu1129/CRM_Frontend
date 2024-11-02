@@ -7,7 +7,9 @@ export const AdminPanelCard = ({ resource }) => {
   const router = useRouter();
   const { key, title, icon } = resource;
   return (
-    <Card size="large" onClick={() => router.push(`/admin-panel/${key}`)}>
+    <Card
+    //  size="large" 
+     onClick={() => router.push(`/admin-panel/${key}`)}>
       <div
         style={{
           display: "flex",
@@ -20,7 +22,7 @@ export const AdminPanelCard = ({ resource }) => {
         <Avatar
           alt={""}
           icon={icon}
-          size={64}
+          // size={64}
           style={{
             // backgroundColor: "transparent",
             display: "flex",
@@ -33,7 +35,7 @@ export const AdminPanelCard = ({ resource }) => {
         />
         <Text
           strong
-          size="md"
+          // size="md"
           style={{
             marginTop: "16px",
           }}

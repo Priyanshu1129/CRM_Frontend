@@ -73,7 +73,7 @@ export const ListHeader = ({
           onClick={() => {
             setRefresh(true);
           }}
-          size={screens.xs ? "middle" : "large"}
+
         />
 
         {/* {!pageName && !view && ( */}
@@ -81,7 +81,6 @@ export const ListHeader = ({
           {pageName && <ListSearch pageName={pageName} />}
           {!screens.xs && view ? (
             <Radio.Group
-              size="large"
               value={view}
               onChange={(e) => setView(e.target.value)}
             >

@@ -58,7 +58,7 @@ const AddTender = () => {
           layout="vertical"
           initialValues={{}}
           form={form}
-          size={"default"}
+          // size={"default"}
         >
           <Row gutter={24}>
             <Col span={8}>

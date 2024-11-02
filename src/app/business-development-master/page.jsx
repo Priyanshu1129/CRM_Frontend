@@ -12,7 +12,6 @@ import { notification } from "antd";
 import { Filter } from "./components/filter";
 
 const BusinessDevelopmentMaster = () => {
-  const [view, setView] = useState("table");
   const [loading, setLoading] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -130,20 +129,16 @@ const BusinessDevelopmentMaster = () => {
         filters={filters}
         FilterComponent={Filter}
       />
-      {view == "table" ? (
-        <BusinessDevelopmentTableView
-          loading={loading}
-          data={businessDevelopments}
-          setCurrentPage={setCurrentPage}
-          setPageSize={setPageSize}
-          total={data?.totalCount}
-          handleFilter={handleFilter}
-        />
-      ) : (
-        <BusinessDevelopmentCardView />
-      )}
+      <BusinessDevelopmentTableView
+        loading={loading}
+        data={businessDevelopments}
+        setCurrentPage={setCurrentPage}
+        setPageSize={setPageSize}
+        total={data?.totalCount}
+        handleFilter={handleFilter}
+      />
     </>
-  );
-};
+  
+)};
 
 export default BusinessDevelopmentMaster;

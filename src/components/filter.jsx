@@ -104,12 +104,12 @@ export const Filter = ({ filterOptions, filters, setFilters, setFilter }) => {
 
   return (
     <Dropdown
-      visible={visible}
-      onVisibleChange={setVisible}
+      open={visible}
+      onOpenChange={setVisible}
       dropdownRender={() => menu}
     >
       <Button
-        size={screens.xs ? "middle" : "large"}
+        
         icon={<FilterOutlined />}
         onClick={() => setVisible(true)} // Open dropdown on button click
       >

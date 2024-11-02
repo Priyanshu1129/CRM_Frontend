@@ -13,7 +13,12 @@ export const UpdateRoleForm = ({ role }) => {
   const colSpan = screens.xs ? 24 : screens.sm ? 12 : screens.md && 8;
 
   return (
-    <Form form={form} layout="vertical" onFinish={onFinish} size="default">
+    <Form
+      form={form}
+      layout="vertical"
+      onFinish={onFinish}
+      // size="default"
+    >
       <Row gutter={24}>
         <Col span={colSpan}>
           <Form.Item

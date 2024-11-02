@@ -43,7 +43,12 @@ export const UpdateClientForm = ({ client }) => {
 
   return (
     <>
-      <Form form={form} layout="vertical" onFinish={onFinish} size="default">
+      <Form
+        form={form}
+        layout="vertical"
+        onFinish={onFinish}
+        //  size="default"
+      >
         <Row gutter={24}>
           <Col span={24}>
             <Form.Item label="Upload Client Profile" name="avatar">

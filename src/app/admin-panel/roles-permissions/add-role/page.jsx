@@ -43,7 +43,7 @@ const AddRole = () => {
           layout="vertical"
           form={form}
           onFinish={onFinish}
-          size={"default"}
+          // size={"default"}
         >
           <Row gutter={24}>
             <Col span={8}>

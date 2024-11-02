@@ -36,7 +36,10 @@ export const UpdateUserForm = ({ user }) => {
   const colSpan = screens.xs ? 24 : screens.sm ? 12 : screens.md && 8;
 
   return (
-    <Form form={form} layout="vertical" onFinish={onFinish} size="default">
+    <Form form={form} layout="vertical" onFinish={onFinish} 
+    // size="default"
+    >
+
       <Row gutter={24}>
         <Col span={24}>
           <Form.Item label="Upload User Profile" name="profileImage">

@@ -1,5 +1,4 @@
 import { TableActions } from "@/components";
-import { SettingOutlined } from "@ant-design/icons"
 
 
 export const configResources = [

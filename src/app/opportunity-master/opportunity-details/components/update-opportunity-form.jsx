@@ -54,16 +54,18 @@ export const UpdateOpportunityForm = ({ opportunity }) => {
         padding: !screens.xs ? "32px" : "16px",
       }}
     >
-      <Form layout="vertical" form={form} size={"default"} onFinish={onFinish}>
+      <Form
+        layout="vertical"
+        form={form}
+        // size={"default"}
+        onFinish={onFinish}
+      >
         <Row gutter={24}>
-        <Col span={8}>
-              <Form.Item
-                name="updateDate"
-                label="Update Date"
-              >
-                <DatePicker style={{ width: "100%" }} />
-              </Form.Item>
-            </Col>
+          <Col span={8}>
+            <Form.Item name="updateDate" label="Update Date">
+              <DatePicker style={{ width: "100%" }} />
+            </Form.Item>
+          </Col>
           <Col span={8}>
             <ClientSelector
               name="client"

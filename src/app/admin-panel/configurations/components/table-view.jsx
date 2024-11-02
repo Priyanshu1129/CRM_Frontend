@@ -21,12 +21,8 @@ export const ConfigTableView = ({
   return (
     <>
       <Table
-        // setCurrentPage={setCurrentPage}
-        // setPageSize={setPageSize}
         loading={loading}
         data={data}
-        // handleChange={handleFilter}
-        // total={total}
         ScrollX="0"
         columns={columns}
         entityName={`${configType}`}

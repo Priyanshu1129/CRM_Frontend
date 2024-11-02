@@ -1,6 +1,5 @@
 import React from "react";
 import { Button, Layout, theme, Space } from "antd";
-import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import {
   Notifications,
   CurrentUser,
@@ -10,12 +9,7 @@ import { FullscreenButton } from "@/utilities/fullScreen";
 
 const { Header: AntHeader } = Layout;
 const Header = () => {
-  const {
-    token: { colorBgContainer, colorBgElevated },
-  } = theme.useToken();
-
   const headerStyles = {
-    backgroundColor: colorBgContainer,
     display: "flex",
     justifyContent: "flex-end",
     alignItems: "center",
@@ -29,7 +23,7 @@ const Header = () => {
   return (
     <>
       <AntHeader style={headerStyles}>
-        <Space align="center" size="middle">
+        <Space align="center" size="small">
           <CurrencyChangeDropDown />
           <FullscreenButton />
           <Notifications />
