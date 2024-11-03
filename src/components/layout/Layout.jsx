@@ -37,7 +37,7 @@ const LayoutComponent = ({ children }) => {
           display: "flex",
         }}
       >
-        <Sidebar setCollapsed={setCollapsed} collapsed={collapsed} />
+        <Sidebar  setCollapsed={setCollapsed} collapsed={collapsed} />
         <Layout
           style={{
             flex: 1,

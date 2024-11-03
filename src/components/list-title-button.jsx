@@ -16,7 +16,7 @@ export const ListTitleButton = ({ buttonText, toPath }) => {
       onClick={() => {
         if(toPath) router.push(toPath);
       }}
-      size={screens.xs ? "middle" : "large"}
+      size={"middle"}
       style={{
         marginTop: screens.xs ? "1.6rem" : "0rem",
       }}

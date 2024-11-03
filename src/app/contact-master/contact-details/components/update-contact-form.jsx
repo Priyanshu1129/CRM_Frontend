@@ -36,7 +36,12 @@ export const UpdateContactForm = ({ contact }) => {
 
   return (
     <>
-      <Form layout="vertical" form={form} size={"default"} onFinish={onFinish}>
+      <Form
+        layout="vertical"
+        form={form}
+        // size={"default"}
+        onFinish={onFinish}
+      >
         <Row gutter={24}>
           <Col span={24}>
             <Form.Item label="Upload Contact Profile" name="avatar">

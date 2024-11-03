@@ -117,7 +117,7 @@ const AddBusinessDevelopment = () => {
           layout="vertical"
           initialValues={{}}
           onFinish={onFinish}
-          size={"default"}
+          // size={"default"}
           form={form}
         >
           <Row gutter={24}>

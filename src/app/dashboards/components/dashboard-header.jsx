@@ -22,6 +22,7 @@ export const DashboardHeader = ({
         alignItems: "center",
         justifyContent: "space-between",
         paddingX: "8px",
+        marginBottom: "28px"
       }}
     >
       <Space
@@ -55,7 +56,6 @@ export const DashboardHeader = ({
           onClick={() => {
             setRefresh(true);
           }}
-          size={screens.xs ? "middle" : "large"}
         />
       </Space>
     </div>

@@ -74,7 +74,7 @@ const AddClient = () => {
           layout="vertical"
           initialValues={{}}
           onFinish={onFinish}
-          size={"default"}
+          // size={"default"}
         >
           <Row gutter={24}>
             <Col span={24}>

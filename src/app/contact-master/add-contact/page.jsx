@@ -67,7 +67,7 @@ const AddContact = () => {
           layout="vertical"
           initialValues={{}}
           form={form}
-          size={"default"}
+          // size={"default"}
           onFinish={onFinish}
         >
           <Row gutter={24}>

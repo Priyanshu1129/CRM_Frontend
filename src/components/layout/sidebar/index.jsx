@@ -5,12 +5,9 @@ import { Menu, Layout, theme, Grid } from "antd";
 import { Title } from "../title";
 const { Sider } = Layout;
 import { resources } from "@/config";
-const { useToken } = theme;
 
 const Sidebar = ({ collapsed, setCollapsed }) => {
   const router = useRouter();
-  const { token } = useToken();
-  const screens = Grid.useBreakpoint();
   const onClick = (e) => {
     router.push(`/${e.key}`, undefined, { scroll: false });
   };
@@ -27,9 +24,8 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
         zIndex: 1,
         scrollbarWidth: "thin",
         scrollbarColor: "unset",
-        // backgroundColor: token.colorBgContainer,
       }}
-      theme="dark"
+      theme="light"
       // trigger={true}
       collapsible
       // collapsedWidth={screens.xs && "0"}
@@ -49,10 +45,9 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
           justifyContent: "flex-start",
           alignItems: "center",
           height: "64px",
-          // backgroundColor: token.colorBgElevated,
           borderBottom: "none",
         }}
-        className="demo-logo-vertical"
+        // className="demo-logo-vertical"
       >
         <Title collapsed={collapsed} />
       </div>
@@ -60,10 +55,10 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
         onClick={onClick}
         style={{
           height: "calc(100% - 64px)", // Adjust to account for header height
-          scrollbarWidth:"thin"
-          // background: token.colorBgContainer,
+          scrollbarWidth: "thin",
+          // background: "transparent",
         }}
-        theme="dark"
+        // theme="light"
         title="Logo"
         defaultSelectedKeys={["1"]}
         defaultOpenKeys={["sub1"]}

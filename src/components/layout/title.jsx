@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 import { Space, theme, Typography } from "antd";
 
 import { Avatar } from "antd";
@@ -40,7 +38,7 @@ export const Title = ({
             height: "24px",
             width: "24px",
             marginRight: "0px",
-            color: token.colorPrimary,
+            color: "#000",
           }}
         >
           <Avatar
@@ -60,7 +58,7 @@ export const Title = ({
             style={{
               fontSize: "inherit",
               marginBottom: 0,
-              color: "#fff",
+              // color: "#fff",
               fontWeight: 700,
             }}
           >

@@ -141,7 +141,7 @@ export const UnifiedFilter = ({
       onVisibleChange={setOpen}
       overlayInnerStyle={{ padding: 0, borderRadius: "8px" }}
     >
-      <Button size={screens.xs ? "middle" : "large"} icon={<FilterOutlined />}>
+      <Button icon={<FilterOutlined />}>
         {!screens.xs ? "Filter" : null}
         <DownOutlined />
       </Button>

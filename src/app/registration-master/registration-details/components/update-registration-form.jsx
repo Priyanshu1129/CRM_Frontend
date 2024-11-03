@@ -30,7 +30,9 @@ export const UpdateRegistrationForm = ({ registration }) => {
 
   return (
     <>
-      <Form layout="vertical" form={form} onFinish={onFinish} size={"default"}>
+      <Form layout="vertical" form={form} onFinish={onFinish} 
+      // size={"default"}
+      >
         <Row gutter={24}>
           <Col span={8}>
             <ClientSelector

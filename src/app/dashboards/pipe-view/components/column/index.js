@@ -68,6 +68,7 @@ const KanbanColumn = ({
                 <Button
                   type="text"
                   shape="circle"
+                  size="small"
                   icon={
                     // @ts-expect-error Ant Design Icon's v5.0.1 has an issue with @types/react@^18.2.66
                     <MoreOutlined
@@ -83,6 +84,7 @@ const KanbanColumn = ({
               shape="circle"
               // @ts-expect-error Ant Design Icon's v5.0.1 has an issue with @types/react@^18.2.66
               icon={<PlusOutlined />}
+              size="small"
               onClick={onAddClickHandler}
             />
           </div>
@@ -106,7 +108,9 @@ const KanbanColumnSkeleton = ({ children, type, variant = "default" }) => {
     <div className={cn(styles.container, styles[variant])}>
       <div className={styles.header}>
         <div className={styles.titleContainer}>
-          <Skeleton.Button size="small" style={{ width: "125px" }} />
+          <Skeleton.Button
+            //  size="small" 
+            style={{ width: "125px" }} />
           <Button
             disabled
             type="text"
@@ -124,7 +128,9 @@ const KanbanColumnSkeleton = ({ children, type, variant = "default" }) => {
           <Button disabled shape="circle" icon={<PlusOutlined />} />
         </div>
         {type === "deal" && (
-          <Skeleton.Button size="small" style={{ width: "175px" }} />
+          <Skeleton.Button
+            //  size="small" 
+            style={{ width: "175px" }} />
         )}
       </div>
       <div className={cn(styles.columnScrollableContainer)}>

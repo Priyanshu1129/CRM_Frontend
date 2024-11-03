@@ -33,7 +33,9 @@ export const UpdateTenderForm = ({ tender }) => {
 
   return (
     <>
-      <Form onFinish={onFinish} layout="vertical" form={form} size={"default"}>
+      <Form onFinish={onFinish} layout="vertical" form={form} 
+      // size={"default"}
+      >
         <Row gutter={24}>
           <Col span={colSpan}>
             <Form.Item

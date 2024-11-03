@@ -6,7 +6,7 @@ export const ClientCardSkeleton = () => {
 
   return (
     <Card
-      size="small"
+      // size="small"
       actions={[
         <div
           key={1}

@@ -14,31 +14,29 @@ export const ListSearch = ({ pageName }) => {
   const [input, setInput] = useState("");
   const router = useRouter();
   const renderSelector = () => {
-    const size = screens.xs ? "middle" : "large";
     switch (pageName) {
       case "client":
         return (
-          <ClientSelector setInput={setInput} size={size} name={pageName} />
+          <ClientSelector setInput={setInput} name={pageName} />
         );
       case "contact":
         return (
-          <ContactSelector setInput={setInput} size={size} name={pageName} />
+          <ContactSelector setInput={setInput}  name={pageName} />
         );
       case "opportunity":
         return (
           <OpportunitySelector
             setInput={setInput}
-            size={size}
             name={pageName}
           />
         );
       case "tender":
         return (
-          <TenderSelector setInput={setInput} size={size} name={pageName} />
+          <TenderSelector setInput={setInput}  name={pageName} />
         );
       case "user":
         return (
-          <UserSelector setInput={setInput} size={size} name={pageName} />
+          <UserSelector setInput={setInput}  name={pageName} />
         );
       default:
         return null; // or you could render a fallback component here

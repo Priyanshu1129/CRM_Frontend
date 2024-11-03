@@ -16,7 +16,6 @@ export const ConfigListTitleButton = ({ buttonText, setShowCreateConfigPopup }) 
       onClick={() => {
         setShowCreateConfigPopup(true);
       }}
-      size={screens.xs ? "middle" : "large"}
       style={{
         marginTop: screens.xs ? "1.6rem" : "0rem",
       }}

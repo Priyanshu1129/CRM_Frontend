@@ -115,7 +115,7 @@ export const UpdateBusinessDevelopmentForm = ({ businessDevelopment }) => {
 
   return (
     <>
-      <Form form={form} layout="vertical" onFinish={onFinish} size="default">
+      <Form form={form} layout="vertical" onFinish={onFinish}>
         <Row gutter={24}>
           <Col span={colSpan}>
             <ClientSelector

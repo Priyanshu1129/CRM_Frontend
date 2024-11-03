@@ -17,7 +17,7 @@ export const FormHeader = ({
       onClick={() => {
         router.back();
       }}
-      size={screens.xs ? "middle" : "large"}
+
       style={{
         marginTop: screens.xs ? "1.6rem" : "0rem",
       }}
@@ -38,7 +38,6 @@ export const FormHeader = ({
     <Button
       icon={<UploadOutlined />}
       type="primary"
-      size={screens.xs ? "middle" : "large"}
       onClick={() => setUploadModal(true)}
       style={{
         marginTop: screens.xs ? "1.6rem" : "0rem",
