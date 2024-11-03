@@ -188,6 +188,7 @@ const ConfigPage = ({ configType }) => {
         backButton={true}
         backButtonText={false}
         setShowCreateConfigPopup={setShowCreateConfigPopup}
+        configType={configType}
       />
       <ConfigTableView
         data={data}

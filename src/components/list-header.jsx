@@ -22,6 +22,7 @@ export const ListHeader = ({
   backButton = false,
   backButtonText = true,
   setShowCreateConfigPopup,
+  configType
 }) => {
   const screens = Grid.useBreakpoint();
 
@@ -44,12 +45,12 @@ export const ListHeader = ({
       >
         {backButton && <BackButton text={backButtonText} />}
         {type == "config" ? (
-          <ConfigListTitleButton
+          configType != "sales-stage" && <ConfigListTitleButton
             buttonText={buttonText}
             setShowCreateConfigPopup={setShowCreateConfigPopup}
           />
         ) : (
-          <ListTitleButton toPath={toPath} buttonText={buttonText} />
+           <ListTitleButton toPath={toPath} buttonText={buttonText} />
         )}
         {pageName !== "user" && FilterComponent && (
           <FilterComponent
