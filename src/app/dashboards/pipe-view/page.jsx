@@ -60,8 +60,8 @@ const PipeView = () => {
                   router.push("/opportunity-master/add-opportunity")
                 }
               >
-                {opportunities &&
-                  opportunities[stage.key]?.map((item, index) => {
+                {opportunities && Array.isArray(opportunities[stage?.key]) &&
+                  opportunities[stage?.key]?.map((item, index) => {
                     return (
                       <KanbanItem id={item?._id} key={index}>
                         <DealKanbanCardMemo

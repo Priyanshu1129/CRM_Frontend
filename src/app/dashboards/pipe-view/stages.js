@@ -205,8 +205,9 @@ export const getStats = (opportunities) => {
   if (opportunities) {
     const stats = stages.data.reduce((acc, stage) => {
       const stageOpportunities = opportunities[stage.key] || [];
+      console.log("stageOpportunities : ", stageOpportunities);
       const count = stageOpportunities.length;
-      const totalRevenue = stageOpportunities.reduce((acc, item) => acc + (item.totalRevenue || 0), 0);
+      const totalRevenue = Array.isArray(stageOpportunities) ? stageOpportunities.reduce((acc, item) => acc + (item.totalRevenue || 0), 0) : 0;
 
       acc[stage.key] = {
         count,
