@@ -25,23 +25,23 @@ export const resources = [
                 label: "Pipe View",
             },
             {
-                key: "funnel-view",
+                key: "dashboards/funnel-view",
                 label: "Funnel View",
             },
             {
-                key: "summary-view",
+                key: "dashboards/summary-view",
                 label: "Summary View",
             },
             {
-                key: "compare-view",
+                key: "dashboards/compare-view",
                 label: "Compare View",
             },
             {
-                key: "target-view",
+                key: "dashboards/target-view",
                 label: "Target View",
             },
             {
-                key: "trend-view",
+                key: "dashboards/trend-view",
                 label: "Trend View",
             }
         ]
