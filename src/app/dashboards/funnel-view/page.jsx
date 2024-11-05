@@ -34,11 +34,11 @@ const PipeView = () => {
     <>
       Funnel --------------------------
        <FunnelChart funnelStats={{
-            "lead": 2,
-            "prospect": 3,
+            "lead": 5,
+            "prospect": 10,
             "qualification": 1,
             "proposal": 1,
-            "followup": 1,
+            "followup": 5,
             "closing": 2
         }}></FunnelChart>
     </>
