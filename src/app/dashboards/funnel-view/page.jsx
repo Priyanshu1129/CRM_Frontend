@@ -12,6 +12,7 @@ import { Text } from "@/components";
 // import ShowCurrency from "../components/ShowCurrency";
 import moment from "moment";
 import { useRouter } from "next/navigation";
+import FunnelChart from "./components/funnelChart";
 
 const PipeView = () => {
   const [startDate, setStartDate] = useState(moment());
@@ -20,7 +21,7 @@ const PipeView = () => {
     useFetchFunnelView({
       startDate, endDate
     });
- 
+  console.log("funnel data-------------",funnelViewData)
   const router = useRouter();
 
   // useEffect(() => {
@@ -32,9 +33,14 @@ const PipeView = () => {
   return (
     <>
       Funnel --------------------------
-      {/* {
-        funnelViewData
-      } */}
+       <FunnelChart funnelStats={{
+            "lead": 2,
+            "prospect": 3,
+            "qualification": 1,
+            "proposal": 1,
+            "followup": 1,
+            "closing": 2
+        }}></FunnelChart>
     </>
   );
 };
