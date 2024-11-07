@@ -2,11 +2,13 @@ import React from "react";
 import { ReloadOutlined } from "@ant-design/icons";
 import { Grid, Button, Space } from "antd";
 import { SelectDate } from "./date-selector";
+import { SelectDateRange } from ".";
 
 export const DashboardHeader = ({
   setRefresh,
   dashboard,
   setDate,
+  setDateRange,
   FilterComponent,
   setFilter,
   filters,
@@ -22,7 +24,7 @@ export const DashboardHeader = ({
         alignItems: "center",
         justifyContent: "space-between",
         paddingX: "8px",
-        marginBottom: "28px"
+        marginBottom: "28px",
       }}
     >
       <Space
@@ -33,7 +35,16 @@ export const DashboardHeader = ({
           marginTop: screens.xs ? "1.6rem" : undefined,
         }}
       >
-        <SelectDate onChange={(date, dateString) => setDate(date)} />
+        {setDate && (
+          <SelectDate onChange={(date, dateString) => setDate(date)} />
+        )}
+
+        {setDateRange && (
+          <SelectDateRange
+            onChange={(dates, dateStrings) => setDateRange(dates)}
+          />
+        )}
+
         {FilterComponent && (
           <FilterComponent
             filters={filters}

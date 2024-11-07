@@ -1,6 +1,13 @@
 import React, { useEffect, useRef } from 'react';
 
-const FunnelChart = ({ funnelStats }) => {
+export const FunnelChart = ({ funnelStats = {
+  lead: 0,
+  prospect: 0,
+  qualification: 0,
+  proposal: 0,
+  followup: 0,
+  closing: 0,
+} }) => {
   const canvasRef = useRef(null);
 
   const drawFunnelChart = (ctx, width, height) => {
@@ -83,12 +90,10 @@ const FunnelChart = ({ funnelStats }) => {
     return () => {
       window.removeEventListener("resize", resizeCanvas);
     };
-  }, [funnelStats]);
+  }, [funnelStats, resizeCanvas]);
 
   return (
-  <div style={{background : "#F0F2F5", padding: '10px', borderRadius : '10px'}}>
-  <canvas ref={canvasRef} style={{ width: '100%', height: 'auto' }} />
-  </div>);
+    <div style={{ background: "#ffffff", padding: '10px', borderRadius: '10px' }}>
+      <canvas ref={canvasRef} style={{ width: '100%', height: '100%' }} />
+    </div>);
 };
-
-export default FunnelChart;

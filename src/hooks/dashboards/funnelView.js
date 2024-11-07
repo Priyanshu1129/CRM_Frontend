@@ -5,36 +5,37 @@ import { funnelViewActions } from "@/redux/slices/dashboardSlice"
 import { notification } from "antd"
 
 export const useFetchFunnelView = ({ startDate, endDate }) => {
+    console.log('sd', startDate, 'ed', endDate)
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
-    const [currentDate, setCurrentDate] = useState(null);
     const [sDate, setSDate] = useState("2010-01-01"); // start date
     const [eDate, setEDate] = useState(Date.now()); // end date
     const [refresh, setRefresh] = useState(false);
-    const [filters, setFilters] = useState({});  
+    const [filters, setFilters] = useState({});
     const [filter, setFilter] = useState(false);
     const { status, data, error } = useSelector((state) => state.funnelView.getFunnelView);
     const [funnelViewData, setFunnelViewData] = useState(data?.data);
+    const [conversionStats, setConversionStats] = useState(data?.data?.conversionStats || {});
 
     const fetchFunnelView = useCallback(() => {
-        console.log('filters', filters)
-        dispatch(getFunnelView({  startDate, endDate , ...filters }));
-    }, [dispatch,  sDate, eDate, , endDate, filters])
+        dispatch(getFunnelView({ startDate, endDate, ...filters }));
+    }, [dispatch, endDate, startDate, filters])
 
     useEffect(() => {
-        if (refresh  || startDate != sDate || endDate != eDate || (filter && filters)) {
+        if (refresh || startDate != sDate || endDate != eDate || (filter && filters)) {
             fetchFunnelView();
             setSDate(startDate);
             setEDate(endDate);
         }
         setFilter(false);
-    }, [currentDate, sDate, eDate, refresh, fetchFunnelView, setCurrentDate, filter, filters])
+    }, [sDate, eDate, startDate, endDate, refresh, fetchFunnelView, filter, filters])
 
     useEffect(() => {
         if (status === "pending") {
             setLoading(true);
         } else if (status === "success") {
             setFunnelViewData(data?.data)
+            setConversionStats(data?.data?.conversionStats);
             setLoading(false);
             setRefresh(false);
             dispatch(funnelViewActions.clearGetFunnelViewStatus());
@@ -50,5 +51,5 @@ export const useFetchFunnelView = ({ startDate, endDate }) => {
         }
     }, [status, data, error, dispatch])
 
-    return { loading, funnelViewData, setRefresh, setFilters, setFilter, filters };
+    return { loading, funnelViewData, conversionStats, setRefresh, setFilters, setFilter, filters };
 }

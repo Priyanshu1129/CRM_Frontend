@@ -9,11 +9,11 @@ export const customTheme = {
     colorBgLayout: "#ffffff",      // Light background color for layout (e.g., header, sidebar)
     colorText: "#000000",          // Dark text color
     colorPrimary: "#1677ff",       // Primary color (adjust as needed)
-    fontFamily: `${lato.style.fontFamily}, sans-serif`
+    // fontFamily: `${lato.style.fontFamily}, sans-serif`
   },
   components: {
     Layout: {
-      colorBgHeader: "#ffffff",  // Light header background color
+      headerBg: "#ffffff",  // Light header background color
       colorBgSider: "#ffffff",   // Light sidebar background color
       colorTextHeader: "#000000", // Header text color
       colorTextSider: "#000000",  // Sidebar text color

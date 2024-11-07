@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, useEffect } from "react";
 import { convertCurrency } from "@/utilities/convertCurrency";
 import { useSelector } from "react-redux";

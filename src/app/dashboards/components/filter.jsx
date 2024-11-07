@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, useEffect, useCallback } from "react";
 import { DownOutlined, FilterOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Grid, Popover, Menu } from "antd";
@@ -196,7 +197,7 @@ export const Filter = ({ filters, setFilters, setFilter }) => {
           )
         )}
         <Menu.Divider />
-        <Menu.Item >
+        <Menu.Item>
           <div
             style={{
               // background: "red",
