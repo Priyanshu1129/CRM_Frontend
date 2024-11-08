@@ -7,36 +7,6 @@ import moment from "moment";
 import { useRouter } from "next/navigation";
 import { FullScreenLoading } from "@/components";
 import { FunnelChart, ConversionRates, Doughnut } from "./components";
-import { Space } from "antd";
-
-const doughnutData = {
-  labels: ["Product A", "Product B", "Product C"],
-  datasets: [
-    {
-      label: "Sales Distribution",
-      data: [300, 50, 100],
-      backgroundColor: [
-        "rgba(255, 99, 132, 0.6)",
-        "rgba(54, 162, 235, 0.6)",
-        "rgba(255, 206, 86, 0.6)",
-      ],
-      borderColor: [
-        "rgba(255, 99, 132, 1)",
-        "rgba(54, 162, 235, 1)",
-        "rgba(255, 206, 86, 1)",
-      ],
-      hoverOffset: 4,
-      // borderWidth: 1,
-    },
-  ],
-};
-
-const options = {
-  responsive: true,
-  plugins: {
-    legend: { position: "bottom" },
-  },
-};
 
 const FunnelView = () => {
   const [dateRange, setDateRange] = useState([

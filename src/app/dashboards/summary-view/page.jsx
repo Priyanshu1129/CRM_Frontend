@@ -1,63 +1,50 @@
-// pages/dashboard.js
-import { ChartComponent } from "../components";
+"use client";
+import React, { useState } from "react";
+import { Filter, DashboardHeader } from "../components";
+import { useFetchSummaryView } from "@/hooks/dashboards";
+import moment from "moment";
+import { useRouter } from "next/navigation";
+import { FullScreenLoading } from "@/components";
+import { SummaryCards, Heatmap } from "./components";
 
-const Dashboard = () => {
-    const doughnutData = {
-        labels: ["Product A", "Product B", "Product C"],
-        datasets: [
-          {
-            label: "Sales Distribution",
-            data: [300, 50, 100],
-            backgroundColor: [
-              "rgba(255, 99, 132, 0.6)",
-              "rgba(54, 162, 235, 0.6)",
-              "rgba(255, 206, 86, 0.6)",
-            ],
-            borderColor: [
-              "rgba(255, 99, 132, 1)",
-              "rgba(54, 162, 235, 1)",
-              "rgba(255, 206, 86, 1)",
-            ],
-            hoverOffset: 4
-            // borderWidth: 1,
-          },
-        ],
-      };
+const SummaryView = () => {
+  const [dateRange, setDateRange] = useState([
+    moment(),
+    moment("2020-10-10", "YYYY-MM-DD"),
+  ]);
 
-  const lineData = {
-    labels: ["January", "February", "March", "April"],
-    datasets: [
-      {
-        label: "Sales Over Time",
-        data: [65, 59, 80, 81],
-        fill: false,
-        borderColor: "rgba(75, 192, 192, 1)",
-        tension: 0.1,
-      },
-    ],
-  };
+  const {
+    loading,
+    setRefresh,
+    filters,
+    setFilter,
+    setFilters,
+    funnelViewData,
+    conversionStats,
+  } = useFetchSummaryView({
+    startDate: dateRange[0],
+    endDate: dateRange[1],
+  });
 
-  const options = {
-    responsive: true,
-    plugins: {
-      legend: { position: "top" },
-    },
-  };
+  const router = useRouter();
+
+  if (loading) return <FullScreenLoading />;
 
   return (
-    <div>
-      <h1>CRM Dashboard</h1>
-      <div style={{ height: "300px" }}>
-        <ChartComponent
-          chartData={doughnutData}
-          options={options}
-          type="doughnut"
-        />
-      </div>
-
-      <ChartComponent chartData={lineData} options={options} type="line" />
-    </div>
+    <>
+      <DashboardHeader
+        dashboard={"Summary View"}
+        setDateRange={setDateRange}
+        setRefresh={setRefresh}
+        setFilter={setFilter}
+        setFilters={setFilters}
+        filters={filters}
+        FilterComponent={Filter}
+      />
+      <SummaryCards />
+      <Heatmap />
+    </>
   );
 };
 
-export default Dashboard;
+export default SummaryView;

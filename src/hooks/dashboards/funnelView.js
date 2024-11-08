@@ -5,7 +5,6 @@ import { funnelViewActions } from "@/redux/slices/dashboardSlice"
 import { notification } from "antd"
 
 export const useFetchFunnelView = ({ startDate, endDate }) => {
-    console.log('sd', startDate, 'ed', endDate)
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
     const [sDate, setSDate] = useState("2010-01-01"); // start date
