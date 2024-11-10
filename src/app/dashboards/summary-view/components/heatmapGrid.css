@@ -1,12 +1,12 @@
 .heatmap-grid {
-    width: 50%;
-    margin-top: 16px;
+    
 }
 
 .months-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 4px; /* Reduced gap to make the cells look more compact */
+    margin-bottom: 6px;
 }
 
 .month-cell {
@@ -17,6 +17,16 @@
     padding: 4px; /* Minimized padding */
     border-radius: 4px;
     color: #333;
-    font-size: 12px;
-    font-weight: bold;
+    /* font-size: 12px; */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    user-select: none;
+}
+
+.month-cell:hover {
+    transform: scale(1.1); /* Slightly increase size on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional shadow for depth */
+}
+
+.ant-card-body {
+    padding: 0px;
 }
