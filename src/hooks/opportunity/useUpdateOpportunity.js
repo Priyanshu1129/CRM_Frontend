@@ -8,6 +8,7 @@ import {
 import { opportunityActions } from "@/redux/slices/opportunitySlice";
 import { notification } from "antd";
 import { getChangedValues } from "@/utilities/getChangedValues";
+import moment from "moment";
 
 export const useUpdateOpportunity = ({ opportunity, currency, form }) => {
     const [loading, setLoading] = useState(false);
@@ -33,6 +34,9 @@ export const useUpdateOpportunity = ({ opportunity, currency, form }) => {
                 salesTopLine: opportunity.salesTopLine * currency,
                 offsets: opportunity.offsets * currency,
                 revenue: opportunity.revenue * currency,
+                expectedWonDate : opportunity.expectedWonDate
+                ? moment(opportunity.expectedWonDate)
+                : null,
             };
             form.setFieldsValue(opportunityInitialValues);
             initialValues.current = opportunityInitialValues;
