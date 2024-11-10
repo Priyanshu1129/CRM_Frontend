@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { getPipeView } from "@/redux/actions/dashboard"
+import { getPipeView } from "@/redux/actions/dashboardAction"
 import { pipeViewActions } from "@/redux/slices/dashboardSlice"
 import { notification } from "antd"
 
