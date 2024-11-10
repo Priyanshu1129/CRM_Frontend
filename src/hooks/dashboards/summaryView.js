@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react"
 import { useSelector, useDispatch } from "react-redux"
-// import { getSummaryView } from "@/redux/actions/dashboard"
-// import { summaryViewActions } from "@/redux/slices/dashboardSlice"
+import { getSummaryView } from "@/redux/actions/dashboardAction"
+import { summaryViewActions } from "@/redux/slices/dashboardSlice"
 import { notification } from "antd"
 
 export const useFetchSummaryView = ({ startDate, endDate }) => {
@@ -37,7 +37,7 @@ export const useFetchSummaryView = ({ startDate, endDate }) => {
             setConversionStats(data?.data?.conversionStats);
             setLoading(false);
             setRefresh(false);
-            // dispatch(summaryViewActions.clearGetSummaryViewStatus());
+            dispatch(summaryViewActions.clearGetSummaryViewStatus());
         } else if (status === "failed") {
             setLoading(false);
             setRefresh(false);
@@ -45,8 +45,8 @@ export const useFetchSummaryView = ({ startDate, endDate }) => {
                 message: "Error",
                 description: error || "Failed to fetch summary view data."
             })
-            // dispatch(summaryViewActions.clearGetSummaryViewStatus());
-            // dispatch(summaryViewActions.clearGetSummaryViewError());
+            dispatch(summaryViewActions.clearGetSummaryViewStatus());
+            dispatch(summaryViewActions.clearGetSummaryViewError());
         }
     }, [status, data, error, dispatch])
 

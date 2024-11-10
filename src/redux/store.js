@@ -22,7 +22,7 @@ import {
     currencyReducer,
     configurationReducer
 } from './slices/configurationSlice';
-import { pipeViewReducer, funnelViewReducer } from './slices/dashboardSlice';
+import { pipeViewReducer, funnelViewReducer, summaryViewReducer } from './slices/dashboardSlice';
 import { userReducer } from './slices/userSlice';
 import { teamReducer } from './slices/teamSlice';
 import { opportunityReducer } from './slices/opportunitySlice';
@@ -38,6 +38,7 @@ const store = configureStore({
         auth: authReducer,
         pipeView: pipeViewReducer,
         funnelView: funnelViewReducer,
+        summaryView: summaryViewReducer,
         client: clientReducer,
         classification: classificationReducer,
         incorporationType: incorporationTypeReducer,

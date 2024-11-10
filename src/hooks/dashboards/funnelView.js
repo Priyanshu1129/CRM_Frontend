@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { getFunnelView } from "@/redux/actions/dashboard"
+import { getFunnelView } from "@/redux/actions/dashboardAction"
 import { funnelViewActions } from "@/redux/slices/dashboardSlice"
 import { notification } from "antd"
 
