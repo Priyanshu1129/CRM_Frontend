@@ -1,9 +1,10 @@
-import React from "react";
-import { Card, Row, Typography, Tooltip, Select, Space } from "antd";
+import { useState } from "react";
+import { Card, Row, Tooltip, Space } from "antd";
+import { Text } from "@/components";
+import { YearPicker, StageSelector } from "@/app/dashboards/components";
+import { useFetchHeatmapView } from "@/hooks/dashboards";
+import { months, getColorForValue } from "./config";
 import "./heatmapGrid.css";
-
-const { Text } = Typography;
-const { Option } = Select;
 
 const data = {
   2022: {
@@ -52,45 +53,28 @@ const data = {
 
 export const Heatmap = () => {
   const years = [2022, 2023, 2024];
-  const months = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
+  const [year, setYear] = useState("2024");
+  const [stageId, setStageId] = useState();
+  const { loading, heatmapViewData } = useFetchHeatmapView({ year, stageId });
 
-  const getColorForValue = (value) => {
-    if (value > 80) return "#ff6b6b"; // Red for high values
-    if (value > 50) return "#f0ad4e"; // Orange for medium values
-    return "#8dc6ff"; // Blue for low values
+  const onYearChange = (date, dateString) => {
+    console.log("selected year", dateString);
+    setYear(dateString);
+  };
+
+  const onStageChange = (value) => {
+    console.log("Selected Stage:", value);
+    setStageId(value);
   };
 
   return (
     <div className="heatmap-grid">
-      <Card bordered={false} style={{ width: "100%" }}>
-        {/* Menu Area */}
-        <Space style={{ marginBottom: 16 }}>
-          <Select placeholder="Select Year" style={{ width: 120 }}>
-            {years.map((year) => (
-              <Option key={year} value={year}>
-                {year}
-              </Option>
-            ))}
-          </Select>
-          <Select placeholder="Select Metric" style={{ width: 120 }}>
-            <Option value="count">Count</Option>
-            <Option value="amount">Amount</Option>
-          </Select>
+      <Card loading={loading} bordered={false} style={{ width: "100%" }}>
+        <Space style={{ marginBottom: 16, gap: 6 }}>
+          <YearPicker onChange={onYearChange} />
+          <StageSelector onChange={onStageChange} />
         </Space>
-        
+
         {/* Heatmap Rows */}
         <Row>
           {years.map((year) => (
@@ -104,7 +88,7 @@ export const Heatmap = () => {
             >
               <div className="months-grid">
                 {months.map((month) => {
-                  const monthData = data?.[year]?.[month] || 0;
+                  const monthData = heatmapViewData?.[year]?.[month] || 0;
                   const color = getColorForValue(monthData);
 
                   return (
