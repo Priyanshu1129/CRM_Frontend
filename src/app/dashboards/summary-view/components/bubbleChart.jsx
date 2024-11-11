@@ -260,7 +260,10 @@ export const BubbleChart = () => {
 
       bubbles.forEach((bubble, index) => {
         let placed = false;
-        while (!placed) {
+        let i = 0;
+        while (i<20 && !placed) {
+          i++;
+          console.log(i);
           // Random angle and distance to ensure placement inside the circle
           const angle = Math.random() * Math.PI * 2;
           const distance = Math.random() * (circleRadius - bubble.radius);
