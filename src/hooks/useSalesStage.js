@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllIndustries, getAllSalesStages, getAllSolutions } from "@/redux/actions/configurationAction";
+import { getAllSalesStages } from "@/redux/actions/configurationAction";
 
 export const useSalesStages = (params = {}) => {
     const { refresh = false, setRefresh = null, configType = null } = params
@@ -44,5 +44,5 @@ export const useSalesStages = (params = {}) => {
         }));
     }, [salesStage]);
 
-    return { salesStages : transformedSolutions ?? [], loading };
+    return { salesStages: transformedSolutions ?? [], loading };
 };

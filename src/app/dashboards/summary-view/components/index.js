@@ -1,3 +1,3 @@
 export * from "./summaryCards"
-export * from "./heatmap"
-export * from "./bubbleChart"
+export * from "./heatmapChart/heatmap"
+export * from "./bubbleChart/bubbleChart"
