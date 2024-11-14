@@ -2,7 +2,7 @@
 import withBundleAnalyzer from '@next/bundle-analyzer';
 
 const nextConfig = {
-  reactStrictMode: true,  // Optional: you can enable strict mode for better debugging
+  reactStrictMode: false,  // Optional: you can enable strict mode for better debugging
 };
 
 export default withBundleAnalyzer({

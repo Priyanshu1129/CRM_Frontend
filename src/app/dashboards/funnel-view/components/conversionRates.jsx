@@ -9,7 +9,6 @@ export const ConversionRates = ({ data }) => {
         {Object.entries(data)?.map(([key, value], index) => (
           <Col xs={24} sm={12} md={8} lg={4} key={index}> {/* lg={4} ensures each card takes up 4 out of 20 columns */}
             <Card
-              bordered={false}
               style={{
                 borderRadius: 8,
                 height: "160px", // You can adjust height based on your requirement
@@ -23,9 +22,6 @@ export const ConversionRates = ({ data }) => {
                 title={key.replace(/([A-Z])/g, " $1").toUpperCase()} // Convert camelCase to readable title
                 value={value}
                 precision={2}
-                valueStyle={{
-                  color: "#3f8600", // Green color for positive values, can customize
-                }}
                 suffix="%"
               />
             </Card>

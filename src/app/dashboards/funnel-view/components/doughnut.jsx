@@ -49,7 +49,7 @@ export const Doughnut = ({ funnelStats }) => {
     responsive: true,
     plugins: {
       legend: {
-        position: "top",
+        display: false,
       },
       tooltip: {
         callbacks: {

@@ -6,55 +6,10 @@ import { useFetchHeatmapView } from "@/hooks/dashboards";
 import { months } from "./config";
 import "./heatmapGrid.css";
 
-const data = {
-  2022: {
-    Jan: 70,
-    Feb: 90,
-    Mar: 90,
-    Apr: 55,
-    May: 65,
-    Jun: 30,
-    Jul: 80,
-    Aug: 45,
-    Sep: 85,
-    Oct: 60,
-    Nov: 75,
-    Dec: 50,
-  },
-  2023: {
-    Jan: 30,
-    Feb: 80,
-    Mar: 20,
-    Apr: 70,
-    May: 60,
-    Jun: 40,
-    Jul: 90,
-    Aug: 35,
-    Sep: 75,
-    Oct: 50,
-    Nov: 65,
-    Dec: 55,
-  },
-  2024: {
-    Jan: 60,
-    Feb: 50,
-    Mar: 75,
-    Apr: 45,
-    May: 85,
-    Jun: 25,
-    Jul: 55,
-    Aug: 90,
-    Sep: 65,
-    Oct: 40,
-    Nov: 80,
-    Dec: 30,
-  },
-};
-
 export const Heatmap = () => {
   const years = [2022, 2023, 2024];
   const [year, setYear] = useState("2024");
-  const [stageId, setStageId] = useState();
+  const [stageId, setStageId] = useState("670e7df4f5e783c1a47cd48f");
   const { loading, heatmapViewData } = useFetchHeatmapView({ year, stageId });
 
   // Calculate min and max values for color gradient scale
@@ -97,9 +52,11 @@ export const Heatmap = () => {
     setStageId(value);
   };
 
+  if(loading) return <Card loading={true} style={{width:"100%", height:"300px"}} />
+
   return (
     <div className="heatmap-grid">
-      <Card loading={loading} bordered={false} style={{ width: "100%" }}>
+      <Card style={{ width: "100%"  }}>
         <Space style={{ marginBottom: 16, gap: 6 }}>
           <YearPicker onChange={onYearChange} />
           <StageSelector onChange={onStageChange} />

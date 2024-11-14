@@ -20,14 +20,13 @@ export const BubbleChart = () => {
   //   "#FF5733", "#33FF57", "#3357FF", "#FF33A1", "#FFD733", "#8C33FF",
   // ];
   const colors = [
-    "rgba(255, 87, 51, 0.5)",   // #FF5733 with 50% opacity
-    "rgba(51, 255, 87, 0.5)",   // #33FF57 with 50% opacity
-    "rgba(51, 87, 255, 0.5)",   // #3357FF with 50% opacity
-    "rgba(255, 51, 161, 0.5)",  // #FF33A1 with 50% opacity
-    "rgba(255, 215, 51, 0.5)",  // #FFD733 with 50% opacity
-    "rgba(140, 51, 255, 0.5)",  // #8C33FF with 50% opacity
+    "rgba(255, 87, 51, 0.5)", // #FF5733 with 50% opacity
+    "rgba(51, 255, 87, 0.5)", // #33FF57 with 50% opacity
+    "rgba(51, 87, 255, 0.5)", // #3357FF with 50% opacity
+    "rgba(255, 51, 161, 0.5)", // #FF33A1 with 50% opacity
+    "rgba(255, 215, 51, 0.5)", // #FFD733 with 50% opacity
+    "rgba(140, 51, 255, 0.5)", // #8C33FF with 50% opacity
   ];
-  
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -47,7 +46,8 @@ export const BubbleChart = () => {
     const newBubbles = Object.keys(data).map((key, index) => {
       const minRadius = maxRadius / 3;
       const maxDataValue = Math.max(...Object.values(data));
-      const radius = minRadius + (data[key] / maxDataValue) * (maxRadius - minRadius);
+      const radius =
+        minRadius + (data[key] / maxDataValue) * (maxRadius - minRadius);
       return {
         label: key,
         value: data[key],
@@ -75,11 +75,17 @@ export const BubbleChart = () => {
 
         const x = Math.max(
           padding + bubble.radius,
-          Math.min(centerX + distance * Math.cos(angle), canvas.width - padding - bubble.radius)
+          Math.min(
+            centerX + distance * Math.cos(angle),
+            canvas.width - padding - bubble.radius
+          )
         );
         const y = Math.max(
           padding + bubble.radius,
-          Math.min(centerY + distance * Math.sin(angle), canvas.height - padding - bubble.radius)
+          Math.min(
+            centerY + distance * Math.sin(angle),
+            canvas.height - padding - bubble.radius
+          )
         );
 
         ctx.beginPath();
@@ -87,18 +93,24 @@ export const BubbleChart = () => {
         ctx.fillStyle = bubble.color;
         ctx.fill();
         ctx.lineWidth = 3;
-        ctx.strokeStyle = 'rgba(0, 0, 0, 0.2)';
+        ctx.strokeStyle = "rgba(0, 0, 0, 0.2)";
         ctx.stroke();
         ctx.closePath();
       });
 
       const centerScaleFactor = hoveredBubble === 0 ? 1.2 : 1;
       ctx.beginPath();
-      ctx.arc(centerX, centerY, centerBubble.radius * centerScaleFactor, 0, Math.PI * 2);
+      ctx.arc(
+        centerX,
+        centerY,
+        centerBubble.radius * centerScaleFactor,
+        0,
+        Math.PI * 2
+      );
       ctx.fillStyle = centerBubble.color;
       ctx.fill();
       ctx.lineWidth = 3;
-      ctx.strokeStyle = 'rgba(0, 0, 0, 0.2)';
+      ctx.strokeStyle = "rgba(0, 0, 0, 0.2)";
       ctx.stroke();
       ctx.closePath();
     };
@@ -121,15 +133,23 @@ export const BubbleChart = () => {
           const distance = centerBubble.radius + bubble.radius + 10;
           x = Math.max(
             padding + bubble.radius,
-            Math.min(centerX + distance * Math.cos(angle), canvas.width - padding - bubble.radius)
+            Math.min(
+              centerX + distance * Math.cos(angle),
+              canvas.width - padding - bubble.radius
+            )
           );
           y = Math.max(
             padding + bubble.radius,
-            Math.min(centerY + distance * Math.sin(angle), canvas.height - padding - bubble.radius)
+            Math.min(
+              centerY + distance * Math.sin(angle),
+              canvas.height - padding - bubble.radius
+            )
           );
         }
 
-        const distanceToMouse = Math.sqrt((mouseX - x) ** 2 + (mouseY - y) ** 2);
+        const distanceToMouse = Math.sqrt(
+          (mouseX - x) ** 2 + (mouseY - y) ** 2
+        );
         if (distanceToMouse < bubble.radius) {
           setHoveredBubble(index);
           found = true;
@@ -159,7 +179,6 @@ export const BubbleChart = () => {
         position: "relative",
       }}
     >
-      <h3 style={{ textAlign: "center", marginBottom: "10px", fontWeight: "bold" }}>Bubble Chart</h3>
       <canvas
         ref={canvasRef}
         style={{
@@ -203,11 +222,11 @@ export const BubbleChart = () => {
           open
           placement="top"
           overlayStyle={{
-            position: 'absolute',
+            position: "absolute",
             left: `${tooltipPosition.x}px`,
             top: `${tooltipPosition.y - 30}px`,
-            transform: 'translate(-50%, -50%)',
-            pointerEvents: 'none',
+            transform: "translate(-50%, -50%)",
+            pointerEvents: "none",
           }}
         />
       )}

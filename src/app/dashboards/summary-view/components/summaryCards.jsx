@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Col, Row } from "antd";
+import { Card, Col, Row, Statistic } from "antd";
 
 // Sample data for each card
 const summaryData = [
@@ -14,7 +14,7 @@ const summaryData = [
     comparison: "comparison with previous period",
   },
   {
-    title: "Opportunities Project/Won",
+    title: "Opportunities Won",
     key: "opportunityWonCount",
     comparison: "comparison with previous period",
   },
@@ -26,32 +26,36 @@ const summaryData = [
 ];
 
 // Component for individual summary cards
-const SummaryCard = ({ title, value, comparison }) => (
+const SummaryCard = ({ title, value, loading }) => (
   <Card
-    // bordered={false}
     style={{
       borderRadius: 8,
-      height: "120px", // Reduced height for a rectangular look
-      padding: "8px 12px", // Minimized padding
+      height: "120px",
+      padding: "8px 12px",
       display: "flex",
       flexDirection: "column",
       justifyContent: "center",
     }}
   >
-    <h3 style={{ fontSize: "14px", margin: "4px 0" }}>{title}:</h3>
-    <h2 style={{ fontSize: "20px", margin: "4px 0" }}>{value}</h2>
-    <p style={{ fontSize: "10px", color: "#888", margin: 0 }}>{comparison}</p>
+    <Statistic
+      loading={loading}
+      title={title}
+      suffix={title?.toLowerCase().includes("revenue") ? "$" : ""}
+      value={value}
+    />
   </Card>
 );
 
 // Main component for the card section
-export const SummaryCards = ({ data }) => {
+export const SummaryCards = ({ data, loading }) => {
   return (
     <Row gutter={[16, 16]} justify="space-between">
-      {summaryData.map(({ title, comparison, key }, index) => (
+      {summaryData?.map(({ title, key }, index) => (
         <Col xs={24} sm={12} md={6} lg={6} key={index}>
           <SummaryCard
-            {...{ title, comparison, value: data[key]?.value || 0 }}
+            loading={loading}
+            title={title}
+            value={loading ? "Loading..." : data ? data[key]?.value : "N/A"}
           />
         </Col>
       ))}

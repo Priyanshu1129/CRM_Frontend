@@ -1,10 +1,8 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Filter, DashboardHeader } from "../components";
 import { useFetchFunnelView } from "@/hooks/dashboards";
-import { Text } from "@/components";
 import moment from "moment";
-import { useRouter } from "next/navigation";
 import { FullScreenLoading } from "@/components";
 import { FunnelChart, ConversionRates, Doughnut } from "./components";
 
@@ -26,9 +24,6 @@ const FunnelView = () => {
     startDate: dateRange[0],
     endDate: dateRange[1],
   });
-
-  console.log("funnel data", funnelViewData);
-  const router = useRouter();
 
   if (loading) return <FullScreenLoading />;
 
