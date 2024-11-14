@@ -5,6 +5,7 @@ import { YearPicker, StageSelector } from "@/app/dashboards/components";
 import { useFetchHeatmapView } from "@/hooks/dashboards";
 import { months } from "./config";
 import "./heatmapGrid.css";
+import { HeatmapShimmer } from "./heatmapShimmer";
 
 export const Heatmap = () => {
   const years = [2022, 2023, 2024];
@@ -52,8 +53,8 @@ export const Heatmap = () => {
     setStageId(value);
   };
 
-  if(loading) return <Card loading={true} style={{width:"100%", height:"300px"}} />
-
+  // if(loading) return <Card loading={true} style={{width:"100%", height:"300px"}} />
+  if(loading) return <HeatmapShimmer/>
   return (
     <div className="heatmap-grid">
       <Card style={{ width: "100%"  }}>

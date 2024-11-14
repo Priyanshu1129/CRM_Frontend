@@ -18,12 +18,12 @@ export const BubbleChart = () => {
   const [toolTipPos, setToolTipPos] = useState({x : null, y: null});
 
   const colors = [
-    "rgba(255, 87, 51, 0.5)",
-    "rgba(51, 255, 87, 0.5)",
-    "rgba(51, 87, 255, 0.5)",
-    "rgba(255, 51, 161, 0.5)",
-    "rgba(255, 215, 51, 0.5)",
-    "rgba(140, 51, 255, 0.5)",
+    "rgba(255, 87, 51, 0.3)",
+    "rgba(51, 255, 87, 0.3)",
+    "rgba(51, 87, 255, 0.3)",
+    "rgba(255, 51, 161, 0.3)",
+    "rgba(255, 215, 51, 0.3)",
+    "rgba(140, 51, 255, 0.3)",
   ];
 
   useEffect(() => {
@@ -74,7 +74,11 @@ export const BubbleChart = () => {
       bubble.x = centerX + distance * Math.cos(angle);
       bubble.y = centerY + distance * Math.sin(angle);
     }
-
+     
+    const getModifiedOpacity = (rgba , percent)=>{
+         let modifiedOpacity = rgba.slice(0, rgba.length - 3) + percent + rgba.slice(rgba.length - 2, 2);    
+        return modifiedOpacity
+    }
     const drawBubbles = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -83,8 +87,9 @@ export const BubbleChart = () => {
         ctx.arc(bubble.x, bubble.y, bubble.radius, 0, Math.PI * 2);
         ctx.fillStyle = bubble.color;
         ctx.fill();
-        ctx.lineWidth = 3;
-        ctx.strokeStyle = "rgba(0, 0, 0, 0.2)";
+        ctx.lineWidth = 1 ;
+        // ctx.strokeStyle = "rgba(255, 255, 255, 0.2)";
+        ctx.strokeStyle = getModifiedOpacity(bubble.color, "5" );
         ctx.stroke();
         ctx.closePath();
       });
@@ -141,7 +146,7 @@ export const BubbleChart = () => {
         maxWidth: "450px",
         margin: "auto",
         background: "#fff",
-        borderRadius: "16px",
+        borderRadius: "8px",
         boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
         position: "relative",
       }}
@@ -153,8 +158,8 @@ export const BubbleChart = () => {
           height: "auto",
           border: "1px solid #ddd",
           display: "block",
-          background: "#f0f0f0",
-          borderRadius: "12px",
+          background: "fff",
+          borderRadius: "6px",
         }}
       />
       {hoveredBubble && (
