@@ -23,7 +23,7 @@ import {
   TenderSelector,
   CurrencyAmountInput,
 } from "@/components";
-import { opportunityFormRules } from "@/utilities/formValidationRules";
+import { opportunityFormRules, tenderFormRules } from "@/utilities/formValidationRules";
 import { useAddOpportunity } from "@/hooks/opportunity/useAddOpportunity";
 import moment from "moment";
 
@@ -169,6 +169,15 @@ const AddOpportunity = () => {
                 rules={opportunityFormRules.revenue}
               />
             </Col>
+            <Col span={8}>
+              <Form.Item
+                name="expectedWonDate"
+                label="Expected Won Date"
+                rules={tenderFormRules.bondIssueDate}
+              >
+                <DatePicker style={{ width: "100%" }} />
+              </Form.Item>
+            </Col>
             <Col span={24}>
               <Form.Item>
                 <Space>
@@ -186,6 +195,7 @@ const AddOpportunity = () => {
                 </Space>
               </Form.Item>
             </Col>
+            
           </Row>
         </Form>
         <BulkUploadModal

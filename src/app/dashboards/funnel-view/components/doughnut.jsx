@@ -62,7 +62,7 @@ export const Doughnut = ({ funnelStats }) => {
   };
 
   return (
-    <Card bordered={false}>
+    <Card bordered={true}>
       <ChartComponent chartData={chartData} options={options} type="doughnut" />
     </Card>
   );

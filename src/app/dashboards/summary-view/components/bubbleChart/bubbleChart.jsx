@@ -3,42 +3,51 @@ import { Tooltip } from "antd";
 
 export const BubbleChart = () => {
   const data = {
-    Negotiations: 120,
-    ClosedLost: 180,
-    ClosedWon: 150,
-    Discovery: 110,
-    Prospecting: 130,
-    ProposalSent: 140,
+    Negotiations: 320,
+    ClosedLost: 480,
+    ClosedWon: 50,
+    Discovery: 10,
+    Prospecting: 30,
+    ProposalSent: 740,
   };
 
   const canvasRef = useRef(null);
-  const circleRadius = 80; // Adjusted to bring bubbles closer together
   const [hoveredBubble, setHoveredBubble] = useState(null);
-  const [bubbles, setBubbles] = useState([]); // Store bubbles in state
+  const [bubbles, setBubbles] = useState([]);
+  const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
 
+  // const colors = [
+  //   "#FF5733", "#33FF57", "#3357FF", "#FF33A1", "#FFD733", "#8C33FF",
+  // ];
   const colors = [
-    "#FF5733", // Color for Negotiations
-    "#33FF57", // Color for ClosedLost
-    "#3357FF", // Color for ClosedWon
-    "#FF33A1", // Color for Discovery
-    "#FFD733", // Color for Prospecting
-    "#8C33FF", // Color for ProposalSent
+    "rgba(255, 87, 51, 0.5)",   // #FF5733 with 50% opacity
+    "rgba(51, 255, 87, 0.5)",   // #33FF57 with 50% opacity
+    "rgba(51, 87, 255, 0.5)",   // #3357FF with 50% opacity
+    "rgba(255, 51, 161, 0.5)",  // #FF33A1 with 50% opacity
+    "rgba(255, 215, 51, 0.5)",  // #FFD733 with 50% opacity
+    "rgba(140, 51, 255, 0.5)",  // #8C33FF with 50% opacity
   ];
+  
 
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
-    const centerX = circleRadius + 20;
-    const centerY = circleRadius + 20;
-    canvas.width = circleRadius * 2 + 40;
-    canvas.height = circleRadius * 2 + 40;
+
+    const canvasSize = Math.min(400, window.innerWidth * 0.8);
+    const padding = 10;
+    const effectiveCanvasSize = canvasSize - 2 * padding;
+
+    canvas.width = canvasSize;
+    canvas.height = canvasSize;
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+
+    const maxRadius = effectiveCanvasSize / 5;
 
     const newBubbles = Object.keys(data).map((key, index) => {
-      const minRadius = 15;
-      const maxRadius = 25;
+      const minRadius = maxRadius / 3;
       const maxDataValue = Math.max(...Object.values(data));
-      const radius =
-        minRadius + (data[key] / maxDataValue) * (maxRadius - minRadius);
+      const radius = minRadius + (data[key] / maxDataValue) * (maxRadius - minRadius);
       return {
         label: key,
         value: data[key],
@@ -47,64 +56,81 @@ export const BubbleChart = () => {
       };
     });
 
-    // Sort the bubbles based on their size so the smallest one can be placed in the center
-    newBubbles.sort((a, b) => a.radius - b.radius);
+    newBubbles.sort((a, b) => b.radius - a.radius);
+    const centerBubble = newBubbles[0];
+    const surroundingBubbles = newBubbles.slice(1);
 
-    setBubbles(newBubbles); // Set the bubbles array in state
+    setBubbles(newBubbles);
 
-    const drawBubblesOnCircumference = () => {
-      let angle = 0;
-      const angleStep = (2 * Math.PI) / (newBubbles.length - 1); // Adjust step based on the number of bubbles (excluding the center one)
+    const angleStep = (2 * Math.PI) / surroundingBubbles.length;
 
-      // Place the smallest bubble at the center
-      const smallestBubble = newBubbles[0];
-      const centerBubbleX = centerX;
-      const centerBubbleY = centerY;
-      ctx.beginPath();
-      ctx.arc(
-        centerBubbleX,
-        centerBubbleY,
-        smallestBubble.radius,
-        0,
-        Math.PI * 2
-      );
-      ctx.fillStyle = smallestBubble.color;
-      ctx.fill();
-      ctx.closePath();
+    const drawBubbles = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Draw the remaining bubbles on the circumference, starting from the next position
-      angle = angleStep; // Start the angle after the center bubble
-      newBubbles.slice(1).forEach((bubble) => {
-        const adjustedRadius = bubble.radius; // No need to adjust radius for now
+      surroundingBubbles.forEach((bubble, i) => {
+        const isHovered = hoveredBubble === i + 1;
+        const scaleFactor = isHovered ? 1.2 : 1; // Enlarge on hover
+        const angle = i * angleStep;
+        const distance = centerBubble.radius + bubble.radius + 10;
 
-        const x = centerX + (circleRadius - adjustedRadius) * Math.cos(angle);
-        const y = centerY + (circleRadius - adjustedRadius) * Math.sin(angle);
+        const x = Math.max(
+          padding + bubble.radius,
+          Math.min(centerX + distance * Math.cos(angle), canvas.width - padding - bubble.radius)
+        );
+        const y = Math.max(
+          padding + bubble.radius,
+          Math.min(centerY + distance * Math.sin(angle), canvas.height - padding - bubble.radius)
+        );
 
-        // Draw the bubble
         ctx.beginPath();
-        ctx.arc(x, y, adjustedRadius, 0, Math.PI * 2);
+        ctx.arc(x, y, bubble.radius * scaleFactor, 0, Math.PI * 2);
         ctx.fillStyle = bubble.color;
         ctx.fill();
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = 'rgba(0, 0, 0, 0.2)';
+        ctx.stroke();
         ctx.closePath();
-
-        // Increment the angle based on the number of bubbles to ensure they fit tightly
-        angle += angleStep;
       });
+
+      const centerScaleFactor = hoveredBubble === 0 ? 1.2 : 1;
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, centerBubble.radius * centerScaleFactor, 0, Math.PI * 2);
+      ctx.fillStyle = centerBubble.color;
+      ctx.fill();
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = 'rgba(0, 0, 0, 0.2)';
+      ctx.stroke();
+      ctx.closePath();
     };
 
     const handleMouseMove = (e) => {
       const rect = canvas.getBoundingClientRect();
       const mouseX = e.clientX - rect.left;
       const mouseY = e.clientY - rect.top;
+      setTooltipPosition({ x: e.clientX, y: e.clientY });
+
       let found = false;
 
       newBubbles.forEach((bubble, index) => {
-        const angle = (2 * Math.PI * index) / newBubbles.length;
-        const x = centerX + (circleRadius - bubble.radius) * Math.cos(angle);
-        const y = centerY + (circleRadius - bubble.radius) * Math.sin(angle);
+        let x, y;
+        if (index === 0) {
+          x = centerX;
+          y = centerY;
+        } else {
+          const angle = (index - 1) * angleStep;
+          const distance = centerBubble.radius + bubble.radius + 10;
+          x = Math.max(
+            padding + bubble.radius,
+            Math.min(centerX + distance * Math.cos(angle), canvas.width - padding - bubble.radius)
+          );
+          y = Math.max(
+            padding + bubble.radius,
+            Math.min(centerY + distance * Math.sin(angle), canvas.height - padding - bubble.radius)
+          );
+        }
 
-        const distance = Math.sqrt((mouseX - x) ** 2 + (mouseY - y) ** 2);
-        if (distance < bubble.radius) {
+        const distanceToMouse = Math.sqrt((mouseX - x) ** 2 + (mouseY - y) ** 2);
+        if (distanceToMouse < bubble.radius) {
           setHoveredBubble(index);
           found = true;
         }
@@ -114,35 +140,42 @@ export const BubbleChart = () => {
     };
 
     canvas.addEventListener("mousemove", handleMouseMove);
-
-    const clearCanvas = () => ctx.clearRect(0, 0, canvas.width, canvas.height);
-    clearCanvas();
-    drawBubblesOnCircumference();
+    drawBubbles();
 
     return () => {
       canvas.removeEventListener("mousemove", handleMouseMove);
     };
-  }, [data, hoveredBubble]); // Re-run the effect when hoveredBubble changes
+  }, [data, hoveredBubble]);
 
   return (
     <div
       style={{
         padding: "20px",
-        width: "fit-content",
+        maxWidth: "450px",
         margin: "auto",
-        borderRadius: "8px",
+        background: "#fff",
+        borderRadius: "16px",
+        boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
+        position: "relative",
       }}
     >
+      <h3 style={{ textAlign: "center", marginBottom: "10px", fontWeight: "bold" }}>Bubble Chart</h3>
       <canvas
         ref={canvasRef}
         style={{
+          width: "100%",
+          height: "auto",
           border: "1px solid #ddd",
           display: "block",
+          background: "#f0f0f0",
+          borderRadius: "12px",
         }}
       />
       <div
         style={{
           marginTop: "20px",
+          padding: "10px",
+          borderTop: "1px solid #ddd",
           display: "flex",
           justifyContent: "center",
           gap: "10px",
@@ -164,14 +197,19 @@ export const BubbleChart = () => {
           </div>
         ))}
       </div>
-      {hoveredBubble !== null && (
+      {hoveredBubble !== null && bubbles[hoveredBubble] && (
         <Tooltip
           title={`${bubbles[hoveredBubble].label}: ${bubbles[hoveredBubble].value}`}
-          visible
+          open
           placement="top"
-        >
-          <div style={{ position: "absolute", left: 0, top: 0 }} />
-        </Tooltip>
+          overlayStyle={{
+            position: 'absolute',
+            left: `${tooltipPosition.x}px`,
+            top: `${tooltipPosition.y - 30}px`,
+            transform: 'translate(-50%, -50%)',
+            pointerEvents: 'none',
+          }}
+        />
       )}
     </div>
   );

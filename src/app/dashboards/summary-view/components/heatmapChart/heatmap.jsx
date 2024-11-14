@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { Card, Row, Tooltip, Space } from "antd";
+import { useState, useEffect } from "react";
+import { Card, Row, Tooltip, Space, Flex } from "antd";
 import { Text } from "@/components";
 import { YearPicker, StageSelector } from "@/app/dashboards/components";
 import { useFetchHeatmapView } from "@/hooks/dashboards";
-import { months, getColorForValue } from "./config";
+import { months } from "./config";
 import "./heatmapGrid.css";
 
 const data = {
@@ -56,6 +56,38 @@ export const Heatmap = () => {
   const [year, setYear] = useState("2024");
   const [stageId, setStageId] = useState();
   const { loading, heatmapViewData } = useFetchHeatmapView({ year, stageId });
+
+  // Calculate min and max values for color gradient scale
+  const [minValue, setMinValue] = useState(0);
+  const [maxValue, setMaxValue] = useState(100); // Initialize with a default range
+
+  useEffect(() => {
+    const getMinMaxValues = (data) => {
+      let max = 0;
+      let min = Infinity;
+      for (const year in data) {
+        for (const month in data[year]) {
+          const value = data[year][month];
+          if (value > max) max = value;
+          if (value < min) min = value;
+        }
+      }
+      return { min, max };
+    };
+
+    if (heatmapViewData) {
+      const { min, max } = getMinMaxValues(heatmapViewData);
+      setMinValue(min);
+      setMaxValue(max);
+    }
+  }, [heatmapViewData, year, stageId]); // Only re-run when heatmapViewData changes
+
+  const getColorForValue = (value) => {
+    if (maxValue === minValue) return "#d0e8ff";
+    const intensity = (value - minValue) / (maxValue - minValue);
+    const blueShade = Math.floor(255 - 150 * intensity);
+    return `rgb(${blueShade}, ${blueShade + 50}, 255)`;
+  };
 
   const onYearChange = (date, dateString) => {
     setYear(dateString);
@@ -122,6 +154,27 @@ export const Heatmap = () => {
             </div>
           ))}
         </Row>
+
+        {/* Color Gradient Legend with Min/Max Values */}
+        <div
+          className="color-legend"
+          style={{ marginTop: 16, textAlign: "center" }}
+        >
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <span style={{ marginRight: 8 }}>{minValue} (Low)</span>
+            <div
+              style={{
+                height: "10px",
+                width: "100%",
+                background: `linear-gradient(to right, ${getColorForValue(
+                  minValue
+                )}, ${getColorForValue(maxValue)})`,
+                display: "inline-block",
+              }}
+            ></div>
+            <span style={{ marginLeft: 8 }}>{maxValue} (High)</span>
+          </div>
+        </div>
       </Card>
     </div>
   );

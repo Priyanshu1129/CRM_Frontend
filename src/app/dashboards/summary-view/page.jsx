@@ -53,6 +53,9 @@ const SummaryView = () => {
           <Col xs={24} md={6}>
             {/* <BubbleChart /> */}
           </Col>
+          <Col xs={24} md={6}>
+            <BubbleChart />
+          </Col>
           {/* <Col xs={24} md={6}>
             <BubbleChart />
           </Col> */}
