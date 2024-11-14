@@ -50,10 +50,10 @@ const SummaryView = () => {
 
           {/* Right side - Bubble charts */}
           <Col xs={24} md={6}>
-            {/* <BubbleChart /> */}
+            <BubbleChart />
           </Col>
           <Col xs={24} md={6}>
-            {/* <BubbleChart /> */}
+            <BubbleChart />
           </Col>
         </Row>
       </Space>
