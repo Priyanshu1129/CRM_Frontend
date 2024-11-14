@@ -58,12 +58,10 @@ export const Heatmap = () => {
   const { loading, heatmapViewData } = useFetchHeatmapView({ year, stageId });
 
   const onYearChange = (date, dateString) => {
-    console.log("selected year", dateString);
     setYear(dateString);
   };
 
   const onStageChange = (value) => {
-    console.log("Selected Stage:", value);
     setStageId(value);
   };
 

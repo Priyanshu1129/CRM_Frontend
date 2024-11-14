@@ -1,28 +1,18 @@
-"use client"
-import { Inter, Lato } from "next/font/google";
+"use client";
+import { Roboto } from "next/font/google";
 import { ConfigProvider } from 'antd';
 import { ProtectedPage } from "./protectedPage";
 import ErrorBoundary from "./ErrorBoundary";
-import "./globals.css"
+import "./globals.css";
 import { customTheme } from "@/config";
 import { StoreProvider } from "./storeProvider";
-const inter = Inter({ subsets: ["latin"] });
-// const lato = Lato({ subsets: ["latin"], weight: "400" });
+const roboto = Roboto({ subsets: ["latin"], weight: ["300", "400", "500"] });
 
 export default function RootLayout({ children }) {
 
   return (
     <html lang="en">
-      <body
-         className={inter.className}
-        // className={lato.className}  // Apply Lato globally
-        // style={{
-        //   WebkitFontSmoothing: "antialiased",
-        //   MozOsxFontSmoothing: "grayscale",
-        //   fontFamily: `${lato.style.fontFamily}, sans-serif`  // Ensure sans-serif as fallback
-        // }}
-
-      >
+      <body className={roboto.className}>
         <ConfigProvider theme={customTheme} componentSize="middle">
           <StoreProvider>
             <ProtectedPage>

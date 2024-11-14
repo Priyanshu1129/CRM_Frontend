@@ -14,27 +14,25 @@ export const useFetchSummaryView = ({ startDate, endDate }) => {
     const [filter, setFilter] = useState(false);
     const { status, data, error } = useSelector((state) => state?.summaryView?.getSummaryView || {});
     const [summaryViewData, setSummaryViewData] = useState(data?.data);
-    const [conversionStats, setConversionStats] = useState(data?.data?.conversionStats || {});
 
-    // const fetchSummaryView = useCallback(() => {
-    //     dispatch(getSummaryView({ startDate, endDate, ...filters }));
-    // }, [dispatch, endDate, startDate, filters])
+    const fetchSummaryView = useCallback(() => {
+        dispatch(getSummaryView({ startDate, endDate, ...filters }));
+    }, [dispatch, endDate, startDate, filters])
 
-    // useEffect(() => {
-    //     if (refresh || startDate != sDate || endDate != eDate || (filter && filters)) {
-    //         fetchSummaryView();
-    //         setSDate(startDate);
-    //         setEDate(endDate);
-    //     }
-    //     setFilter(false);
-    // }, [sDate, eDate, startDate, endDate, refresh, fetchSummaryView, filter, filters])
+    useEffect(() => {
+        if (refresh || startDate != sDate || endDate != eDate || (filter && filters)) {
+            fetchSummaryView();
+            setSDate(startDate);
+            setEDate(endDate);
+        }
+        setFilter(false);
+    }, [sDate, eDate, startDate, endDate, refresh, fetchSummaryView, filter, filters])
 
     useEffect(() => {
         if (status === "pending") {
             setLoading(true);
         } else if (status === "success") {
             setSummaryViewData(data?.data)
-            setConversionStats(data?.data?.conversionStats);
             setLoading(false);
             setRefresh(false);
             dispatch(summaryViewActions.clearGetSummaryViewStatus());
@@ -50,5 +48,5 @@ export const useFetchSummaryView = ({ startDate, endDate }) => {
         }
     }, [status, data, error, dispatch])
 
-    return { loading, summaryViewData, conversionStats, setRefresh, setFilters, setFilter, filters };
+    return { loading, summaryViewData, setRefresh, setFilters, setFilter, filters };
 }

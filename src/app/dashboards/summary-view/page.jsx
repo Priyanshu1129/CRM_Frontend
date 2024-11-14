@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { Filter, DashboardHeader } from "../components";
 import { useFetchSummaryView } from "@/hooks/dashboards";
 import moment from "moment";
-import { useRouter } from "next/navigation";
 import { FullScreenLoading } from "@/components";
 import { SummaryCards, Heatmap, BubbleChart } from "./components";
 import { Row, Col, Space, Card } from "antd";
@@ -21,13 +20,10 @@ const SummaryView = () => {
     setFilter,
     setFilters,
     summaryViewData,
-    conversionStats,
   } = useFetchSummaryView({
     startDate: dateRange[0],
     endDate: dateRange[1],
   });
-
-  const router = useRouter();
 
   if (loading) return <FullScreenLoading />;
 
@@ -45,7 +41,7 @@ const SummaryView = () => {
 
       <Space direction="vertical" style={{ width: "100%" }}>
         {/* Summary Cards */}
-        <SummaryCards />
+        {summaryViewData && <SummaryCards data={summaryViewData} />}
 
         <Row style={{ marginTop: "16px" }} gutter={24}>
           {/* Left side - Heatmap */}

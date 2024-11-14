@@ -16,6 +16,8 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
       breakpoint="lg"
       width={256}
       style={{
+        fontFamily: "Roboto, sans-serif", // Make sure to use your selected font
+        fontWeight: "700",
         height: "100vh",
         position: "fixed",
         left: 0,
@@ -56,7 +58,7 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
         style={{
           height: "calc(100% - 64px)", // Adjust to account for header height
           scrollbarWidth: "thin",
-          // background: "transparent",
+          fontWeight: "700",
         }}
         // theme="light"
         title="Logo"
