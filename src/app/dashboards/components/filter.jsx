@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect, useCallback } from "react";
-import { DownOutlined, FilterOutlined } from "@ant-design/icons";
+import { DownOutlined, FilterOutlined, FilterTwoTone } from "@ant-design/icons";
 import { Button, Checkbox, Grid, Popover, Menu } from "antd";
 import {
   useIndustries,
@@ -9,6 +9,7 @@ import {
   useUsers,
   useSolutions,
 } from "@/hooks";
+import { colorConfig } from "@/config";
 
 export const Filter = ({ filters, setFilters, setFilter }) => {
   const screens = Grid.useBreakpoint();
@@ -235,7 +236,7 @@ export const Filter = ({ filters, setFilters, setFilter }) => {
       overlayInnerStyle={{ padding: 0, borderRadius: "8px" }}
       onOpenChange={setOpen}
     >
-      <Button icon={<FilterOutlined />}>
+      <Button icon={<FilterTwoTone  />} >
         {!screens.xs ? "Filter" : null}
         <DownOutlined />
       </Button>

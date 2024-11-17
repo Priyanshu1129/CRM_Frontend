@@ -9,30 +9,47 @@ export const Doughnut = ({ funnelStats }) => {
       {
         data: [],
         backgroundColor: [
-          "rgba(255, 99, 132, 0.6)",
-          "rgba(54, 162, 235, 0.6)",
-          "rgba(255, 206, 86, 0.6)",
-          "rgba(75, 192, 192, 0.6)",
-          "rgba(153, 102, 255, 0.6)",
-          "rgba(255, 159, 64, 0.6)",
+          "rgba(0, 102, 255, 0.6)",  // Lead (primary color with transparency)
+    "rgba(0, 143, 179, 0.6)",  // Prospect (teal-like color for variety)
+    "rgba(102, 153, 255, 0.6)", // Qualification (lighter primary shade)
+    "rgba(255, 194, 102, 0.6)", // Proposal (warm accent for contrast)
+    "rgba(153, 204, 255, 0.6)", // Followup (soft blue-gray for subtlety)
+    "rgba(255, 132, 102, 0.6)", // Closing (muted coral for energy)
         ],
         borderColor: [
-          "rgba(255, 99, 132, 1)",
-          "rgba(54, 162, 235, 1)",
-          "rgba(255, 206, 86, 1)",
-          "rgba(75, 192, 192, 1)",
-          "rgba(153, 102, 255, 1)",
-          "rgba(255, 159, 64, 1)",
+          "rgba(0, 102, 255, 1)",    // Lead (primary color)
+    "rgba(0, 143, 179, 1)",    // Prospect (teal-like color)
+    "rgba(102, 153, 255, 1)",  // Qualification (lighter primary shade)
+    "rgba(255, 194, 102, 1)",  // Proposal (warm accent)
+    "rgba(153, 204, 255, 1)",  // Followup (soft blue-gray)
+    "rgba(255, 132, 102, 1)",
         ],
         borderWidth: 1,
       },
     ],
   });
 
+  const colors = [
+    "rgba(0, 102, 255, 0.6)",  // Lead (primary color with transparency)
+    "rgba(0, 143, 179, 0.6)",  // Prospect (teal-like color for variety)
+    "rgba(102, 153, 255, 0.6)", // Qualification (lighter primary shade)
+    "rgba(255, 194, 102, 0.6)", // Proposal (warm accent for contrast)
+    "rgba(153, 204, 255, 0.6)", // Followup (soft blue-gray for subtlety)
+    "rgba(255, 132, 102, 0.6)", // Closing (muted coral for energy)
+  ];
+
+  const borderColors = [
+    "rgba(0, 102, 255, 1)",    // Lead (primary color)
+    "rgba(0, 143, 179, 1)",    // Prospect (teal-like color)
+    "rgba(102, 153, 255, 1)",  // Qualification (lighter primary shade)
+    "rgba(255, 194, 102, 1)",  // Proposal (warm accent)
+    "rgba(153, 204, 255, 1)",  // Followup (soft blue-gray)
+    "rgba(255, 132, 102, 1)",  // Closing (muted coral)
+  ];
   useEffect(() => {
     const labels = Object.keys(funnelStats); // Get the keys as labels
     const data = Object.values(funnelStats); // Get the values as data
-
+    
     setChartData((prevData) => ({
       ...prevData,
       labels: labels,
@@ -58,12 +75,19 @@ export const Doughnut = ({ funnelStats }) => {
           },
         },
       },
+      datalabels: {
+        color: "#fff", // Label text color
+        font: {
+          size: 14, // Font size for the labels
+        },
+        formatter: (value) => value, // Display raw data as labels
+      },
     },
   };
 
   return (
-    <Card bordered={true}>
-      <ChartComponent chartData={chartData} options={options} type="doughnut" />
+    <Card bordered={true} style={{height : '100%'}}>
+      <ChartComponent chartData={chartData} options={options} type="pie" />
     </Card>
   );
 };

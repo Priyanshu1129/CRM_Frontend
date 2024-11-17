@@ -1,11 +1,12 @@
 import { MoreOutlined, PlusOutlined } from "@ant-design/icons";
 import { useDroppable } from "@dnd-kit/core";
-import { Button, Dropdown, Skeleton } from "antd";
+import { Button, Card, Dropdown, Skeleton } from "antd";
 import cn from "classnames";
 
 import { Text } from "@/components";
 
 import styles from "./index.module.css";
+import { colorConfig } from "@/config";
 
 const KanbanColumn = ({
   children,
@@ -28,7 +29,7 @@ const KanbanColumn = ({
   };
 
   return (
-    <div ref={setNodeRef} className={cn(styles.container, styles[variant])}>
+    <Card bodyStyle={{padding:"8px"}}  style={{marginRight:"12px", borderRadius:"12px", background:colorConfig.baseColor}} ref={setNodeRef} className={cn(styles.container, styles[variant])}>
       <div className={styles.header}>
         <div className={styles.titleContainer}>
           <div className={styles.title}>
@@ -44,7 +45,7 @@ const KanbanColumn = ({
               {title}
             </Text>
             {!!count && (
-              <div className={styles.count}>
+              <div className={styles.count} style={{background: colorConfig.primaryBackground}}>
                 <Text size="xs">{count}</Text>
               </div>
             )}
@@ -89,7 +90,7 @@ const KanbanColumn = ({
             />
           </div>
         </div>
-        {description}
+        <Text style={{ color : "red", fontWeight : "700"}}>{description}</Text>
       </div>
       <div
         className={cn(styles.columnScrollableContainer, {
@@ -99,7 +100,7 @@ const KanbanColumn = ({
       >
         <div className={cn(styles.childrenWrapper)}>{children}</div>
       </div>
-    </div>
+    </Card>
   );
 };
 

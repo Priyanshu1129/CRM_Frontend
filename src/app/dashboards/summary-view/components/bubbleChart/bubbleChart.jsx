@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState, useActionState } from "react";
-import { Tooltip } from "antd";
+import { Card, Tooltip } from "antd";
 
 const data = {
   Negotiations: 20,
@@ -12,25 +12,34 @@ const data = {
 
 export const BubbleChart = () => {
   const canvasRef = useRef(null);
+  const canvasParentRef = useRef(null);
   const [hoveredBubble, setHoveredBubble] = useState(null);
   const [bubbles, setBubbles] = useState([]);
   const [toolTipValue, setToolTipValue] = useState(null);
   const [toolTipPos, setToolTipPos] = useState({x : null, y: null});
+  const [windowWidth, setWindowWIdth] = useState(null);
 
   const colors = [
-    "rgba(255, 87, 51, 0.3)",
-    "rgba(51, 255, 87, 0.3)",
-    "rgba(51, 87, 255, 0.3)",
-    "rgba(255, 51, 161, 0.3)",
-    "rgba(255, 215, 51, 0.3)",
-    "rgba(140, 51, 255, 0.3)",
+    "rgba(255, 87, 51, 0.5)",
+    "rgba(51, 255, 87, 0.5)",
+    "rgba(51, 87, 255, 0.5)",
+    "rgba(255, 51, 161, 0.5)",
+    "rgba(255, 215, 51, 0.5)",
+    "rgba(140, 51, 255, 0.5)",
   ];
 
   useEffect(() => {
+    window.addEventListener('resize', (e)=>{
+      if(e?.target?.innerWidth)setWindowWIdth(e.target.innerWidth)
+    }
+    )
+
+    console.log("recalcualte")
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
 
-    const canvasSize = Math.min(240, window.innerWidth * 0.8);
+    // const canvasSize = Math.min(200, window.innerWidth * 0.8);
+    const canvasSize = canvasParentRef?.current?.lastChild?.clientWidth;
     const devicePixelRatio = window.devicePixelRatio || 1;
 
     canvas.width = canvasSize * devicePixelRatio;
@@ -96,7 +105,7 @@ export const BubbleChart = () => {
     };
 
     drawBubbles();
-  }, [data]);
+  }, [data, windowWidth]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -140,28 +149,33 @@ export const BubbleChart = () => {
   }, [bubbles, hoveredBubble]);
 
   return (
-    <div
-      style={{
-        padding: "20px",
-        maxWidth: "450px",
-        margin: "auto",
-        background: "#fff",
-        borderRadius: "8px",
-        boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
-        position: "relative",
-      }}
+    <Card
+      // style={{
+      //   padding: "20px",
+      //   maxWidth: "450px",
+      //   margin: "auto",
+      //   background: "#fff",
+      //   borderRadius: "8px",
+      //   boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.1)",
+      //   position: "relative",
+      //   border : "1px solid rgb(175, 163, 163)"
+      // }}
+     
+      bodyStyle={{ padding: 0 }} 
+      ref={canvasParentRef}
     >
       <canvas
         ref={canvasRef}
         style={{
           width: "100%",
           height: "auto",
-          border: "1px solid #ddd",
+         
           display: "block",
           background: "fff",
-          borderRadius: "6px",
+          borderRadius: "5px",
         }}
       />
+     
       {hoveredBubble && (
         <Tooltip
           title={toolTipValue}
@@ -179,7 +193,7 @@ export const BubbleChart = () => {
       <div
         style={{
           marginTop: "20px",
-          padding: "10px",
+          padding: "20px",
           borderTop: "1px solid #ddd",
           display: "flex",
           justifyContent: "center",
@@ -202,6 +216,6 @@ export const BubbleChart = () => {
           </div>
         ))}
       </div>
-    </div>
+    </Card>
   );
 };

@@ -5,6 +5,7 @@ import { useFetchFunnelView } from "@/hooks/dashboards";
 import moment from "moment";
 import { FullScreenLoading } from "@/components";
 import { FunnelChart, ConversionRates, Doughnut } from "./components";
+import { Row, Col } from "antd";
 
 const FunnelView = () => {
   const [dateRange, setDateRange] = useState([
@@ -39,22 +40,16 @@ const FunnelView = () => {
         FilterComponent={Filter}
       />
       <div style={{ width: "100%", marginTop: "20px" }}>
-        <div
-          style={{
-            display: "flex",
-            width: "100%",
-            gap: "20px",
-          }}
-        >
-          <div style={{ width: "100%" }}>
+           <Row gutter={12}>
+            <Col span={18}>
             <FunnelChart funnelStats={funnelViewData?.funnelStats} />
-          </div>
-          <div style={{ width: "300px" }}>
+            </Col>
+            <Col span={6}>
             {funnelViewData?.funnelStats && (
               <Doughnut funnelStats={funnelViewData.funnelStats} />
             )}
-          </div>
-        </div>
+            </Col>
+            </Row>
         {conversionStats && <ConversionRates data={conversionStats} />}
       </div>
     </>

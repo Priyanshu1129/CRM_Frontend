@@ -47,7 +47,7 @@ const LayoutComponent = ({ children }) => {
           <Header />
           <Layout
             style={{
-              padding: !screens.xs ? "32px" : "16px",
+              padding: !screens.xs ? "24px" : "16px",
               height: "100%",
             }}
           >
