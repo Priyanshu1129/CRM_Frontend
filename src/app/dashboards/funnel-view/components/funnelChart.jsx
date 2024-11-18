@@ -19,22 +19,40 @@ export const FunnelChart = ({
     color: "",
   });
 
+  // const colors = [
+  //   "rgba(255, 99, 132, 0.6)", // Lead
+  //   "rgba(54, 162, 235, 0.6)", // Prospect
+  //   "rgba(255, 206, 86, 0.6)", // Qualification
+  //   "rgba(75, 192, 192, 0.6)", // Proposal
+  //   "rgba(153, 102, 255, 0.6)", // Followup
+  //   "rgba(255, 159, 64, 0.6)", // Closing
+  // ];
+
+  // const borderColors = [
+  //   "rgba(255, 99, 132, 1)", // Lead
+  //   "rgba(54, 162, 235, 1)", // Prospect
+  //   "rgba(255, 206, 86, 1)", // Qualification
+  //   "rgba(75, 192, 192, 1)", // Proposal
+  //   "rgba(153, 102, 255, 1)", // Followup
+  //   "rgba(255, 159, 64, 1)", // Closing
+  // ];
+
   const colors = [
-    "rgba(255, 99, 132, 0.6)", // Lead
-    "rgba(54, 162, 235, 0.6)", // Prospect
-    "rgba(255, 206, 86, 0.6)", // Qualification
-    "rgba(75, 192, 192, 0.6)", // Proposal
-    "rgba(153, 102, 255, 0.6)", // Followup
-    "rgba(255, 159, 64, 0.6)", // Closing
+    "rgba(0, 102, 255, 0.6)",  // Lead (primary color with transparency)
+    "rgba(0, 143, 179, 0.6)",  // Prospect (teal-like color for variety)
+    "rgba(102, 153, 255, 0.6)", // Qualification (lighter primary shade)
+    "rgba(255, 194, 102, 0.6)", // Proposal (warm accent for contrast)
+    "rgba(153, 204, 255, 0.6)", // Followup (soft blue-gray for subtlety)
+    "rgba(255, 132, 102, 0.6)", // Closing (muted coral for energy)
   ];
 
   const borderColors = [
-    "rgba(255, 99, 132, 1)", // Lead
-    "rgba(54, 162, 235, 1)", // Prospect
-    "rgba(255, 206, 86, 1)", // Qualification
-    "rgba(75, 192, 192, 1)", // Proposal
-    "rgba(153, 102, 255, 1)", // Followup
-    "rgba(255, 159, 64, 1)", // Closing
+    "rgba(0, 102, 255, 1)",    // Lead (primary color)
+    "rgba(0, 143, 179, 1)",    // Prospect (teal-like color)
+    "rgba(102, 153, 255, 1)",  // Qualification (lighter primary shade)
+    "rgba(255, 194, 102, 1)",  // Proposal (warm accent)
+    "rgba(153, 204, 255, 1)",  // Followup (soft blue-gray)
+    "rgba(255, 132, 102, 1)",  // Closing (muted coral)
   ];
 
   // const drawFunnelChart = (ctx, width, height) => {
@@ -111,17 +129,15 @@ export const FunnelChart = ({
       const segmentWidth = (funnelStats[stage] / total) * width;
       const topNext = topHeight + (height - 40) / stages.length / 3;
       const bottomNext = bottomHeight - (height - 40) / stages.length / 3;
-  
-      // Set shadow properties for the funnel segment
+       
       ctx.shadowBlur = 10;
-      ctx.shadowColor = "rgba(0, 0, 0, 0.2)"; // Adjust shadow color and opacity as needed
+      ctx.shadowColor = "rgba(0, 0, 0, 0.1)"; // Adjust shadow color and opacity as needed
       ctx.shadowOffsetX = 0;
-      ctx.shadowOffsetY = 2;
-  
+      ctx.shadowOffsetY = 2;
       ctx.fillStyle = colors[index];
       ctx.strokeStyle = borderColors[index];
       ctx.lineWidth = 1;
-  
+       
       ctx.beginPath();
       ctx.moveTo(xPosition, topHeight);
       ctx.lineTo(xPosition + segmentWidth, topNext);

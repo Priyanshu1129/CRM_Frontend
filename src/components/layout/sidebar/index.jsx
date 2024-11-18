@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { Menu, Layout, theme, Grid } from "antd";
 import { Title } from "../title";
 const { Sider } = Layout;
-import { resources } from "@/config";
+import { colorConfig, resources } from "@/config";
 
 const Sidebar = ({ collapsed, setCollapsed }) => {
   const router = useRouter();
@@ -16,6 +16,8 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
       breakpoint="lg"
       width={256}
       style={{
+        border : "1px solid",
+        borderColor : colorConfig.cardBorder,
         fontFamily: "Roboto, sans-serif", // Make sure to use your selected font
         fontWeight: "700",
         height: "100vh",
@@ -54,19 +56,22 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
         <Title collapsed={collapsed} />
       </div>
       <Menu
-        onClick={onClick}
-        style={{
-          height: "calc(100% - 64px)", // Adjust to account for header height
-          scrollbarWidth: "thin",
-          fontWeight: "700",
-        }}
-        // theme="light"
-        title="Logo"
-        defaultSelectedKeys={["1"]}
-        defaultOpenKeys={["sub1"]}
-        mode="inline"
-        items={resources}
-      />
+  onClick={onClick}
+  style={{
+    height: "calc(100% - 64px)", // Adjust to account for header height
+    scrollbarWidth: "thin",
+    fontWeight: "700",
+    paddingLeft : '12px',
+    paddingRight : '12px',
+  }}
+  theme="light" // Ensures proper base styling
+  title="Logo"
+  defaultSelectedKeys={["1"]}
+  defaultOpenKeys={["sub1"]}
+  mode="inline"
+  items={resources}
+/>
+
     </Sider>
   );
 };

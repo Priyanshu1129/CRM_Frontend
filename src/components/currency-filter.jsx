@@ -45,7 +45,7 @@ export const CurrencyAmountInput = ({
       <Input
         addonBefore={
           <Select
-            style={{ width: "70px" }}
+            style={{ width: "70px" , backgroundColor : "red" }}
             value={selectedCurrency}
             onChange={handleCurrencyChange}
             filterOption={false}

@@ -42,7 +42,7 @@ const SummaryView = () => {
         {/* Summary Cards */}
         <SummaryCards loading={loading} data={summaryViewData} />
 
-        <Row style={{ marginTop: "16px" }} gutter={24}>
+        <Row style={{ marginTop: "0px" }} gutter={24}>
           {/* Left side - Heatmap */}
           <Col xs={24} md={12}>
             <Heatmap />
@@ -50,10 +50,10 @@ const SummaryView = () => {
 
           {/* Right side - Bubble charts */}
           <Col xs={24} md={6}>
-            {/* <BubbleChart /> */}
+            <BubbleChart />
           </Col>
           <Col xs={24} md={6}>
-            {/* <BubbleChart /> */}
+            <BubbleChart />
           </Col>
         </Row>
       </Space>

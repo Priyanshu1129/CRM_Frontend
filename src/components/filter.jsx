@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { DownOutlined, FilterOutlined } from "@ant-design/icons";
 import { Button, Dropdown, Menu, Checkbox, Grid } from "antd";
+import { Color } from "antd/es/color-picker";
+import { colorConfig } from "@/config";
 
 export const Filter = ({ filterOptions, filters, setFilters, setFilter }) => {
   const screens = Grid.useBreakpoint();
@@ -109,7 +111,7 @@ export const Filter = ({ filterOptions, filters, setFilters, setFilter }) => {
       dropdownRender={() => menu}
     >
       <Button
-        
+        style={{ color : "red", backgroundColor : colorConfig.menuHoverBgColor}}
         icon={<FilterOutlined />}
         onClick={() => setVisible(true)} // Open dropdown on button click
       >

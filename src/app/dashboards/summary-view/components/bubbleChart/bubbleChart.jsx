@@ -1,199 +1,199 @@
-import React, { useRef, useEffect, useState } from "react";
-import { Tooltip } from "antd";
+import React, { useRef, useEffect, useState, useActionState } from "react";
+import { Card, Tooltip } from "antd";
+
+const data = {
+  Negotiations: 20,
+  ClosedLost: 480,
+  ClosedWon: 200,
+  Discovery: 88,
+  Prospecting: 30,
+  ProposalSent: 740,
+};
 
 export const BubbleChart = () => {
-  const data = {
-    Negotiations: 320,
-    ClosedLost: 480,
-    ClosedWon: 50,
-    Discovery: 10,
-    Prospecting: 30,
-    ProposalSent: 740,
-  };
-
   const canvasRef = useRef(null);
+  const canvasParentRef = useRef(null);
   const [hoveredBubble, setHoveredBubble] = useState(null);
   const [bubbles, setBubbles] = useState([]);
-  const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
+  const [toolTipValue, setToolTipValue] = useState(null);
+  const [toolTipPos, setToolTipPos] = useState({x : null, y: null});
+  const [windowWidth, setWindowWIdth] = useState(null);
 
-  // const colors = [
-  //   "#FF5733", "#33FF57", "#3357FF", "#FF33A1", "#FFD733", "#8C33FF",
-  // ];
   const colors = [
-    "rgba(255, 87, 51, 0.5)", // #FF5733 with 50% opacity
-    "rgba(51, 255, 87, 0.5)", // #33FF57 with 50% opacity
-    "rgba(51, 87, 255, 0.5)", // #3357FF with 50% opacity
-    "rgba(255, 51, 161, 0.5)", // #FF33A1 with 50% opacity
-    "rgba(255, 215, 51, 0.5)", // #FFD733 with 50% opacity
-    "rgba(140, 51, 255, 0.5)", // #8C33FF with 50% opacity
+    "rgba(255, 87, 51, 0.5)",
+    "rgba(51, 255, 87, 0.5)",
+    "rgba(51, 87, 255, 0.5)",
+    "rgba(255, 51, 161, 0.5)",
+    "rgba(255, 215, 51, 0.5)",
+    "rgba(140, 51, 255, 0.5)",
   ];
 
   useEffect(() => {
+    window.addEventListener('resize', (e)=>{
+      if(e?.target?.innerWidth)setWindowWIdth(e.target.innerWidth)
+    }
+    )
+
+    console.log("recalcualte")
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
 
-    const canvasSize = Math.min(400, window.innerWidth * 0.8);
+    // const canvasSize = Math.min(200, window.innerWidth * 0.8);
+    const canvasSize = canvasParentRef?.current?.lastChild?.clientWidth;
+    const devicePixelRatio = window.devicePixelRatio || 1;
+
+    canvas.width = canvasSize * devicePixelRatio;
+    canvas.height = canvasSize * devicePixelRatio;
+    canvas.style.width = `${canvasSize}px`;
+    canvas.style.height = `${canvasSize}px`;
+
+    ctx.scale(devicePixelRatio, devicePixelRatio);
+
     const padding = 10;
     const effectiveCanvasSize = canvasSize - 2 * padding;
-
-    canvas.width = canvasSize;
-    canvas.height = canvasSize;
-    const centerX = canvas.width / 2;
-    const centerY = canvas.height / 2;
-
+    const centerX = canvasSize / 2;
+    const centerY = canvasSize / 2;
     const maxRadius = effectiveCanvasSize / 5;
 
     const newBubbles = Object.keys(data).map((key, index) => {
       const minRadius = maxRadius / 3;
       const maxDataValue = Math.max(...Object.values(data));
-      const radius =
-        minRadius + (data[key] / maxDataValue) * (maxRadius - minRadius);
+      const radius = minRadius + (data[key] / maxDataValue) * (maxRadius - minRadius);
       return {
         label: key,
         value: data[key],
         radius,
         color: colors[index],
+        x: centerX,
+        y: centerY,
       };
     });
 
     newBubbles.sort((a, b) => b.radius - a.radius);
     const centerBubble = newBubbles[0];
     const surroundingBubbles = newBubbles.slice(1);
-
     setBubbles(newBubbles);
 
     const angleStep = (2 * Math.PI) / surroundingBubbles.length;
 
+    for (let i = 1; i < newBubbles.length; i++) {
+      const bubble = newBubbles[i];
+      const angle = i * angleStep;
+      const distance = centerBubble.radius + bubble.radius + 10;
+      bubble.x = centerX + distance * Math.cos(angle);
+      bubble.y = centerY + distance * Math.sin(angle);
+    }
+     
+    const getModifiedOpacity = (rgba , percent)=>{
+         let modifiedOpacity = rgba.slice(0, rgba.length - 3) + percent + rgba.slice(rgba.length - 2, 2);    
+        return modifiedOpacity
+    }
     const drawBubbles = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      surroundingBubbles.forEach((bubble, i) => {
-        const isHovered = hoveredBubble === i + 1;
-        const scaleFactor = isHovered ? 1.2 : 1; // Enlarge on hover
-        const angle = i * angleStep;
-        const distance = centerBubble.radius + bubble.radius + 10;
-
-        const x = Math.max(
-          padding + bubble.radius,
-          Math.min(
-            centerX + distance * Math.cos(angle),
-            canvas.width - padding - bubble.radius
-          )
-        );
-        const y = Math.max(
-          padding + bubble.radius,
-          Math.min(
-            centerY + distance * Math.sin(angle),
-            canvas.height - padding - bubble.radius
-          )
-        );
-
+      newBubbles.forEach((bubble) => {
         ctx.beginPath();
-        ctx.arc(x, y, bubble.radius * scaleFactor, 0, Math.PI * 2);
+        ctx.arc(bubble.x, bubble.y, bubble.radius, 0, Math.PI * 2);
         ctx.fillStyle = bubble.color;
         ctx.fill();
-        ctx.lineWidth = 3;
-        ctx.strokeStyle = "rgba(0, 0, 0, 0.2)";
+        ctx.lineWidth = 1 ;
+        // ctx.strokeStyle = "rgba(255, 255, 255, 0.2)";
+        ctx.strokeStyle = getModifiedOpacity(bubble.color, "5" );
         ctx.stroke();
         ctx.closePath();
       });
-
-      const centerScaleFactor = hoveredBubble === 0 ? 1.2 : 1;
-      ctx.beginPath();
-      ctx.arc(
-        centerX,
-        centerY,
-        centerBubble.radius * centerScaleFactor,
-        0,
-        Math.PI * 2
-      );
-      ctx.fillStyle = centerBubble.color;
-      ctx.fill();
-      ctx.lineWidth = 3;
-      ctx.strokeStyle = "rgba(0, 0, 0, 0.2)";
-      ctx.stroke();
-      ctx.closePath();
     };
+
+    drawBubbles();
+  }, [data, windowWidth]);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
 
     const handleMouseMove = (e) => {
       const rect = canvas.getBoundingClientRect();
-      const mouseX = e.clientX - rect.left;
-      const mouseY = e.clientY - rect.top;
-      setTooltipPosition({ x: e.clientX, y: e.clientY });
+      const mouseX = (e.clientX - rect.left) * (canvas.width / rect.width);
+      const mouseY = (e.clientY - rect.top) * (canvas.height / rect.height);
 
       let found = false;
 
-      newBubbles.forEach((bubble, index) => {
-        let x, y;
-        if (index === 0) {
-          x = centerX;
-          y = centerY;
-        } else {
-          const angle = (index - 1) * angleStep;
-          const distance = centerBubble.radius + bubble.radius + 10;
-          x = Math.max(
-            padding + bubble.radius,
-            Math.min(
-              centerX + distance * Math.cos(angle),
-              canvas.width - padding - bubble.radius
-            )
-          );
-          y = Math.max(
-            padding + bubble.radius,
-            Math.min(
-              centerY + distance * Math.sin(angle),
-              canvas.height - padding - bubble.radius
-            )
-          );
-        }
-
-        const distanceToMouse = Math.sqrt(
-          (mouseX - x) ** 2 + (mouseY - y) ** 2
+      for (let i = 0; i < bubbles.length; i++) {
+        const bubble = bubbles[i];
+        const distance = Math.sqrt(
+          Math.pow(mouseX / window.devicePixelRatio - bubble.x, 2) +
+          Math.pow(mouseY / window.devicePixelRatio - bubble.y, 2)
         );
-        if (distanceToMouse < bubble.radius) {
-          setHoveredBubble(index);
-          found = true;
-        }
-      });
 
-      if (!found) setHoveredBubble(null);
+        if (distance <= bubble.radius) {
+          if (!hoveredBubble || hoveredBubble.label !== bubble.label) {
+            setHoveredBubble(bubble);
+            setToolTipValue(bubble.label);
+          }
+          setToolTipPos({x:e.clientX, y : e.clientY});
+          found = true;
+          break;
+        }
+      }
+
+      if (!found) {
+        setHoveredBubble(null);
+        setToolTipValue(null);
+      }
     };
 
     canvas.addEventListener("mousemove", handleMouseMove);
-    drawBubbles();
 
     return () => {
       canvas.removeEventListener("mousemove", handleMouseMove);
     };
-  }, [data, hoveredBubble]);
+  }, [bubbles, hoveredBubble]);
 
   return (
-    <div
-      style={{
-        padding: "20px",
-        maxWidth: "450px",
-        margin: "auto",
-        background: "#fff",
-        borderRadius: "16px",
-        boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
-        position: "relative",
-      }}
+    <Card
+      // style={{
+      //   padding: "20px",
+      //   maxWidth: "450px",
+      //   margin: "auto",
+      //   background: "#fff",
+      //   borderRadius: "8px",
+      //   boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.1)",
+      //   position: "relative",
+      //   border : "1px solid rgb(175, 163, 163)"
+      // }}
+     
+      bodyStyle={{ padding: 0 }} 
+      ref={canvasParentRef}
     >
       <canvas
         ref={canvasRef}
         style={{
           width: "100%",
           height: "auto",
-          border: "1px solid #ddd",
+         
           display: "block",
-          background: "#f0f0f0",
-          borderRadius: "12px",
+          background: "fff",
+          borderRadius: "5px",
         }}
       />
+     
+      {hoveredBubble && (
+        <Tooltip
+          title={toolTipValue}
+          placement="top"
+          overlayStyle={{
+            position: 'absolute',
+            left: `${toolTipPos?.x}px`,
+            top: `${toolTipPos?.y - 30}px`,
+           
+            
+          }}
+          visible
+        />
+      )}
       <div
         style={{
           marginTop: "20px",
-          padding: "10px",
+          padding: "20px",
           borderTop: "1px solid #ddd",
           display: "flex",
           justifyContent: "center",
@@ -216,20 +216,6 @@ export const BubbleChart = () => {
           </div>
         ))}
       </div>
-      {hoveredBubble !== null && bubbles[hoveredBubble] && (
-        <Tooltip
-          title={`${bubbles[hoveredBubble].label}: ${bubbles[hoveredBubble].value}`}
-          open
-          placement="top"
-          overlayStyle={{
-            position: "absolute",
-            left: `${tooltipPosition.x}px`,
-            top: `${tooltipPosition.y - 30}px`,
-            transform: "translate(-50%, -50%)",
-            pointerEvents: "none",
-          }}
-        />
-      )}
-    </div>
+    </Card>
   );
 };

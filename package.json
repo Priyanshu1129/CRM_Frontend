@@ -19,6 +19,7 @@
     "antd-img-crop": "^4.23.0",
     "axios": "^1.7.4",
     "chart.js": "^4.4.6",
+    "chartjs-plugin-datalabels": "^2.2.0",
     "dayjs": "^1.11.13",
     "lodash": "^4.17.21",
     "moment": "^2.30.1",

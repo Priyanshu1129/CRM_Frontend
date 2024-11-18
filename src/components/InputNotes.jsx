@@ -1,5 +1,5 @@
 import React from "react";
-import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
+import { MinusCircleOutlined, MinusCircleTwoTone, PlusCircleTwoTone, PlusOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Col } from "antd";
 const formItemLayout = {
   labelCol: {
@@ -42,7 +42,7 @@ export const InputNotes = () => {
                   <Input.TextArea placeholder="Notes.." />
                 </Form.Item>
                 {fields.length >= 1 ? (
-                  <MinusCircleOutlined
+                  <MinusCircleTwoTone
                     className="dynamic-delete-button"
                     onClick={() => remove(field.name)}
                   />
@@ -57,7 +57,7 @@ export const InputNotes = () => {
               style={{
                 width: "60%",
               }}
-              icon={<PlusOutlined />}
+              icon={<PlusCircleTwoTone />}
             >
               Add Notes
             </Button>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { DownOutlined, FilterOutlined } from "@ant-design/icons";
+import { DownCircleTwoTone, DownOutlined, FilterOutlined, FilterTwoTone } from "@ant-design/icons";
 import { Button, Dropdown, Menu, Checkbox, Grid } from "antd";
 import { useUsers } from "@/hooks";
 
@@ -132,11 +132,11 @@ export const Filter = ({ filters, setFilters, setFilter }) => {
       dropdownRender={() => menu}
     >
       <Button
-        icon={<FilterOutlined />}
+        icon={<FilterTwoTone />}
         onClick={() => setVisible(true)} // Open dropdown on button click
       >
         {!screens.xs ? "Filter" : null}
-        <DownOutlined />
+        <DownCircleTwoTone />
       </Button>
     </Dropdown>
   );

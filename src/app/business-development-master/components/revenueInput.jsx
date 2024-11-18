@@ -1,5 +1,5 @@
 import React from "react";
-import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
+import { MinusCircleOutlined, MinusCircleTwoTone, PlusCircleTwoTone, PlusOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Space, Col, Row } from "antd";
 const onFinish = (values) => {
   console.log("Received values of form:", values);
@@ -26,7 +26,7 @@ export const RevenueInput = () => (
               </Form.Item>
             </Col>
             <Col span={12}>
-              <MinusCircleOutlined onClick={() => remove(name)} />
+              <MinusCircleTwoTone onClick={() => remove(name)} />
             </Col>
             <Col span={6}>
               <Form.Item
@@ -96,7 +96,7 @@ export const RevenueInput = () => (
               type="dashed"
               onClick={() => add()}
               block
-              icon={<PlusOutlined />}
+              icon={<PlusCircleTwoTone />}
             >
               Add Revenue
             </Button>
