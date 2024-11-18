@@ -18,5 +18,15 @@ export const ChartComponent = ({ chartData, options, type }) => {
     });
   }, [chartData, options, type]);
 
-  return <canvas ref={chartRef} />;
+  return (
+    <div
+      style={{
+        boxShadow:
+          "0 4px 8px rgba(0, 0, 0, 0.2)" /* Customize shadow color, spread, and blur */,
+        borderRadius: "50%",
+      }}
+    >
+      <canvas ref={chartRef} />
+    </div>
+  );
 };

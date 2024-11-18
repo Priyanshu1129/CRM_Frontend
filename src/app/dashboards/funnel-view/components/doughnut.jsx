@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Card } from "antd";
+import { Text } from "@/components";
+import { Card, Space } from "antd";
 import { ChartComponent } from "../../components";
 
 export const Doughnut = ({ funnelStats }) => {
@@ -62,8 +63,11 @@ export const Doughnut = ({ funnelStats }) => {
   };
 
   return (
-    <Card bordered={true}>
+    <Card style={{ textAlign: "center" }} bordered={true}>
       <ChartComponent chartData={chartData} options={options} type="doughnut" />
+      <Space style={{ marginTop: "5px" }}>
+        <Text style={{ userSelect: "none" }}>Bubble chart</Text>
+      </Space>
     </Card>
   );
 };
