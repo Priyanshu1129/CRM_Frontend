@@ -1,9 +1,9 @@
 "use client";
 import { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
-import ChartDataLabels from "chartjs-plugin-datalabels";
+// import ChartDataLabels from "chartjs-plugin-datalabels";
 
-Chart.register(ChartDataLabels); // Register the plugin
+// Chart.register(ChartDataLabels); // Register the plugin
 
 export const ChartComponent = ({ chartData, options, type }) => {
   const chartRef = useRef(null);

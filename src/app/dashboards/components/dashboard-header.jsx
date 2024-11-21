@@ -41,7 +41,10 @@ export const DashboardHeader = ({
 
         {setDateRange && (
           <SelectDateRange
-            onChange={(dates, dateStrings) => setDateRange(dates)}
+            onChange={(dates, dateStrings) => {
+              console.log("header", dateStrings);
+              setDateRange(dateStrings);
+            }}
           />
         )}
 

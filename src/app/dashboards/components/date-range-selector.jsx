@@ -9,13 +9,15 @@ const { RangePicker } = DatePicker;
 
 export const SelectDateRange = ({ onChange }) => (
   <RangePicker
-    onChange={onChange}
+    onChange={(e) => {
+      console.log("onChange triggered");
+      console.log("Selected dates:", e);
+    }}
     // defaultValue={moment()}
     needConfirm
     allowClear={false}
     suffixIcon={
       <CalendarOutlined style={{ color: `${colorConfig.primary}` }} /> // Set the color of the calendar icon
     }
- 
   />
 );

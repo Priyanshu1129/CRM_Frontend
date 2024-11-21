@@ -7,10 +7,7 @@ import { SummaryCards, Heatmap, BubbleChart } from "./components";
 import { Row, Col, Space, Card } from "antd";
 
 const SummaryView = () => {
-  const [dateRange, setDateRange] = useState([
-    moment(),
-    moment("2020-10-10", "YYYY-MM-DD"),
-  ]);
+  const [dateRange, setDateRange] = useState(["2010-01-01", Date.now()]);
 
   const {
     loading,
@@ -24,7 +21,7 @@ const SummaryView = () => {
     endDate: dateRange[1],
   });
 
-  // if (loading) return <FullScreenLoading />;
+  console.log("date-range-changed", dateRange);
 
   return (
     <>
