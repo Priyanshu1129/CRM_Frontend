@@ -18,7 +18,7 @@ export const useFetchSummaryView = ({ startDate, endDate }) => {
     console.log('dateRange-hook', startDate, endDate)
 
     const fetchSummaryView = useCallback(() => {
-        // dispatch(getSummaryView({ startDate, endDate, ...filters }));
+        dispatch(getSummaryView({ startDate, endDate, ...filters }));
     }, [dispatch, endDate, startDate, filters])
 
     useEffect(() => {
