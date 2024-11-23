@@ -1,11 +1,12 @@
 import React from "react";
 import { DatePicker } from "antd";
-import moment from "moment";
+import dayjs from "dayjs";
 
 export const SelectDate = ({ onChange }) => (
   <DatePicker
     onChange={onChange}
-    defaultValue={moment()}
+    defaultValue={dayjs(new Date())}
+    format={"DD-MM-YYYY"}
     needConfirm
     allowClear={false}
   />

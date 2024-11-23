@@ -6,11 +6,12 @@ import moment from "moment";
 import { FullScreenLoading } from "@/components";
 import { FunnelChart, ConversionRates, Doughnut } from "./components";
 import { Row, Col } from "antd";
+import dayjs from "dayjs";
 
 const FunnelView = () => {
   const [dateRange, setDateRange] = useState([
-    moment(),
-    moment("2020-10-10", "YYYY-MM-DD"),
+    dayjs("2020-10-10", "YYYY-MM-DD"),
+    dayjs(new Date()),
   ]);
 
   const {
@@ -40,16 +41,16 @@ const FunnelView = () => {
         FilterComponent={Filter}
       />
       <div style={{ width: "100%", marginTop: "20px" }}>
-           <Row gutter={12}>
-            <Col span={18}>
+        <Row gutter={12}>
+          <Col span={18}>
             <FunnelChart funnelStats={funnelViewData?.funnelStats} />
-            </Col>
-            <Col span={6}>
+          </Col>
+          <Col span={6}>
             {funnelViewData?.funnelStats && (
               <Doughnut funnelStats={funnelViewData.funnelStats} />
             )}
-            </Col>
-            </Row>
+          </Col>
+        </Row>
         {conversionStats && <ConversionRates data={conversionStats} />}
       </div>
     </>

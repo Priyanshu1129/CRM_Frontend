@@ -1,7 +1,6 @@
 import React from "react";
 import { DatePicker } from "antd";
-import moment from "moment";
-import { FilterTwoTone } from "@ant-design/icons";
+import dayjs from "dayjs";
 import { CalendarOutlined } from "@ant-design/icons";
 import { colorConfig } from "@/config";
 
@@ -9,11 +8,9 @@ const { RangePicker } = DatePicker;
 
 export const SelectDateRange = ({ onChange }) => (
   <RangePicker
-    onChange={(e) => {
-      console.log("onChange triggered");
-      console.log("Selected dates:", e);
-    }}
-    // defaultValue={moment()}
+    onChange={onChange}
+    defaultValue={[dayjs("2015/01/01"), dayjs(new Date())]}
+    format={"DD-MM-YYYY"}
     needConfirm
     allowClear={false}
     suffixIcon={

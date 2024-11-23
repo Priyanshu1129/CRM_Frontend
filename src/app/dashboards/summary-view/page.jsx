@@ -2,12 +2,15 @@
 import React, { useState } from "react";
 import { Filter, DashboardHeader } from "../components";
 import { useFetchSummaryView } from "@/hooks/dashboards";
-import moment from "moment";
 import { SummaryCards, Heatmap, BubbleChart } from "./components";
 import { Row, Col, Space, Card } from "antd";
+import dayjs from "dayjs";
 
 const SummaryView = () => {
-  const [dateRange, setDateRange] = useState(["2010-01-01", Date.now()]);
+  const [dateRange, setDateRange] = useState([
+    dayjs("2020-10-10", "YYYY-MM-DD"),
+    dayjs(new Date()),
+  ]);
 
   const {
     loading,
@@ -20,8 +23,6 @@ const SummaryView = () => {
     startDate: dateRange[0],
     endDate: dateRange[1],
   });
-
-  console.log("date-range-changed", dateRange);
 
   return (
     <>
