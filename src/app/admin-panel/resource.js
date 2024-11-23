@@ -5,30 +5,32 @@ import { PiUserGearDuotone } from "react-icons/pi";
 import { FaCloudDownloadAlt } from "react-icons/fa";
 import { TbReportAnalytics } from "react-icons/tb";
 import { LuTarget } from "react-icons/lu";
+
+import { colorConfig } from "@/config";
 export const resources = [
     {
         key: "configurations",
         title: "Configurations",
-        icon: <GrDocumentConfig />
+        icon: <GrDocumentConfig color={colorConfig.primary} size={24}/>
     },
     {
         key: "roles-permissions",
         title: "Roles & Permissions",
-        icon: <PiUserGearDuotone />
+        icon: <PiUserGearDuotone color={colorConfig.primary} size={24} />
     },
     {
         key: "targets",
         title: "Set Targets",
-        icon: <LuTarget />
+        icon: <LuTarget color={colorConfig.primary} size={24}/>
     },
     {
         key: "db-backup",
         title: "DB Backup",
-        icon: <FaCloudDownloadAlt />
+        icon: <FaCloudDownloadAlt color={colorConfig.primary} size={24} />
     },
     {
         key: "report",
         title: "Report",
-        icon: <TbReportAnalytics />
+        icon: <TbReportAnalytics color={colorConfig.primary} size={24}/>
     }
 ]

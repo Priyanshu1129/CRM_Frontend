@@ -2,6 +2,7 @@ import React from "react";
 import { Text } from "@/components";
 import { useRouter } from "next/navigation";
 import { Card, Avatar } from "antd";
+import { colorConfig } from "@/config";
 
 export const AdminPanelCard = ({ resource }) => {
   const router = useRouter();
@@ -24,7 +25,7 @@ export const AdminPanelCard = ({ resource }) => {
           icon={icon}
           // size={64}
           style={{
-            // backgroundColor: "transparent",
+            backgroundColor: `${colorConfig.primaryBackground}`,
             display: "flex",
             alignItems: "center",
             border: "none",

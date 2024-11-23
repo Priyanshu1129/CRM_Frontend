@@ -9,7 +9,7 @@ const { RangePicker } = DatePicker;
 
 export const SelectDateRange = ({ onChange }) => (
   <RangePicker
-    onChange={onChange}
+    onChange={(e)=> console.log('from header date changed', e)}
     // defaultValue={moment()}
     needConfirm
     allowClear={false}
