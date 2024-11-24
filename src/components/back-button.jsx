@@ -17,15 +17,15 @@ export const BackButton = ({ text = true }) => {
         marginTop: screens.xs ? "1.6rem" : "0rem",
       }}
     >
-      <Text
+      <div
         style={{
-          //   color: "#fff",
           fontSize: "16px",
           fontWeight: 400,
         }}
+        className="hover-text-go-back-button"
       >
         {!screens.xs && text ? "Go Back" : null}
-      </Text>
+      </div>
     </Button>
   );
 };

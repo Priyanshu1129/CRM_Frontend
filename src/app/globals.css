@@ -91,7 +91,6 @@ p, span, a {
   border-radius: 8px;
   border: 1px solid #d9d9d9;
   box-shadow: 0 2px 0 rgba(0, 0, 0, 0.02) !important;
- 
 }
 
 .ant-table {
@@ -147,3 +146,11 @@ li {
   margin-bottom: 10px; /* Space between list items */
 }
 
+.hover-text-go-back-button {
+  color: black;
+  transition: color 0.3s ease; /* For smooth transition */
+}
+
+.hover-text-go-back-button:hover {
+  color: #005B7F; 
+}

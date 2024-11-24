@@ -23,9 +23,11 @@ import {
   TenderSelector,
   CurrencyAmountInput,
 } from "@/components";
-import { opportunityFormRules, tenderFormRules } from "@/utilities/formValidationRules";
+import {
+  opportunityFormRules,
+  tenderFormRules,
+} from "@/utilities/formValidationRules";
 import { useAddOpportunity } from "@/hooks/opportunity/useAddOpportunity";
-import moment from "moment";
 
 const AddOpportunity = () => {
   const [uploadModal, setUploadModal] = useState(false);
@@ -65,7 +67,7 @@ const AddOpportunity = () => {
           <Row gutter={24}>
             <Col span={8}>
               <Form.Item name="entryDate" label="Entry Date">
-                <DatePicker defaultValue={moment()} style={{ width: "100%" }} />
+                <DatePicker style={{ width: "100%" }} />
               </Form.Item>
             </Col>
             <Col span={8}>
@@ -195,7 +197,6 @@ const AddOpportunity = () => {
                 </Space>
               </Form.Item>
             </Col>
-            
           </Row>
         </Form>
         <BulkUploadModal

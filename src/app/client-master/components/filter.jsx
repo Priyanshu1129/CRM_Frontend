@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { DownCircleTwoTone, DownOutlined, FilterOutlined, FilterTwoTone } from "@ant-design/icons";
+import {  DownOutlined, FilterOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Grid, Popover, Menu } from "antd";
 import {
   useIndustries,
@@ -209,9 +209,9 @@ export const Filter = ({ filters, setFilters, setFilter }) => {
       overlayInnerStyle={{ padding: 0, borderRadius: "8px" }}
       onVisibleChange={setOpen}
     >
-      <Button icon={<FilterTwoTone />}>
+      <Button icon={<FilterOutlined />}>
         {!screens.xs ? "Filter" : null}
-        <DownCircleTwoTone />
+        <DownOutlined />
       </Button>
     </Popover>
   );

@@ -19,8 +19,8 @@ const Header = () => {
     position: "sticky",
     top: 0,
     zIndex: 999,
-    border : "1px solid",
-        borderColor : colorConfig.cardBorder,
+    border: "1px solid",
+    borderColor: colorConfig.cardBorder,
   };
 
   return (

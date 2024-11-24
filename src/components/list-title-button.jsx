@@ -4,6 +4,7 @@ import { Button, Grid } from "antd";
 import { useRouter } from "next/navigation";
 
 import { Text } from "./text";
+import { colorConfig } from "@/config";
 
 export const ListTitleButton = ({ buttonText, toPath }) => {
   const screens = Grid.useBreakpoint();
@@ -11,6 +12,7 @@ export const ListTitleButton = ({ buttonText, toPath }) => {
   return (
     <Button
       type="primary"
+
       // @ts-expect-error Ant Design Icon's v5.0.1 has an issue with @types/react@^18.2.66
       icon={<PlusCircleOutlined />}
       onClick={() => {
@@ -18,6 +20,7 @@ export const ListTitleButton = ({ buttonText, toPath }) => {
       }}
       size={"middle"}
       style={{
+        // background:colorConfig.primary,
         marginTop: screens.xs ? "1.6rem" : "0rem",
       }}
     >

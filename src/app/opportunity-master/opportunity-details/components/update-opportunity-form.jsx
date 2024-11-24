@@ -24,7 +24,10 @@ import {
   CurrencyAmountInput,
 } from "@/components";
 import { RevenueInput } from "../../components/revenueInput";
-import { opportunityFormRules, tenderFormRules } from "@/utilities/formValidationRules";
+import {
+  opportunityFormRules,
+  tenderFormRules,
+} from "@/utilities/formValidationRules";
 import { useUpdateOpportunity } from "@/hooks/opportunity";
 
 export const UpdateOpportunityForm = ({ opportunity }) => {
@@ -167,14 +170,14 @@ export const UpdateOpportunityForm = ({ opportunity }) => {
             />
           </Col>
           <Col span={8}>
-              <Form.Item
-                name="expectedWonDate"
-                label="Expected Won Date"
-                rules={tenderFormRules.bondIssueDate}
-              >
-                <DatePicker style={{ width: "100%" }} />
-              </Form.Item>
-            </Col>
+            <Form.Item
+              name="expectedWonDate"
+              label="Expected Won Date"
+              rules={tenderFormRules.bondIssueDate}
+            >
+              <DatePicker style={{ width: "100%" }} />
+            </Form.Item>
+          </Col>
           <Col span={24}>
             <Form.Item>
               <Space>

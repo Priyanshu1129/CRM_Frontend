@@ -4,7 +4,7 @@ import { Avatar } from "antd";
 
 const { useToken } = theme;
 
-const name = "Globex Corporation";
+const name = "Raven";
 
 export const Title = ({
   collapsed,
@@ -58,6 +58,7 @@ export const Title = ({
             style={{
               fontSize: "inherit",
               marginBottom: 0,
+              marginLeft : '10px',
               // color: "#fff",
               fontWeight: 700,
             }}

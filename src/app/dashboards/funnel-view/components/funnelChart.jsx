@@ -55,19 +55,76 @@ export const FunnelChart = ({
     "rgba(255, 132, 102, 1)",  // Closing (muted coral)
   ];
 
+  // const drawFunnelChart = (ctx, width, height) => {
+  //   ctx.clearRect(0, 0, width, height);
+
+  //   const stages = Object.keys(funnelStats);
+  //   const total = Object.values(funnelStats).reduce(
+  //     (acc, value) => acc + value,
+  //     0
+  //   );
+
+  //   let xPosition = 0;
+  //   let topHeight = 20;
+  //   let bottomHeight = height - 20;
+
+  //   stages.forEach((stage, index) => {
+  //     const segmentWidth = (funnelStats[stage] / total) * width;
+  //     const topNext = topHeight + (height - 40) / stages.length / 3;
+  //     const bottomNext = bottomHeight - (height - 40) / stages.length / 3;
+
+  //     ctx.fillStyle = colors[index];
+  //     ctx.strokeStyle = borderColors[index];
+  //     ctx.lineWidth = 1;
+
+  //     ctx.beginPath();
+  //     ctx.moveTo(xPosition, topHeight);
+  //     ctx.lineTo(xPosition + segmentWidth, topNext);
+  //     ctx.lineTo(xPosition + segmentWidth, bottomNext);
+  //     ctx.lineTo(xPosition, bottomHeight);
+  //     ctx.closePath();
+  //     ctx.fill();
+  //     ctx.stroke();
+
+  //     ctx.fillStyle = "white";
+  //     ctx.font = "14px Arial";
+  //     ctx.fillText(
+  //       funnelStats[stage],
+  //       xPosition + segmentWidth / 4,
+  //       (topHeight + bottomHeight) / 2 + 10
+  //     );
+
+  //     // Attach hover areas for each stage
+  //     ctx.stageAreas = ctx.stageAreas || [];
+  //     ctx.stageAreas.push({
+  //       stage,
+  //       xStart: xPosition,
+  //       xEnd: xPosition + segmentWidth,
+  //       yTop: topHeight,
+  //       yBottom: bottomHeight,
+  //       color: colors[index],
+  //     });
+
+  //     xPosition += segmentWidth;
+  //     topHeight = topNext;
+  //     bottomHeight = bottomNext;
+  //   });
+  // };
+
+  
   const drawFunnelChart = (ctx, width, height) => {
     ctx.clearRect(0, 0, width, height);
-
+  
     const stages = Object.keys(funnelStats);
     const total = Object.values(funnelStats).reduce(
       (acc, value) => acc + value,
       0
     );
-
+  
     let xPosition = 0;
     let topHeight = 20;
     let bottomHeight = height - 20;
-
+  
     stages.forEach((stage, index) => {
       const segmentWidth = (funnelStats[stage] / total) * width;
       const topNext = topHeight + (height - 40) / stages.length / 3;
@@ -89,7 +146,12 @@ export const FunnelChart = ({
       ctx.closePath();
       ctx.fill();
       ctx.stroke();
-
+  
+      // Reset shadow to prevent it from affecting text and other elements
+      ctx.shadowBlur = 0;
+      ctx.shadowColor = "transparent";
+  
+      // Draw the label inside each segment
       ctx.fillStyle = "white";
       ctx.font = "14px Arial";
       ctx.fillText(
@@ -97,7 +159,7 @@ export const FunnelChart = ({
         xPosition + segmentWidth / 4,
         (topHeight + bottomHeight) / 2 + 10
       );
-
+  
       // Attach hover areas for each stage
       ctx.stageAreas = ctx.stageAreas || [];
       ctx.stageAreas.push({
@@ -108,13 +170,13 @@ export const FunnelChart = ({
         yBottom: bottomHeight,
         color: colors[index],
       });
-
+  
       xPosition += segmentWidth;
       topHeight = topNext;
       bottomHeight = bottomNext;
     });
   };
-
+  
   const resizeCanvas = () => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");

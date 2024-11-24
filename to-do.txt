@@ -1,2 +1,34 @@
 auto reload on add
 update phone / mobile in contact having problem
+
+To enhance the visual appeal and professionalism of your funnel view dashboard, here are some suggestions:
+
+1. **Color Palette**:
+   - Use a more refined color palette. Softer, complementary colors will create a cohesive look while keeping the interface user-friendly.
+   - Try using gradient fills in the funnel chart to add depth and make the sections visually distinct.
+
+2. **Chart Styles**:
+   - Add subtle shadows or borders around the funnel and donut charts for a more 3D effect. This can make the charts pop without overwhelming the design.
+   - Use label indicators directly on the charts with a higher contrast for readability. For example, place conversion percentages within or near each segment to make it clear.
+
+3. **Layout Adjustments**:
+   - Increase spacing between the charts and other elements for a cleaner look. 
+   - Center-align the conversion rates or put them in a single row with consistent spacing and padding, using a lighter background color.
+
+4. **Typography and Icons**:
+   - Use professional fonts with clear hierarchy (e.g., larger font for main titles, slightly smaller for subtitles).
+   - Incorporate subtle icons beside each stage (e.g., a magnifying glass for “Prospect,” handshake for “Qualification”) to make stages more visually engaging.
+
+5. **Interactive Elements**:
+   - Add subtle hover effects or tooltips over the stages in the funnel to display additional details (like the exact number of leads).
+   - Make the "Filter" button stand out by adding a small icon, increasing its size, or using a slightly darker tone.
+
+6. **Conversion Rate Cards**:
+   - Use card styling with shadows or outlines and consistent padding. Instead of just white backgrounds, consider adding subtle color tints to each card.
+   - Align the text and add small icons related to each rate, if possible.
+
+7. **Background and Borders**:
+   - Instead of a plain white background, try a very light gradient or a soft, off-white background to add depth.
+   - Add subtle borders to separate sections on the page, creating a clearer division between areas.
+
+Implementing these changes will make the dashboard look more polished and client-ready. Let me know if you'd like more detailed suggestions on any specific aspect!

@@ -16,8 +16,8 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
       breakpoint="lg"
       width={256}
       style={{
-        border : "1px solid",
-        borderColor : colorConfig.cardBorder,
+        border: "1px solid",
+        borderColor: colorConfig.cardBorder,
         fontFamily: "Roboto, sans-serif", // Make sure to use your selected font
         fontWeight: "700",
         height: "100vh",
@@ -56,22 +56,21 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
         <Title collapsed={collapsed} />
       </div>
       <Menu
-  onClick={onClick}
-  style={{
-    height: "calc(100% - 64px)", // Adjust to account for header height
-    scrollbarWidth: "thin",
-    fontWeight: "700",
-    paddingLeft : '12px',
-    paddingRight : '12px',
-  }}
-  theme="light" // Ensures proper base styling
-  title="Logo"
-  defaultSelectedKeys={["1"]}
-  defaultOpenKeys={["sub1"]}
-  mode="inline"
-  items={resources}
-/>
-
+        onClick={onClick}
+        style={{
+          height: "calc(100% - 64px)", // Adjust to account for header height
+          scrollbarWidth: "thin",
+          fontWeight: "700",
+          paddingLeft: "12px",
+          paddingRight: "12px",
+        }}
+        theme="light" // Ensures proper base styling
+        title="Logo32e4324324234324"
+        defaultSelectedKeys={["1"]}
+        defaultOpenKeys={["sub1"]}
+        mode="inline"
+        items={resources}
+      />
     </Sider>
   );
 };

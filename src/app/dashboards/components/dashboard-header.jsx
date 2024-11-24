@@ -36,12 +36,12 @@ export const DashboardHeader = ({
         }}
       >
         {setDate && (
-          <SelectDate onChange={(date, dateString) => setDate(date)} />
+          <SelectDate onChange={(date, dateString) => setDate(dateString)} />
         )}
 
         {setDateRange && (
           <SelectDateRange
-            onChange={(dates, dateStrings) => setDateRange(dates)}
+            onChange={(dates, dateStrings) => setDateRange(dateStrings)}
           />
         )}
 

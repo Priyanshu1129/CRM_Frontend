@@ -15,6 +15,7 @@ export const useFetchSummaryView = ({ startDate, endDate }) => {
     const { status, data, error } = useSelector((state) => state?.summaryView?.getSummaryView || {});
     const [summaryViewData, setSummaryViewData] = useState(data?.data);
 
+
     const fetchSummaryView = useCallback(() => {
         dispatch(getSummaryView({ startDate, endDate, ...filters }));
     }, [dispatch, endDate, startDate, filters])
