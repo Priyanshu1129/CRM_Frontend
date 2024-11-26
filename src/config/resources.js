@@ -11,7 +11,6 @@ import {
     UserAddOutlined,
     FormOutlined,
     FileTextOutlined,
-    ProjectFilled,
 } from "@ant-design/icons";
 
 export const resources = [
@@ -104,7 +103,7 @@ export const resources = [
     {
         key: "business-development-master",
         label: "Mentions",
-        icon: <ProjectFilled />,
+        icon: <ProjectOutlined />,
     },
     // {
     //     key: "project-master",
