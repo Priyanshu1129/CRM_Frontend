@@ -17,7 +17,7 @@ import {
 export const resources = [
     {
         key: "cockpit",
-        label: "Cockpit",
+        label: "Live Report",
         icon: <DashboardOutlined />,
         children: [
             {
@@ -68,17 +68,17 @@ export const resources = [
     // },
     {
         key: "client-master",
-        label: "Client Master",
+        label: "Clients",
         icon: <ShopOutlined />,
     },
     {
         key: "contact-master",
-        label: "Contact Master",
+        label: "Contacts",
         icon: <TeamOutlined />,
     },
     {
         key: "opportunity-master",
-        label: "Opportunity Master",
+        label: "Deals",
         icon: <FileOutlined />,
     },
     // {
@@ -88,22 +88,22 @@ export const resources = [
     // },
     {
         key: "user-master",
-        label: "Team Master",
+        label: "Team",
         icon: <UserAddOutlined />,
     },
     {
         key: "registration-master",
-        label: "Registration Master",
+        label: "Registrations",
         icon: <FormOutlined />,
     },
     {
         key: "tender-master",
-        label: "Tender Master",
+        label: "Tenders",
         icon: <FileTextOutlined />,
     },
     {
         key: "business-development-master",
-        label: "Business Development Master",
+        label: "Mentions",
         icon: <ProjectFilled />,
     },
     // {
