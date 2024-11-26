@@ -236,9 +236,9 @@ export const Filter = ({ filters, setFilters, setFilter }) => {
       overlayInnerStyle={{ padding: 0, borderRadius: "8px" }}
       onOpenChange={setOpen}
     >
-      <Button icon={<FilterOutlined color="red"  />} >
+      <Button icon={<FilterOutlined style={{ color: colorConfig.primary }} />}>
         {!screens.xs ? "Filter" : null}
-        <DownOutlined />
+        <DownOutlined style={{ color: colorConfig.primary }} />
       </Button>
     </Popover>
   );

@@ -41,7 +41,7 @@ export const useSalesSubStages = (params = {}) => {
 
   const transformedSalesSubStage = useMemo(() => {
     return salesSubStage?.map(({ _id, label, salesStage }) => {
-      console.log("sales stage in sales sub stage ", salesStage)
+      // console.log("sales stage in sales sub stage ", salesStage)
       return {
         value: _id,
         text: label,

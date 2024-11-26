@@ -9,9 +9,9 @@ import { KanbanColumn } from "./components/column";
 import { DealKanbanCardMemo } from "./components/deal-kanban-card";
 import { KanbanItem } from "./components/item";
 import { stages, getStats } from "./stages";
-import ShowCurrency from "../components/ShowCurrency";
 import moment from "moment";
 import { useRouter } from "next/navigation";
+import { ShowCurrency } from "../components";
 
 const PipeView = () => {
   const [particularDate, setParticularDate] = useState(moment());
@@ -47,6 +47,8 @@ const PipeView = () => {
             return (
               <KanbanColumn
                 title={stage.title}
+                id={stage.id}
+                stageKey={stage.key}
                 description={
                   <Text size="md" disabled={true}>
                     <ShowCurrency
@@ -60,13 +62,15 @@ const PipeView = () => {
                   router.push("/opportunity-master/add-opportunity")
                 }
               >
-                {opportunities && Array.isArray(opportunities[stage?.key]) &&
+                {opportunities &&
+                  Array.isArray(opportunities[stage?.key]) &&
                   opportunities[stage?.key]?.map((item, index) => {
                     return (
                       <KanbanItem id={item?._id} key={index}>
                         <DealKanbanCardMemo
                           title={item?.projectName}
                           id={item?._id}
+                          itemSubStage={item?.salesSubStage}
                           company={{
                             name: item?.client?.name,
                             avatarUrl: item?.client?.avatar,

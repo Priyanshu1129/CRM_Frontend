@@ -9,5 +9,6 @@ export const SelectDate = ({ onChange }) => (
     format={"DD-MM-YYYY"}
     needConfirm
     allowClear={false}
+    
   />
 );

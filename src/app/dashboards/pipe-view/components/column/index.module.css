@@ -60,12 +60,12 @@
 
 .columnScrollableContainer {
     flex: 1;
-    overflow-y: auto;
+    overflow-y: scroll;
     padding-bottom: 24px;
+    height: auto;
     /* border: 1px dashed black; */
     /* border-radius: 4px; */
     scrollbar-width: thin;
-
     &.active {
         overflow-y: unset;
     }
@@ -73,7 +73,7 @@
 
 .childrenWrapper {
     margin-top: 12px;
-    height: auto;
+    /* height: auto; */
     display: flex;
     flex-direction: column;
     gap: 8px;

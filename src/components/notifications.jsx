@@ -8,7 +8,7 @@ import dayjs from "dayjs";
 import { CustomAvatar } from "./custom-avatar";
 import { Text } from "./text";
 import { NotificationMessage } from "./notification-message";
-
+import { colorConfig } from "@/config";
 export const Notifications = () => {
   const [open, setOpen] = useState(false);
 
@@ -100,7 +100,12 @@ export const Notifications = () => {
     >
       <Badge dot>
         {/* @ts-expect-error Ant Design Icon's v5.0.1 has an issue with @types/react@^18.2.66 */}
-        <Button shape="circle" icon={<BellOutlined />} style={{ border: 0 }} />
+        <Button
+          // type="default"
+          shape="circle"
+          icon={<BellOutlined style={{ color: colorConfig.primary }} />}
+          style={{ border: 0 }}
+        />
       </Badge>
     </Popover>
   );

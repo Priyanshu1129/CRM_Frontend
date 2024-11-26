@@ -28,7 +28,7 @@ const Header = () => {
       <AntHeader style={headerStyles}>
         <Space align="center" size="small">
           <CurrencyChangeDropDown />
-          <FullscreenButton />
+          <FullscreenButton  />
           <Notifications />
           <CurrentUser />
         </Space>

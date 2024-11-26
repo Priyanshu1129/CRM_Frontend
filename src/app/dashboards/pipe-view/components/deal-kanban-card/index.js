@@ -6,14 +6,11 @@ import { DeleteOutlined, EyeOutlined, MoreOutlined } from "@ant-design/icons";
 import { Button, Card, ConfigProvider, Dropdown, Skeleton, Tooltip } from "antd";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import { CustomAvatar, Text } from "@/components";
+import { ShowCurrency } from "@/app/dashboards/components";
 
 // Extend dayjs with relativeTime plugin
 dayjs.extend(relativeTime);
-
-
-import { CustomAvatar, Text } from "@/components";
-import ShowCurrency from "@/app/dashboards/components/ShowCurrency";
-
 
 const DealKanbanCard = ({
   id,

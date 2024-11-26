@@ -41,6 +41,7 @@ export const ConversionRates = ({ data }) => {
       >
         {Object.entries(data)?.map(([key, value], index) => (
           <Card
+            // loading={true}
             bodyStyle={{ padding: "0px" }}
             key={index}
             style={{
@@ -101,7 +102,13 @@ export const ConversionRates = ({ data }) => {
               >
                 {`${parseFloat(value).toFixed(2)} %`}
               </div>
-              <div style={{ display: "flex", justifyContent: "space-between" , alignItems : 'center'}}>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
                 <Statistic
                   contentStyle={{
                     display: "flex",
