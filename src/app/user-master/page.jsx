@@ -20,7 +20,7 @@ const UserMaster = () => {
     <>
       <ListHeader
         toPath={"/user-master/add-user"}
-        buttonText={"Add new user"}
+        buttonText={"Add New User"}
         pageName={"user"}
         setRefresh={setRefresh}
       />

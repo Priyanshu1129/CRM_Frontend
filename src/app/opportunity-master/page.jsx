@@ -22,7 +22,7 @@ const OpportunityMaster = () => {
     <>
       <ListHeader
         toPath={"/opportunity-master/add-opportunity"}
-        buttonText={"Add new opportunity"}
+        buttonText={"Add New Deal"}
         pageName={"opportunity"}
         setRefresh={setRefresh}
         setFilter={setFilter}

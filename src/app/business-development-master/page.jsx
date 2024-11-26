@@ -122,7 +122,7 @@ const BusinessDevelopmentMaster = () => {
     <>
       <ListHeader
         toPath={"/business-development-master/add-business-development"}
-        buttonText={"Add new business development"}
+        buttonText={"Add New Mention"}
         setRefresh={setRefresh}
         setFilter={setFilter}
         setFilters={setFilters}

@@ -24,7 +24,7 @@ const RegistrationMaster = () => {
     <>
       <ListHeader
         toPath={"/registration-master/add-registration"}
-        buttonText={"Add new registration"}
+        buttonText={"Add New Registration"}
         setRefresh={setRefresh}
         setFilter={setFilter}
         setFilters={setFilters}

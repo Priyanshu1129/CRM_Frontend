@@ -29,7 +29,7 @@ const ClientMaster = () => {
         setFilters={setFilters}
         filters={filters}
         FilterComponent={Filter}
-        buttonText={"Add new client"}
+        buttonText={"Add New Client"}
         pageName={"client"}
         setRefresh={setRefresh}
         setView={setView}

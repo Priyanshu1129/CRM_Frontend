@@ -24,7 +24,7 @@ const TenderMaster = () => {
     <>
       <ListHeader
         toPath={"/tender-master/add-tender"}
-        buttonText={"Add new tender"}
+        buttonText={"Add New Tender"}
         pageName={"tender"}
         setRefresh={setRefresh}
         setFilter={setFilter}

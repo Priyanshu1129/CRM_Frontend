@@ -24,7 +24,7 @@ const ContactMaster = () => {
     <>
       <ListHeader
         toPath={"/contact-master/add-contact"}
-        buttonText={"Add new contact"}
+        buttonText={"Add New Contact"}
         pageName={"contact"}
         setRefresh={setRefresh}
         setFilter={setFilter}
