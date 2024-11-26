@@ -5,10 +5,10 @@ const route = `${serverURL}/dashboards/funnel-view`
 
 export const getFunnelView = ({ particularDate, industry = "", subIndustry = "", territory = "", solution = "", enteredBy = "", startDate = null, endDate= null }) => async (dispatch) => {
     try {
-        console.log("get-funnelView-data-req", solution);
+        console.log("get-funnelView-data-req", solution, particularDate);
         dispatch(funnelViewActions.getFunnelViewRequest());
 
-        const response = await axios.post(`${route}/`, { particularDate, startDate, endDate }, {
+        const response = await axios.post(`${route}/`, { particularDate}, {
             params: { industry, subIndustry, territory, solution, enteredBy },
             withCredentials: true,
         });

@@ -7,10 +7,8 @@ import { Row, Col, Space, Card } from "antd";
 import dayjs from "dayjs";
 
 const SummaryView = () => {
-  const [dateRange, setDateRange] = useState([
-    dayjs("2020-10-10", "YYYY-MM-DD"),
-    dayjs(new Date()),
-  ]);
+   const [startDate, setStartDate] = useState("2020-10-10");
+   const [endDate, setEndDate] = useState(new Date().toLocaleDateString('en-CA'));
 
   const {
     loading,
@@ -20,15 +18,16 @@ const SummaryView = () => {
     setFilters,
     summaryViewData,
   } = useFetchSummaryView({
-    startDate: dateRange[0],
-    endDate: dateRange[1],
+    startDate,
+    endDate,
   });
 
   return (
     <>
       <DashboardHeader
         dashboard={"Summary View"}
-        setDateRange={setDateRange}
+        setStartDate={setStartDate}
+        setEndDate={setEndDate}
         setRefresh={setRefresh}
         setFilter={setFilter}
         setFilters={setFilters}

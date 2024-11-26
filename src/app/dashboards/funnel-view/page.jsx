@@ -8,11 +8,60 @@ import { FunnelChart, ConversionRates, Doughnut } from "./components";
 import { Row, Col } from "antd";
 import dayjs from "dayjs";
 
+// const FunnelView = () => {
+//   const [startDate, setStartDate] = useState("2020-10-10");
+//    const [endDate, setEndDate] = useState(new Date().toLocaleDateString('en-CA'));
+
+//   const {
+//     loading,
+//     setRefresh,
+//     filters,
+//     setFilter,
+//     setFilters,
+//     funnelViewData,
+//     conversionStats,
+//   } = useFetchFunnelView({
+//     startDate,
+//     endDate,
+//   });
+
+//   if (loading) return <FullScreenLoading />;
+
+//   return (
+//     <>
+//       <DashboardHeader
+//         dashboard={"Funnel View"}
+//         setStartDate={setStartDate}
+//         setEndDate={setEndDate}
+//         setRefresh={setRefresh}
+//         setFilter={setFilter}
+//         setFilters={setFilters}
+//         filters={filters}
+//         FilterComponent={Filter}
+//       />
+//       <div style={{ width: "100%", marginTop: "20px" }}>
+//         <Row gutter={12}>
+//           <Col span={18}>
+//             <FunnelChart funnelStats={funnelViewData?.funnelStats} />
+//           </Col>
+//           <Col span={6}>
+//             {funnelViewData?.funnelStats && (
+//               <Doughnut funnelStats={funnelViewData.funnelStats} />
+//             )}
+//           </Col>
+//         </Row>
+//         {conversionStats && <ConversionRates data={conversionStats} />}
+//       </div>
+//     </>
+//   );
+// };
+
+// export default FunnelView;
+
+
 const FunnelView = () => {
-  const [dateRange, setDateRange] = useState([
-    dayjs("2020-10-10", "YYYY-MM-DD"),
-    dayjs(new Date()),
-  ]);
+  // const [startDate, setStartDate] = useState("2020-10-10");
+  const [particularDate, setParticularDate] = useState(moment());
 
   const {
     loading,
@@ -23,23 +72,25 @@ const FunnelView = () => {
     funnelViewData,
     conversionStats,
   } = useFetchFunnelView({
-    startDate: dateRange[0],
-    endDate: dateRange[1],
+    particularDate
   });
 
-  if (loading) return <FullScreenLoading />;
+ 
+
+ 
 
   return (
     <>
       <DashboardHeader
         dashboard={"Funnel View"}
-        setDateRange={setDateRange}
+        setDate={setParticularDate}
         setRefresh={setRefresh}
         setFilter={setFilter}
         setFilters={setFilters}
         filters={filters}
         FilterComponent={Filter}
       />
+       {(loading) ?  <FullScreenLoading /> : 
       <div style={{ width: "100%", marginTop: "20px" }}>
         <Row gutter={12}>
           <Col span={18}>
@@ -53,8 +104,9 @@ const FunnelView = () => {
         </Row>
         {conversionStats && <ConversionRates data={conversionStats} />}
       </div>
+}
     </>
   );
 };
 
-export default FunnelView;
+export default React.memo(FunnelView);

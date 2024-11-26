@@ -116,10 +116,12 @@ p, span, a {
 }
 
 /* Buttons - general styles */
+
 .ant-btn {
-  padding: 10px 20px; /* Padding for buttons */
-  border-radius: 5px; /* Rounded corners for buttons */
-  font-weight: 500; /* Medium font weight for buttons */
+  padding: 10px 20px;   
+  font-weight: 500;
+  border: 1px solid #d9d9d9;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.02) !important; 
 }
 
 /* Links and other interactive elements */
@@ -149,3 +151,5 @@ li {
 .hover-text-go-back-button:hover {
   color: #005B7F; 
 }
+
+

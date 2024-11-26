@@ -5,6 +5,7 @@ import { Button, Card, Dropdown, Skeleton } from "antd";
 import cn from "classnames";
 import { Text } from "@/components";
 import styles from "./index.module.css";
+
 import { colorConfig } from "@/config";
 import { SubStageSelector } from "@/app/dashboards/components";
 
@@ -50,7 +51,7 @@ const KanbanColumn = ({
           <div className={styles.title}>
             <Text
               ellipsis={{ tooltip: title }}
-              size="xs"
+              size="sm"
               strong
               style={{
                 textTransform: "uppercase",
