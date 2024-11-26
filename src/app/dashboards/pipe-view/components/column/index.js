@@ -6,6 +6,7 @@ import cn from "classnames";
 import { Text } from "@/components";
 
 import styles from "./index.module.css";
+
 import { colorConfig } from "@/config";
 
 const KanbanColumn = ({
@@ -29,13 +30,13 @@ const KanbanColumn = ({
   };
 
   return (
-    <Card bodyStyle={{padding:"8px"}}  style={{marginRight:"12px", borderRadius:"12px", background:colorConfig.baseColor}} ref={setNodeRef} className={cn(styles.container, styles[variant])}>
+    <Card bodyStyle={{padding:"8px"}}  style={{marginRight:"12px", borderRadius:"12px", background:colorConfig.lightBase}} ref={setNodeRef} className={cn(styles.container, styles[variant])}>
       <div className={styles.header}>
         <div className={styles.titleContainer}>
           <div className={styles.title}>
             <Text
               ellipsis={{ tooltip: title }}
-              size="xs"
+              size="sm"
               strong
               style={{
                 textTransform: "uppercase",

@@ -36,7 +36,9 @@ const summaryData = [
 ];
 
 // Component for individual summary cards
-const SummaryCard = ({ title, value, loading, icon }) => (
+const SummaryCard = ({ title, value, loading, icon, compare }) => {
+  console.log("compare-------------------------- : ", compare);
+ return  (
   <Card
     style={{
       borderRadius: 8,
@@ -84,7 +86,7 @@ const SummaryCard = ({ title, value, loading, icon }) => (
                 alignItems: "center", // Vertically center the content
                 justifyContent: "center", // Center the content horizontally
               }}
-              value={34} // Example percentage value
+              value={compare.percentage} // Example percentage value
               prefix={
                 <div
                   style={{
@@ -132,7 +134,7 @@ const SummaryCard = ({ title, value, loading, icon }) => (
               color: `${colorConfig.primary}`,
             }}
           >
-            Compared with last week
+            {compare?.description}
           </div>
         )}
       </Space>
@@ -153,7 +155,7 @@ const SummaryCard = ({ title, value, loading, icon }) => (
       </div>
     </Space>
   </Card>
-);
+)};
 
 // Main component for the card section
 export const SummaryCards = ({ data, loading }) => {
@@ -169,6 +171,11 @@ export const SummaryCards = ({ data, loading }) => {
             loading={loading}
             icon={icon}
             title={title}
+            compare = { loading
+              ? "Loading..."
+              : data
+              ? data[key]?.compare
+              : "N/A"}
             value={
               loading
                 ? "Loading..."

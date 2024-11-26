@@ -6,7 +6,7 @@ export const SelectDate = ({ onChange }) => (
   <DatePicker
     onChange={onChange}
     defaultValue={dayjs(new Date())}
-    format={"DD-MM-YYYY"}
+    format={"YYYY-MM-DD"}
     needConfirm
     allowClear={false}
   />

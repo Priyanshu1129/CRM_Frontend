@@ -16,6 +16,7 @@ const AdminPanel = () => {
           md: 2,
           lg: 2,
           xl: 3,
+          xxl: 3,
         }}
         dataSource={resources}
         renderItem={(resource) => (

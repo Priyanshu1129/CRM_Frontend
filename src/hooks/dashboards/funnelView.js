@@ -4,11 +4,11 @@ import { getFunnelView } from "@/redux/actions/dashboardAction"
 import { funnelViewActions } from "@/redux/slices/dashboardSlice"
 import { notification } from "antd"
 
-export const useFetchFunnelView = ({ startDate, endDate }) => {
+export const useFetchFunnelView = ({ particularDate }) => {
+    console.log("particular date in useFetrchFunnelView", particularDate)
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
-    const [sDate, setSDate] = useState("2010-01-01"); // start date
-    const [eDate, setEDate] = useState(Date.now()); // end date
+    const [currentDate, setCurrentDate] = useState(null);
     const [refresh, setRefresh] = useState(false);
     const [filters, setFilters] = useState({});
     const [filter, setFilter] = useState(false);
@@ -17,17 +17,16 @@ export const useFetchFunnelView = ({ startDate, endDate }) => {
     const [conversionStats, setConversionStats] = useState(data?.data?.conversionStats || {});
 
     const fetchFunnelView = useCallback(() => {
-        dispatch(getFunnelView({ startDate, endDate, ...filters }));
-    }, [dispatch, endDate, startDate, filters])
+        dispatch(getFunnelView({ particularDate, ...filters }));
+    }, [dispatch, particularDate, filters])
 
     useEffect(() => {
-        if (refresh || startDate != sDate || endDate != eDate || (filter && filters)) {
+        if (refresh || currentDate != particularDate || (filter && filters)) {
             fetchFunnelView();
-            setSDate(startDate);
-            setEDate(endDate);
+            setCurrentDate(particularDate);
         }
         setFilter(false);
-    }, [sDate, eDate, startDate, endDate, refresh, fetchFunnelView, filter, filters])
+    }, [currentDate, particularDate, refresh, fetchFunnelView, filter, filters])
 
     useEffect(() => {
         if (status === "pending") {

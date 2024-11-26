@@ -54,7 +54,8 @@ export const colorConfig = {
   primaryHover: primary.p5,       // Slightly darker primary color for hover states
   primaryBackground: "#e0f0ff",  // Background color for primary elements
   // baseColor: "#f5f5f5",          // Light background color for layout
-  baseColor: "#ededef",          // Light background color for layout
+  baseColor: "#ededef",
+  lightBase: "#f3f3f3f7",          // Light background color for layout
   // cardBorder: "#d9d9d9",
   cardBorder: "#cfd8e3",
   menuHoverBgColor: primary.p1,
