@@ -41,17 +41,17 @@ const SummaryView = () => {
         {/* Summary Cards */}
         <SummaryCards loading={loading} data={summaryViewData} />
 
-        <Row style={{ marginTop: "0px" }} gutter={24}>
+        <Row style={{  }} gutter={[18, 18]}>
           {/* Left side - Heatmap */}
-          <Col xs={24} md={12}>
+          <Col xs={24} lg={12}>
             <Heatmap />
           </Col>
 
           {/* Right side - Bubble charts */}
-          <Col xs={24} md={6}>
+          <Col xs={24} sm={12} lg={6}>
             {loading ? <BubbleShimmer/> : <BubbleChart opportunityDistribution={summaryViewData?.opportunityDistribution} loading={loading}/>}
           </Col>
-          <Col xs={24} md={6}>
+          <Col xs={24} sm={12} lg={6}>
             {loading ? <BubbleShimmer/> : <BubbleChart opportunityDistribution={summaryViewData?.opportunityDistribution} loading={loading}/>}
           </Col>
         </Row>

@@ -89,11 +89,11 @@ const FunnelView = () => {
       />
        {(loading) ?  <FullScreenLoading /> : 
       <div style={{ width: "100%", marginTop: "20px" }}>
-        <Row gutter={12}>
-          <Col span={18}>
+        <Row gutter={[18,18]}>
+          <Col xs={24}  lg={18}>
             <FunnelChart funnelStats={funnelViewData?.funnelStats} />
           </Col>
-          <Col span={6}>
+          <Col xs={24} lg={6}>
             {funnelViewData?.funnelStats && (
               <Doughnut funnelStats={funnelViewData.funnelStats} />
             )}

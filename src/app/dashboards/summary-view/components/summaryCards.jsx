@@ -168,12 +168,12 @@ const SummaryCard = ({ title, value, loading, icon, compare, keyName }) => {
 export const SummaryCards = ({ data, loading }) => {
   return (
     <Row
-      gutter={[16, 16]}
+      gutter={[18, 18]}
       justify="space-between"
       style={{ marginBottom: "10px" }}
     >
       {summaryData?.map(({ title, key, icon }, index) => (
-        <Col xs={24} sm={12} md={6} lg={6} key={index}>
+        <Col xs={24} sm={12} md={12} lg={6} key={index}>
           <SummaryCard
             loading={loading}
             icon={icon}
