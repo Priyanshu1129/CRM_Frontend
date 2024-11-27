@@ -20,14 +20,29 @@ export const BubbleChart = () => {
   const [windowWidth, setWindowWIdth] = useState(null);
 
   const colors = [
-    "rgba(255, 87, 51, 0.5)",
-    "rgba(51, 255, 87, 0.5)",
-    "rgba(51, 87, 255, 0.5)",
-    "rgba(255, 51, 161, 0.5)",
-    "rgba(255, 215, 51, 0.5)",
-    "rgba(140, 51, 255, 0.5)",
+    // "rgba(255, 87, 51, 0.5)",
+    // "rgba(51, 255, 87, 0.5)",
+    // "rgba(51, 87, 255, 0.5)",
+    // "rgba(255, 51, 161, 0.5)",
+    // "rgba(255, 215, 51, 0.5)",
+    // "rgba(140, 51, 255, 0.5)",
+    "rgb(0, 91, 127, 0.8)",
+          "rgb(5,75,168, 0.0.8)",
+          "rgb(24,141,175, 0.8)",
+          "rgb(8,154,161, 0.8)",
+          "rgb(5,211,155, 0.8)",
+          "rgb(36, 160, 96, 0.8)",
   ];
-
+  
+  const borderColors = [
+    "rgb(0, 64, 89, 1)",
+    "rgb(4, 56, 125, 1)",
+    "rgb(18, 106, 132, 1)",
+    "rgb(6, 115, 121, 1)",
+    "rgb(4, 158, 116, 1)",
+    "rgb(27, 120, 72, 1)",
+      // Dark magenta (Closing)
+  ];
   useEffect(() => {
     window.addEventListener('resize', (e)=>{
       if(e?.target?.innerWidth)setWindowWIdth(e.target.innerWidth)
@@ -64,6 +79,7 @@ export const BubbleChart = () => {
         value: data[key],
         radius,
         color: colors[index],
+        borderColor : borderColors[index],
         x: centerX,
         y: centerY,
       };
@@ -97,8 +113,8 @@ export const BubbleChart = () => {
         ctx.fillStyle = bubble.color;
         ctx.fill();
         ctx.lineWidth = 1 ;
-        // ctx.strokeStyle = "rgba(255, 255, 255, 0.2)";
-        ctx.strokeStyle = getModifiedOpacity(bubble.color, "5" );
+        ctx.strokeStyle = bubble.borderColor;
+        // ctx.strokeStyle = getModifiedOpacity(bubble.color, "5" );
         ctx.stroke();
         ctx.closePath();
       });

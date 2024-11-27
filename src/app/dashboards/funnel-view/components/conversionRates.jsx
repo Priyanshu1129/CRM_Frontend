@@ -1,6 +1,6 @@
 import React from "react";
 import { Card } from "antd";
-import { colorConfig } from "@/config";
+import { colorConfig, outColors } from "@/config";
 import { ArrowRightOutlined, ArrowUpOutlined } from "@ant-design/icons";
 import { head } from "lodash";
 import Statistic from "antd/es/statistic/Statistic";
@@ -74,18 +74,18 @@ export const ConversionRates = ({ data }) => {
                   style={{
                     fontSize: "16px", // Large font size for the key
                     fontWeight: "500", // Bold text for the key
-                    color: colorConfig.textGrayDark, // Optional: Text color
+                    // color: outColors.darkPink, // Optional: Text color
                     textAlign: "center", // Center text alignment
                   }}
                 >
                   {headings[index].from}
                 </div>
-                <ArrowRightOutlined color={colorConfig.primaryf} />
+                <ArrowRightOutlined  />
                 <div
                   style={{
                     fontSize: "16px", // Large font size for the key
                     fontWeight: "600", // Bold text for the key
-                    color: colorConfig.textGrayDark, // Optional: Text color
+                    // color: outColors.darkPink, // Optional: Text color
                     textAlign: "center", // Center text alignment
                   }}
                 >
@@ -126,13 +126,13 @@ export const ConversionRates = ({ data }) => {
                         borderRadius: "50%",
                         width: "20px",
                         height: "20px",
-                        background: "#d4f8d4", // Light green circle background
+                        background: "#24A060", // Light green circle background
                         color: "#52c41a", // Green color for the arrow
                         fontWeight: "bold", // Force bold arrow
                         fontFamily: "Arial, sans-serif", // Specify bold-capable font
                       }}
                     >
-                      <ArrowUpOutlined />
+                      <ArrowUpOutlined style={{color : "#ffffff"}} />
                     </div>
                   }
                   suffix={
@@ -145,7 +145,7 @@ export const ConversionRates = ({ data }) => {
                     </span>
                   }
                   valueStyle={{
-                    color: "#52c41a", // Green color for value
+                    color: "#24A060", // Green color for value
                     fontWeight: "bold", // Bold value
                     fontFamily: "Arial, sans-serif", // Use font with bold capability
                     fontSize: "14px", // Smaller size for nested content
@@ -157,7 +157,7 @@ export const ConversionRates = ({ data }) => {
                   style={{
                     fontSize: "12px", // Large font size for the key
                     fontWeight: "600", // Bold text for the key
-                    color: colorConfig.textGrayLight, // Optional: Text color
+                    color: colorConfig.textGrayDark, // Optional: Text color
                     textAlign: "center", // Center text alignment
                   }}
                 >

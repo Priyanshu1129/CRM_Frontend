@@ -13,7 +13,8 @@ const primary = {
   p6 : "#005B7F",
 }
 
-const out = {
+
+export const outColors = {
   yellow : "#FFA646",
   orange : "#F86041",
   pink : "#E52772",
@@ -123,6 +124,10 @@ export const customTheme = {
       colorItemBgSelected: colorConfig.menuSelectedBgColor,
 
       
+    },
+    DatePicker: { 
+      iconColor: colorConfig.primary, // Set the calendar icon color
+      colorIconHover: colorConfig.primaryHover, // Hover color for the calendar icon
     },
     Table: {
       // colorBgContainer: "#ffffff", // Table background color

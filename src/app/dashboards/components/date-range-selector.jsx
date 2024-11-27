@@ -1,9 +1,13 @@
 import React from "react";
 import { DatePicker, Space } from "antd";
 import dayjs from "dayjs";
-import { ArrowRightOutlined } from "@ant-design/icons";
+import { ArrowRightOutlined, CalendarOutlined } from "@ant-design/icons";
+import { colorConfig } from "@/config";
+
+
 
 export const SelectDateRange = ({ setStartDate, setEndDate }) => {
+  let calendarIcon = <CalendarOutlined style={{ color: colorConfig.primary }} />;
   return (
     <Space>
       <DatePicker
@@ -12,6 +16,7 @@ export const SelectDateRange = ({ setStartDate, setEndDate }) => {
         format={"YYYY-MM-DD"}
         needConfirm
         allowClear={false}
+        suffixIcon={calendarIcon}
       />
       <ArrowRightOutlined  />
       <DatePicker
@@ -20,6 +25,7 @@ export const SelectDateRange = ({ setStartDate, setEndDate }) => {
         format={"YYYY-MM-DD"}
         needConfirm
         allowClear={false}
+        suffixIcon={calendarIcon}
       />
     </Space>
   );

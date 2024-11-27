@@ -152,3 +152,6 @@ li {
 }
 
 
+.ant-date-picker-suffix {
+  color: "red" !important; /* Replace with the desired color */
+}
