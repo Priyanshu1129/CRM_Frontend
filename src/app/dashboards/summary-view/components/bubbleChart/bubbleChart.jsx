@@ -1,39 +1,36 @@
-import React, { useRef, useEffect, useState, useActionState } from "react";
+import React, { useRef, useEffect, useState, useMemo } from "react";
 import { Card, Tooltip } from "antd";
 
-const data = {
-  Negotiations: 20,
-  ClosedLost: 480,
-  ClosedWon: 200,
-  Discovery: 88,
-  Prospecting: 30,
-  ProposalSent: 740,
-};
+export const BubbleChart = ({ opportunityDistribution }) => {
+  // Memoize the data object so that it only changes when opportunityDistribution changes
+  const data = useMemo(() => {
+    return {
+      Lead: opportunityDistribution?.lead,
+      Prospect: opportunityDistribution?.prospect,
+      Qualification: opportunityDistribution?.qualification,
+      Proposal: opportunityDistribution?.proposal,
+      followup: opportunityDistribution?.followup,
+      Closing : opportunityDistribution?.closing,
+    };
+  }, [opportunityDistribution]);
 
-export const BubbleChart = () => {
   const canvasRef = useRef(null);
   const canvasParentRef = useRef(null);
   const [hoveredBubble, setHoveredBubble] = useState(null);
   const [bubbles, setBubbles] = useState([]);
   const [toolTipValue, setToolTipValue] = useState(null);
-  const [toolTipPos, setToolTipPos] = useState({x : null, y: null});
-  const [windowWidth, setWindowWIdth] = useState(null);
+  const [toolTipPos, setToolTipPos] = useState({ x: null, y: null });
+  const [windowWidth, setWindowWidth] = useState(null);
 
   const colors = [
-    // "rgba(255, 87, 51, 0.5)",
-    // "rgba(51, 255, 87, 0.5)",
-    // "rgba(51, 87, 255, 0.5)",
-    // "rgba(255, 51, 161, 0.5)",
-    // "rgba(255, 215, 51, 0.5)",
-    // "rgba(140, 51, 255, 0.5)",
     "rgb(0, 91, 127, 0.8)",
-          "rgb(5,75,168, 0.0.8)",
-          "rgb(24,141,175, 0.8)",
-          "rgb(8,154,161, 0.8)",
-          "rgb(5,211,155, 0.8)",
-          "rgb(36, 160, 96, 0.8)",
+    "rgb(5,75,168, 0.8)",
+    "rgb(24,141,175, 0.8)",
+    "rgb(8,154,161, 0.8)",
+    "rgb(5,211,155, 0.8)",
+    "rgb(36, 160, 96, 0.8)",
   ];
-  
+
   const borderColors = [
     "rgb(0, 64, 89, 1)",
     "rgb(4, 56, 125, 1)",
@@ -41,19 +38,17 @@ export const BubbleChart = () => {
     "rgb(6, 115, 121, 1)",
     "rgb(4, 158, 116, 1)",
     "rgb(27, 120, 72, 1)",
-      // Dark magenta (Closing)
   ];
-  useEffect(() => {
-    window.addEventListener('resize', (e)=>{
-      if(e?.target?.innerWidth)setWindowWIdth(e.target.innerWidth)
-    }
-    )
 
-    console.log("recalcualte")
+  useEffect(() => {
+    console.log("recalculate");
+
+    // If data is empty or opportunityDistribution is null, return early
+    if (!Object.keys(data).length) return;
+
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
 
-    // const canvasSize = Math.min(200, window.innerWidth * 0.8);
     const canvasSize = canvasParentRef?.current?.lastChild?.clientWidth;
     const devicePixelRatio = window.devicePixelRatio || 1;
 
@@ -79,7 +74,7 @@ export const BubbleChart = () => {
         value: data[key],
         radius,
         color: colors[index],
-        borderColor : borderColors[index],
+        borderColor: borderColors[index],
         x: centerX,
         y: centerY,
       };
@@ -88,6 +83,7 @@ export const BubbleChart = () => {
     newBubbles.sort((a, b) => b.radius - a.radius);
     const centerBubble = newBubbles[0];
     const surroundingBubbles = newBubbles.slice(1);
+
     setBubbles(newBubbles);
 
     const angleStep = (2 * Math.PI) / surroundingBubbles.length;
@@ -99,29 +95,32 @@ export const BubbleChart = () => {
       bubble.x = centerX + distance * Math.cos(angle);
       bubble.y = centerY + distance * Math.sin(angle);
     }
-     
-    const getModifiedOpacity = (rgba , percent)=>{
-         let modifiedOpacity = rgba.slice(0, rgba.length - 3) + percent + rgba.slice(rgba.length - 2, 2);    
-        return modifiedOpacity
-    }
+
     const drawBubbles = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       newBubbles.forEach((bubble) => {
+        // Draw the bubble
         ctx.beginPath();
         ctx.arc(bubble.x, bubble.y, bubble.radius, 0, Math.PI * 2);
         ctx.fillStyle = bubble.color;
         ctx.fill();
-        ctx.lineWidth = 1 ;
+        ctx.lineWidth = 1;
         ctx.strokeStyle = bubble.borderColor;
-        // ctx.strokeStyle = getModifiedOpacity(bubble.color, "5" );
         ctx.stroke();
         ctx.closePath();
+
+        // Draw the value (number) in the center of the bubble
+        ctx.font = "bold 14px Arial";  // Make the font bold
+        ctx.fillStyle = "white";  // White text color
+        ctx.textAlign = "center";  // Center the text horizontally
+        ctx.textBaseline = "middle";  // Center the text vertically
+        ctx.fillText(bubble.value, bubble.x, bubble.y);  // Draw the value at the center
       });
     };
 
     drawBubbles();
-  }, [data, windowWidth]);
+  }, [data]); // Effect only runs when 'data' changes
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -145,7 +144,7 @@ export const BubbleChart = () => {
             setHoveredBubble(bubble);
             setToolTipValue(bubble.label);
           }
-          setToolTipPos({x:e.clientX, y : e.clientY});
+          setToolTipPos({ x: e.clientX, y: e.clientY });
           found = true;
           break;
         }
@@ -165,47 +164,29 @@ export const BubbleChart = () => {
   }, [bubbles, hoveredBubble]);
 
   return (
-    <Card
-      // style={{
-      //   padding: "20px",
-      //   maxWidth: "450px",
-      //   margin: "auto",
-      //   background: "#fff",
-      //   borderRadius: "8px",
-      //   boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.1)",
-      //   position: "relative",
-      //   border : "1px solid rgb(175, 163, 163)"
-      // }}
-     
-      bodyStyle={{ padding: 0 }} 
-      ref={canvasParentRef}
-    >
+    <Card bodyStyle={{ padding: 0 }} ref={canvasParentRef}>
       <canvas
         ref={canvasRef}
         style={{
           width: "100%",
           height: "auto",
-         
           display: "block",
           background: "fff",
           borderRadius: "5px",
         }}
       />
-     
-      {hoveredBubble && (
+      {/* {hoveredBubble && (
         <Tooltip
           title={toolTipValue}
           placement="top"
           overlayStyle={{
-            position: 'absolute',
+            position: "absolute",
             left: `${toolTipPos?.x}px`,
             top: `${toolTipPos?.y - 30}px`,
-           
-            
           }}
           visible
         />
-      )}
+      )} */}
       <div
         style={{
           marginTop: "20px",

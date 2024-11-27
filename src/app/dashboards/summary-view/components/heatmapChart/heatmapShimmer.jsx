@@ -10,10 +10,7 @@ export const HeatmapShimmer = () => {
   return (
     <div className="heatmap-grid">
       <Card style={{ width: "100%" }}>
-        <Space style={{ marginBottom: 16, gap: 6 }}>
-          <div className="shimmer year-picker-shimmer" />
-          <div className="shimmer stage-selector-shimmer" />
-        </Space>
+        
 
         {/* Shimmer Heatmap Rows */}
         <Row>
@@ -22,7 +19,7 @@ export const HeatmapShimmer = () => {
               key={year}
               style={{
                 width: "33.33%",
-                padding: "0 4px",
+                padding: "0 2px",
                 textAlign: "center",
               }}
             >
@@ -40,7 +37,7 @@ export const HeatmapShimmer = () => {
         </Row>
 
         {/* Shimmer Color Gradient Legend */}
-        <div
+        {/* <div
           className="color-legend"
           style={{ marginTop: 16, textAlign: "center" }}
         >
@@ -49,7 +46,7 @@ export const HeatmapShimmer = () => {
             <div className="shimmer color-gradient-shimmer"></div>
             <span className="shimmer text-shimmer" style={{ marginLeft: 8 }}></span>
           </div>
-        </div>
+        </div> */}
       </Card>
     </div>
   );

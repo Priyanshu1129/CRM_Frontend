@@ -149,7 +149,7 @@ export const FunnelChart = ({
   
       // Draw the label inside each segment
       ctx.fillStyle = "white";
-      ctx.font = "14px Arial";
+      ctx.font = "Bold 18px Arial";
       ctx.fillText(
         funnelStats[stage],
         xPosition + segmentWidth / 4,

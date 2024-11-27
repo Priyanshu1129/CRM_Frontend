@@ -12,6 +12,7 @@ export const YearPicker = ({ onChange }) => {
       onChange={onChange}
       defaultValue={dayjs(new Date())}
       style={{ width: "100px" }}
+      allowClear={false}
     />
   );
 };

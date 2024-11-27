@@ -1,3 +1,4 @@
+import { colorConfig, outColors } from "@/config";
 import { Space, theme, Typography } from "antd";
 
 import { Avatar } from "antd";
@@ -33,35 +34,40 @@ export const Title = ({
           // ...wrapperStyles,
         }}
       >
-        <div
+        { collapsed && <div
           style={{
-            height: "24px",
-            width: "24px",
-            marginRight: "0px",
-            color: "#000",
+            
+           
           }}
         >
-          <Avatar
-            src={
-              <img
-                src={
-                  "https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
-                }
-                alt="avatar"
-              />
-            }
-          />
-        </div>
+           <Typography.Title
+          style={{
+            fontSize: "30px",
+            marginBottom: "25px",
+            marginLeft : "12px",
+            // color : outColors.orange,
+            color : colorConfig.primary,
+            // color : "colorConfig.primary",
+            // color: "#fff",
+            fontWeight: 700,
+          }}
+          >
+            R
+          </Typography.Title>
+         
+        </div>}
 
         {!collapsed && (
           <Typography.Title
-            style={{
-              fontSize: "inherit",
-              marginBottom: 0,
-              marginLeft : '10px',
-              // color: "#fff",
-              fontWeight: 700,
-            }}
+          style={{
+            fontSize: "30px",
+            marginBottom: 20,
+            marginLeft : '23px',
+            // color : outColors.orange,
+            color : colorConfig.primary,
+            // color: "#fff",
+            fontWeight: 700,
+          }}
           >
             {name}
           </Typography.Title>

@@ -9,10 +9,10 @@ import { HeatmapShimmer } from "./heatmapShimmer";
 import { colorConfig } from "@/config";
 
 export const Heatmap = () => {
-  const years = [2022, 2023, 2024];
   const [year, setYear] = useState("2024");
   const [stageId, setStageId] = useState("670e7df4f5e783c1a47cd48f");
   const { loading, heatmapViewData } = useFetchHeatmapView({ year, stageId });
+  const [yearLabels, setYearLabels] = useState(["2022","2023","2024"]) 
 
   // Calculate min and max values for color gradient scale
   const [minValue, setMinValue] = useState(0);
@@ -48,6 +48,7 @@ export const Heatmap = () => {
 
   const onYearChange = (date, dateString) => {
     setYear(dateString);
+    setYearLabels([dateString-2, dateString-1, dateString]);
   };
 
   const onStageChange = (value) => {
@@ -57,8 +58,8 @@ export const Heatmap = () => {
   // if (loading) return <HeatmapShimmer />;
   return (
       <div className="heatmap-grid">
-      { loading && <HeatmapShimmer/> }
-      { !loading && <Card style={{ width: "100%" }}>
+      
+      { <Card style={{ width: "100%" }}>
         <div style={{ marginBottom: 16, gap: 6 }}>
           <Space style={{ display: "flex", justifyContent: "space-between" }}>
             <Space>
@@ -70,8 +71,9 @@ export const Heatmap = () => {
         </div>
 
         {/* Heatmap Rows */}
+        { loading ? <HeatmapShimmer/>: 
         <Row>
-          {years.map((year) => (
+          {yearLabels?.map((year) => (
             <div
               key={year}
               style={{
@@ -118,7 +120,7 @@ export const Heatmap = () => {
             </div>
           ))}
         </Row>
-
+}
         {/* Color Gradient Legend with Min/Max Values */}
         <div
           className="color-legend"

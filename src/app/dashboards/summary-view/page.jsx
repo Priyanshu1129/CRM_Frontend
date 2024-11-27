@@ -5,6 +5,8 @@ import { useFetchSummaryView } from "@/hooks/dashboards";
 import { SummaryCards, Heatmap, BubbleChart } from "./components";
 import { Row, Col, Space, Card } from "antd";
 import dayjs from "dayjs";
+import { Text } from "@/components";
+import BubbleShimmer from "./components/bubbleChart/BubbleShimmer";
 
 const SummaryView = () => {
    const [startDate, setStartDate] = useState("2020-10-10");
@@ -47,10 +49,10 @@ const SummaryView = () => {
 
           {/* Right side - Bubble charts */}
           <Col xs={24} md={6}>
-            <BubbleChart />
+            {loading ? <BubbleShimmer/> : <BubbleChart opportunityDistribution={summaryViewData?.opportunityDistribution} loading={loading}/>}
           </Col>
           <Col xs={24} md={6}>
-            <BubbleChart />
+            {loading ? <BubbleShimmer/> : <BubbleChart opportunityDistribution={summaryViewData?.opportunityDistribution} loading={loading}/>}
           </Col>
         </Row>
       </Space>
