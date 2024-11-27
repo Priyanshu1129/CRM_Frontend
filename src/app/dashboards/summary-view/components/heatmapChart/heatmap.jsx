@@ -54,14 +54,15 @@ export const Heatmap = () => {
     setStageId(value);
   };
 
-  if (loading) return <HeatmapShimmer />;
+  // if (loading) return <HeatmapShimmer />;
   return (
-    <div className="heatmap-grid">
-      <Card style={{ width: "100%" }}>
+      <div className="heatmap-grid">
+      { loading && <HeatmapShimmer/> }
+      { !loading && <Card style={{ width: "100%" }}>
         <div style={{ marginBottom: 16, gap: 6 }}>
           <Space style={{ display: "flex", justifyContent: "space-between" }}>
             <Space>
-              <YearPicker onChange={onYearChange} />
+              <YearPicker  onChange={onYearChange} />
               <StageSelector onChange={onStageChange} />
             </Space>
             <Filter />
@@ -157,6 +158,7 @@ export const Heatmap = () => {
           </div>
         </div>
       </Card>
+      }
     </div>
   );
 };

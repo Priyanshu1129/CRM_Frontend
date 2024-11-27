@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Select, Spin } from "antd";
 import { useSalesStages } from "@/hooks";
-
+import { DownOutlined } from "@ant-design/icons";
+import { colorConfig } from "@/config";
 export const StageSelector = ({ onChange }) => {
+  let arrowDownIcon = <DownOutlined style={{ color: colorConfig.primary }} />;
   const { loading, salesStages } = useSalesStages();
   const [selectedStage, setSelectedStage] = useState(null);
 
@@ -29,6 +31,7 @@ export const StageSelector = ({ onChange }) => {
         disabled={loading}
         value={selectedStage} // Use value instead of defaultValue for controlled selection
         onChange={handleChange}
+        suffixIcon={arrowDownIcon}
       >
         {salesStages?.map((stage) => (
           <Select.Option key={stage.value} value={stage.value}>
