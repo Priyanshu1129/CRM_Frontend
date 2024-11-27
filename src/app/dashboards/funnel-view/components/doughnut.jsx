@@ -1,6 +1,37 @@
 import React, { useEffect, useState } from "react";
 import { Card, Row, Col } from "antd";
 import { ChartComponent } from "../../components";
+import ChartDataLabels from "chartjs-plugin-datalabels";
+import { Chart as ChartJS } from "chart.js/auto";
+import { colorConfig } from "@/config";
+
+ChartJS.register(ChartDataLabels);
+const centerTextPlugin = {
+  id: "centerText",
+  beforeDraw(chart) {
+    const { width } = chart;
+    const { height } = chart;
+    const ctx = chart.ctx;
+    const centerX = width / 2;
+    const centerY = height / 2;
+
+    const total = chart.data.datasets[0].data.reduce(
+      (sum, val) => sum + val,
+      0
+    );
+    const centerText = `${total}`;
+
+    ctx.save();
+    ctx.font = "bold 44px Arial";
+    ctx.fillStyle = colorConfig.textGrayDark;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(centerText, centerX, centerY);
+    ctx.restore();
+  },
+};
+
+ChartJS.register(centerTextPlugin);
 
 export const Doughnut = ({ funnelStats }) => {
   const [chartData, setChartData] = useState({
@@ -42,11 +73,11 @@ export const Doughnut = ({ funnelStats }) => {
           // "rgba(255, 215, 51, 0.8)",
           // "rgba(140, 51, 255, 0.8)",
           "rgb(0, 64, 89, 1)",
-    "rgb(4, 56, 125, 1)",
-    "rgb(18, 106, 132, 1)",
-    "rgb(6, 115, 121, 1)",
-    "rgb(4, 158, 116, 1)",
-    "rgb(27, 120, 72, 1)",
+          "rgb(4, 56, 125, 1)",
+          "rgb(18, 106, 132, 1)",
+          "rgb(6, 115, 121, 1)",
+          "rgb(4, 158, 116, 1)",
+          "rgb(27, 120, 72, 1)",
         ],
         borderWidth: 1,
       },
@@ -76,32 +107,69 @@ export const Doughnut = ({ funnelStats }) => {
     setPercentages(calculatedPercentages); // Store calculated percentages
   }, [funnelStats]);
 
+  // const options = {
+  //   responsive: true,
+  //   plugins: {
+  //     legend: {
+  //       display: false,
+  //     },
+  //     tooltip: {
+  //       callbacks: {
+  //         label: function (tooltipItem) {
+  //           return `${tooltipItem.label}: ${tooltipItem.raw} items`; // Display raw data in tooltip
+  //         },
+  //       },
+  //     },
+  //     datalabels: {
+  //       color: "#fff", // Label text color
+  //       font: {
+  //         size: 14, // Font size for the labels
+  //       },
+  //       display: true,
+  //       formatter: (value) => value, // Display raw data as labels
+  //     },
+  //   },
+  // };
   const options = {
     responsive: true,
     plugins: {
       legend: {
-        display: false,
+        display: false, // Disable the legend
       },
       tooltip: {
         callbacks: {
           label: function (tooltipItem) {
-            return `${tooltipItem.label}: ${tooltipItem.raw} items`; // Display raw data in tooltip
+            if (tooltipItem.raw > 0) {
+              return `${tooltipItem.label}: ${tooltipItem.raw} items`; // Tooltip for non-zero values
+            }
+            return ""; // Suppress tooltip for 0 values
           },
         },
       },
       datalabels: {
-        color: "#fff", // Label text color
+        color: "#000", // Label text color
         font: {
           size: 14, // Font size for the labels
+          // weight: "bold",
         },
-        formatter: (value) => value, // Display raw data as labels
+        display: function (context) {
+          return false; // Only display label if value > 0
+        },
+        formatter: function (value, context) {
+          const total = context.chart.data.datasets[0].data.reduce(
+            (sum, val) => sum + val,
+            0
+          );
+          const percentage = ((value / total) * 100).toFixed(1); // Calculate percentage
+          return value > 0 ? `${percentage}%` : ""; // Show percentage for non-zero values
+        },
       },
     },
   };
 
   return (
     <Card bordered={true} style={{ height: "100%" }}>
-      <ChartComponent chartData={chartData} options={options} type="pie" />
+      <ChartComponent chartData={chartData} options={options} type="doughnut" />
       {/* Custom Legends */}
       <div style={{ marginTop: "20px" }}>
         <Row gutter={[5, 5]} justify={"space-around"}>

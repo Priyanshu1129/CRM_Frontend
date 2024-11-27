@@ -75,9 +75,6 @@ const FunnelView = () => {
     particularDate
   });
 
- 
-
- 
 
   return (
     <>
