@@ -66,34 +66,9 @@ export const resources = [
     //     ],
     // },
     {
-        key: "client-master",
-        label: "Clients",
-        icon: <ShopOutlined />,
-    },
-    {
-        key: "contact-master",
-        label: "Contacts",
-        icon: <TeamOutlined />,
-    },
-    {
         key: "opportunity-master",
         label: "Deals",
         icon: <FileOutlined />,
-    },
-    // {
-    //     key: "team-master",
-    //     label: "Team Master",
-    //     icon: <UsergroupAddOutlined />,
-    // },
-    {
-        key: "user-master",
-        label: "Team",
-        icon: <UserAddOutlined />,
-    },
-    {
-        key: "registration-master",
-        label: "Registrations",
-        icon: <FormOutlined />,
     },
     {
         key: "tender-master",
@@ -105,6 +80,34 @@ export const resources = [
         label: "Mentions",
         icon: <ProjectOutlined />,
     },
+    {
+        key: "registration-master",
+        label: "Registrations",
+        icon: <FormOutlined />,
+    },
+   
+    {
+        key: "client-master",
+        label: "Clients",
+        icon: <ShopOutlined />,
+    },
+    {
+        key: "contact-master",
+        label: "Contacts",
+        icon: <TeamOutlined />,
+    },
+    // {
+    //     key: "team-master",
+    //     label: "Team Master",
+    //     icon: <UsergroupAddOutlined />,
+    // },
+    {
+        key: "user-master",
+        label: "Team",
+        icon: <UserAddOutlined />,
+    },
+    
+   
     // {
     //     key: "project-master",
     //     label: "Project Master",

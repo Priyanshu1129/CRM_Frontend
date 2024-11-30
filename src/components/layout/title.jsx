@@ -5,7 +5,7 @@ import { Avatar } from "antd";
 
 const { useToken } = theme;
 
-const name = "Raven";
+const name = "Golden Eye";
 
 export const Title = ({
   collapsed,
@@ -52,7 +52,7 @@ export const Title = ({
             fontWeight: 700,
           }}
           >
-            R
+            G
           </Typography.Title>
          
         </div>}
