@@ -69,6 +69,7 @@ export const resources = [
         key: "opportunity-master",
         label: "Deals",
         icon: <FileOutlined />,
+        style: { marginTop: "15px", fontWeight: "600" },
     },
     {
         key: "tender-master",
@@ -85,7 +86,6 @@ export const resources = [
         label: "Registrations",
         icon: <FormOutlined />,
     },
-   
     {
         key: "client-master",
         label: "Clients",
@@ -106,8 +106,6 @@ export const resources = [
         label: "Team",
         icon: <UserAddOutlined />,
     },
-    
-   
     // {
     //     key: "project-master",
     //     label: "Project Master",

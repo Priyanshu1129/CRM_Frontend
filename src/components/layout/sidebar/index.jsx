@@ -63,9 +63,10 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
           fontWeight: "700",
           paddingLeft: "12px",
           paddingRight: "12px",
+          marginTop: "8px",
         }}
         theme="light" // Ensures proper base styling
-        title="Logo32e4324324234324"
+        title="title"
         defaultSelectedKeys={["1"]}
         defaultOpenKeys={["sub1"]}
         mode="inline"

@@ -5,7 +5,7 @@ import { Avatar } from "antd";
 
 const { useToken } = theme;
 
-const name = "Golden Eye";
+const name = "GoldenEye";
 
 export const Title = ({
   collapsed,
@@ -21,7 +21,7 @@ export const Title = ({
         justifyContent: "center",
         textDecoration: "none",
         gap: "18px",
-        height: "80px",
+        height: "180px",
       }}
       className="demo-logo-vertical"
     >
@@ -34,40 +34,31 @@ export const Title = ({
           // ...wrapperStyles,
         }}
       >
-        { collapsed && <div
-          style={{
-            
-           
-          }}
-        >
-           <Typography.Title
-          style={{
-            fontSize: "30px",
-            marginBottom: "25px",
-            marginLeft : "12px",
-            // color : outColors.orange,
-            color : colorConfig.primary,
-            // color : "colorConfig.primary",
-            // color: "#fff",
-            fontWeight: 700,
-          }}
-          >
-            G
-          </Typography.Title>
-         
-        </div>}
+        {collapsed && (
+          <div style={{}}>
+            <Typography.Title
+              style={{
+                fontSize: "30px",
+                marginBottom: "25px",
+                marginLeft: "12px",
+                color: "#E52772",
+                fontWeight: 700,
+              }}
+            >
+              Ge
+            </Typography.Title>
+          </div>
+        )}
 
         {!collapsed && (
           <Typography.Title
-          style={{
-            fontSize: "30px",
-            marginBottom: 20,
-            marginLeft : '23px',
-            // color : outColors.orange,
-            color : colorConfig.primary,
-            // color: "#fff",
-            fontWeight: 700,
-          }}
+            style={{
+              fontSize: "30px",
+              marginBottom: 25,
+              marginLeft: "23px",
+              color: "#E52772",
+              fontWeight: 700,
+            }}
           >
             {name}
           </Typography.Title>
