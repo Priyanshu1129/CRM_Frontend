@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Menu, Layout, theme, Grid } from "antd";
 import { Title } from "../title";
@@ -8,9 +8,18 @@ import { colorConfig, resources } from "@/config";
 
 const Sidebar = ({ collapsed, setCollapsed }) => {
   const router = useRouter();
+  const [selectedKey, setSelectedKey] = useState("");
+  useEffect(() => {
+    // Set the selected key based on the current route (optional improvement for route-based selection)
+    const path = window.location.pathname.substring(1); // Remove leading "/"
+    setSelectedKey(path || "cockpit");
+  }, []);
+
   const onClick = (e) => {
+    setSelectedKey(e.key); // Set the selected menu key
     router.push(`/${e.key}`, undefined, { scroll: false });
   };
+
   return (
     <Sider
       breakpoint="lg"
@@ -18,8 +27,7 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
       style={{
         border: "1px solid",
         borderColor: colorConfig.cardBorder,
-        fontFamily: "Roboto, sans-serif", // Make sure to use your selected font
-        fontWeight: "700",
+        fontWeight: "500",
         height: "100vh",
         position: "fixed",
         left: 0,
@@ -60,15 +68,15 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
         style={{
           height: "calc(100% - 64px)", // Adjust to account for header height
           scrollbarWidth: "thin",
-          fontWeight: "700",
+          fontWeight: "500",
           paddingLeft: "12px",
           paddingRight: "12px",
           marginTop: "8px",
         }}
         theme="light" // Ensures proper base styling
         title="title"
-        defaultSelectedKeys={["1"]}
-        defaultOpenKeys={["sub1"]}
+        selectedKeys={[selectedKey]}
+        // defaultOpenKeys={["sub1"]}
         mode="inline"
         items={resources}
       />

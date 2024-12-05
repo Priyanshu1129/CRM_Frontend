@@ -43,19 +43,19 @@ const KanbanColumn = ({
   });
 
 
-
   return (
-    <Card bodyStyle={{ padding: "8px", height:"100%"}} style={{ marginRight: "12px", borderRadius: "12px", background: colorConfig.baseColor }} ref={setNodeRef} className={cn(styles.container, styles[variant])}>
+    <div className={cn(styles.container, styles[variant])} style={{ padding: "8px", height: "100%", marginRight: "12px", borderRadius: "12px", background: colorConfig.baseColor }} ref={setNodeRef} >
       <div className={styles.header}>
         <div className={styles.titleContainer}>
           <div className={styles.title}>
             <Text
               ellipsis={{ tooltip: title }}
               size="sm"
-              strong
+              // strong
               style={{
                 textTransform: "uppercase",
                 whiteSpace: "nowrap",
+                fontWeight: "500"
               }}
             >
               {title}
@@ -111,20 +111,17 @@ const KanbanColumn = ({
         <SubStageSelector onChange={onFilterChange} stage={stageKey} />
       </div>
       <div
-        className={cn(styles.columnScrollableContainer, {
-          [styles.isOver]: isOver,
-          [styles.active]: active,
-        })}
+        className={cn(styles.columnScrollableContainer)}
       >
         <div className={cn(styles.childrenWrapper)}>{filteredChildren}</div>
       </div>
-    </Card>
+    </div>
   );
 };
 
 const KanbanColumnSkeleton = ({ children, type, variant = "default" }) => {
   return (
-    <div className={cn(styles.container, styles[variant])}>
+    <div className={cn(styles.container, styles[variant])} style={{ padding: "8px", height: "100%", marginRight: "12px", borderRadius: "12px", background: colorConfig.baseColor }}>
       <div className={styles.header}>
         <div className={styles.titleContainer}>
           <Skeleton.Button
@@ -148,7 +145,6 @@ const KanbanColumnSkeleton = ({ children, type, variant = "default" }) => {
         </div>
         {type === "deal" && (
           <Skeleton.Button
-            //  size="small" 
             style={{ width: "175px" }} />
         )}
       </div>

@@ -41,7 +41,7 @@ export const Title = ({
                 fontSize: "30px",
                 marginBottom: "25px",
                 marginLeft: "12px",
-                color: "#E52772",
+                color: "#F86041",
                 fontWeight: 700,
               }}
             >
@@ -56,7 +56,7 @@ export const Title = ({
               fontSize: "30px",
               marginBottom: 25,
               marginLeft: "23px",
-              color: "#E52772",
+              color: "#F86041",
               fontWeight: 700,
             }}
           >

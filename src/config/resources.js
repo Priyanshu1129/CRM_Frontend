@@ -12,36 +12,43 @@ import {
     FormOutlined,
     FileTextOutlined,
 } from "@ant-design/icons";
+import { MdOutlineCircle } from "react-icons/md";
 
 export const resources = [
     {
-        key: "cockpit",
+        key: "dashboard",
         label: "Live Report",
         icon: <DashboardOutlined />,
         children: [
             {
                 key: "dashboards/pipe-view",
                 label: "Pipe View",
+                icon: <MdOutlineCircle />
             },
             {
                 key: "dashboards/funnel-view",
                 label: "Funnel View",
+                icon: <MdOutlineCircle />
             },
             {
                 key: "dashboards/summary-view",
                 label: "Summary View",
+                icon: <MdOutlineCircle />
             },
             {
                 key: "dashboards/compare-view",
                 label: "Compare View",
+                icon: <MdOutlineCircle />
             },
             {
                 key: "dashboards/target-view",
                 label: "Target View",
+                icon: <MdOutlineCircle />
             },
             {
                 key: "dashboards/trend-view",
                 label: "Trend View",
+                icon: <MdOutlineCircle />
             }
         ]
     },
@@ -69,7 +76,7 @@ export const resources = [
         key: "opportunity-master",
         label: "Deals",
         icon: <FileOutlined />,
-        style: { marginTop: "15px", fontWeight: "600" },
+        // style: { marginTop: "15px", fontWeight: "600" },
     },
     {
         key: "tender-master",
@@ -112,8 +119,8 @@ export const resources = [
     //     icon: <ProjectFilled />,
     // },
     {
-        key: "admin-panel",
-        label: "Admin Panel",
+        key: "admin",
+        label: "Admin",
         icon: <CrownOutlined />
     }
 ];

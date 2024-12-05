@@ -91,7 +91,7 @@
 //                 <Input />
 //               </Form.Item>
 //             </Col>
-            
+
 //             <Col span={colSpan}>
 //               <IndustrySelector
 //                 label="Industry"
@@ -255,7 +255,6 @@
 // };
 // export default AddClient;
 
-
 "use client";
 import { DatePicker } from "antd";
 import React, { useState } from "react";
@@ -305,14 +304,22 @@ const AddClient = () => {
 
   const { loading, handleAvatarChange, onFinish } = useAddClient({ currency });
 
-  const colSpan = screens.xs ? 24 : screens.sm ? 12 : screens.md && 8;
-
+  const colSpan = screens.xs
+    ? 24
+    : screens.sm
+    ? 12
+    : screens.md
+    ? 8
+    : screens.lg
+    ? 6
+    : 6;
+  // 
   return (
     <>
       <FormHeader
         fileUpload={true}
         setUploadModal={setUploadModal}
-        backButtonText={"Return"}
+        backButtonText={"Back to Clients"}
       />
       <Space
         direction="vertical"
@@ -331,7 +338,7 @@ const AddClient = () => {
           onFinish={onFinish}
         >
           {/* Centered Image Upload */}
-          <Row justify="center">
+          <Row>
             <Col span={24}>
               <Form.Item label="Upload Client Profile">
                 <ImageUpload onAvatarChange={handleAvatarChange} />
@@ -347,7 +354,7 @@ const AddClient = () => {
           </Space>
           <Divider style={{ margin: "10px" }} />
           <Row gutter={24}>
-            <Col span={colSpan}>
+            <Col xs={24} sm={12} md={8} lg={6}>
               <Form.Item
                 label="Client Name"
                 name="name"
@@ -356,21 +363,21 @@ const AddClient = () => {
                 <Input />
               </Form.Item>
             </Col>
-            <Col span={colSpan}>
+            <Col xs={24} sm={12} md={8} lg={6}>
               <IndustrySelector
                 label="Industry"
                 name="industry"
                 rules={clientFormRules.industry}
               />
             </Col>
-            <Col span={colSpan}>
+            <Col xs={24} sm={12} md={8} lg={6}>
               <SubIndustrySelector
                 label="Sub Industry"
                 name="subIndustry"
                 rules={clientFormRules.subIndustry}
               />
             </Col>
-            <Col span={colSpan}>
+            <Col xs={24} sm={12} md={8} lg={6}>
               <Form.Item
                 name="offering"
                 label="About"
@@ -389,21 +396,21 @@ const AddClient = () => {
           </Space>
           <Divider style={{ margin: "10px" }} />
           <Row gutter={24}>
-            <Col span={colSpan}>
+            <Col xs={24} sm={12} md={8} lg={6}>
               <TerritorySelector
                 label="Territory"
                 name="territory"
                 rules={clientFormRules.territory}
               />
             </Col>
-            <Col span={colSpan}>
+            <Col xs={24} sm={12} md={8} lg={6}>
               <IncorporationTypesSelector
                 label="Incorporation Type"
                 name="incorporationType"
                 rules={clientFormRules.incorporationType}
               />
             </Col>
-            <Col span={colSpan}>
+            <Col xs={24} sm={12} md={8} lg={6}>
               <Form.Item
                 label="Client Status"
                 name="listedCompany"
@@ -415,7 +422,7 @@ const AddClient = () => {
                 </Select>
               </Form.Item>
             </Col>
-            <Col span={colSpan}>
+            <Col xs={24} sm={12} md={8} lg={6}>
               <MarketCapSelector
                 name="marketCap"
                 label="Market Cap"
@@ -432,7 +439,7 @@ const AddClient = () => {
           </Space>
           <Divider style={{ margin: "10px" }} />
           <Row gutter={24}>
-            <Col span={colSpan}>
+            <Col xs={24} sm={12} md={8} lg={6}>
               <CurrencyAmountInput
                 name="annualRevenue"
                 label="Annual Revenue"
@@ -441,14 +448,14 @@ const AddClient = () => {
                 setCurrency={setCurrency}
               />
             </Col>
-            <Col span={colSpan}>
+            <Col xs={24} sm={12} md={8} lg={6}>
               <ClassificationsSelector
                 label="Classification"
                 name="classification"
                 rules={clientFormRules.classification}
               />
             </Col>
-            <Col span={colSpan}>
+            <Col xs={24} sm={12} md={8} lg={6}>
               <Form.Item
                 label="Total Employee Strength"
                 name="totalEmployeeStrength"
@@ -457,7 +464,7 @@ const AddClient = () => {
                 <Input type="number" min={0} />
               </Form.Item>
             </Col>
-            <Col span={colSpan}>
+            <Col xs={24} sm={12} md={8} lg={6}>
               <Form.Item
                 label="IT Employee Strength"
                 name="itEmployeeStrength"
@@ -476,28 +483,28 @@ const AddClient = () => {
           </Space>
           <Divider style={{ margin: "10px" }} />
           <Row gutter={24}>
-            <Col span={colSpan}>
+            <Col xs={24} sm={12} md={8} lg={6}>
               <UserSelector
                 label="Primary Relationship"
                 name="primaryRelationship"
                 rules={clientFormRules.primaryRelationship}
               />
             </Col>
-            <Col span={colSpan}>
+            <Col xs={24} sm={12} md={8} lg={6}>
               <UserSelector
-                label="Secondary Relationship (Pref Economic)"
+                label="Secondary Relationship"
                 name="secondaryRelationship"
                 rules={clientFormRules.secondaryRelationship}
               />
             </Col>
-            <Col span={colSpan}>
+            <Col xs={24} sm={12} md={8} lg={6}>
               <RelationshipStatusSelector
                 label="Relationship Status"
                 name="relationshipStatus"
                 rules={clientFormRules.relationshipStatus}
               />
             </Col>
-            <Col span={colSpan}>
+            <Col xs={24} sm={12} md={8} lg={6}>
               <ContactSelector
                 label="Related Contacts"
                 name="relatedContacts"
@@ -515,7 +522,7 @@ const AddClient = () => {
           </Space>
           <Divider style={{ margin: "10px" }} />
           <Row gutter={24}>
-            <Col span={colSpan}>
+            <Col xs={24} sm={12} md={8} lg={6}>
               <Form.Item
                 label="Priority"
                 name="priority"
@@ -564,4 +571,3 @@ const AddClient = () => {
 };
 
 export default AddClient;
-

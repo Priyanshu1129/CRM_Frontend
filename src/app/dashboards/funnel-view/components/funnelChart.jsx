@@ -19,121 +19,52 @@ export const FunnelChart = ({
     color: "",
   });
 
-
-  // const colors = [
-  //   "rgba(0, 102, 255, 0.6)",  // Lead (primary color with transparency)
-  //   "rgba(0, 143, 179, 0.6)",  // Prospect (teal-like color for variety)
-  //   "rgba(102, 153, 255, 0.6)", // Qualification (lighter primary shade)
-  //   "rgba(255, 194, 102, 0.6)", // Proposal (warm accent for contrast)
-  //   "rgba(153, 204, 255, 0.6)", // Followup (soft blue-gray for subtlety)
-  //   "rgba(255, 132, 102, 0.6)", // Closing (muted coral for energy)
-  // ];
-
-  // const borderColors = [
-  //   "rgba(0, 102, 255, 1)",    // Lead (primary color)
-  //   "rgba(0, 143, 179, 1)",    // Prospect (teal-like color)
-  //   "rgba(102, 153, 255, 1)",  // Qualification (lighter primary shade)
-  //   "rgba(255, 194, 102, 1)",  // Proposal (warm accent)
-  //   "rgba(153, 204, 255, 1)",  // Followup (soft blue-gray)
-  //   "rgba(255, 132, 102, 1)",  // Closing (muted coral)
-  // ];
-
-  // const colors = [
-  //   "rgba(255, 166, 70, 0.6)",  // Warm orange (Lead)
-  //   "rgba(248, 96, 65, 0.6)",   // Vivid red-orange (Prospect)
-  //   "rgba(229, 39, 114, 0.6)",  // Bright pink-red (Qualification)
-  //   "rgba(169, 33, 113, 0.6)",  // Deep magenta (Intermediate shade for transition)
-  //   "rgba(152, 32, 97, 0.6)",   // Rich plum (Followup)
-  //   "rgba(109, 30, 94, 0.6)",   // Dark maroon (Closing)
-  // ];
-  
-  // const borderColors = [
-  //   "rgba(255, 166, 70, 1)",    // Warm orange (Lead)
-  //   "rgba(248, 96, 65, 1)",     // Vivid red-orange (Prospect)
-  //   "rgba(229, 39, 114, 1)",    // Bright pink-red (Qualification)
-  //   "rgba(169, 33, 113, 1)",    // Deep magenta (Intermediate shade for transition)
-  //   "rgba(152, 32, 97, 1)",     // Rich plum (Followup)
-  //   "rgba(109, 30, 94, 1)",     // Dark maroon (Closing)
-  // ];
-  
-  // const colors = [
-  //   "rgb(255, 205, 105, 0.7)",
-  //   "rgba(255, 166, 70, 0.7)",  // Warm orange (Lead)
-  //   "rgba(248, 96, 65, 0.7)",   // Vivid red-orange (Prospect)
-  //   "rgb(211, 37, 39, 0.7)",  // Bright pink-red (Qualification)
-  //   "rgba(229, 39, 114, 0.7)",
-  //   "rgb(110, 8, 63,0.7)",   // Rich plum (Followup)
-    
-  // ];
-  
-  // const borderColors = [
-  //   "rgb(255, 205, 105, 1)",
-  //   "rgba(255, 166, 70,  1)",  // Warm orange (Lead)
-  //   "rgba(248, 96, 65,  1)",   // Vivid red-orange (Prospect)
-  //   "rgb(211, 37, 39,  1)",  // Bright pink-red (Qualification)
-  //   "rgba(229, 39, 114,  1)",
-  //   "rgb(110, 8, 63, 1)",     // Dark magenta (Closing)
-  // ];
-  
+  // praveen colors
   const colors = [
-    "rgb(0, 91, 127, 0.8)",
-    "rgb(5,75,168, 0.8)",
-    "rgb(24,141,175, 0.8)",
-    "rgb(8,154,161, 0.8)",
-    "rgb(5,211,155, 0.8)",
-    "rgb(36, 160, 96, 0.8)",
-  
+    "rgb(229, 39, 114, 0.8)",
+    "rgb(248, 96, 65, 0.8)",
+    "rgb(255, 166, 70, 0.8)",
+    "rgb(0, 199, 180, 0.8)",
+    "rgb(72, 181, 194, 0.8)",
+    "rgb(0, 124, 166, 0.8)",
   ];
-  
-  // const borderColors = [
-  //   "rgb(0, 91, 127, 1)",
-  //   "rgb(5,75,168, 1)",
-  //   "rgb(24,141,175, 1)",
-  //   "rgb(8,154,161, 1)",
-  //   "rgb(5,211,155, 1)",
-  //   "rgb(36, 160, 96, 1)",
-  //     // Dark magenta (Closing)
-  // ];
+
+  // praveen colors
   const borderColors = [
-    "rgb(0, 64, 89, 1)",
-    "rgb(4, 56, 125, 1)",
-    "rgb(18, 106, 132, 1)",
-    "rgb(6, 115, 121, 1)",
-    "rgb(4, 158, 116, 1)",
-    "rgb(27, 120, 72, 1)",
-      // Dark magenta (Closing)
+    "rgb(229, 39, 114, 1)",
+    "rgb(248, 96, 65, 1)",
+    "rgb(255, 166, 70, 1)",
+    "rgb(0, 199, 180, 1)",
+    "rgb(72, 181, 194, 1)",
+    "rgb(0, 124, 166, 1)",
   ];
-  
 
-  
-
-  
   const drawFunnelChart = (ctx, width, height) => {
     ctx.clearRect(0, 0, width, height);
-  
+
     const stages = Object.keys(funnelStats);
     const total = Object.values(funnelStats).reduce(
       (acc, value) => acc + value,
       0
     );
-  
+
     let xPosition = 0;
     let topHeight = 20;
     let bottomHeight = height - 20;
-  
+
     stages.forEach((stage, index) => {
       const segmentWidth = (funnelStats[stage] / total) * width;
       const topNext = topHeight + (height - 40) / stages.length / 3;
       const bottomNext = bottomHeight - (height - 40) / stages.length / 3;
-       
+
       ctx.shadowBlur = 10;
       ctx.shadowColor = "rgba(0, 0, 0, 0.1)"; // Adjust shadow color and opacity as needed
       ctx.shadowOffsetX = 0;
-      ctx.shadowOffsetY = 2;
+      ctx.shadowOffsetY = 2;
       ctx.fillStyle = colors[index];
       ctx.strokeStyle = borderColors[index];
       ctx.lineWidth = 1;
-       
+
       ctx.beginPath();
       ctx.moveTo(xPosition, topHeight);
       ctx.lineTo(xPosition + segmentWidth, topNext);
@@ -142,20 +73,31 @@ export const FunnelChart = ({
       ctx.closePath();
       ctx.fill();
       ctx.stroke();
-  
+
       // Reset shadow to prevent it from affecting text and other elements
       ctx.shadowBlur = 0;
       ctx.shadowColor = "transparent";
-  
+
       // Draw the label inside each segment
       ctx.fillStyle = "white";
-      ctx.font = "Bold 18px Arial";
+      ctx.font = "600 18px Arial";
+      ctx.textAlign = "center";
+
+      // ctx.lineWidth = 1; // Border thickness
+      // ctx.strokeStyle = "gray"; // Border color
+      // ctx.strokeText(
+      //   funnelStats[stage],
+      //   xPosition + segmentWidth / 2 - ctx.measureText(funnelStats[stage]).width / 2,
+      //   (topHeight + bottomHeight) / 2 + 10
+      // );
       ctx.fillText(
         funnelStats[stage],
-        xPosition + segmentWidth / 4,
+        xPosition +
+          segmentWidth / 2 -
+          ctx.measureText(funnelStats[stage]).width / 2,
         (topHeight + bottomHeight) / 2 + 10
       );
-  
+
       // Attach hover areas for each stage
       ctx.stageAreas = ctx.stageAreas || [];
       ctx.stageAreas.push({
@@ -166,13 +108,13 @@ export const FunnelChart = ({
         yBottom: bottomHeight,
         color: colors[index],
       });
-  
+
       xPosition += segmentWidth;
       topHeight = topNext;
       bottomHeight = bottomNext;
     });
   };
-  
+
   const resizeCanvas = () => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
@@ -239,7 +181,7 @@ export const FunnelChart = ({
   const stages = Object.keys(funnelStats);
 
   return (
-    <Card style={{ height: '100%' }}>
+    <Card style={{ height: "100%" }}>
       {tooltipData.visible && (
         <div
           style={{
@@ -313,7 +255,11 @@ export const FunnelChart = ({
                 borderRadius: "4px",
               }}
             ></span>
-            <span style={{ fontSize: "14px", color: "#333" }}>{stage}</span>
+            <span
+              style={{ fontSize: "14px", color: "#333", fontWeight: "400" }}
+            >
+              {stage}
+            </span>
           </div>
         ))}
       </div>

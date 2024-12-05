@@ -173,7 +173,7 @@ const DealKanbanCard = ({
                   },
                   onClick: (e) => {
                     e.domEvent.stopPropagation();
-                  },
+                  }
                 }}
                 placement="bottom"
                 arrow={{ pointAtCenter: true }}
@@ -204,7 +204,7 @@ const DealKanbanCard = ({
             </div>
           }
           description={
-            <Text strong size="md">
+            <Text size="md">
               {title}
             </Text>
           }

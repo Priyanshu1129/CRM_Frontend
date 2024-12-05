@@ -10,7 +10,7 @@ export const UpdateRoleForm = ({ role }) => {
 
   const { loading, onFinish } = useUpdateRole({ role, form });
 
-  const colSpan = screens.xs ? 24 : screens.sm ? 12 : screens.md && 8;
+  const colSpan = screens.xs ? 24 : screens.sm ? 8 : screens.md ? 8 : 8;
 
   return (
     <Form
@@ -22,14 +22,14 @@ export const UpdateRoleForm = ({ role }) => {
       <Row gutter={24}>
         <Col span={colSpan}>
           <Form.Item
-            label="Name"
+            label="Role Name"
             name="roleName"
             rules={roleFormRules.roleName}
           >
             <Input />
           </Form.Item>
         </Col>
-        <Col span={colSpan}>
+        <Col span={colSpan} style={{ display: "flex", alignItems: "flex-end" }}>
           <Form.Item>
             <Space>
               <Button type="primary" htmlType="submit" loading={loading}>

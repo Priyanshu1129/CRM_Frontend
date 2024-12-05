@@ -187,7 +187,7 @@ export const Doughnut = ({ funnelStats }) => {
               />
               <span
                 style={{
-                  fontWeight: "bold",
+                  fontWeight: "500",
                   fontSize: "14px",
                   color: "#333", // Dark text color for better readability
                 }}

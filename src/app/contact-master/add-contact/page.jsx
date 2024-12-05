@@ -579,7 +579,8 @@ const AddContact = ({}) => {
   const colSpan = {
     xs: 24,  // 1 field per row on mobile
     sm: 12,  // 2 fields per row on small tablets
-    md: 6,   // 4 fields per row on desktop and larger
+    md: 8,   // 4 fields per row on desktop and larger
+    lg: 6
   };
 
   return (
@@ -606,7 +607,7 @@ const AddContact = ({}) => {
           style={{ color: colorConfig?.textColor || "#000" }}
         >
           {/* Centered Image Upload */}
-          <Row justify="center">
+          <Row>
             <Col>
               <Form.Item
                 label={<span style={{ fontWeight: "400" }}>Upload Contact Profile</span>}

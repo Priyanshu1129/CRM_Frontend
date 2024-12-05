@@ -5,20 +5,20 @@ import { getTwoToneColor, setTwoToneColor } from '@ant-design/icons';
 
 const primary = {
   p0: "f0f8ff",
-  p1 : "#DAF0F3",
-  p2 : "#B6E1E7",
-  p3 : "#91D3DA",
-  p4 : "#48B5C2", 
-  p5 : "#007CA6",
-  p6 : "#005B7F",
+  p1: "#DAF0F3",
+  p2: "#B6E1E7",
+  p3: "#91D3DA",
+  p4: "#48B5C2",
+  p5: "#007CA6",
+  p6: "#005B7F",
 }
 
 
 export const outColors = {
-  yellow : "#FFA646",
-  orange : "#F86041",
-  pink : "#E52772",
-  darkPink : "#982061",
+  yellow: "#FFA646",
+  orange: "#F86041",
+  pink: "#E52772",
+  darkPink: "#982061",
 }
 
 // Colors and configuration
@@ -70,11 +70,11 @@ export const colorConfig = {
   tableTextColor: "#333333",    // Default text color for table content
   tableHeaderTextColor: "#fff",  // Text color for table headers
   tableRowSelectedHoverBgColor: "#bae0ff",
-   // Hover color for selected row
+  // Hover color for selected row
 
 
-  textGrayLight : "#91969b" ,
-  textGrayDark : "#767b80" ,
+  textGrayLight: "#91969b",
+  textGrayDark: "#767b80",
 };
 
 setTwoToneColor(colorConfig.primary);
@@ -82,6 +82,7 @@ setTwoToneColor(colorConfig.primary);
 export const customTheme = {
   algorithm: theme.defaultAlgorithm,  // Use the default algorithm for light mode
   token: {
+    fontFamily: 'Poppins, sans-serif',
     colorBgContainer: "#ffffff",   // Background color for containers (white for cards)
     colorBgLayout: colorConfig.baseColor,  // Background color for layout (light gray)
     colorText: "#333333",           // Text color (dark gray)
@@ -94,7 +95,7 @@ export const customTheme = {
     colorTextDescription: "rgba(0, 0, 0, 0.45)",  // Description text color
     colorTextDisabled: "rgba(0, 0, 0, 0.25)",  // Disabled text color
     colorTextHeading: "rgba(0, 0, 0, 0.88)",  // Heading text color
-    
+
   },
   components: {
     Layout: {
@@ -102,7 +103,7 @@ export const customTheme = {
       colorBgSider: "#ffffff",  // White background for the sidebar
       colorTextHeader: "#333333",  // Text color in the header
       colorTextSider: "#333333",   // Text color in the sidebar
-      borderColorSider : "#000",
+      borderColorSider: "#000",
       boxShadowHeader: "2px 2px 8px rgba(0, 0, 0, 0.4)",  // Shadow for the header
       boxShadowSider: "2px 0 8px rgba(0, 0, 0, 0.4)",   // Shadow for the sidebar
     },
@@ -115,17 +116,15 @@ export const customTheme = {
       colorPrimaryHover: colorConfig.primaryHover,  // Hover color for buttons
     },
     Menu: {
-      colorItemText: "#333333", // Default text color
+      colorItemText: "#005B7F", // Default text color
       colorItemTextHover: colorConfig.menuHoverTextColor, // Hover state color for menu item
       colorItemTextActive: colorConfig.menuActiveTextColor, // Active state color for menu item
       colorItemBgHover: colorConfig.menuHoverBgColor, // Background color for hover state
       colorItemBgActive: colorConfig.menuActiveBgColor, // Background color for active state
       colorItemTextSelected: colorConfig.menuSelectedTextColor,
       colorItemBgSelected: colorConfig.menuSelectedBgColor,
-
-      
     },
-    DatePicker: { 
+    DatePicker: {
       iconColor: colorConfig.primary, // Set the calendar icon color
       colorIconHover: colorConfig.primaryHover, // Hover color for the calendar icon
     },

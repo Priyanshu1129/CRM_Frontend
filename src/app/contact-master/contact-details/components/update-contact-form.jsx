@@ -10,13 +10,15 @@ import {
   Row,
   Col,
   Checkbox,
+  Divider,
 } from "antd";
 import { ArcheTypeSelector, RelationshipDegreeSelector } from "../../enums";
-import { InputNotes, ImageUpload, TerritorySelector } from "@/components";
+import { InputNotes, ImageUpload, TerritorySelector, Text } from "@/components";
 import { contactFormRules } from "@/utilities/formValidationRules";
 import { ClientSelector } from "@/components";
 import { InputPhoneNumber } from "@/components";
 import { useUpdateContact } from "@/hooks/contact";
+import { colorConfig } from "@/config";
 
 export const UpdateContactForm = ({ contact }) => {
   const [form] = Form.useForm();
@@ -32,7 +34,12 @@ export const UpdateContactForm = ({ contact }) => {
     setMobileCountryCode,
   } = useUpdateContact({ form, contact });
 
-  const colSpan = screens.xs ? 24 : screens.sm ? 12 : screens.md && 8;
+  const colSpan = {
+    xs: 24, // 1 field per row on mobile
+    sm: 12, // 2 fields per row on small tablets
+    md: 8, // 4 fields per row on desktop and larger
+    lg: 6,
+  };
 
   return (
     <>
@@ -42,7 +49,7 @@ export const UpdateContactForm = ({ contact }) => {
         // size={"default"}
         onFinish={onFinish}
       >
-        <Row gutter={24}>
+        <Row>
           <Col span={24}>
             <Form.Item label="Upload Contact Profile" name="avatar">
               <ImageUpload
@@ -51,7 +58,17 @@ export const UpdateContactForm = ({ contact }) => {
               />
             </Form.Item>
           </Col>
-          <Col span={8}>
+        </Row>
+
+        {/* Section: Personal Information */}
+        <Space>
+          <Text style={{ color: colorConfig?.primary, fontWeight: "500" }}>
+            Personal Information
+          </Text>
+        </Space>
+        <Divider style={{ margin: "10px" }}></Divider>
+        <Row gutter={24}>
+          <Col {...colSpan}>
             <Form.Item
               name="firstName"
               label="First Name"
@@ -60,7 +77,7 @@ export const UpdateContactForm = ({ contact }) => {
               <Input />
             </Form.Item>
           </Col>
-          <Col span={8}>
+          <Col {...colSpan}>
             <Form.Item
               name="lastName"
               label="Last Name"
@@ -69,7 +86,7 @@ export const UpdateContactForm = ({ contact }) => {
               <Input />
             </Form.Item>
           </Col>
-          <Col span={8}>
+          <Col {...colSpan}>
             <Form.Item
               name="gender"
               label="Gender"
@@ -82,23 +99,26 @@ export const UpdateContactForm = ({ contact }) => {
               </Select>
             </Form.Item>
           </Col>
-          <Col span={8}>
-            <ClientSelector
-              name="client"
-              label="Client Name"
-              rules={contactFormRules.contactName}
-            />
-          </Col>
-          <Col span={8}>
+          <Col {...colSpan}>
             <Form.Item
-              name="jobTitle"
-              label="Job Title"
-              rules={contactFormRules.jobTitle}
+              name="memorableInfo"
+              label="Something memorable"
+              rules={contactFormRules.memorableInfo}
             >
               <Input />
             </Form.Item>
           </Col>
-          <Col span={8}>
+        </Row>
+
+        {/* Section: Contact Information */}
+        <Space>
+          <Text style={{ color: colorConfig?.primary, fontWeight: "500" }}>
+            Contact Information
+          </Text>
+        </Space>
+        <Divider style={{ margin: "10px" }}></Divider>
+        <Row gutter={24}>
+          <Col {...colSpan}>
             <InputPhoneNumber
               name="phone"
               label="Phone Number"
@@ -107,7 +127,7 @@ export const UpdateContactForm = ({ contact }) => {
               setPhoneCountryCode={setPhoneCountryCode}
             />
           </Col>
-          <Col span={8}>
+          <Col {...colSpan}>
             <InputPhoneNumber
               name="mobilePhone"
               label="Mobile Phone"
@@ -117,7 +137,7 @@ export const UpdateContactForm = ({ contact }) => {
             />
           </Col>
 
-          <Col span={8}>
+          <Col {...colSpan}>
             <Form.Item
               name="workEmail"
               label="Work Email"
@@ -126,7 +146,7 @@ export const UpdateContactForm = ({ contact }) => {
               <Input />
             </Form.Item>
           </Col>
-          <Col span={8}>
+          <Col {...colSpan}>
             <Form.Item
               name="personalEmail"
               label="Personal Email"
@@ -135,21 +155,57 @@ export const UpdateContactForm = ({ contact }) => {
               <Input />
             </Form.Item>
           </Col>
-          <Col span={8}>
+        </Row>
+
+        {/* Section: Professional Information */}
+        <Space>
+          <Text style={{ color: colorConfig?.primary, fontWeight: "500" }}>
+            Professional Information
+          </Text>
+        </Space>
+        <Divider style={{ margin: "10px" }}></Divider>
+        <Row gutter={24}>
+          <Col {...colSpan}>
+            <ClientSelector
+              name="client"
+              label="Client Name"
+              rules={contactFormRules.contactName}
+            />
+          </Col>
+          <Col {...colSpan}>
+            <Form.Item
+              name="jobTitle"
+              label="Job Title"
+              rules={contactFormRules.jobTitle}
+            >
+              <Input />
+            </Form.Item>
+          </Col>
+          <Col {...colSpan}>
             <ArcheTypeSelector
               name="archeType"
               label="Arche Type"
               rules={contactFormRules.archeType}
             />
           </Col>
-          <Col span={8}>
+          <Col {...colSpan}>
             <RelationshipDegreeSelector
               name="relationshipDegree"
               label="Relationship Degree"
               rules={contactFormRules.relationshipDegree}
             />
           </Col>
-          <Col span={8}>
+        </Row>
+
+        {/* Section: Location Details */}
+        <Space>
+          <Text style={{ color: colorConfig?.primary, fontWeight: "500" }}>
+            Location Details
+          </Text>
+        </Space>
+        <Divider style={{ margin: "10px" }}></Divider>
+        <Row gutter={24}>
+          <Col {...colSpan}>
             <Form.Item
               name="country"
               label="Country"
@@ -158,22 +214,23 @@ export const UpdateContactForm = ({ contact }) => {
               <Input />
             </Form.Item>
           </Col>
-          <Col span={8}>
+          <Col {...colSpan}>
             <TerritorySelector
               label="Territory"
               name="territory"
               rules={contactFormRules.territory}
             />
           </Col>
-          <Col span={8}>
-            <Form.Item
-              name="memorableInfo"
-              label="Something memorable about him/her"
-              rules={contactFormRules.memorableInfo}
-            >
-              <Input />
-            </Form.Item>
-          </Col>
+        </Row>
+
+        {/* Section: Notes and Actions */}
+        <Space>
+          <Text style={{ color: colorConfig?.primary, fontWeight: "500" }}>
+            Additional Details
+          </Text>
+        </Space>
+        <Divider style={{ margin: "10px" }}></Divider>
+        <Row gutter={24}>
           <Col span={24}>
             <Form.Item
               rules={[{ required: true, message: "Please check the box!" }]}
@@ -188,6 +245,10 @@ export const UpdateContactForm = ({ contact }) => {
               <InputNotes />
             </Form.Item>
           </Col>
+        </Row>
+
+        {/* Submit and Reset buttons */}
+        <Row justify="end">
           <Col span={24}>
             <Form.Item>
               <Space>

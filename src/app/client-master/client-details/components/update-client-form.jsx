@@ -10,6 +10,7 @@ import {
   theme,
   Row,
   Col,
+  Divider,
 } from "antd";
 import {
   ClassificationsSelector,
@@ -25,9 +26,11 @@ import {
   ImageUpload,
   ContactSelector,
   CurrencyAmountInput,
+  Text,
 } from "@/components";
 import { clientFormRules } from "@/utilities/formValidationRules";
 import { useUpdateClient } from "@/hooks/client";
+import { colorConfig } from "@/config";
 
 export const UpdateClientForm = ({ client }) => {
   const [form] = Form.useForm();
@@ -49,7 +52,7 @@ export const UpdateClientForm = ({ client }) => {
         onFinish={onFinish}
         //  size="default"
       >
-        <Row gutter={24}>
+        <Row>
           <Col span={24}>
             <Form.Item label="Upload Client Profile" name="avatar">
               <ImageUpload
@@ -58,7 +61,17 @@ export const UpdateClientForm = ({ client }) => {
               />
             </Form.Item>
           </Col>
-          <Col span={colSpan}>
+        </Row>
+
+        {/* Section: Client Information */}
+        <Space>
+          <Text style={{ color: colorConfig?.primary, fontWeight: "500" }}>
+            Client Information
+          </Text>
+        </Space>
+        <Divider style={{ margin: "10px" }} />
+        <Row gutter={24}>
+          <Col xs={24} sm={12} md={8} lg={6}>
             <Form.Item
               label="Client Name"
               name="name"
@@ -67,21 +80,21 @@ export const UpdateClientForm = ({ client }) => {
               <Input />
             </Form.Item>
           </Col>
-          <Col span={colSpan}>
+          <Col xs={24} sm={12} md={8} lg={6}>
             <IndustrySelector
               label="Industry"
               name="industry"
               rules={clientFormRules.industry}
             />
           </Col>
-          <Col span={colSpan}>
+          <Col xs={24} sm={12} md={8} lg={6}>
             <SubIndustrySelector
               label="Sub Industry"
               name="subIndustry"
               rules={clientFormRules.subIndustry}
             />
           </Col>
-          <Col span={colSpan}>
+          <Col xs={24} sm={12} md={8} lg={6}>
             <Form.Item
               name="offering"
               label="About"
@@ -90,21 +103,31 @@ export const UpdateClientForm = ({ client }) => {
               <Input />
             </Form.Item>
           </Col>
-          <Col span={colSpan}>
+        </Row>
+
+        {/* Section: Location & Legal Information */}
+        <Space>
+          <Text style={{ color: colorConfig?.primary, fontWeight: "500" }}>
+            Location & Legal Information
+          </Text>
+        </Space>
+        <Divider style={{ margin: "10px" }} />
+        <Row gutter={24}>
+          <Col xs={24} sm={12} md={8} lg={6}>
             <TerritorySelector
               label="Territory"
               name="territory"
               rules={clientFormRules.territory}
             />
           </Col>
-          <Col span={colSpan}>
+          <Col xs={24} sm={12} md={8} lg={6}>
             <IncorporationTypesSelector
               label="Incorporation Type"
               name="incorporationType"
               rules={clientFormRules.incorporationType}
             />
           </Col>
-          <Col span={colSpan}>
+          <Col xs={24} sm={12} md={8} lg={6}>
             <Form.Item
               label="Client Status"
               name="listedCompany"
@@ -116,14 +139,24 @@ export const UpdateClientForm = ({ client }) => {
               </Select>
             </Form.Item>
           </Col>
-          <Col span={colSpan}>
+          <Col xs={24} sm={12} md={8} lg={6}>
             <MarketCapSelector
               name="marketCap"
               label="Market Cap"
               rules={clientFormRules.marketCap}
             />
           </Col>
-          <Col span={colSpan}>
+        </Row>
+
+        {/* Section: Financial Information */}
+        <Space>
+          <Text style={{ color: colorConfig?.primary, fontWeight: "500" }}>
+            Financial Information
+          </Text>
+        </Space>
+        <Divider style={{ margin: "10px" }} />
+        <Row gutter={24}>
+          <Col xs={24} sm={12} md={8} lg={6}>
             <CurrencyAmountInput
               name="annualRevenue"
               label="Annual Revenue"
@@ -132,14 +165,14 @@ export const UpdateClientForm = ({ client }) => {
               setCurrency={setCurrency}
             />
           </Col>
-          <Col span={colSpan}>
+          <Col xs={24} sm={12} md={8} lg={6}>
             <ClassificationsSelector
               label="Classification"
               name="classification"
               rules={clientFormRules.classification}
             />
           </Col>
-          <Col span={colSpan}>
+          <Col xs={24} sm={12} md={8} lg={6}>
             <Form.Item
               label="Total Employee Strength"
               name="totalEmployeeStrength"
@@ -148,7 +181,7 @@ export const UpdateClientForm = ({ client }) => {
               <Input type="number" />
             </Form.Item>
           </Col>
-          <Col span={colSpan}>
+          <Col xs={24} sm={12} md={8} lg={6}>
             <Form.Item
               label="IT Employee Strength"
               name="itEmployeeStrength"
@@ -157,28 +190,38 @@ export const UpdateClientForm = ({ client }) => {
               <Input type="number" />
             </Form.Item>
           </Col>
-          <Col span={colSpan}>
+        </Row>
+
+        {/* Section: Relationships */}
+        <Space>
+          <Text style={{ color: colorConfig?.primary, fontWeight: "500" }}>
+            Relationships
+          </Text>
+        </Space>
+        <Divider style={{ margin: "10px" }} />
+        <Row gutter={24}>
+          <Col xs={24} sm={12} md={8} lg={6}>
             <UserSelector
               label="Primary Relationship"
               name="primaryRelationship"
               rules={clientFormRules.primaryRelationship}
             />
           </Col>
-          <Col span={colSpan}>
+          <Col xs={24} sm={12} md={8} lg={6}>
             <UserSelector
               label="Secondary Relationship"
               name="secondaryRelationship"
               rules={clientFormRules.secondaryRelationship}
             />
           </Col>
-          <Col span={colSpan}>
+          <Col xs={24} sm={12} md={8} lg={6}>
             <RelationshipStatusSelector
               label="Relationship Status"
               name="relationshipStatus"
               rules={clientFormRules.relationshipStatus}
             />
           </Col>
-          <Col span={colSpan}>
+          <Col xs={24} sm={12} md={8} lg={6}>
             <ContactSelector
               label="Related Contacts"
               name="relatedContacts"
@@ -186,7 +229,17 @@ export const UpdateClientForm = ({ client }) => {
               mode="multiple"
             />
           </Col>
-          <Col span={colSpan}>
+        </Row>
+
+        {/* Section: Priority */}
+        <Space>
+          <Text style={{ color: colorConfig?.primary, fontWeight: "500" }}>
+            Priority & Life Time Value
+          </Text>
+        </Space>
+        <Divider style={{ margin: "10px" }} />
+        <Row gutter={24}>
+          <Col xs={24} sm={12} md={8} lg={6}>
             <Form.Item
               label="Priority"
               name="priority"
@@ -200,7 +253,7 @@ export const UpdateClientForm = ({ client }) => {
               </Select>
             </Form.Item>
           </Col>
-          <Col span={colSpan}>
+          <Col xs={24} sm={12} md={8} lg={6}>
             <CurrencyAmountInput
               label="Life Time Value"
               name="lifeTimeValue"
@@ -209,6 +262,10 @@ export const UpdateClientForm = ({ client }) => {
               disabled={true}
             />
           </Col>
+        </Row>
+
+        {/* Section: Actions */}
+        <Row gutter={24}>
           <Col span={24}>
             <Form.Item>
               <Space>

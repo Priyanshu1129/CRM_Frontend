@@ -57,6 +57,9 @@ export const DashboardHeader = ({
             setFilter={setFilter}
           />
         )}
+        <Button>
+          My Pipeview
+        </Button>
       </Space>
       <Space
         style={{

@@ -1,0 +1,158 @@
+html, body {
+  padding: 0;
+  margin: 0;
+  background: #fff;
+  scrollbar-width: thin;
+}
+
+#root {
+  padding: 24px;
+}
+
+/* @layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+} */
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Hide the increment and decrement buttons for Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* globals.css */
+
+/* Style for WebKit browsers (Chrome, Safari) */
+*::-webkit-scrollbar {
+  width: 6px; /* Width of the scrollbar for vertical scroll */
+  height: 6px; /* Height of the scrollbar for horizontal scroll */
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #b0b0b0; /* Color of the scrollbar thumb */
+  border-radius: 10px; /* Rounds the edges of the scrollbar thumb */
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: #888; /* Color of the scrollbar thumb on hover */
+}
+
+*::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Background color of the scrollbar track */
+}
+
+/* Style for Firefox */
+* {
+  scrollbar-width: thin; /* Thin scrollbar */
+  scrollbar-color: #b0b0b0 #f1f1f1; /* Thumb color and track color */
+}
+
+
+canvas {
+  position: relative;
+  z-index: 10;
+}
+
+
+
+/* Apply body margin and padding reset */
+body {
+  margin: 0;
+  padding: 0;
+  /* font-family: 'Roboto', sans-serif; Ensure the font is applied globally */
+  font-family: "Poppins", sans-serif;
+  color: #333333; /* Default text color */
+  background-color: #f8f9fa; /* Light background for the whole page */
+  color: #005B7F; /* Dark text color */
+}
+
+/* Define basic font styles and line heights for consistency */
+h1, h2, h3, h4, h5, h6 {
+  /* font-weight: 600; Slightly bold for headings */
+}
+
+p, span, a {
+  /* font-weight: 400;  */
+  line-height: 1.5;  
+}
+
+/* Apply padding and margin to containers for spacing */
+.container {
+  margin: 0 auto; /* Center the content */
+  max-width: 1200px; /* Set a maximum width for large screens */
+}
+
+/* Ensure consistency in card-like elements */
+.ant-card {
+  border-radius: 8px;
+  border: 1px solid #d9d9d9;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.02) !important;
+}
+
+.ant-table {
+  border-radius: 8px; /* Border radius for rounded corners */
+  border: 1px solid #d9d9d9; /* Border color */
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.02) !important; /* Box shadow */
+  margin-bottom: 16px; /* Space below the table */
+}
+
+.ant-table-thead > tr > th {
+  background-color: #fafafa; /* Table header background */
+  font-weight: bold; /* Optional: Make the table header text bold */
+}
+
+
+
+.ant-table-tbody > tr:nth-child(odd) > td {
+  background-color: #f0f8ff; /* Background color for odd rows */
+}
+
+.ant-table-tbody > tr:nth-child(even) > td {
+  background-color: #ffffff; /* Background color for even rows */
+}
+
+/* Buttons - general styles */
+.ant-btn {
+  padding: 10px 20px;   
+  border: 1px solid #d9d9d9;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.02) !important; 
+}
+
+/* Links and other interactive elements */
+a {
+  color: #007bff; /* Primary blue color for links */
+  text-decoration: none; /* Remove underline from links */
+}
+
+a:hover {
+  text-decoration: underline; /* Underline on hover */
+}
+
+/* Define spacing for list items, etc. */
+ul, ol {
+  padding-left: 20px;
+}
+
+li {
+  margin-bottom: 10px; /* Space between list items */
+}
+
+.hover-text-go-back-button {
+  color: black;
+  transition: color 0.3s ease; /* For smooth transition */
+}
+
+.hover-text-go-back-button:hover {
+  color: #005B7F; 
+}
+
+
+.ant-date-picker-suffix {
+  color: "red" !important; /* Replace with the desired color */
+}
