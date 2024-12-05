@@ -30,8 +30,10 @@ export const useUpdateUser = ({ user, form }) => {
                 avatar: user.avatar,
                 phone: extractedPhoneNumber || "",
                 phoneCountryCode: extractedCountryCode || "",
+                industry: user?.industry,
+                territory: user?.territory,
+                solution: user?.solution,
             };
-            console.log("extractedCountryCode", typeof extractedCountryCode);
             setPhoneCountryCode(extractedCountryCode);
             form.setFieldsValue(userInitialValues);
             initialValues.current = userInitialValues;

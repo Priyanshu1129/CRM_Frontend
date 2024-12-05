@@ -21,9 +21,9 @@ export const useUpdateClient = ({ client, currency, form }) => {
             const clientInitialValues = {
                 name: client.name,
                 industry: client.industry,
+                territory: client.territory,
                 subIndustry: client.subIndustry,
                 offering: client.offering,
-                territory: client.territory,
                 incorporationType: client.incorporationType,
                 listedCompany: client.listedCompany,
                 marketCap: client.marketCap,

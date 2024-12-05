@@ -17,7 +17,12 @@ import { getAllContacts } from "@/redux/actions/contactAction";
 import { getAllTenders } from "@/redux/actions/tenderAction";
 import { getAllOpportunities } from "@/redux/actions/opportunityAction";
 
-export const IndustrySelector = ({ name = "industry", label, rules }) => {
+export const IndustrySelector = ({
+  name = "industry",
+  label,
+  rules,
+  multiple = false,
+}) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const { status, data, error } = useSelector(
@@ -54,6 +59,7 @@ export const IndustrySelector = ({ name = "industry", label, rules }) => {
       rules={rules}
     >
       <Select
+        mode={multiple ? "multiple" : undefined}
         showSearch
         loading={loading}
         optionFilterProp="children"
@@ -121,7 +127,7 @@ export const SubIndustrySelector = ({ name, label, rules }) => {
   );
 };
 
-export const SolutionSelector = ({ name, label, rules }) => {
+export const SolutionSelector = ({ name, label, rules, multiple = false }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const { status, data, error } = useSelector(
@@ -155,6 +161,7 @@ export const SolutionSelector = ({ name, label, rules }) => {
     <Form.Item name={name} label={label} rules={rules}>
       <Select
         showSearch
+        mode={multiple ? "multiple" : undefined}
         loading={loading}
         optionFilterProp="children"
         filterOption={(input, option) =>
@@ -321,7 +328,7 @@ export const SalesSubStageSelector = ({ name, label, rules }) => {
   );
 };
 
-export const TerritorySelector = ({ name, label, rules }) => {
+export const TerritorySelector = ({ name, label, rules, multiple = false }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const { status, data, error } = useSelector(
@@ -355,6 +362,7 @@ export const TerritorySelector = ({ name, label, rules }) => {
     <Form.Item name={name} label={label} rules={rules}>
       <Select
         showSearch
+        mode={multiple ? "multiple" : undefined}
         loading={loading}
         optionFilterProp="children"
         filterOption={(input, option) =>

@@ -370,7 +370,7 @@
 //           </Row>
 
 //           {/* Section: Contact Information */}
-          
+
 //           <Space> <Text style={{color : colorConfig?.primary, fontWeight : '500'}}>Contact Information</Text></Space>
 //           <Divider style={{margin : "10px"}}></Divider>
 //           <Row gutter={24}>
@@ -525,7 +525,6 @@
 
 // export default AddContact;
 
-
 "use client";
 import React, { useState } from "react";
 import {
@@ -577,10 +576,10 @@ const AddContact = ({}) => {
 
   // Define dynamic span for different screen sizes
   const colSpan = {
-    xs: 24,  // 1 field per row on mobile
-    sm: 12,  // 2 fields per row on small tablets
-    md: 8,   // 4 fields per row on desktop and larger
-    lg: 6
+    xs: 24, // 1 field per row on mobile
+    sm: 12, // 2 fields per row on small tablets
+    md: 8, // 4 fields per row on desktop and larger
+    lg: 6,
   };
 
   return (
@@ -610,7 +609,11 @@ const AddContact = ({}) => {
           <Row>
             <Col>
               <Form.Item
-                label={<span style={{ fontWeight: "400" }}>Upload Contact Profile</span>}
+                label={
+                  <span style={{ fontWeight: "400" }}>
+                    Upload Contact Profile
+                  </span>
+                }
               >
                 <ImageUpload onAvatarChange={handleAvatarChange} />
               </Form.Item>
@@ -659,7 +662,9 @@ const AddContact = ({}) => {
             <Col {...colSpan}>
               <Form.Item
                 name="memorableInfo"
-                label={<span style={{ fontWeight: "400" }}>Something Memorable</span>}
+                label={
+                  <span style={{ fontWeight: "400" }}>Something Memorable</span>
+                }
                 rules={contactFormRules.memorableInfo}
               >
                 <Input />
@@ -705,7 +710,9 @@ const AddContact = ({}) => {
             <Col {...colSpan}>
               <Form.Item
                 name="personalEmail"
-                label={<span style={{ fontWeight: "400" }}>Personal Email</span>}
+                label={
+                  <span style={{ fontWeight: "400" }}>Personal Email</span>
+                }
                 rules={contactFormRules.personalEmail}
               >
                 <Input />
@@ -747,7 +754,9 @@ const AddContact = ({}) => {
             <Col {...colSpan}>
               <RelationshipDegreeSelector
                 name="relationshipDegree"
-                label={<span style={{ fontWeight: "400" }}>Relationship Degree</span>}
+                label={
+                  <span style={{ fontWeight: "400" }}>Relationship Degree</span>
+                }
                 rules={contactFormRules.relationshipDegree}
               />
             </Col>
@@ -802,27 +811,16 @@ const AddContact = ({}) => {
           </Row>
 
           {/* Submit and Reset buttons */}
-          <Row justify="end">
+          <Row>
             <Col>
               <Space>
-                <Button
-                  htmlType="submit"
-                  loading={loading}
-                  type="primary"
-                  size="large"
-                  style={{ width: "160px", borderRadius: "8px" }}
-                >
+                <Button htmlType="submit" loading={loading} type="primary">
                   Save Contact
                 </Button>
                 <Button
+                  type="default"
+                  disabled={loading}
                   onClick={() => form.resetFields()}
-                  size="large"
-                  style={{
-                    width: "160px",
-                    borderRadius: "8px",
-                    borderColor: colorConfig?.primary,
-                    color: colorConfig?.primary,
-                  }}
                 >
                   Reset
                 </Button>
