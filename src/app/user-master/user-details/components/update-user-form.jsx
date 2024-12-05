@@ -1,7 +1,13 @@
 "use client";
 import React from "react";
 import { Button, Form, Input, Select, Space, Grid, Row, Col } from "antd";
-import { ImageUpload, InputPhoneNumber } from "@/components";
+import {
+  ImageUpload,
+  InputPhoneNumber,
+  IndustrySelector,
+  TerritorySelector,
+  SolutionSelector,
+} from "@/components";
 import { userFormRules } from "@/utilities/formValidationRules";
 import { useUpdateUser } from "@/hooks/user";
 import { useFetchAllRoles } from "@/hooks/adminPanel/roles-Permissions";
@@ -11,8 +17,14 @@ export const UpdateUserForm = ({ user }) => {
   const screens = Grid.useBreakpoint();
   const { loading: rolesLoading, roles = [] } = useFetchAllRoles();
 
-  const { handleUpdateUser, loading, setAvatar, setAvatarChanged, phoneCountryCode, setPhoneCountryCode } =
-    useUpdateUser({ user, form });
+  const {
+    handleUpdateUser,
+    loading,
+    setAvatar,
+    setAvatarChanged,
+    phoneCountryCode,
+    setPhoneCountryCode,
+  } = useUpdateUser({ user, form });
 
   const onFinish = (values) => {
     const updatedValues = {
@@ -36,10 +48,12 @@ export const UpdateUserForm = ({ user }) => {
   const colSpan = screens.xs ? 24 : screens.sm ? 12 : screens.md && 8;
 
   return (
-    <Form form={form} layout="vertical" onFinish={onFinish} 
-    // size="default"
+    <Form
+      form={form}
+      layout="vertical"
+      onFinish={onFinish}
+      // size="default"
     >
-
       <Row gutter={24}>
         <Col span={24}>
           <Form.Item label="Upload User Profile" name="profileImage">
@@ -48,6 +62,30 @@ export const UpdateUserForm = ({ user }) => {
               onAvatarChange={handleAvatarChange}
             />
           </Form.Item>
+        </Col>
+        <Col xs={24} sm={12} md={8} lg={6}>
+          <IndustrySelector
+            multiple={true}
+            label="Industry"
+            name="industry"
+            // rules={clientFormRules.industry}
+          />
+        </Col>
+        <Col xs={24} sm={12} md={8} lg={6}>
+          <TerritorySelector
+            multiple={true}
+            label="Territory"
+            name="territory"
+            // rules={clientFormRules.territory}
+          />
+        </Col>
+        <Col xs={24} sm={12} md={8} lg={6}>
+          <SolutionSelector
+            multiple={true}
+            name="solution"
+            label="Solution"
+            // rules={opportunityFormRules.solution}
+          />
         </Col>
         <Col span={colSpan}>
           <Form.Item

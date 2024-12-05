@@ -278,8 +278,8 @@ import {
 } from "../enums";
 import {
   FormHeader,
-  IndustrySelector,
   SubIndustrySelector,
+  IndustrySelector,
   TerritorySelector,
   UserSelector,
   ContactSelector,

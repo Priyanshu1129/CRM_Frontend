@@ -248,23 +248,17 @@ export const UpdateContactForm = ({ contact }) => {
         </Row>
 
         {/* Submit and Reset buttons */}
-        <Row justify="end">
+        <Row>
           <Col span={24}>
             <Form.Item>
               <Space>
-                <Button
-                  // disabled
-                  type="primary"
-                  htmlType="submit"
-                  loading={loading}
-                >
+                <Button type="primary" htmlType="submit" loading={loading}>
                   Update
                 </Button>
                 <Button
                   type="default"
-                  htmlType="button"
-                  onClick={() => form.resetFields()}
                   disabled={loading}
+                  onClick={() => form.resetFields()}
                 >
                   Reset
                 </Button>

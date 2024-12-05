@@ -53,6 +53,7 @@ export const useAddUser = () => {
       phone: `${phoneCountryCode} ${values.phone}`,
     };
     setLoading(true);
+
     dispatch(createUser(formattedValues));
   };
 

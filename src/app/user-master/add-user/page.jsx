@@ -11,7 +11,14 @@ import {
   Grid,
   theme,
 } from "antd";
-import { FormHeader, ImageUpload, InputPhoneNumber } from "@/components";
+import {
+  FormHeader,
+  ImageUpload,
+  InputPhoneNumber,
+  SolutionSelector,
+  IndustrySelector,
+  TerritorySelector,
+} from "@/components";
 import { useAddUser } from "@/hooks/user";
 import { useFetchAllRoles } from "@/hooks/adminPanel/roles-Permissions";
 import { userFormRules } from "@/utilities/formValidationRules";
@@ -57,6 +64,30 @@ const AddUser = () => {
               <Form.Item label="Upload Client Profile">
                 <ImageUpload onAvatarChange={handleAvatarChange} />
               </Form.Item>
+            </Col>
+            <Col xs={24} sm={12} md={8} lg={6}>
+              <IndustrySelector
+                multiple={true}
+                label="Industry"
+                name="industry"
+                // rules={clientFormRules.industry}
+              />
+            </Col>
+            <Col xs={24} sm={12} md={8} lg={6}>
+              <TerritorySelector
+                multiple={true}
+                label="Territory"
+                name="territory"
+                // rules={clientFormRules.territory}
+              />
+            </Col>
+            <Col xs={24} sm={12} md={8} lg={6}>
+              <SolutionSelector
+                multiple={true}
+                name="solution"
+                label="Solution"
+                // rules={opportunityFormRules.solution}
+              />
             </Col>
             <Col span={8}>
               <Form.Item
@@ -136,7 +167,7 @@ const AddUser = () => {
             <Col span={24}>
               <Form.Item>
                 <Space>
-                  <Button type="primary" htmlType="submit" loading={loading}>
+                  <Button type="primary" htmlType="submit">
                     Submit
                   </Button>
                   <Button

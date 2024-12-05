@@ -11,16 +11,19 @@ import {
   Row,
   Col,
   DatePicker,
+  Divider,
 } from "antd";
 import {
   ClientSelector,
   OpportunitySelector,
   UserSelector,
   CurrencyAmountInput,
+  Text,
 } from "@/components";
 import { StageSelector } from "../../enums";
 import { tenderFormRules } from "@/utilities/formValidationRules";
 import { useUpdateTender } from "@/hooks/tender";
+import { colorConfig } from "@/config";
 
 export const UpdateTenderForm = ({ tender }) => {
   const [form] = Form.useForm();
@@ -29,15 +32,28 @@ export const UpdateTenderForm = ({ tender }) => {
 
   const { loading, onFinish } = useUpdateTender({ tender, form, currency });
 
-  const colSpan = screens.xs ? 24 : screens.sm ? 12 : screens.md && 8;
+  const colSpan = {
+    xs: 24, // 1 field per row on mobile
+    sm: 12, // 2 fields per row on small tablets
+    md: 6, // 4 fields per row on desktop and larger
+  };
 
   return (
     <>
-      <Form onFinish={onFinish} layout="vertical" form={form} 
-      // size={"default"}
+      <Form
+        onFinish={onFinish}
+        layout="vertical"
+        form={form}
+        // size={"default"}
       >
+        <Space>
+          <Text style={{ color: colorConfig?.primary, fontWeight: "500" }}>
+            RFP Details
+          </Text>
+        </Space>
+        <Divider style={{ margin: "10px" }} />
         <Row gutter={24}>
-          <Col span={colSpan}>
+          <Col {...colSpan}>
             <Form.Item
               name="rfpDate"
               label="RFP Date"
@@ -46,7 +62,7 @@ export const UpdateTenderForm = ({ tender }) => {
               <DatePicker style={{ width: "100%" }} />
             </Form.Item>
           </Col>
-          <Col span={colSpan}>
+          <Col {...colSpan}>
             <Form.Item
               name="submissionDueDate"
               label="Submission Due Date"
@@ -55,14 +71,14 @@ export const UpdateTenderForm = ({ tender }) => {
               <DatePicker style={{ width: "100%" }} />
             </Form.Item>
           </Col>
-          <Col span={colSpan}>
+          <Col {...colSpan}>
             <ClientSelector
               name="client"
               label="Client Name"
               rules={tenderFormRules.clientName}
             />
           </Col>
-          <Col span={colSpan}>
+          <Col {...colSpan}>
             <Form.Item
               name="reference"
               label="Reference"
@@ -71,7 +87,17 @@ export const UpdateTenderForm = ({ tender }) => {
               <Input />
             </Form.Item>
           </Col>
-          <Col span={colSpan}>
+        </Row>
+
+        {/* Tender Details Section */}
+        <Space>
+          <Text style={{ color: colorConfig?.primary, fontWeight: "500" }}>
+            Tender Details
+          </Text>
+        </Space>
+        <Divider style={{ margin: "10px" }} />
+        <Row gutter={24}>
+          <Col {...colSpan}>
             <Form.Item
               name="rfpTitle"
               label="RFP Title"
@@ -80,7 +106,7 @@ export const UpdateTenderForm = ({ tender }) => {
               <Input />
             </Form.Item>
           </Col>
-          <Col span={colSpan}>
+          <Col {...colSpan}>
             <Form.Item
               name="rfpSource"
               label="How did we receive RFP?"
@@ -89,14 +115,24 @@ export const UpdateTenderForm = ({ tender }) => {
               <Input />
             </Form.Item>
           </Col>
-          <Col span={colSpan}>
+          <Col {...colSpan}>
             <OpportunitySelector
               name="associatedOpportunity"
               label="Associated Opportunity"
               rules={tenderFormRules.associatedOpportunity}
             />
           </Col>
-          <Col span={colSpan}>
+        </Row>
+
+        {/* Bond Information Section */}
+        <Space>
+          <Text style={{ color: colorConfig?.primary, fontWeight: "500" }}>
+            Bond Information
+          </Text>
+        </Space>
+        <Divider style={{ margin: "10px" }} />
+        <Row gutter={24}>
+          <Col {...colSpan}>
             <Form.Item name="bond" label="Bond" rules={tenderFormRules.bond}>
               <Select>
                 <Select.Option value={true}>Yes</Select.Option>
@@ -104,7 +140,7 @@ export const UpdateTenderForm = ({ tender }) => {
               </Select>
             </Form.Item>
           </Col>
-          <Col span={colSpan}>
+          <Col {...colSpan}>
             <CurrencyAmountInput
               name="bondValue"
               label="Bond Value"
@@ -113,7 +149,7 @@ export const UpdateTenderForm = ({ tender }) => {
               setCurrency={setCurrency}
             />
           </Col>
-          <Col span={colSpan}>
+          <Col {...colSpan}>
             <Form.Item
               name="bondIssueDate"
               label="Bond Issue Date"
@@ -122,7 +158,7 @@ export const UpdateTenderForm = ({ tender }) => {
               <DatePicker style={{ width: "100%" }} />
             </Form.Item>
           </Col>
-          <Col span={colSpan}>
+          <Col {...colSpan}>
             <Form.Item
               name="bondExpiry"
               label="Bond Valid Until"
@@ -131,7 +167,17 @@ export const UpdateTenderForm = ({ tender }) => {
               <DatePicker style={{ width: "100%" }} />
             </Form.Item>
           </Col>
-          <Col span={colSpan}>
+        </Row>
+
+        {/* Submission Details Section */}
+        <Space>
+          <Text style={{ color: colorConfig?.primary, fontWeight: "500" }}>
+            Submission Details
+          </Text>
+        </Space>
+        <Divider style={{ margin: "10px" }} />
+        <Row gutter={24}>
+          <Col {...colSpan}>
             <Form.Item
               name="submissionMode"
               label="Submission Mode"
@@ -144,7 +190,7 @@ export const UpdateTenderForm = ({ tender }) => {
               </Select>
             </Form.Item>
           </Col>
-          <Col span={colSpan}>
+          <Col {...colSpan}>
             <Form.Item
               name="evaluationDate"
               label="Evaluation Date"
@@ -153,28 +199,38 @@ export const UpdateTenderForm = ({ tender }) => {
               <DatePicker style={{ width: "100%" }} />
             </Form.Item>
           </Col>
-          <Col span={colSpan}>
+          <Col {...colSpan}>
             <UserSelector
               name="officer"
               label="Tender Officer"
               rules={tenderFormRules.tenderOfficer}
             />
           </Col>
-          <Col span={colSpan}>
+          <Col {...colSpan}>
             <UserSelector
               name="bidManager"
               label="Bid Manager"
               rules={tenderFormRules.bidManager}
             />
           </Col>
-          <Col span={colSpan}>
+        </Row>
+
+        {/* Tender Stage Section */}
+        <Space>
+          <Text style={{ color: colorConfig?.primary, fontWeight: "500" }}>
+            Tender Stage
+          </Text>
+        </Space>
+        <Divider style={{ margin: "10px" }} />
+        <Row gutter={24}>
+          <Col {...colSpan}>
             <StageSelector
               name="stage"
               label="Tender Stage"
               rules={tenderFormRules.tenderStage}
             />
           </Col>
-          <Col span={colSpan}>
+          <Col {...colSpan}>
             <Form.Item
               name="stageExplanation"
               label="Stage Explanation"
@@ -183,7 +239,7 @@ export const UpdateTenderForm = ({ tender }) => {
               <Input />
             </Form.Item>
           </Col>
-          <Col span={colSpan}>
+          <Col {...colSpan}>
             <Form.Item
               name="submissionDate"
               label="Submission Date"
@@ -192,6 +248,10 @@ export const UpdateTenderForm = ({ tender }) => {
               <DatePicker disabled style={{ width: "100%" }} />
             </Form.Item>
           </Col>
+        </Row>
+
+        {/* Form Action Buttons */}
+        <Row gutter={24}>
           <Col span={24}>
             <Form.Item>
               <Space>
