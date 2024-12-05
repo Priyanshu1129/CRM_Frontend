@@ -95,7 +95,7 @@ const FunnelView = () => {
           </Col>
           <Col xs={24} lg={6}>
             {funnelViewData?.funnelStats && (
-              <Doughnut funnelStats={funnelViewData.funnelStats} />
+              <Doughnut funnelStats={funnelViewData.funnelStats} wonCount={funnelViewData.wonCount}/>
             )}
           </Col>
         </Row>
