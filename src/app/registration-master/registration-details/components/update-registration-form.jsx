@@ -11,16 +11,19 @@ import {
   Col,
   DatePicker,
   notification,
+  Divider,
 } from "antd";
 import {
   ClientSelector,
   UserSelector,
   ContactSelector,
   InputNotes,
+  Text,
 } from "@/components";
 import { RegistrationStatusSelector } from "../../enums";
 import { registrationFormRules } from "@/utilities/formValidationRules";
 import { useUpdateRegistration } from "@/hooks/registration";
+import { colorConfig } from "@/config";
 
 export const UpdateRegistrationForm = ({ registration }) => {
   const [form] = Form.useForm();
@@ -28,34 +31,50 @@ export const UpdateRegistrationForm = ({ registration }) => {
 
   const { loading, onFinish } = useUpdateRegistration({ registration, form });
 
+  const colSpan = {
+    xs: 24, // 1 field per row on mobile
+    sm: 12, // 2 fields per row on small tablets
+    md: 8,
+    lg: 6, // 4 fields per row on desktop and larger
+  };
+
   return (
     <>
-      <Form layout="vertical" form={form} onFinish={onFinish} 
-      // size={"default"}
+      <Form
+        layout="vertical"
+        form={form}
+        onFinish={onFinish}
+        // size={"default"}
       >
+        <Space>
+          <Text style={{ color: colorConfig?.primary, fontWeight: "500" }}>
+            Client Info
+          </Text>
+        </Space>
+        <Divider style={{ margin: "10px" }} />
         <Row gutter={24}>
-          <Col span={8}>
+          <Col {...colSpan}>
             <ClientSelector
               name="client"
               label="Client Name"
               rules={registrationFormRules.clientName}
             />
           </Col>
-          <Col span={8}>
+          <Col {...colSpan}>
             <UserSelector
               name="registrationChamp"
               label="Registration Champ"
               rules={registrationFormRules.registrationChamp}
             />
           </Col>
-          <Col span={8}>
+          <Col {...colSpan}>
             <RegistrationStatusSelector
               name="status"
               label="Registration Status"
               rules={registrationFormRules.registrationStatus}
             />
           </Col>
-          <Col span={8}>
+          <Col {...colSpan}>
             <Form.Item
               name="link"
               label="Website Link"
@@ -64,7 +83,18 @@ export const UpdateRegistrationForm = ({ registration }) => {
               <Input />
             </Form.Item>
           </Col>
-          <Col span={8}>
+        </Row>
+
+        {/* Registration Credentials Section */}
+
+        <Space>
+          <Text style={{ color: colorConfig?.primary, fontWeight: "500" }}>
+            Registration Credentials
+          </Text>
+        </Space>
+        <Divider style={{ margin: "10px" }} />
+        <Row gutter={24}>
+          <Col {...colSpan}>
             <Form.Item
               name="username"
               label="Registered Username"
@@ -73,7 +103,7 @@ export const UpdateRegistrationForm = ({ registration }) => {
               <Input />
             </Form.Item>
           </Col>
-          <Col span={8}>
+          <Col {...colSpan}>
             <Form.Item
               name="password"
               label="Registered Password"
@@ -82,7 +112,7 @@ export const UpdateRegistrationForm = ({ registration }) => {
               <Input.Password />
             </Form.Item>
           </Col>
-          <Col span={8}>
+          <Col {...colSpan}>
             <Form.Item
               name="otherDetails"
               label="Other Details"
@@ -91,7 +121,17 @@ export const UpdateRegistrationForm = ({ registration }) => {
               <Input />
             </Form.Item>
           </Col>
-          <Col span={8}>
+        </Row>
+
+        {/* Dates Section */}
+        <Space>
+          <Text style={{ color: colorConfig?.primary, fontWeight: "500" }}>
+            Dates
+          </Text>
+        </Space>
+        <Divider style={{ margin: "10px" }} />
+        <Row gutter={24}>
+          <Col {...colSpan}>
             <Form.Item
               name="registrationDate"
               label="Registration Date"
@@ -100,7 +140,7 @@ export const UpdateRegistrationForm = ({ registration }) => {
               <DatePicker style={{ width: "100%" }} />
             </Form.Item>
           </Col>
-          <Col span={8}>
+          <Col {...colSpan}>
             <Form.Item
               name="expiryDate"
               label="Valid Until"
@@ -109,14 +149,25 @@ export const UpdateRegistrationForm = ({ registration }) => {
               <DatePicker style={{ width: "100%" }} />
             </Form.Item>
           </Col>
-          <Col span={8}>
+        </Row>
+
+        {/* Contact Info Section */}
+        <Space>
+          <Text style={{ color: colorConfig?.primary, fontWeight: "500" }}>
+            Contact Information
+          </Text>
+        </Space>
+        <Divider style={{ margin: "10px" }} />
+
+        <Row gutter={24}>
+          <Col {...colSpan}>
             <ContactSelector
               name="primaryContact"
               label="Primary Registration Contact"
               rules={registrationFormRules.primaryRegistrationContact}
             />
           </Col>
-          <Col span={8}>
+          <Col {...colSpan}>
             <Form.Item
               name="submittedDocuments"
               label="Submitted Documents"
@@ -125,11 +176,25 @@ export const UpdateRegistrationForm = ({ registration }) => {
               <Input />
             </Form.Item>
           </Col>
+        </Row>
+
+        {/* Notes Section */}
+        <Space>
+          <Text style={{ color: colorConfig?.primary, fontWeight: "500" }}>
+            Notes
+          </Text>
+        </Space>
+        <Divider style={{ margin: "10px" }} />
+        <Row gutter={24}>
           <Col span={24}>
             <Form.Item name="notes" label="Notes">
               <InputNotes />
             </Form.Item>
           </Col>
+        </Row>
+
+        {/* Form Action Buttons */}
+        <Row gutter={24}>
           <Col span={24}>
             <Form.Item>
               <Space>

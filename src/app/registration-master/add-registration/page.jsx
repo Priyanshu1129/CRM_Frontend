@@ -174,7 +174,6 @@
 // };
 // export default AddRegistration;
 
-
 "use client";
 import React, { useState } from "react";
 import {
@@ -214,9 +213,10 @@ const AddRegistration = () => {
 
   // Define dynamic span for different screen sizes
   const colSpan = {
-    xs: 24,  // 1 field per row on mobile
-    sm: 12,  // 2 fields per row on small tablets
-    md: 6,   // 4 fields per row on desktop and larger
+    xs: 24, // 1 field per row on mobile
+    sm: 12, // 2 fields per row on small tablets
+    md: 8,
+    lg: 6, // 4 fields per row on desktop and larger
   };
 
   return (
@@ -232,15 +232,11 @@ const AddRegistration = () => {
           padding: !screens.xs ? "32px" : "16px",
         }}
       >
-        <Form
-          layout="vertical"
-          form={form}
-          onFinish={onFinish}
-        >
+        <Form layout="vertical" form={form} onFinish={onFinish}>
           {/* Client Info Section */}
           <Space>
             <Text style={{ color: colorConfig?.primary, fontWeight: "500" }}>
-            Client Info
+              Client Info
             </Text>
           </Space>
           <Divider style={{ margin: "10px" }} />
@@ -278,10 +274,10 @@ const AddRegistration = () => {
           </Row>
 
           {/* Registration Credentials Section */}
-          
+
           <Space>
             <Text style={{ color: colorConfig?.primary, fontWeight: "500" }}>
-            Registration Credentials
+              Registration Credentials
             </Text>
           </Space>
           <Divider style={{ margin: "10px" }} />
@@ -318,7 +314,7 @@ const AddRegistration = () => {
           {/* Dates Section */}
           <Space>
             <Text style={{ color: colorConfig?.primary, fontWeight: "500" }}>
-            Dates
+              Dates
             </Text>
           </Space>
           <Divider style={{ margin: "10px" }} />
@@ -346,11 +342,11 @@ const AddRegistration = () => {
           {/* Contact Info Section */}
           <Space>
             <Text style={{ color: colorConfig?.primary, fontWeight: "500" }}>
-            Contact Information
+              Contact Information
             </Text>
           </Space>
           <Divider style={{ margin: "10px" }} />
-          
+
           <Row gutter={24}>
             <Col {...colSpan}>
               <ContactSelector
@@ -405,7 +401,6 @@ const AddRegistration = () => {
               </Form.Item>
             </Col>
           </Row>
-
         </Form>
       </Space>
     </>

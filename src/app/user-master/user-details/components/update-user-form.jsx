@@ -1,16 +1,28 @@
 "use client";
 import React from "react";
-import { Button, Form, Input, Select, Space, Grid, Row, Col } from "antd";
+import {
+  Button,
+  Form,
+  Input,
+  Select,
+  Divider,
+  Space,
+  Grid,
+  Row,
+  Col,
+} from "antd";
 import {
   ImageUpload,
   InputPhoneNumber,
   IndustrySelector,
   TerritorySelector,
   SolutionSelector,
+  Text,
 } from "@/components";
 import { userFormRules } from "@/utilities/formValidationRules";
 import { useUpdateUser } from "@/hooks/user";
 import { useFetchAllRoles } from "@/hooks/adminPanel/roles-Permissions";
+import { colorConfig } from "@/config";
 
 export const UpdateUserForm = ({ user }) => {
   const [form] = Form.useForm();
@@ -45,7 +57,12 @@ export const UpdateUserForm = ({ user }) => {
     }
   };
 
-  const colSpan = screens.xs ? 24 : screens.sm ? 12 : screens.md && 8;
+  const colSpan = {
+    xs: 24, // 1 field per row on mobile
+    sm: 12, // 2 fields per row on small tablets
+    md: 8, // 3 fields per row on desktops
+    lg: 6,
+  };
 
   return (
     <Form
@@ -54,7 +71,7 @@ export const UpdateUserForm = ({ user }) => {
       onFinish={onFinish}
       // size="default"
     >
-      <Row gutter={24}>
+      <Row>
         <Col span={24}>
           <Form.Item label="Upload User Profile" name="profileImage">
             <ImageUpload
@@ -63,31 +80,15 @@ export const UpdateUserForm = ({ user }) => {
             />
           </Form.Item>
         </Col>
-        <Col xs={24} sm={12} md={8} lg={6}>
-          <IndustrySelector
-            multiple={true}
-            label="Industry"
-            name="industry"
-            // rules={clientFormRules.industry}
-          />
-        </Col>
-        <Col xs={24} sm={12} md={8} lg={6}>
-          <TerritorySelector
-            multiple={true}
-            label="Territory"
-            name="territory"
-            // rules={clientFormRules.territory}
-          />
-        </Col>
-        <Col xs={24} sm={12} md={8} lg={6}>
-          <SolutionSelector
-            multiple={true}
-            name="solution"
-            label="Solution"
-            // rules={opportunityFormRules.solution}
-          />
-        </Col>
-        <Col span={colSpan}>
+      </Row>
+      <Space>
+        <Text style={{ color: colorConfig?.primary, fontWeight: "500" }}>
+          Personal Information
+        </Text>
+      </Space>
+      <Divider style={{ margin: "10px" }} />
+      <Row gutter={24}>
+        <Col {...colSpan}>
           <Form.Item
             label="First Name"
             name="firstName"
@@ -96,7 +97,7 @@ export const UpdateUserForm = ({ user }) => {
             <Input />
           </Form.Item>
         </Col>
-        <Col span={colSpan}>
+        <Col {...colSpan}>
           <Form.Item
             label="Last Name"
             name="lastName"
@@ -105,7 +106,7 @@ export const UpdateUserForm = ({ user }) => {
             <Input />
           </Form.Item>
         </Col>
-        <Col span={colSpan}>
+        <Col {...colSpan}>
           <Form.Item label="Gender" name="gender" rules={userFormRules.gender}>
             <Select>
               <Select.Option value="M">Male</Select.Option>
@@ -114,7 +115,70 @@ export const UpdateUserForm = ({ user }) => {
             </Select>
           </Form.Item>
         </Col>
-        <Col span={colSpan}>
+      </Row>
+
+      {/* Section: Location & Legal Information */}
+      <Space>
+        <Text style={{ color: colorConfig?.primary, fontWeight: "500" }}>
+          Contact Information
+        </Text>
+      </Space>
+      <Divider style={{ margin: "10px" }} />
+      <Row gutter={24}>
+        <Col {...colSpan}>
+          <InputPhoneNumber
+            name="phone"
+            label="Phone Number"
+            rules={userFormRules.phone}
+            phoneCountryCode={phoneCountryCode}
+            setPhoneCountryCode={setPhoneCountryCode}
+          />
+        </Col>
+        <Col {...colSpan}>
+          <Form.Item label="Email" name="email" rules={userFormRules.email}>
+            <Input />
+          </Form.Item>
+        </Col>
+      </Row>
+
+      {/* Section: Location & Legal Information */}
+      <Space>
+        <Text style={{ color: colorConfig?.primary, fontWeight: "500" }}>
+          Address Information
+        </Text>
+      </Space>
+      <Divider style={{ margin: "10px" }} />
+      <Row gutter={24}>
+        <Col {...colSpan}>
+          <Form.Item
+            label="Country"
+            name="country"
+            rules={userFormRules.address}
+          >
+            <Input />
+          </Form.Item>
+        </Col>
+        <Col {...colSpan}>
+          <Form.Item label="State" name="state" rules={userFormRules.state}>
+            <Input />
+          </Form.Item>
+        </Col>
+        <Col {...colSpan}>
+          <Form.Item label="City" name="city" rules={userFormRules.city}>
+            <Input />
+          </Form.Item>
+        </Col>
+      </Row>
+
+      {/* Section: Location & Legal Information */}
+      <Space>
+        <Text style={{ color: colorConfig?.primary, fontWeight: "500" }}>
+          Role & SIT
+        </Text>
+      </Space>
+      <Divider style={{ margin: "10px" }} />
+      <Row gutter={24}>
+        <Col {...colSpan}>
           <Form.Item label="Role" name="role" rules={userFormRules.role}>
             <Select loading={rolesLoading}>
               {roles.map(({ name, _id }, idx) => (
@@ -125,39 +189,34 @@ export const UpdateUserForm = ({ user }) => {
             </Select>
           </Form.Item>
         </Col>
-        <Col span={colSpan}>
-          <InputPhoneNumber
-            name="phone"
-            label="Phone Number"
-            rules={userFormRules.phone}
-            phoneCountryCode={phoneCountryCode}
-            setPhoneCountryCode={setPhoneCountryCode}
+        <Col {...colSpan}>
+          <SolutionSelector
+            multiple={true}
+            name="solution"
+            label="Solution"
+            // rules={opportunityFormRules.solution}
           />
         </Col>
-        <Col span={colSpan}>
-          <Form.Item label="Email" name="email" rules={userFormRules.email}>
-            <Input />
-          </Form.Item>
+        <Col {...colSpan}>
+          <IndustrySelector
+            multiple={true}
+            label="Industry"
+            name="industry"
+            // rules={clientFormRules.industry}
+          />
         </Col>
-        <Col span={8}>
-          <Form.Item
-            label="Country"
-            name="country"
-            rules={userFormRules.address}
-          >
-            <Input />
-          </Form.Item>
+        <Col {...colSpan}>
+          <TerritorySelector
+            multiple={true}
+            label="Territory"
+            name="territory"
+            // rules={clientFormRules.territory}
+          />
         </Col>
-        <Col span={8}>
-          <Form.Item label="State" name="state" rules={userFormRules.state}>
-            <Input />
-          </Form.Item>
-        </Col>
-        <Col span={8}>
-          <Form.Item label="City" name="city" rules={userFormRules.city}>
-            <Input />
-          </Form.Item>
-        </Col>
+      </Row>
+
+      {/* Section: Actions */}
+      <Row gutter={24}>
         <Col span={24}>
           <Form.Item>
             <Space>

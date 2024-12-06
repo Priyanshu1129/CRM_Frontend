@@ -344,9 +344,10 @@ const AddBusinessDevelopment = () => {
 
   // Dynamic column span based on screen size
   const colSpan = {
-    xs: 24,  // 1 field per row on mobile
-    sm: 12,  // 2 fields per row on small tablets
-    md: 8,   // 3 fields per row on desktops
+    xs: 24, // 1 field per row on mobile
+    sm: 12, // 2 fields per row on small tablets
+    md: 8, // 3 fields per row on desktops
+    lg: 6,
   };
 
   return (
@@ -408,7 +409,7 @@ const AddBusinessDevelopment = () => {
           {/* Project and Solution Details Section */}
           <Space>
             <Text style={{ color: colorConfig?.primary, fontWeight: "500" }}>
-              Project and Solution Details
+              Project Details
             </Text>
           </Space>
           <Divider style={{ margin: "10px" }} />
@@ -436,8 +437,6 @@ const AddBusinessDevelopment = () => {
                 rules={businessDevelopmentFormRules.subSolution}
               />
             </Col>
-          </Row>
-          <Row gutter={24}>
             <Col {...colSpan}>
               <IndustrySelector
                 name="industry"
@@ -528,7 +527,6 @@ const AddBusinessDevelopment = () => {
               </Form.Item>
             </Col>
           </Row>
-
         </Form>
         <BulkUploadModal
           setUploadModal={setUploadModal}

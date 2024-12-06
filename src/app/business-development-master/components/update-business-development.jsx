@@ -1,7 +1,17 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, Form, Input, Space, Grid, Row, Col, notification } from "antd";
+import {
+  Button,
+  Form,
+  Input,
+  Space,
+  Grid,
+  Row,
+  Col,
+  notification,
+  Divider,
+} from "antd";
 import {
   IndustrySelector,
   SolutionSelector,
@@ -12,6 +22,7 @@ import {
   ContactSelector,
   InputNotes,
   CurrencyAmountInput,
+  Text,
 } from "@/components";
 import { businessDevelopmentActions } from "@/redux/slices/businessDevelopmentSlice";
 import { businessDevelopmentFormRules } from "@/utilities/formValidationRules";
@@ -20,6 +31,7 @@ import {
   getAllBusinessDevelopments,
 } from "@/redux/actions/businessDevelopmentAction";
 import { getChangedValues } from "@/utilities/getChangedValues";
+import { colorConfig } from "@/config";
 
 export const UpdateBusinessDevelopmentForm = ({ businessDevelopment }) => {
   const [loading, setLoading] = useState(false);
@@ -111,27 +123,39 @@ export const UpdateBusinessDevelopmentForm = ({ businessDevelopment }) => {
       });
     }
   };
-  const colSpan = screens.xs ? 24 : screens.sm ? 12 : screens.md && 8;
+  const colSpan = {
+    xs: 24, // 1 field per row on mobile
+    sm: 12, // 2 fields per row on small tablets
+    md: 8, // 3 fields per row on desktops
+    lg: 6,
+  };
 
   return (
     <>
       <Form form={form} layout="vertical" onFinish={onFinish}>
+        {/* Client Information Section */}
+        <Space>
+          <Text style={{ color: colorConfig?.primary, fontWeight: "500" }}>
+            Client Information
+          </Text>
+        </Space>
+        <Divider style={{ margin: "10px" }} />
         <Row gutter={24}>
-          <Col span={colSpan}>
+          <Col {...colSpan}>
             <ClientSelector
               name="client"
               label="Client Name"
               rules={businessDevelopmentFormRules.client}
             />
           </Col>
-          <Col span={colSpan}>
+          <Col {...colSpan}>
             <ContactSelector
               name="contact"
               label="Contact Name"
               rules={businessDevelopmentFormRules.contact}
             />
           </Col>
-          <Col span={colSpan}>
+          <Col {...colSpan}>
             <Form.Item
               name="connectionSource"
               label="How did we connect with client?"
@@ -140,7 +164,17 @@ export const UpdateBusinessDevelopmentForm = ({ businessDevelopment }) => {
               <Input placeholder="Connection Source" />
             </Form.Item>
           </Col>
-          <Col span={colSpan}>
+        </Row>
+
+        {/* Project and Solution Details Section */}
+        <Space>
+          <Text style={{ color: colorConfig?.primary, fontWeight: "500" }}>
+            Project Details
+          </Text>
+        </Space>
+        <Divider style={{ margin: "10px" }} />
+        <Row gutter={24}>
+          <Col {...colSpan}>
             <Form.Item
               name="potentialProject"
               label="Potential Project"
@@ -149,42 +183,52 @@ export const UpdateBusinessDevelopmentForm = ({ businessDevelopment }) => {
               <Input placeholder="Potential Project" />
             </Form.Item>
           </Col>
-          <Col span={colSpan}>
+          <Col {...colSpan}>
             <SolutionSelector
               name="solution"
               label="Solution"
               rules={businessDevelopmentFormRules.solution}
             />
           </Col>
-          <Col span={colSpan}>
+          <Col {...colSpan}>
             <SubSolutionSelector
               name="subSolution"
               label="Sub Solution"
               rules={businessDevelopmentFormRules.subSolution}
             />
           </Col>
-          <Col span={colSpan}>
+          <Col {...colSpan}>
             <IndustrySelector
               name="industry"
               label="Industry"
               rules={businessDevelopmentFormRules.industry}
             />
           </Col>
-          <Col span={colSpan}>
+          <Col {...colSpan}>
             <TerritorySelector
               name="territory"
               label="Territory"
               rules={businessDevelopmentFormRules.territory}
             />
           </Col>
-          <Col span={colSpan}>
+          <Col {...colSpan}>
             <UserSelector
               name="salesChamp"
               label="Sales Champ"
               rules={businessDevelopmentFormRules.salesChamp}
             />
           </Col>
-          <Col span={colSpan}>
+        </Row>
+
+        {/* Financial Information Section */}
+        <Space>
+          <Text style={{ color: colorConfig?.primary, fontWeight: "500" }}>
+            Financial Information
+          </Text>
+        </Space>
+        <Divider style={{ margin: "10px" }} />
+        <Row gutter={24}>
+          <Col {...colSpan}>
             <CurrencyAmountInput
               name="potentialTopLine"
               label="Potential TopLine"
@@ -193,7 +237,7 @@ export const UpdateBusinessDevelopmentForm = ({ businessDevelopment }) => {
               setCurrency={setCurrency}
             />
           </Col>
-          <Col span={colSpan}>
+          <Col {...colSpan}>
             <CurrencyAmountInput
               name="potentialOffset"
               label="Potential Offsets"
@@ -202,6 +246,16 @@ export const UpdateBusinessDevelopmentForm = ({ businessDevelopment }) => {
               setCurrency={setCurrency}
             />
           </Col>
+        </Row>
+
+        {/* Notes Section */}
+        <Space>
+          <Text style={{ color: colorConfig?.primary, fontWeight: "500" }}>
+            Notes
+          </Text>
+        </Space>
+        <Divider style={{ margin: "10px" }} />
+        <Row gutter={24}>
           <Col span={24}>
             <Form.Item
               name="Notes"
@@ -211,6 +265,10 @@ export const UpdateBusinessDevelopmentForm = ({ businessDevelopment }) => {
               <InputNotes />
             </Form.Item>
           </Col>
+        </Row>
+
+        {/* Form Action Buttons */}
+        <Row gutter={24}>
           <Col span={24}>
             <Form.Item>
               <Space>
