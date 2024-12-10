@@ -5,6 +5,11 @@ const initialPipeViewState = {
         status: "idle",
         error: null,
         data: null,
+    },
+    getMyPipeView: {
+        status: "idle",
+        error: null,
+        data: null,
     }
 }
 
@@ -31,6 +36,26 @@ const pipeViewSlice = createSlice({
         },
         clearGetPipeViewError: (state) => {
             state.getPipeView.error = null;
+        },
+        getMyPipeViewRequest: (state, action) => {
+            state.getMyPipeView.status = 'pending'
+        },
+        getMyPipeViewSuccess: (state, action) => {
+            state.getMyPipeView.status = 'success'
+            state.getMyPipeView.data = action.payload;
+        },
+        getMyPipeViewFailure: (state, action) => {
+            state.getMyPipeView.status = 'failed'
+            state.getMyPipeView.error = action.payload;
+        },
+        clearGetMyPipeViewStatus: (state) => {
+            state.getMyPipeView.status = "idle";
+        },
+        clearGetMyPipeViewData: () => {
+            state.getMyPipeView.data = null;
+        },
+        clearGetMyPipeViewError: (state) => {
+            state.getMyPipeView.error = null;
         }
     }
 })

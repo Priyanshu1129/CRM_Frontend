@@ -1,31 +1,31 @@
 import { useState, useEffect, useCallback } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { getPipeView } from "@/redux/actions/dashboardAction"
+import { getMyPipeView } from "@/redux/actions/dashboardAction"
 import { pipeViewActions } from "@/redux/slices/dashboardSlice"
 import { notification } from "antd"
 
-export const useFetchPipeView = ({ particularDate, myLeads }) => {
+export const useFetchMyPipeView = ({ particularDate, myLeads }) => {
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
     const [currentDate, setCurrentDate] = useState(null);
     const [refresh, setRefresh] = useState(false);
     const [filters, setFilters] = useState({});
     const [filter, setFilter] = useState(false);
-    const { status, data, error } = useSelector((state) => state.pipeView.getPipeView);
+    const { status, data, error } = useSelector((state) => state.pipeView.getMyPipeView);
     const [opportunities, setOpportunities] = useState(data?.data || { lead: [], prospect: [], qualification: [], followup: [], proposal: [], closing: [] });
 
-    const fetchPipeView = useCallback(() => {
+    const fetchMyPipeView = useCallback(() => {
         console.log('filters', filters)
-        dispatch(getPipeView({ particularDate, ...filters }));
+        dispatch(getMyPipeView({ particularDate, ...filters }));
     }, [dispatch, particularDate, filters])
 
     useEffect(() => {
-        if ((refresh || currentDate != particularDate || (filter && filters)) && !myLeads) {
-            fetchPipeView();
+        if ((refresh || currentDate != particularDate || (filter && filters)) && myLeads) {
+            fetchMyPipeView();
             setCurrentDate(particularDate);
         }
         setFilter(false);
-    }, [currentDate, particularDate, refresh, fetchPipeView, setCurrentDate, filter, filters])
+    }, [currentDate, particularDate, refresh, fetchMyPipeView, setCurrentDate, filter, filters])
 
     useEffect(() => {
         if (status === "pending") {
@@ -34,7 +34,7 @@ export const useFetchPipeView = ({ particularDate, myLeads }) => {
             setOpportunities(data?.data)
             setLoading(false);
             setRefresh(false);
-            dispatch(pipeViewActions.clearGetPipeViewStatus());
+            dispatch(pipeViewActions.clearGetMyPipeViewStatus());
         } else if (status === "failed") {
             setLoading(false);
             setRefresh(false);
@@ -42,8 +42,8 @@ export const useFetchPipeView = ({ particularDate, myLeads }) => {
                 message: "Error",
                 description: error || "Failed to fetch pipe view data."
             })
-            dispatch(pipeViewActions.clearGetPipeViewStatus());
-            dispatch(pipeViewActions.clearGetPipeViewError());
+            dispatch(pipeViewActions.clearGetMyPipeViewStatus());
+            dispatch(pipeViewActions.clearGetMyPipeViewError());
         }
     }, [status, data, error, dispatch])
 

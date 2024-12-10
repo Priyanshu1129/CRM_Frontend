@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { Filter, DashboardHeader } from "../components";
-import { useFetchPipeView } from "@/hooks/dashboards";
+import { useFetchPipeView, useFetchMyPipeView } from "@/hooks/dashboards";
 import { Text } from "@/components";
 import { PageSkeleton } from "./components/skeleton";
 import { KanbanBoard } from "./components/board";
@@ -15,10 +15,19 @@ import { ShowCurrency } from "../components";
 
 const PipeView = () => {
   const [particularDate, setParticularDate] = useState(moment());
+  const [ myLeads , setMyLeads] = useState(false);
   const { loading, setRefresh, opportunities, filters, setFilter, setFilters } =
-    useFetchPipeView({
+  useFetchPipeView({
       particularDate,
-    });
+      myLeads
+  });
+  
+  const { loading: myViewLoading, setRefresh: setMyViewRefresh, opportunities: myViewOpportunities, filters: myViewFilters, setFilter: setMyViewFilter, setFilters: setMyViewFilters } =
+    useFetchMyPipeView({
+      particularDate,
+      myLeads
+  });
+
   const [stats, setStats] = useState(null);
   const router = useRouter();
 
@@ -36,6 +45,8 @@ const PipeView = () => {
         setRefresh={setRefresh}
         setFilter={setFilter}
         setFilters={setFilters}
+        myLeads={myLeads}
+        setMyLeads={setMyLeads}
         filters={filters}
         FilterComponent={Filter}
       />
