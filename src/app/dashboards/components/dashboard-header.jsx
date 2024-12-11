@@ -60,7 +60,7 @@ export const DashboardHeader = ({
           />
         )}
         <Button onClick={()=> setMyView(!myView)}>
-          {myView ? "My Leads" : "All Leads"} 
+          {!myView ? "My Leads" : "All Leads"} 
         </Button>
       </Space>
       <Space
