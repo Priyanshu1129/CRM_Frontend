@@ -5,6 +5,11 @@ const initialFunnelViewState = {
         status: "idle",
         error: null,
         data: null,
+    },
+    getMyFunnelView: {
+        status: "idle",
+        error: null,
+        data: null,
     }
 }
 
@@ -31,6 +36,26 @@ const funnelViewSlice = createSlice({
         },
         clearGetFunnelViewError: (state) => {
             state.getFunnelView.error = null;
+        },
+        getMyFunnelViewRequest: (state, action) => {
+            state.getMyFunnelView.status = 'pending'
+        },
+        getMyFunnelViewSuccess: (state, action) => {
+            state.getMyFunnelView.status = 'success'
+            state.getMyFunnelView.data = action.payload;
+        },
+        getMyFunnelViewFailure: (state, action) => {
+            state.getMyFunnelView.status = 'failed'
+            state.getMyFunnelView.error = action.payload;
+        },
+        clearGetMyFunnelViewStatus: (state) => {
+            state.getMyFunnelView.status = "idle";
+        },
+        clearGetMyFunnelViewData: () => {
+            state.getMyFunnelView.data = null;
+        },
+        clearGetMyFunnelViewError: (state) => {
+            state.getMyFunnelView.error = null;
         }
     }
 })

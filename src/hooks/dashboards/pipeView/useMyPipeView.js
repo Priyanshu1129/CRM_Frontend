@@ -5,8 +5,6 @@ import { pipeViewActions } from "@/redux/slices/dashboardSlice";
 import { notification } from "antd";
 
 export const useFetchMyPipeView = ({ myViewParticularDate, myView }) => {
-  console.log("my-view-hook-called", myView);
-
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const [currentDate, setCurrentDate] = useState(null);
@@ -29,7 +27,7 @@ export const useFetchMyPipeView = ({ myViewParticularDate, myView }) => {
 
   const fetchMyPipeView = useCallback(() => {
     console.log("filters", filters);
-    dispatch(getMyPipeView({ particularDate : myViewParticularDate, ...filters, myView }));
+    dispatch(getMyPipeView({ particularDate: myViewParticularDate, ...filters }));
   }, [dispatch, myViewParticularDate, filters]);
 
   useEffect(() => {

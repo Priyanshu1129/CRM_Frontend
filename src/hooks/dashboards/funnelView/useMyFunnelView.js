@@ -1,32 +1,33 @@
 import { useState, useEffect, useCallback } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { getFunnelView } from "@/redux/actions/dashboardAction"
+import { getMyFunnelView } from "@/redux/actions/dashboardAction"
 import { funnelViewActions } from "@/redux/slices/dashboardSlice"
 import { notification } from "antd"
 
-export const useFetchFunnelView = ({ particularDate }) => {
-    console.log("particular date in useFetrchFunnelView", particularDate)
+export const useFetchMyFunnelView = ({ myViewParticularDate, myView }) => {
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
     const [currentDate, setCurrentDate] = useState(null);
     const [refresh, setRefresh] = useState(false);
     const [filters, setFilters] = useState({});
     const [filter, setFilter] = useState(false);
-    const { status, data, error } = useSelector((state) => state.funnelView.getFunnelView);
+    const { status, data, error } = useSelector((state) => state.funnelView.getMyFunnelView);
     const [funnelViewData, setFunnelViewData] = useState(data?.data);
     const [conversionStats, setConversionStats] = useState(data?.data?.conversionStats || {});
 
     const fetchFunnelView = useCallback(() => {
-        dispatch(getFunnelView({ particularDate, ...filters }));
-    }, [dispatch, particularDate, filters])
+        dispatch(getMyFunnelView({ particularDate: myViewParticularDate, ...filters }));
+    }, [dispatch, myViewParticularDate, filters])
 
     useEffect(() => {
-        if (refresh || currentDate != particularDate || (filter && filters)) {
-            fetchFunnelView();
-            setCurrentDate(particularDate);
+        if (refresh || currentDate != myViewParticularDate || (filter && filters)) {
+            if (myView) {
+                fetchFunnelView();
+                setCurrentDate(myViewParticularDate);
+            }
         }
         setFilter(false);
-    }, [currentDate, particularDate, refresh, fetchFunnelView, filter, filters])
+    }, [currentDate, myViewParticularDate, refresh, fetchFunnelView, filter, filters, myView])
 
     useEffect(() => {
         if (status === "pending") {

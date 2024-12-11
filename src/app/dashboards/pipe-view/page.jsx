@@ -12,46 +12,57 @@ import { stages, getStats } from "./stages";
 import moment from "moment";
 import { useRouter } from "next/navigation";
 import { ShowCurrency } from "../components";
-import { filter } from "lodash";
 
 const PipeView = () => {
   const [particularDate, setParticularDate] = useState(moment());
   const [myViewParticularDate, setMyViewParticularDate] = useState(moment());
-  
-  
-  const [ myView , setMyView] = useState(false);
+
+  const [myView, setMyView] = useState(false);
   const [opportunities, setOpportunities] = useState(null);
 
-  const { loading, setRefresh, opportunities : allViewOpportunities, filters, setFilter, setFilters } =
-  useFetchPipeView({
-      particularDate,
-      myView
+  const {
+    loading,
+    setRefresh,
+    opportunities: allViewOpportunities,
+    filters,
+    setFilter,
+    setFilters,
+  } = useFetchPipeView({
+    particularDate,
+    myView,
   });
-  
-  const { loading: myViewLoading, setRefresh: setMyViewRefresh, opportunities: myViewOpportunities, filters: myViewFilters, setFilter: setMyViewFilter, setFilters: setMyViewFilters } =
-    useFetchMyPipeView({
-      myView,
-      myViewParticularDate
+
+  const {
+    loading: myViewLoading,
+    setRefresh: setMyViewRefresh,
+    opportunities: myViewOpportunities,
+    filters: myViewFilters,
+    setFilter: setMyViewFilter,
+    setFilters: setMyViewFilters,
+  } = useFetchMyPipeView({
+    myView,
+    myViewParticularDate,
   });
 
   const [stats, setStats] = useState(null);
   const router = useRouter();
 
-  useEffect(()=>{
-      if(!loading) setOpportunities(myView ? myViewOpportunities : allViewOpportunities);
-  },[myViewOpportunities, allViewOpportunities, myView]);
+  useEffect(() => {
+    if (!loading)
+      setOpportunities(myView ? myViewOpportunities : allViewOpportunities);
+  }, [myViewOpportunities, allViewOpportunities, myView, loading]);
 
   useEffect(() => {
     if (!loading && opportunities) {
       setStats(getStats(opportunities));
     }
-  }, [opportunities]);
-   
+  }, [opportunities, loading]);
+
   return (
     <>
       <DashboardHeader
         dashboard={"Pipe View"}
-        setDate={myView? setMyViewParticularDate: setParticularDate}
+        setDate={myView ? setMyViewParticularDate : setParticularDate}
         setRefresh={myView ? setMyViewRefresh : setRefresh}
         setFilter={myView ? setMyViewFilter : setFilter}
         setFilters={myView ? setMyViewFilters : setFilters}
