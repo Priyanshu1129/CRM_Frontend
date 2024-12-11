@@ -4,7 +4,8 @@ import { getPipeView } from "@/redux/actions/dashboardAction"
 import { pipeViewActions } from "@/redux/slices/dashboardSlice"
 import { notification } from "antd"
 
-export const useFetchPipeView = ({ particularDate }) => {
+export const useFetchPipeView = ({ particularDate, myView }) => {
+    console.log("pipe-view-hook-called", myView)
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
     const [currentDate, setCurrentDate] = useState(null);
@@ -20,12 +21,14 @@ export const useFetchPipeView = ({ particularDate }) => {
     }, [dispatch, particularDate, filters])
 
     useEffect(() => {
-        if (refresh || currentDate != particularDate || (filter && filters)) {
-            fetchPipeView();
-            setCurrentDate(particularDate);
+        if ((refresh || currentDate != particularDate || (filter && filters))) {
+            if(!myView){
+                fetchPipeView();
+                setCurrentDate(particularDate);
+            }
         }
         setFilter(false);
-    }, [currentDate, particularDate, refresh, fetchPipeView, setCurrentDate, filter, filters])
+    }, [currentDate, particularDate, refresh, fetchPipeView, setCurrentDate, filter, filters, myView])
 
     useEffect(() => {
         if (status === "pending") {

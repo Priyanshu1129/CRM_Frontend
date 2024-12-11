@@ -11,6 +11,8 @@ export const DashboardHeader = ({
   setDate,
   setStartDate,
   setEndDate,
+  myView,
+  setMyView,
   FilterComponent,
   setFilter,
   filters,
@@ -57,8 +59,8 @@ export const DashboardHeader = ({
             setFilter={setFilter}
           />
         )}
-        <Button>
-          My Pipeview
+        <Button onClick={()=> setMyView(!myView)}>
+          {!myView ? "My Leads" : "All Leads"} 
         </Button>
       </Space>
       <Space

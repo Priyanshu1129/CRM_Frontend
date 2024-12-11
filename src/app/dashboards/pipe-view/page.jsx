@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { Filter, DashboardHeader } from "../components";
-import { useFetchPipeView } from "@/hooks/dashboards";
+import { useFetchPipeView, useFetchMyPipeView } from "@/hooks/dashboards";
 import { Text } from "@/components";
 import { PageSkeleton } from "./components/skeleton";
 import { KanbanBoard } from "./components/board";
@@ -12,34 +12,55 @@ import { stages, getStats } from "./stages";
 import moment from "moment";
 import { useRouter } from "next/navigation";
 import { ShowCurrency } from "../components";
+import { filter } from "lodash";
 
 const PipeView = () => {
   const [particularDate, setParticularDate] = useState(moment());
-  const { loading, setRefresh, opportunities, filters, setFilter, setFilters } =
-    useFetchPipeView({
+  const [myViewParticularDate, setMyViewParticularDate] = useState(moment());
+  
+  
+  const [ myView , setMyView] = useState(false);
+  const [opportunities, setOpportunities] = useState(null);
+
+  const { loading, setRefresh, opportunities : allViewOpportunities, filters, setFilter, setFilters } =
+  useFetchPipeView({
       particularDate,
-    });
+      myView
+  });
+  
+  const { loading: myViewLoading, setRefresh: setMyViewRefresh, opportunities: myViewOpportunities, filters: myViewFilters, setFilter: setMyViewFilter, setFilters: setMyViewFilters } =
+    useFetchMyPipeView({
+      myView,
+      myViewParticularDate
+  });
+
   const [stats, setStats] = useState(null);
   const router = useRouter();
 
+  useEffect(()=>{
+      if(!loading) setOpportunities(myView ? myViewOpportunities : allViewOpportunities);
+  },[myViewOpportunities, allViewOpportunities, myView]);
+
   useEffect(() => {
-    if (opportunities) {
+    if (!loading && opportunities) {
       setStats(getStats(opportunities));
     }
   }, [opportunities]);
-
+   
   return (
     <>
       <DashboardHeader
         dashboard={"Pipe View"}
-        setDate={setParticularDate}
-        setRefresh={setRefresh}
-        setFilter={setFilter}
-        setFilters={setFilters}
-        filters={filters}
+        setDate={myView? setMyViewParticularDate: setParticularDate}
+        setRefresh={myView ? setMyViewRefresh : setRefresh}
+        setFilter={myView ? setMyViewFilter : setFilter}
+        setFilters={myView ? setMyViewFilters : setFilters}
+        myView={myView}
+        setMyView={setMyView}
+        filters={myView ? myViewFilters : filters}
         FilterComponent={Filter}
       />
-      {loading ? (
+      {loading || myViewLoading ? (
         <PageSkeleton />
       ) : (
         <KanbanBoard>

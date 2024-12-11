@@ -90,7 +90,7 @@ export const useFetchClients = ({ currentPage, pageSize }) => {
         };
 
         if (hasSorterChanged) {
-            // Dispatch the getAllClients action with the applied filters and sorting
+            //Dispatch the getAllClients action with the applied filters and sorting
             currentSortOrder = currentSortOrder == "descend" ? "-1" : "1";
             setFilters({
                 ...filters,
