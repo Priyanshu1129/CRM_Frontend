@@ -26,7 +26,6 @@ export const useFetchMyPipeView = ({ myViewParticularDate, myView }) => {
   );
 
   const fetchMyPipeView = useCallback(() => {
-    console.log("filters", filters);
     dispatch(getMyPipeView({ particularDate: myViewParticularDate, ...filters }));
   }, [dispatch, myViewParticularDate, filters]);
 

@@ -10,6 +10,16 @@ const initialSummaryViewState = {
         status: "idle",
         error: null,
         data: null,
+    },
+    getMySummaryView: {
+        status: "idle",
+        error: null,
+        data: null,
+    },
+    getMyHeatmapView: {
+        status: "idle",
+        error: null,
+        data: null,
     }
 }
 
@@ -56,6 +66,46 @@ const summaryViewSlice = createSlice({
         },
         clearGetHeatmapViewError: (state) => {
             state.getHeatmapView.error = null;
+        },
+        getMySummaryViewRequest: (state, action) => {
+            state.getMySummaryView.status = 'pending'
+        },
+        getMySummaryViewSuccess: (state, action) => {
+            state.getMySummaryView.status = 'success'
+            state.getMySummaryView.data = action.payload;
+        },
+        getMySummaryViewFailure: (state, action) => {
+            state.getMySummaryView.status = 'failed'
+            state.getMySummaryView.error = action.payload;
+        },
+        clearGetMySummaryViewStatus: (state) => {
+            state.getMySummaryView.status = "idle";
+        },
+        clearGetMySummaryViewData: () => {
+            state.getMySummaryView.data = null;
+        },
+        clearGetMySummaryViewError: (state) => {
+            state.getMySummaryView.error = null;
+        },
+        getMyHeatmapViewRequest: (state, action) => {
+            state.getMyHeatmapView.status = 'pending'
+        },
+        getMyHeatmapViewSuccess: (state, action) => {
+            state.getMyHeatmapView.status = 'success'
+            state.getMyHeatmapView.data = action.payload;
+        },
+        getMyHeatmapViewFailure: (state, action) => {
+            state.getMyHeatmapView.status = 'failed'
+            state.getMyHeatmapView.error = action.payload;
+        },
+        clearGetMyHeatmapViewStatus: (state) => {
+            state.getMyHeatmapView.status = "idle";
+        },
+        clearGetMyHeatmapViewData: () => {
+            state.getMyHeatmapView.data = null;
+        },
+        clearGetMyHeatmapViewError: (state) => {
+            state.getMyHeatmapView.error = null;
         }
     }
 })

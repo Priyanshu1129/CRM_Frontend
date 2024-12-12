@@ -41,9 +41,15 @@ const FunnelView = () => {
   });
 
   useEffect(() => {
-    if (!loading)
+    if (!loading && !myViewLoading)
       setFunnelViewData(myView ? myViewFunnelViewData : allViewFunnelViewData);
-  }, [myView, myViewFunnelViewData, allViewFunnelViewData, loading]);
+  }, [
+    myView,
+    myViewFunnelViewData,
+    allViewFunnelViewData,
+    loading,
+    myViewLoading,
+  ]);
 
   return (
     <>
@@ -75,7 +81,12 @@ const FunnelView = () => {
               )}
             </Col>
           </Row>
-          {conversionStats && <ConversionRates data={conversionStats} />}
+          {(myView && myViewConversionStats) ||
+            (!myView && conversionStats && (
+              <ConversionRates
+                data={myView ? myViewConversionStats : conversionStats}
+              />
+            ))}
         </div>
       )}
     </>

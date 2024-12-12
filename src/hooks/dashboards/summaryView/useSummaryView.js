@@ -4,7 +4,7 @@ import { getSummaryView } from "@/redux/actions/dashboardAction"
 import { summaryViewActions } from "@/redux/slices/dashboardSlice"
 import { notification } from "antd"
 
-export const useFetchSummaryView = ({ startDate, endDate }) => {
+export const useFetchSummaryView = ({ startDate, endDate, myView }) => {
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
     const [sDate, setSDate] = useState("2010-01-01"); // start date
@@ -22,12 +22,14 @@ export const useFetchSummaryView = ({ startDate, endDate }) => {
 
     useEffect(() => {
         if (refresh || startDate != sDate || endDate != eDate || (filter && filters)) {
-            fetchSummaryView();
-            setSDate(startDate);
-            setEDate(endDate);
+            if (!myView) {
+                fetchSummaryView();
+                setSDate(startDate);
+                setEDate(endDate);
+            }
         }
         setFilter(false);
-    }, [sDate, eDate, startDate, endDate, refresh, fetchSummaryView, filter, filters])
+    }, [sDate, eDate, startDate, endDate, refresh, fetchSummaryView, filter, filters, myView])
 
     useEffect(() => {
         if (status === "pending") {
