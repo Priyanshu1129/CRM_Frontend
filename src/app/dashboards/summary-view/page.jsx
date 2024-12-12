@@ -5,7 +5,7 @@ import { useFetchSummaryView, useFetchMySummaryView } from "@/hooks/dashboards";
 import { SummaryCards, Heatmap, BubbleChart } from "./components";
 import { Row, Col, Space, Card } from "antd";
 import BubbleShimmer from "./components/bubbleChart/BubbleShimmer";
-
+import { useEffect } from "react";
 const SummaryView = () => {
   const [myView, setMyView] = useState(false);
   const [startDate, setStartDate] = useState("2020-10-10");
@@ -67,6 +67,8 @@ const SummaryView = () => {
         setFilter={myView ? setMyViewFilter : setFilter}
         setFilters={myView ? setMyViewFilters : setFilters}
         filters={myView ? myViewFilters : filters}
+        myView={myView}
+        setMyView={setMyView}
         FilterComponent={Filter}
       />
 
@@ -80,7 +82,7 @@ const SummaryView = () => {
         <Row style={{}} gutter={[18, 18]}>
           {/* Left side - Heatmap */}
           <Col xs={24} lg={12}>
-            <Heatmap />
+            {/* <Heatmap /> */}
           </Col>
 
           {/* Right side - Bubble charts */}

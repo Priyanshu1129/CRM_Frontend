@@ -161,7 +161,7 @@ export const ConversionRates = ({ data }) => {
                     textAlign: "center", // Center text alignment
                   }}
                 >
-                  Compared with last week
+                  Last 1W
                 </div>
               </div>
             </div>
