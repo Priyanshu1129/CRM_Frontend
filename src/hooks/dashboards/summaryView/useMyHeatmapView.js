@@ -1,32 +1,34 @@
 import { useState, useEffect, useCallback } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { getHeatmapView } from "@/redux/actions/dashboardAction"
+import { getMyHeatmapView } from "@/redux/actions/dashboardAction"
 import { summaryViewActions } from "@/redux/slices/dashboardSlice"
 import { notification } from "antd"
 
-export const useFetchHeatmapView = ({ year, stageId }) => {
+export const useFetchMyHeatmapView = ({ myViewYear, myViewStageId, myView }) => {
     const [loading, setLoading] = useState(true);
     const dispatch = useDispatch();
-    const [selectedYear, setSelectedYear] = useState(year); // start year
-    const [selectedStage, setSelectedStage] = useState(stageId);
+    const [selectedYear, setSelectedYear] = useState(myViewYear);
+    const [selectedStage, setSelectedStage] = useState(myViewStageId);
     const [refresh, setRefresh] = useState(true);
     const [filters, setFilters] = useState({});
     const [filter, setFilter] = useState(false);
-    const { status, data, error } = useSelector((state) => state.summaryView.getHeatmapView);
+    const { status, data, error } = useSelector((state) => state.summaryView.getMyHeatmapView);
     const [heatmapViewData, setHeatmapViewData] = useState(data?.data);
 
-    const fetchHeatmapView = useCallback(() => {
-        dispatch(getHeatmapView({ year, stageId, ...filters }));
-    }, [dispatch, year, stageId, filters])
+    const fetchMyHeatmapView = useCallback(() => {
+        dispatch(getMyHeatmapView({ year: myViewYear, stageId: myViewStageId, ...filters }));
+    }, [dispatch, myViewYear, myViewStageId, filters])
 
     useEffect(() => {
-        if (refresh || selectedStage != stageId || selectedYear != year || (filter && filters)) {
-            fetchHeatmapView();
-            setSelectedYear(year);
-            setSelectedStage(stageId);
+        if (refresh || selectedStage != myViewStageId || selectedYear != myViewYear || (filter && filters)) {
+            if (myView) {
+                fetchMyHeatmapView();
+                setSelectedYear(myViewYear);
+                setSelectedStage(myViewStageId);
+            }
         }
         setFilter(false);
-    }, [selectedStage, stageId, selectedYear, year, refresh, fetchHeatmapView, filter, filters])
+    }, [selectedStage, myViewStageId, selectedYear, myViewYear, refresh, fetchMyHeatmapView, filter, filters, myView])
 
     useEffect(() => {
         if (status === "pending") {

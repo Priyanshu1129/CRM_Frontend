@@ -4,7 +4,7 @@ import { getHeatmapView } from "@/redux/actions/dashboardAction"
 import { summaryViewActions } from "@/redux/slices/dashboardSlice"
 import { notification } from "antd"
 
-export const useFetchHeatmapView = ({ year, stageId }) => {
+export const useFetchHeatmapView = ({ year, stageId, myView }) => {
     const [loading, setLoading] = useState(true);
     const dispatch = useDispatch();
     const [selectedYear, setSelectedYear] = useState(year); // start year
@@ -21,12 +21,14 @@ export const useFetchHeatmapView = ({ year, stageId }) => {
 
     useEffect(() => {
         if (refresh || selectedStage != stageId || selectedYear != year || (filter && filters)) {
-            fetchHeatmapView();
-            setSelectedYear(year);
-            setSelectedStage(stageId);
+            if (!myView) {
+                fetchHeatmapView();
+                setSelectedYear(year);
+                setSelectedStage(stageId);
+            }
         }
         setFilter(false);
-    }, [selectedStage, stageId, selectedYear, year, refresh, fetchHeatmapView, filter, filters])
+    }, [selectedStage, stageId, selectedYear, year, refresh, fetchHeatmapView, filter, filters, myView])
 
     useEffect(() => {
         if (status === "pending") {
