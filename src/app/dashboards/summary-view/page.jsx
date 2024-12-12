@@ -38,7 +38,7 @@ const SummaryView = () => {
     setFilter: setMyViewFilter,
     setFilters: setMyViewFilters,
     summaryViewData: myViewSummaryViewData,
-  } = useFetchSummaryView({
+  } = useFetchMySummaryView({
     myViewStartDate,
     myViewEndDate,
     myView,
@@ -82,7 +82,7 @@ const SummaryView = () => {
         <Row style={{}} gutter={[18, 18]}>
           {/* Left side - Heatmap */}
           <Col xs={24} lg={12}>
-            {/* <Heatmap myView={myView} /> */}
+            <Heatmap myView={myView} />
           </Col>
 
           {/* Right side - Bubble charts */}

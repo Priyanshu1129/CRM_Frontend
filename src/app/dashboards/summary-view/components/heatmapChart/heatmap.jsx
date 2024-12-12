@@ -99,8 +99,8 @@ export const Heatmap = ({ myView }) => {
           <div style={{ marginBottom: 16, gap: 6 }}>
             <Space style={{ display: "flex", justifyContent: "space-between" }}>
               <Space>
-                <YearPicker onChange={onYearChange} />
-                <StageSelector onChange={onStageChange} />
+                <YearPicker myView={myView} onChange={onYearChange} />
+                <StageSelector myView={myView} onChange={onStageChange} />
               </Space>
               <Filter />
             </Space>

@@ -3,15 +3,17 @@ import { Select, Spin } from "antd";
 import { useSalesStages } from "@/hooks";
 import { DownOutlined } from "@ant-design/icons";
 import { colorConfig } from "@/config";
-export const StageSelector = ({ onChange }) => {
+export const StageSelector = ({ onChange, myView=false }) => {
   let arrowDownIcon = <DownOutlined style={{ color: colorConfig.primary }} />;
   const { loading, salesStages } = useSalesStages();
   const [selectedStage, setSelectedStage] = useState(null);
+  const [myViewSelectedStage, setMyViewSelectedStage] = useState(null);
 
   // Set the first stage as the selected stage when salesStages is loaded
   useEffect(() => {
     if (!loading && salesStages?.length > 0 && selectedStage === null) {
       const initialStage = salesStages[0].value;
+      setMyViewSelectedStage(initialStage)
       setSelectedStage(initialStage); // Set the default selected value to the first item
       onChange?.(initialStage); // Trigger onChange with the first stage value if defined
     }
@@ -19,7 +21,8 @@ export const StageSelector = ({ onChange }) => {
 
   // Handle selection change
   const handleChange = (value) => {
-    setSelectedStage(value);
+    if(myView) setMyViewSelectedStage(value)
+    else setSelectedStage(value);
     onChange?.(value); // Trigger onChange if defined
   };
 
@@ -29,7 +32,7 @@ export const StageSelector = ({ onChange }) => {
         placeholder="Select Stage"
         loading={loading}
         disabled={loading}
-        value={selectedStage} // Use value instead of defaultValue for controlled selection
+        value={myView ? myViewSelectedStage: selectedStage} // Use value instead of defaultValue for controlled selection
         onChange={handleChange}
         suffixIcon={arrowDownIcon}
       >
