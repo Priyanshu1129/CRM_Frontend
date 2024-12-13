@@ -4,13 +4,15 @@ import { theme } from 'antd';  // Import Ant Design's theme object
 import { getTwoToneColor, setTwoToneColor } from '@ant-design/icons';
 
 const primary = {
-  p0: "f0f8ff",
+  // p0: "f0f8ff",
+  p0: "#DAF0F3",
   p1: "#DAF0F3",
   p2: "#B6E1E7",
   p3: "#91D3DA",
   p4: "#48B5C2",
   p5: "#007CA6",
-  p6: "#005B7F",
+  p6: "#48B5C2",
+  // p6: "#005B7F",
 }
 
 
@@ -116,7 +118,7 @@ export const customTheme = {
       colorPrimaryHover: colorConfig.primaryHover,  // Hover color for buttons
     },
     Menu: {
-      colorItemText: "#005B7F", // Default text color
+      colorItemText: colorConfig.p6, // Default text color
       colorItemTextHover: colorConfig.menuHoverTextColor, // Hover state color for menu item
       colorItemTextActive: colorConfig.menuActiveTextColor, // Active state color for menu item
       colorItemBgHover: colorConfig.menuHoverBgColor, // Background color for hover state

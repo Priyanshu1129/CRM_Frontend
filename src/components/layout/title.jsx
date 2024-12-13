@@ -57,7 +57,7 @@ export const Title = ({
               marginBottom: 25,
               marginLeft: "23px",
               color: "#F86041",
-              fontWeight: 700,
+              fontWeight: 600,
             }}
           >
             {name}

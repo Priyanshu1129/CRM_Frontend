@@ -12,11 +12,9 @@ html, body {
   
   body {
     font-family: "Poppins", sans-serif;
-    color: #005B7F; /* Dark text color */
+    color: #48B5C2 ; /* Dark text color */
     background-color: #f8f9fa; /* Light background for the whole page */
   }
-
-  
   
   #root {
     padding: 24px;
@@ -81,7 +79,7 @@ html, body {
   }
   
   .hover-text-go-back-button:hover {
-    color: #005B7F;
+    color: #48B5C2 ;
   }
   
   /* =======================================
@@ -133,7 +131,8 @@ html, body {
   }
   
   .ant-table-tbody > tr:nth-child(odd) > td {
-    background-color: #f0f8ff; /* Odd row background */
+    background-color: #DAF0F3
+    /* f0f8ff; Odd row background */
   }
   
   .ant-table-tbody > tr:nth-child(even) > td {
