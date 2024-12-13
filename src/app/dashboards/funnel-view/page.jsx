@@ -81,12 +81,11 @@ const FunnelView = () => {
               )}
             </Col>
           </Row>
-          {(myView && myViewConversionStats) ||
-            (!myView && conversionStats && (
+          {conversionStats && (
               <ConversionRates
-                data={myView ? myViewConversionStats : conversionStats}
+                data={ conversionStats}
               />
-            ))}
+            )}
         </div>
       )}
     </>

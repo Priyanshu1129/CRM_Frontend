@@ -5,7 +5,7 @@ import { summaryViewActions } from "@/redux/slices/dashboardSlice"
 import { notification } from "antd"
 
 export const useFetchMyHeatmapView = ({ myViewYear, myViewStageId, myView }) => {
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
     const [selectedYear, setSelectedYear] = useState(myViewYear);
     const [selectedStage, setSelectedStage] = useState(myViewStageId);
