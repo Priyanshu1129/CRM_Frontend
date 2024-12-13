@@ -63,6 +63,7 @@ const FunnelView = () => {
         setMyView={setMyView}
         filters={myView ? myViewFilters : filters}
         FilterComponent={Filter}
+        myViewButtonText="My Funnel View"
       />
       {loading || myViewLoading ? (
         <FullScreenLoading />
@@ -81,11 +82,7 @@ const FunnelView = () => {
               )}
             </Col>
           </Row>
-          {conversionStats && (
-              <ConversionRates
-                data={ conversionStats}
-              />
-            )}
+          {conversionStats && <ConversionRates data={conversionStats} />}
         </div>
       )}
     </>

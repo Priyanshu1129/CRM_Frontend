@@ -17,6 +17,7 @@ export const DashboardHeader = ({
   setFilter,
   filters,
   setFilters,
+  myViewButtonText = "My View"
 }) => {
   const screens = Grid.useBreakpoint();
 
@@ -60,7 +61,7 @@ export const DashboardHeader = ({
           />
         )}
         <Button onClick={()=> setMyView(!myView)}>
-          {!myView ? "My Leads" : "All Leads"} 
+          {!myView ? myViewButtonText : "All Leads"} 
         </Button>
       </Space>
       <Space

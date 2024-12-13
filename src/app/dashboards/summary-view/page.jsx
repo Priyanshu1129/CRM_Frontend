@@ -70,6 +70,7 @@ const SummaryView = () => {
         myView={myView}
         setMyView={setMyView}
         FilterComponent={Filter}
+        myViewButtonText="My Summary View"
       />
 
       <Space direction="vertical" style={{ width: "100%" }}>

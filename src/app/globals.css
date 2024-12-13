@@ -12,7 +12,7 @@ html, body {
   
   body {
     font-family: "Poppins", sans-serif;
-    color: #48B5C2 ; /* Dark text color */
+    color: #007CA6 ; /* Dark text color */
     background-color: #f8f9fa; /* Light background for the whole page */
   }
   
@@ -79,7 +79,7 @@ html, body {
   }
   
   .hover-text-go-back-button:hover {
-    color: #48B5C2 ;
+    color: #007CA6 ;
   }
   
   /* =======================================

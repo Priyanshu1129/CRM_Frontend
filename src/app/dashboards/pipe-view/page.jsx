@@ -70,6 +70,7 @@ const PipeView = () => {
         setMyView={setMyView}
         filters={myView ? myViewFilters : filters}
         FilterComponent={Filter}
+        myViewButtonText="My Pipe View"
       />
       {loading || myViewLoading ? (
         <PageSkeleton />
