@@ -4,7 +4,6 @@ import { Grid, Button, Space } from "antd";
 import { SelectDate } from "./date-selector";
 import { SelectDateRange } from "./date-range-selector";
 
-
 export const DashboardHeader = ({
   setRefresh,
   dashboard,
@@ -17,7 +16,7 @@ export const DashboardHeader = ({
   setFilter,
   filters,
   setFilters,
-  myViewButtonText = "My View"
+  myViewButtonText = "My View",
 }) => {
   const screens = Grid.useBreakpoint();
 
@@ -40,7 +39,7 @@ export const DashboardHeader = ({
           marginTop: screens.xs ? "1.6rem" : undefined,
         }}
       >
-        {setDate && (   
+        {setDate && (
           <SelectDate onChange={(date, dateString) => setDate(dateString)} />
         )}
 
@@ -49,8 +48,11 @@ export const DashboardHeader = ({
             onChange={(dates, dateStrings) => setDateRange(dateStrings)}
           />
         )} */}
-            {setStartDate && setEndDate && (
-              <SelectDateRange setStartDate={setStartDate} setEndDate={setEndDate} />
+        {setStartDate && setEndDate && (
+          <SelectDateRange
+            setStartDate={setStartDate}
+            setEndDate={setEndDate}
+          />
         )}
 
         {FilterComponent && (
@@ -60,9 +62,11 @@ export const DashboardHeader = ({
             setFilter={setFilter}
           />
         )}
-        <Button onClick={()=> setMyView(!myView)}>
-          {!myView ? myViewButtonText : "All Leads"} 
-        </Button>
+        {myView != undefined && (
+          <Button onClick={() => setMyView(!myView)}>
+            {!myView ? myViewButtonText : "All Leads"}
+          </Button>
+        )}
       </Space>
       <Space
         style={{

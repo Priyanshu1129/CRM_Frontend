@@ -36,8 +36,8 @@ export const resources = [
                 icon: <MdOutlineCircle />
             },
             {
-                key: "dashboards/compare-view",
-                label: "Compare View",
+                key: "dashboards/leaderboard",
+                label: "Leaderboard",
                 icon: <MdOutlineCircle />
             },
             {

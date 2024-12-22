@@ -4,6 +4,7 @@ import { colorConfig, outColors } from "@/config";
 import { ArrowRightOutlined, ArrowUpOutlined } from "@ant-design/icons";
 import { head } from "lodash";
 import Statistic from "antd/es/statistic/Statistic";
+import { Text } from "@/components";
 
 const headings = [
   {
@@ -30,13 +31,16 @@ const headings = [
 
 export const ConversionRates = ({ data }) => {
   return (
-    <div>
-      <h2>Conversion Rates</h2>
+    <div style={{ marginTop: "16px" }}>
+      <Text strong style={{ fontSize: "18px" }}>
+        Conversion Ratios
+      </Text>
       <div
         style={{
           display: "flex",
           flexWrap: "wrap",
           justifyContent: "space-between",
+          marginTop: "16px",
         }}
       >
         {Object.entries(data)?.map(([key, value], index) => (
@@ -80,7 +84,7 @@ export const ConversionRates = ({ data }) => {
                 >
                   {headings[index].from}
                 </div>
-                <ArrowRightOutlined  />
+                <ArrowRightOutlined />
                 <div
                   style={{
                     fontSize: "16px", // Large font size for the key
@@ -132,7 +136,7 @@ export const ConversionRates = ({ data }) => {
                         fontFamily: "Arial, sans-serif", // Specify bold-capable font
                       }}
                     >
-                      <ArrowUpOutlined style={{color : "#ffffff"}} />
+                      <ArrowUpOutlined style={{ color: "#ffffff" }} />
                     </div>
                   }
                   suffix={

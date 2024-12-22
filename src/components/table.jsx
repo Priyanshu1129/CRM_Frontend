@@ -11,7 +11,7 @@ export const Table = ({
   entityName,
   total = 0,
   handleChange,
-  ScrollX = 1300,
+  ScrollX = "max-content",
 }) => {
   return (
     <AntTable
@@ -39,6 +39,7 @@ export const Table = ({
       }}
       scroll={{
         x: ScrollX,
+        y: 400,
       }}
     />
   );
