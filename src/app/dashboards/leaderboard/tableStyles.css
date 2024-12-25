@@ -4,6 +4,11 @@
 }
 
 /* Cell-specific hover effect */
+
+.custom-table {
+  height: auto;
+}
+
 .custom-table td {
   transition: transform 0.2s ease-in-out, background 0.2s ease-in-out;
 }
@@ -15,4 +20,12 @@
   background: #f6f8fa; /* Subtle background color */
 }
 
+.center-align {
+  text-align: center !important;
+  vertical-align: middle !important;
+}
+
+.ant-table-wrapper {
+  height: 100%
+}
 

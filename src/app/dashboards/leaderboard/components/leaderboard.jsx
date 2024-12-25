@@ -61,7 +61,7 @@ const columns = [
     dataIndex: "name",
     key: "name",
     fixed: "left",
-    width: 130,
+    width: 150,
     render: (value, row, index) => {
       const obj = {
         children: value,
@@ -74,6 +74,7 @@ const columns = [
       }
       return obj;
     },
+    className: "center-align",
   },
   {
     title: "Quarter",
@@ -81,6 +82,7 @@ const columns = [
     key: "quarter",
     fixed: "left",
     width: 120,
+    className: "center-align",
   },
   {
     title: "Entries", // Parent column
@@ -89,74 +91,86 @@ const columns = [
         title: "Client",
         dataIndex: "clientEntries",
         key: "clientEntries",
-        width: 100,
+        width: 65,
+        className: "center-align",
       },
       {
         title: "Contact",
         dataIndex: "contactEntries",
         key: "contactEntries",
-        width: 100,
+        width: 75,
+        className: "center-align",
       },
       {
         title: "Registration",
         dataIndex: "registrationEntries",
         key: "registrationEntries",
-        width: 120,
+        width: 105,
+        className: "center-align",
       },
       {
         title: "Tender",
         dataIndex: "tenderEntries",
         key: "tenderEntries",
-        width: 100,
+        width: 70,
+        className: "center-align",
       },
       {
         title: "Mention",
         dataIndex: "mentionEntries",
         key: "mentionEntries",
-        width: 100,
+        width: 75,
+        className: "center-align",
       },
       {
         title: "Lead",
         dataIndex: "leadEntries",
         key: "leadEntries",
-        width: 100,
+        width: 60,
+        className: "center-align",
       },
       {
         title: "Prospect",
         dataIndex: "prospectEntries",
         key: "prospectEntries",
-        width: 120,
+        width: 80,
+        className: "center-align",
       },
       {
         title: "Qualification",
         dataIndex: "qualificationEntries",
         key: "qualificationEntries",
-        width: 120,
+        width: 110,
+        className: "center-align",
       },
       {
         title: "Follow-up",
         dataIndex: "followUpEntries",
         key: "followUpEntries",
-        width: 100,
+        width: 90,
+        className: "center-align",
       },
       {
         title: "Proposal",
         dataIndex: "proposalEntries",
         key: "proposalEntries",
-        width: 100,
+        width: 85,
+        className: "center-align",
       },
       {
         title: "Closing",
         dataIndex: "closingEntries",
         key: "closingEntries",
-        width: 100,
+        width: 75,
+        className: "center-align",
       },
       {
         title: "Won",
         dataIndex: "wonEntries",
         key: "wonEntries",
         // fixed: "right",
-        width: 100,
+        width: 60,
+        className: "center-align",
       },
     ],
   },
@@ -171,7 +185,7 @@ export const Board = ({ data }) => {
       dataSource={processedData}
       bordered
       pagination={false}
-      scroll={{ x: "max-content", y: 400 }}
+      scroll={{ x: "max-content"}}
       className="custom-table"
     />
   );

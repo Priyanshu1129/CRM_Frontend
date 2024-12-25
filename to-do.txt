@@ -1,11 +1,13 @@
-my-view
+dashboard not persistent
+my-view filters
 rbac
-detail page 
+detail page
 update phone / mobile in contact having problem
-testing
 auto reload on add
+currency change
 business development hook
-stage id is hard coded at heatmap view 
+stage id is hard coded at heatmap view
+
 
 https://demos.pixinvent.com/vuexy-nextjs-admin-template/demo-4/en/dashboards/ecommerce
 

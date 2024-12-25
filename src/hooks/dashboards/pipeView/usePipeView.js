@@ -3,11 +3,14 @@ import { useSelector, useDispatch } from "react-redux"
 import { getPipeView } from "@/redux/actions/dashboardAction"
 import { pipeViewActions } from "@/redux/slices/dashboardSlice"
 import { notification } from "antd"
+import moment from "moment";
 
-export const useFetchPipeView = ({ particularDate, myView }) => {
+export const useFetchPipeView = ({ myView, particularDate }) => {
+    console.log('inside pipe view hook',)
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
-    const [currentDate, setCurrentDate] = useState(null);
+    const rawCurrentDate = useSelector((state) => state.pipeView.currentDate);
+    const currentDate = rawCurrentDate ? moment(rawCurrentDate) : null;
     const [refresh, setRefresh] = useState(false);
     const [filters, setFilters] = useState({});
     const [filter, setFilter] = useState(false);
@@ -16,17 +19,17 @@ export const useFetchPipeView = ({ particularDate, myView }) => {
 
     const fetchPipeView = useCallback(() => {
         dispatch(getPipeView({ particularDate, ...filters }));
-    }, [dispatch, particularDate, filters])
-
+    }, [dispatch, filters, particularDate])
+    
     useEffect(() => {
-        if ((refresh || currentDate != particularDate || (filter && filters))) {
-            if(!myView){
+        if ((refresh || !currentDate?.isSame(particularDate, 'day') || (filter && filters))) {
+            if (!myView) {
                 fetchPipeView();
-                setCurrentDate(particularDate);
+                dispatch(pipeViewActions.setCurrentDate(particularDate.toISOString()))
             }
         }
         setFilter(false);
-    }, [currentDate, particularDate, refresh, fetchPipeView, setCurrentDate, filter, filters, myView])
+    }, [refresh, fetchPipeView, filter, filters, myView, currentDate, particularDate, dispatch])
 
     useEffect(() => {
         if (status === "pending") {

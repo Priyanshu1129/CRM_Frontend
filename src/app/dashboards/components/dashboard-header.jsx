@@ -3,6 +3,7 @@ import { ReloadOutlined } from "@ant-design/icons";
 import { Grid, Button, Space } from "antd";
 import { SelectDate } from "./date-selector";
 import { SelectDateRange } from "./date-range-selector";
+import { colorConfig } from "@/config";
 
 export const DashboardHeader = ({
   setRefresh,
@@ -10,13 +11,14 @@ export const DashboardHeader = ({
   setDate,
   setStartDate,
   setEndDate,
-  myView,
+  myView = null,
   setMyView,
   FilterComponent,
   setFilter,
   filters,
   setFilters,
   myViewButtonText = "My View",
+  selectedDate,
 }) => {
   const screens = Grid.useBreakpoint();
 
@@ -40,14 +42,12 @@ export const DashboardHeader = ({
         }}
       >
         {setDate && (
-          <SelectDate onChange={(date, dateString) => setDate(dateString)} />
+          <SelectDate
+            date={selectedDate}
+            onChange={(date, dateString) => setDate(dateString)}
+          />
         )}
 
-        {/* {setDateRange && (
-          <SelectDateRange
-            onChange={(dates, dateStrings) => setDateRange(dateStrings)}
-          />
-        )} */}
         {setStartDate && setEndDate && (
           <SelectDateRange
             setStartDate={setStartDate}
@@ -62,9 +62,14 @@ export const DashboardHeader = ({
             setFilter={setFilter}
           />
         )}
-        {myView != undefined && (
-          <Button onClick={() => setMyView(!myView)}>
-            {!myView ? myViewButtonText : "All Leads"}
+        {myView != null && (
+          <Button
+            style={
+              myView ? { background: colorConfig.primary, color: "white" } : {}
+            }
+            onClick={() => setMyView(!myView)}
+          >
+            {myViewButtonText}
           </Button>
         )}
       </Space>

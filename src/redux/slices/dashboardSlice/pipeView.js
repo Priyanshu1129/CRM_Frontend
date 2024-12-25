@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-
+import moment from "moment";
 const initialPipeViewState = {
     getPipeView: {
         status: "idle",
@@ -10,13 +10,18 @@ const initialPipeViewState = {
         status: "idle",
         error: null,
         data: null,
-    }
+    },
+    particularDate: moment().toISOString(),
+    currentDate: null,
+    myViewParticularDate: moment().toISOString(),
+    myViewCurrentDate: null,
 }
 
 const pipeViewSlice = createSlice({
     name: "pipeView",
     initialState: initialPipeViewState,
     reducers: {
+        // get pipe-view
         getPipeViewRequest: (state, action) => {
             state.getPipeView.status = 'pending'
         },
@@ -28,6 +33,8 @@ const pipeViewSlice = createSlice({
             state.getPipeView.status = 'failed'
             state.getPipeView.error = action.payload;
         },
+
+        // clear pipe-view
         clearGetPipeViewStatus: (state) => {
             state.getPipeView.status = "idle";
         },
@@ -37,6 +44,8 @@ const pipeViewSlice = createSlice({
         clearGetPipeViewError: (state) => {
             state.getPipeView.error = null;
         },
+
+        // get my-pipe view
         getMyPipeViewRequest: (state, action) => {
             state.getMyPipeView.status = 'pending'
         },
@@ -48,6 +57,8 @@ const pipeViewSlice = createSlice({
             state.getMyPipeView.status = 'failed'
             state.getMyPipeView.error = action.payload;
         },
+
+        // clear my pipe-view
         clearGetMyPipeViewStatus: (state) => {
             state.getMyPipeView.status = "idle";
         },
@@ -56,7 +67,21 @@ const pipeViewSlice = createSlice({
         },
         clearGetMyPipeViewError: (state) => {
             state.getMyPipeView.error = null;
-        }
+        },
+
+        // particular dates
+        setParticularDate(state, action) {
+            state.particularDate = moment(action.payload).toISOString();
+        },
+        setCurrentDate(state, action) {
+            state.currentDate = action.payload;
+        },
+        setMyViewParticularDate(state, action) {
+            state.myViewParticularDate = moment(action.payload).toISOString();
+        },
+        setMyViewCurrentDate(state, action) {
+            state.myViewCurrentDate = action.payload
+        },
     }
 })
 
