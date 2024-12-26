@@ -80,7 +80,7 @@ const columns = [
     title: "Quarter",
     dataIndex: "quarter",
     key: "quarter",
-    fixed: "left",
+    // fixed: "left",
     width: 120,
     className: "center-align",
   },
@@ -176,7 +176,7 @@ const columns = [
   },
 ];
 
-export const Board = ({ data }) => {
+export const TableView = ({ data }) => {
   const processedData = processApiData(data);
 
   return (
@@ -185,7 +185,7 @@ export const Board = ({ data }) => {
       dataSource={processedData}
       bordered
       pagination={false}
-      scroll={{ x: "max-content"}}
+      scroll={{ x: "max-content" }}
       className="custom-table"
     />
   );
