@@ -1,8 +1,15 @@
 import React from "react";
-import { ReloadOutlined } from "@ant-design/icons";
+import { QuarterSelector, EntryTypeSelector } from "./selectors";
 import { Grid, Button, Space, Radio } from "antd";
 
-export const LeaderboardHeader = ({ view, setView, setRefresh }) => {
+export const LeaderboardHeader = ({
+  view,
+  setView,
+  setSortParameter,
+  sortParameter,
+  selectedQuarter,
+  setSelectedQuarter,
+}) => {
   const screens = Grid.useBreakpoint();
 
   return (
@@ -24,7 +31,16 @@ export const LeaderboardHeader = ({ view, setView, setRefresh }) => {
           marginTop: screens.xs ? "1.6rem" : undefined,
         }}
       >
-        .
+        <QuarterSelector
+          disable={view === "tableView"}
+          handleChange={(value) => setSelectedQuarter(value)}
+          selectedQuarter={selectedQuarter}
+        />
+        <EntryTypeSelector
+          disable={view === "tableView"}
+          handleChange={(value) => setSortParameter(value)}
+          sortParameter={sortParameter}
+        />
       </Space>
       <Space
         style={{
@@ -36,17 +52,10 @@ export const LeaderboardHeader = ({ view, setView, setRefresh }) => {
       >
         <Space>
           <Radio.Group value={view} onChange={(e) => setView(e.target.value)}>
-            <Radio.Button value="tableView">Table View</Radio.Button>
             <Radio.Button value="chartView">Chart View</Radio.Button>
+            <Radio.Button value="tableView">Table View</Radio.Button>
           </Radio.Group>
         </Space>
-        <Button
-          type="default"
-          icon={<ReloadOutlined />}
-          onClick={() => {
-            setRefresh(true);
-          }}
-        />
       </Space>
     </div>
   );

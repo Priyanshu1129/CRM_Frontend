@@ -37,7 +37,7 @@ const LayoutComponent = ({ children }) => {
           display: "flex",
         }}
       >
-        <Sidebar  setCollapsed={setCollapsed} collapsed={collapsed} />
+        <Sidebar setCollapsed={setCollapsed} collapsed={collapsed} />
         <Layout
           style={{
             flex: 1,
@@ -49,11 +49,13 @@ const LayoutComponent = ({ children }) => {
             style={{
               padding: !screens.xs ? "24px" : "16px",
               height: "100%",
+              // background: "green",
             }}
           >
             <Content
               style={{
-                minHeight: 280,
+                // minHeight: 280,
+                height: 280,
                 borderRadius: borderRadiusLG,
                 // background: colorBgContainer,
                 overflowY: "auto",

@@ -1,57 +1,38 @@
 import React, { useEffect, useRef, useState } from "react";
-import { List, Select } from "antd";
 import Chart from "chart.js/auto";
+import { List, Avatar } from "antd";
+import { parameterToLabelMap } from "../config";
+import { colorConfig } from "@/config";
+import { TrophyFilled, TrophyOutlined } from "@ant-design/icons";
+import { ImTrophy } from "react-icons/im";
 
-const { Option } = Select;
-
-const LeaderboardDashboard = ({ data }) => {
+// Main App Component
+export const ChartView = ({ data, selectedQuarter, sortParameter }) => {
   const chartRefs = useRef([]);
-  const [selectedQuarter, setSelectedQuarter] = useState("currentQuarter");
-  const [sortParameter, setSortParameter] = useState("clientEntries"); // Default sort parameter
+  const activeLabel = parameterToLabelMap[sortParameter];
 
   const renderChart = (canvas, salesChamp) => {
     const ctx = canvas.getContext("2d");
     const quarterData = salesChamp.entryDetails[selectedQuarter];
 
-    const parameters = [
-      "clientEntries",
-      "contactEntries",
-      "registrationEntries",
-      "tenderEntries",
-      "mentionEntries",
-      "leadEntries",
-      "prospectEntries",
-      "qualificationEntries",
-      "followUpEntries",
-      "proposalEntries",
-      "closingEntries",
-    ];
-
+    const parameters = Object.keys(parameterToLabelMap); // Use keys from the map
     const entries = parameters.map((key) => quarterData[key]);
 
     return new Chart(ctx, {
       type: "bar",
       data: {
-        labels: [
-          "Client",
-          "Contact",
-          "Registration",
-          "Tender",
-          "Mention",
-          "Lead",
-          "Prospect",
-          "Qualification",
-          "Follow-Up",
-          "Proposal",
-          "Closing",
-        ],
+        labels: Object.values(parameterToLabelMap), // Use labels from the map
         datasets: [
           {
             label: `Entries`,
             data: entries, // Entries count
-            backgroundColor: "#007CA6", // Uniform bar color
-            borderRadius: 12, // Rounded edges
-            barThickness: 4, // Thin vertical bars
+            borderRadius: 9, // Rounded edges
+            barThickness: 18, // Thin vertical bars
+            backgroundColor: (context) => {
+              const index = context.dataIndex;
+              const label = context.chart.data.labels[index];
+              return label === activeLabel ? "#D4AF37" : "#007CA6"; // Highlight active
+            },
           },
         ],
       },
@@ -67,6 +48,27 @@ const LeaderboardDashboard = ({ data }) => {
           x: {
             grid: {
               display: false, // Hide gridlines on X-axis
+            },
+            ticks: {
+              color: (context) => {
+                console.log("inside color", context.tick.label, activeLabel);
+                const label = context.tick.label;
+                return label === `${activeLabel}` ? "#D4AF37" : "#000"; // Highlight active label
+              },
+              font: (context) => {
+                console.log("inside font", context.tick.label, activeLabel);
+                const label = context.tick.label;
+                return {
+                  weight: label === `${activeLabel}` ? "bold" : "normal", // Bold font for active label
+                  size: 12,
+                };
+              },
+              // callback: function (value, index) {
+              //   const label = this.getLabelForValue(index); // Get label for the current tick
+              //   return label === activeLabel
+              //     ? `${label} ★` // Add a star for active label (optional)
+              //     : label; // Return normal label
+              // },
             },
           },
           y: {
@@ -108,91 +110,93 @@ const LeaderboardDashboard = ({ data }) => {
       // Cleanup on unmount
       chartRefs.current.forEach((chart) => chart?.destroy());
     };
-  }, [sortedData, selectedQuarter]); // Re-run the effect whenever sortedData or selectedQuarter changes
+  }, [sortedData, selectedQuarter, sortParameter]); // Re-run the effect whenever dependencies change
 
   return (
-    <div style={{ height: "100vh", overflowY: "scroll", padding: "20px" }}>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-        }}
-      >
-        <div> </div>
-        <div style={{ display: "flex", gap: "16px" }}>
-          <div>
-            {/* Sort Order Selector Label */}
-            <span style={{ marginRight: "4px" }}>Sort By:</span>
-            <Select
-              value={sortParameter}
-              onChange={(value) => setSortParameter(value)}
-              style={{ width: 150 }}
-            >
-              <Option value="clientEntries">Client Entries</Option>
-              <Option value="contactEntries">Contact Entries</Option>
-              <Option value="registrationEntries">Registration Entries</Option>
-              <Option value="tenderEntries">Tender Entries</Option>
-              <Option value="mentionEntries">Mention Entries</Option>
-              <Option value="leadEntries">Lead Entries</Option>
-              <Option value="prospectEntries">Prospect Entries</Option>
-              <Option value="qualificationEntries">
-                Qualification Entries
-              </Option>
-              <Option value="followUpEntries">Follow-Up Entries</Option>
-              <Option value="proposalEntries">Proposal Entries</Option>
-              <Option value="closingEntries">Closing Entries</Option>
-            </Select>
-          </div>
-          <div>
-            {/* Quarter Selector Label */}
-            <span style={{ marginRight: "4px" }}>Select Quarter:</span>
-            <Select
-              value={selectedQuarter}
-              onChange={(value) => setSelectedQuarter(value)}
-              style={{ width: 150, marginRight: "20px" }}
-            >
-              <Option value="currentQuarter">4th Quarter</Option>
-              <Option value="lastQuarter">3rd Quarter</Option>
-              <Option value="last3rdQuarter">2nd Quarter</Option>
-              <Option value="last4thQuarter">1st Quarter</Option>
-              <Option value="lastYear">Last Year</Option>
-            </Select>
-          </div>
+    <div
+      style={{
+        height: "100%", // Take full height of the available space
+        padding: "12px 16px", // Padding for better visuals
+      }}
+    >
+      <div>
+        <div
+          style={{
+            fontSize: "13px",
+            fontWeight: "600",
+            display: "flex",
+            color: colorConfig.textGrayDark,
+          }}
+        >
+          <ImTrophy
+            style={{
+              fontSize: "16px",
+              marginRight: "8px",
+              color: "#D4AF37",
+            }}
+          />
+
+          {`Sales Champions By ${activeLabel}`}
         </div>
       </div>
-      <hr style={{ marginTop: "14px", marginBottom: "18px" }} />
+      <hr style={{ marginTop: "7px", marginBottom: "14px" }} />
       <List
         grid={{ gutter: 16, column: 1 }}
         dataSource={sortedData} // Use sorted data
+        style={{ overflowY: "auto", height: "100%", scrollbarWidth: "none" }}
         renderItem={(item, index) => (
           <List.Item
             style={{
               display: "flex",
               alignItems: "center",
-              borderBottom: "1px solid #ddd", // Horizontal line between rows
-              paddingBottom: "20px", // Add some padding for the line to not overlap content
+              borderBottom: "1px solid #ddd",
+              paddingBottom: "20px",
+              marginBottom: "35px",
             }}
           >
-            <div
-              style={{ flex: "1", textAlign: "center", fontWeight: "normal" }}
-            >
-              {item.firstName} {item.lastName}
+            {/* left column */}
+            <div style={{ flex: "1", display: "flex", alignItems: "center" }}>
+              <div
+                style={{
+                  textAlign: "center",
+                  fontWeight: "600",
+                  fontSize: "16px",
+                }}
+              >
+                #{index + 1} {/* Add 1 to index for ranking */}
+              </div>
+              <div
+                style={{ flex: "1", textAlign: "center", fontWeight: "normal" }}
+              >
+                {/* Avatar and Name */}
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    gap: "8px",
+                  }}
+                >
+                  <Avatar
+                    size={40}
+                    src={
+                      item.avatarUrl ||
+                      "https://plus.unsplash.com/premium_photo-1689977927774-401b12d137d6?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    } // Use a dummy URL if no avatar provided
+                    alt={`${item.firstName} ${item.lastName}`}
+                  />
+                  <div>
+                    {item.firstName} {item.lastName}
+                  </div>
+                </div>
+              </div>
             </div>
             <div style={{ flex: "5" }}>
-              <canvas id={`chart-${index}`} height="200"></canvas>
+              <canvas id={`chart-${index}`} height="100"></canvas>
             </div>
           </List.Item>
         )}
       />
-    </div>
-  );
-};
-
-// Main App Component
-export const ChartView = ({ data }) => {
-  return (
-    <div>
-      <LeaderboardDashboard data={data} />
     </div>
   );
 };
