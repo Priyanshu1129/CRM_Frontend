@@ -15,11 +15,12 @@ export const BackButton = ({ text = true }) => {
       }}
       style={{
         marginTop: screens.xs ? "1.6rem" : "0rem",
+        width: "fit-content",
       }}
     >
       <div
         style={{
-          fontSize: "16px",
+          fontSize: "14px",
           fontWeight: 400,
         }}
         className="hover-text-go-back-button"

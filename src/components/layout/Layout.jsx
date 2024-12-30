@@ -41,7 +41,7 @@ const LayoutComponent = ({ children }) => {
         <Layout
           style={{
             flex: 1,
-            marginLeft: !screens.xs ? (collapsed ? "80px" : "256px") : 0,
+            marginLeft: !screens.xs ? (collapsed ? "80px" : "264px") : 0,
           }}
         >
           <Header />

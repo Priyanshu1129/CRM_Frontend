@@ -9,15 +9,29 @@ const Configurations = () => {
   const columns = getColumns({ counts });
 
   return (
-    <>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100%", // Full viewport height
+      }}
+    >
       <BackButton />
-      <Table
-        loading={loading}
-        data={configResources}
-        columns={columns}
-        ScrollX="0"
-      />
-    </>
+      <div
+        style={{
+          flex: "1", // Takes remaining space below header
+          overflow: "hidden", // Prevent overflow
+          borderRadius: "8px",
+        }}
+      >
+        <Table
+          loading={loading}
+          data={configResources}
+          columns={columns}
+          ScrollX="0"
+        />
+      </div>
+    </div>
   );
 };
 
