@@ -10,6 +10,7 @@ detail page
 summary view ui
 target view
 frontend testing
+proper logout and login 
 
 
 

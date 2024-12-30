@@ -30,7 +30,6 @@ const Leaderboard = () => {
         style={{
           flex: "1", // Takes remaining space below header
           overflow: "hidden", // Prevent overflow
-          // background: "#fff",
           borderRadius: "8px",
         }}
       >
