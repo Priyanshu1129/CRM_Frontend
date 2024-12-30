@@ -32,13 +32,7 @@ export const AdminPanelCard = ({ resource }) => {
           }}
           // shape="square"
         />
-        <Text
-          strong
-          // size="md"
-          // style={{
-          //   marginTop: "16px",
-          // }}
-        >
+        <Text style={{ fontWeight: "600" }} size="md">
           {title}
         </Text>
         <div style={{ fontSize: "14px", color: colorConfig.textGrayDark }}>
