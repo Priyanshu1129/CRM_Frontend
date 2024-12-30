@@ -17,21 +17,35 @@ const UserMaster = () => {
   );
 
   return (
-    <>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100%", // Full viewport height
+      }}
+    >
       <ListHeader
         toPath={"/user-master/add-user"}
         buttonText={"Add New User"}
         pageName={"user"}
         setRefresh={setRefresh}
       />
-      <UsersTableView
-        data={users}
-        setCurrentPage={setCurrentPage}
-        setPageSize={setPageSize}
-        loading={loading}
-        total={totalCount}
-      />
-    </>
+      <div
+        style={{
+          flex: "1", // Takes remaining space below header
+          overflow: "hidden", // Prevent overflow
+          borderRadius: "8px",
+        }}
+      >
+        <UsersTableView
+          data={users}
+          setCurrentPage={setCurrentPage}
+          setPageSize={setPageSize}
+          loading={loading}
+          total={totalCount}
+        />
+      </div>
+    </div>
   );
 };
 

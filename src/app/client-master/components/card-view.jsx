@@ -18,10 +18,16 @@ export const ClientsCardView = ({
   }));
 
   return (
-    <>
+    <div
+      style={{
+        height: "100%",
+        overflow: "auto",
+        scrollbarWidth: "none",
+        marginTop: "28px",
+      }}
+    >
       {loading ? (
         <List
-          style={{ marginTop: "28px" }}
           grid={{
             gutter: 32,
             column: 4,
@@ -40,7 +46,6 @@ export const ClientsCardView = ({
         />
       ) : (
         <List
-          style={{ marginTop: "28px" }}
           grid={{
             gutter: 32,
             column: 4,
@@ -75,6 +80,6 @@ export const ClientsCardView = ({
           }}
         />
       )}
-    </>
+    </div>
   );
 };

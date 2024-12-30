@@ -7,6 +7,10 @@ rbac
 update phone / mobile in contact having problem
 business development hook
 detail page
+summary view ui
+target view
+frontend testing
+
 
 
 https://demos.pixinvent.com/vuexy-nextjs-admin-template/demo-4/en/dashboards/ecommerce

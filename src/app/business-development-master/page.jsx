@@ -119,7 +119,13 @@ const BusinessDevelopmentMaster = () => {
   };
 
   return (
-    <>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100%", // Full viewport height
+      }}
+    >
       <ListHeader
         toPath={"/business-development-master/add-business-development"}
         buttonText={"Add New Mention"}
@@ -129,16 +135,24 @@ const BusinessDevelopmentMaster = () => {
         filters={filters}
         FilterComponent={Filter}
       />
-      <BusinessDevelopmentTableView
-        loading={loading}
-        data={businessDevelopments}
-        setCurrentPage={setCurrentPage}
-        setPageSize={setPageSize}
-        total={data?.totalCount}
-        handleFilter={handleFilter}
-      />
-    </>
-  
-)};
+      <div
+        style={{
+          flex: "1", // Takes remaining space below header
+          overflow: "hidden", // Prevent overflow
+          borderRadius: "8px",
+        }}
+      >
+        <BusinessDevelopmentTableView
+          loading={loading}
+          data={businessDevelopments}
+          setCurrentPage={setCurrentPage}
+          setPageSize={setPageSize}
+          total={data?.totalCount}
+          handleFilter={handleFilter}
+        />
+      </div>
+    </div>
+  );
+};
 
 export default BusinessDevelopmentMaster;

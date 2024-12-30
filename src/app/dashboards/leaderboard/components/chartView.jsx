@@ -117,6 +117,7 @@ export const ChartView = ({ data, selectedQuarter, sortParameter }) => {
       style={{
         height: "100%", // Take full height of the available space
         padding: "12px 16px", // Padding for better visuals
+        background: "#fff",
       }}
     >
       <div>

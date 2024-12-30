@@ -21,7 +21,13 @@ const TenderMaster = () => {
   } = useFetchTenders({ pageSize, currentPage });
 
   return (
-    <>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100%", // Full viewport height
+      }}
+    >
       <ListHeader
         toPath={"/tender-master/add-tender"}
         buttonText={"Add New Tender"}
@@ -32,15 +38,23 @@ const TenderMaster = () => {
         filters={filters}
         FilterComponent={Filter}
       />
-      <TendersTableView
-        data={tenders}
-        setCurrentPage={setCurrentPage}
-        setPageSize={setPageSize}
-        loading={loading}
-        total={total}
-        handleFilter={handleFilter}
-      />
-    </>
+      <div
+        style={{
+          flex: "1", // Takes remaining space below header
+          overflow: "hidden", // Prevent overflow
+          borderRadius: "8px",
+        }}
+      >
+        <TendersTableView
+          data={tenders}
+          setCurrentPage={setCurrentPage}
+          setPageSize={setPageSize}
+          loading={loading}
+          total={total}
+          handleFilter={handleFilter}
+        />
+      </div>
+    </div>
   );
 };
 

@@ -35,12 +35,15 @@ export const Table = ({
       columns={columns}
       dataSource={data}
       style={{
+        overflowY: "auto",
         marginTop: "28px",
+        height: "100%",
+        scrollbarWidth: "none",
       }}
       scroll={{
         x: ScrollX,
-        y: 400,
       }}
+      sticky
     />
   );
 };

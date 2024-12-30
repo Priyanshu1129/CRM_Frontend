@@ -185,8 +185,14 @@ export const TableView = ({ data }) => {
       dataSource={processedData}
       bordered
       pagination={false}
+      style={{
+        overflowY: "auto",
+        height: "100%",
+        scrollbarWidth: "none",
+      }}
       scroll={{ x: "max-content" }}
       className="custom-table"
+      sticky
     />
   );
 };

@@ -21,7 +21,13 @@ const RegistrationMaster = () => {
   } = useFetchRegistrations({ currentPage, pageSize });
 
   return (
-    <>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100%", // Full viewport height
+      }}
+    >
       <ListHeader
         toPath={"/registration-master/add-registration"}
         buttonText={"Add New Registration"}
@@ -31,16 +37,23 @@ const RegistrationMaster = () => {
         filters={filters}
         FilterComponent={Filter}
       />
-      <RegistrationsTableView
-        data={registrations}
-        setCurrentPage={setCurrentPage}
-        setPageSize={setPageSize}
-        loading={loading}
-        total={total}
-        handleFilter={handleFilter}
-      />
-      )
-    </>
+      <div
+        style={{
+          flex: "1", // Takes remaining space below header
+          overflow: "hidden", // Prevent overflow
+          borderRadius: "8px",
+        }}
+      >
+        <RegistrationsTableView
+          data={registrations}
+          setCurrentPage={setCurrentPage}
+          setPageSize={setPageSize}
+          loading={loading}
+          total={total}
+          handleFilter={handleFilter}
+        />
+      </div>
+    </div>
   );
 };
 

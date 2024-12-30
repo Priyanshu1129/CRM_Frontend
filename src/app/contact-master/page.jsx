@@ -21,7 +21,13 @@ const ContactMaster = () => {
   } = useFetchContacts({ currentPage, pageSize });
 
   return (
-    <>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100%", // Full viewport height
+      }}
+    >
       <ListHeader
         toPath={"/contact-master/add-contact"}
         buttonText={"Add New Contact"}
@@ -32,15 +38,23 @@ const ContactMaster = () => {
         filters={filters}
         FilterComponent={Filter}
       />
-      <ContactsTableView
-        setCurrentPage={setCurrentPage}
-        setPageSize={setPageSize}
-        loading={loading}
-        data={contacts}
-        total={total}
-        handleFilter={handleFilter}
-      />
-    </>
+      <div
+        style={{
+          flex: "1", // Takes remaining space below header
+          overflow: "hidden", // Prevent overflow
+          borderRadius: "8px",
+        }}
+      >
+        <ContactsTableView
+          setCurrentPage={setCurrentPage}
+          setPageSize={setPageSize}
+          loading={loading}
+          data={contacts}
+          total={total}
+          handleFilter={handleFilter}
+        />
+      </div>
+    </div>
   );
 };
 
