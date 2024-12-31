@@ -19,6 +19,11 @@ const initialUserState = {
         status: null,
         error: null,
         data: null,
+    },
+    getUser: {
+        status: null,
+        error: null,
+        data: null,
     }
 }
 
@@ -49,6 +54,19 @@ const authSlice = createSlice({
             state.authDetails.status = 'failed'
             state.authDetails.error = action.payload;
         },
+
+        getUserRequest: (state, action) => {
+            state.getUser.status = 'pending'
+        },
+        getUserSuccess: (state, action) => {
+            state.getUser.status = 'success'
+            state.getUser.data = action.payload;
+        },
+        getUserFailure: (state, action) => {
+            state.getUser.status = 'failed'
+            state.getUser.error = action.payload;
+        },
+
         logoutRequest: (state, action) => {
             state.logout.status = "pending";
         },
@@ -59,6 +77,7 @@ const authSlice = createSlice({
         logoutFailure: (state, action) => {
             state.logout.status = 'failed';
         },
+
         forgotPasswordRequest: (state, action) => {
             state.authDetails.status = 'pending'
         },
@@ -70,6 +89,7 @@ const authSlice = createSlice({
             state.authDetails.status = 'failed'
             state.authDetails.error = action.payload
         },
+
         verifyOTPRequest: (state) => {
             state.verifyOTP.status = 'pending'
         },
@@ -81,6 +101,7 @@ const authSlice = createSlice({
             state.verifyOTP.status = 'failed'
             state.verifyOTP.error = action.payload
         },
+
         changePasswordRequest: (state) => {
             state.changePassword.status = 'pending'
         },
@@ -92,6 +113,7 @@ const authSlice = createSlice({
             state.changePassword.status = 'failed'
             state.changePassword.error = action.payload
         },
+
         clearAuthDetailsStatus: (state) => {
             state.authDetails.status = null;
         },
@@ -121,6 +143,15 @@ const authSlice = createSlice({
         },
         clearChangePasswordError: (state) => {
             state.changePassword.error = null;
+        },
+        clearGetUserStatus : (state)=>{
+            state.getUser.status = null
+        },
+        clearGetUserError : (state)=>{
+            state.getUser.status = null
+        },
+        clearGetUserData : (state)=>{
+            state.getUser.status = null
         }
     }
 })

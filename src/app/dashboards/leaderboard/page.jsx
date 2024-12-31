@@ -166,7 +166,7 @@ const Leaderboard = () => {
   // console.log(loading, leaderboardData);
   return (
     <>
-      <DashboardHeader dashboard={"Leaderboard"} setRefresh={null} />
+      {/* <DashboardHeader dashboard={"Leaderboard"} setRefresh={null} /> */}
       <Board data={data} />
     </>
   );
