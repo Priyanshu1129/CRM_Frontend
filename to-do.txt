@@ -1,16 +1,16 @@
-leader board graph
+auto reload on add
+rbac
+funnel view shimmer and design
 my-view filters
 currency change everywhere
-auto reload on add
 stage id is hard coded at heatmap view
-rbac
 update phone / mobile in contact having problem
 business development hook
 detail page
-summary view ui
 target view
 frontend testing
-proper logout and login 
+proper- logout and login 
+----------------------summary view ui
 
 
 

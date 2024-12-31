@@ -1,120 +1,136 @@
+// "use client";
+// import React from "react";
+// import { Row, Col } from "antd";
+// import BarChart from "./component/bar-chart";
+// import { colorConfig } from "@/config";
+
+// const fetchData = async (entityName, year) => {
+//   // Mock API call. Replace with your actual API logic.
+//   return {
+//     target: [100, 150, 200, 250],
+//     actual: [90, 140, 180, 230],
+//   };
+// };
+
+// const Dashboard = () => {
+//   const entities = ["Entity A", "Entity B", "Entity C", "Entity D"];
+
+//   return (
+//     <div style={{ padding: "1rem", background: "#fff" }}>
+//       {/* Centralized Legend */}
+//       <div
+//         style={{
+//           marginBottom: "1rem",
+//           display: "flex",
+//           gap: "1rem",
+//           justifySelf: "flex-end",
+//         }}
+//       >
+//         <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+//           <div
+//             style={{
+//               width: "20px",
+//               height: "20px",
+//               borderRadius: "50%",
+//               backgroundColor: colorConfig.primary,
+//             }}
+//           ></div>
+//           <span>Target</span>
+//         </div>
+//         <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+//           <div
+//             style={{
+//               width: "20px",
+//               height: "20px",
+//               borderRadius: "50%",
+//               backgroundColor: "rgba(75, 192, 192, 0.5)",
+//             }}
+//           ></div>
+//           <span>Actual</span>
+//         </div>
+//       </div>
+
+//       {/* Bar Charts */}
+//       <Row gutter={[16, 16]}>
+//         {entities.map((entity) => (
+//           <Col key={entity} xs={24} sm={24} md={12} lg={12}>
+//             <BarChart entityName={entity} fetchData={fetchData} />
+//           </Col>
+//         ))}
+//       </Row>
+//     </div>
+//   );
+// };
+
+// export default Dashboard;
+
 "use client";
-import React, { useState } from "react";
-import { Filter, DashboardHeader } from "../components";
-import { useFetchSummaryView, useFetchMySummaryView } from "@/hooks/dashboards";
-import { SummaryCards, Heatmap, BubbleChart } from "./components";
-import { Row, Col, Space, Card } from "antd";
-import BubbleShimmer from "./components/bubbleChart/BubbleShimmer";
-import { useEffect } from "react";
-const SummaryView = () => {
-  const [myView, setMyView] = useState(false);
-  const [startDate, setStartDate] = useState("2020-10-10");
-  const [endDate, setEndDate] = useState(
-    new Date().toLocaleDateString("en-CA")
-  );
-  const [myViewStartDate, setMyViewStartDate] = useState("2020-10-10");
-  const [myViewEndDate, setMyViewEndDate] = useState(
-    new Date().toLocaleDateString("en-CA")
-  );
-  const [summaryViewData, setSummaryViewData] = useState();
+import React from "react";
+import { Row, Col } from "antd";
+import BarChart from "./component/bar-chart";
+import { colorConfig } from "@/config";
 
-  const {
-    loading,
-    setRefresh,
-    filters,
-    setFilter,
-    setFilters,
-    summaryViewData: allViewSummaryViewData,
-  } = useFetchSummaryView({
-    startDate,
-    endDate,
-    myView,
-  });
+const fetchData = async (entityName, year) => {
+  // Mock API call. Replace with your actual API logic.
+  return {
+    target: [100, 150, 200, 250],
+    actual: [90, 140, 180, 230],
+  };
+};
 
-  const {
-    loading: myViewLoading,
-    setRefresh: setMyViewRefresh,
-    filters: myViewFilters,
-    setFilter: setMyViewFilter,
-    setFilters: setMyViewFilters,
-    summaryViewData: myViewSummaryViewData,
-  } = useFetchMySummaryView({
-    myViewStartDate,
-    myViewEndDate,
-    myView,
-  });
-
-  useEffect(() => {
-    if (!loading && !myViewLoading)
-      setSummaryViewData(
-        myView ? myViewSummaryViewData : allViewSummaryViewData
-      );
-  }, [
-    myView,
-    myViewSummaryViewData,
-    allViewSummaryViewData,
-    loading,
-    myViewLoading,
-  ]);
+const Dashboard = () => {
+  const entities = ["Overall", "Territory", "Industry", "Solution"];
 
   return (
-    <>
-      <DashboardHeader
-        dashboard={"Summary View"}
-        setStartDate={myView ? setMyViewStartDate : setStartDate}
-        setEndDate={myView ? setMyViewEndDate : setEndDate}
-        setRefresh={myView ? setMyViewRefresh : setRefresh}
-        setFilter={myView ? setMyViewFilter : setFilter}
-        setFilters={myView ? setMyViewFilters : setFilters}
-        filters={myView ? myViewFilters : filters}
-        myView={myView}
-        setMyView={setMyView}
-        FilterComponent={Filter}
-        myViewButtonText="My Summary View"
-      />
+    <div style={{ paddingTop: "1rem", background: "#fff" }}>
+      {/* Centralized Legend */}
+      <div
+        style={{
+          marginBottom: "1rem",
+          marginRight: "1rem",
+          display: "flex",
+          gap: "1rem",
+          justifySelf: "flex-end",
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+          <div
+            style={{
+              width: "20px",
+              height: "20px",
+              borderRadius: "50%",
+              backgroundColor: colorConfig.primary,
+            }}
+          ></div>
+          <span>Target</span>
+        </div>
+        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+          <div
+            style={{
+              width: "20px",
+              height: "20px",
+              borderRadius: "50%",
+              backgroundColor: "rgba(75, 192, 192, 0.5)",
+            }}
+          ></div>
+          <span>Actual</span>
+        </div>
+      </div>
 
-      <Space direction="vertical" style={{ width: "100%" }}>
-        {/* Summary Cards */}
-        <SummaryCards
-          loading={loading || myViewLoading}
-          data={summaryViewData}
-        />
-
-        <Row style={{}} gutter={[18, 18]}>
-          {/* Left side - Heatmap */}
-          <Col xs={24} lg={12}>
-            <Heatmap myView={myView} />
+      {/* Bar Charts */}
+      <Row gutter={[16, 16]}>
+        {entities.map((entity) => (
+          <Col key={entity} xs={24} sm={24} md={12} lg={12}>
+            <BarChart
+              entityName={entity}
+              showSelector={entity !== "Entity A"} // Show selector for B, C, and D, but not A
+              fetchData={fetchData}
+            />
           </Col>
-
-          {/* Right side - Bubble charts */}
-          <Col xs={24} sm={12} lg={6}>
-            {loading || myViewLoading ? (
-              <BubbleShimmer />
-            ) : (
-              <BubbleChart
-                opportunityDistribution={
-                  summaryViewData?.opportunityDistribution
-                }
-                loading={loading || myViewLoading}
-              />
-            )}
-          </Col>
-          <Col xs={24} sm={12} lg={6}>
-            {loading || myViewLoading ? (
-              <BubbleShimmer />
-            ) : (
-              <BubbleChart
-                opportunityDistribution={
-                  summaryViewData?.opportunityDistribution
-                }
-                loading={loading || myViewLoading}
-              />
-            )}
-          </Col>
-        </Row>
-      </Space>
-    </>
+        ))}
+      </Row>
+    </div>
   );
 };
 
-export default SummaryView;
+export default Dashboard;
