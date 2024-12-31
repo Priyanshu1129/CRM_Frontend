@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import moment from "moment";
 
 const initialFunnelViewState = {
     getFunnelView: {
@@ -10,7 +11,11 @@ const initialFunnelViewState = {
         status: "idle",
         error: null,
         data: null,
-    }
+    },
+    particularDate: moment().toISOString(),
+    currentDate: null,
+    myViewParticularDate: moment().toISOString(),
+    myViewCurrentDate: null,
 }
 
 const funnelViewSlice = createSlice({
@@ -56,7 +61,22 @@ const funnelViewSlice = createSlice({
         },
         clearGetMyFunnelViewError: (state) => {
             state.getMyFunnelView.error = null;
-        }
+        },
+
+        // particular dates 
+        // particular dates
+        setParticularDate(state, action) {
+            state.particularDate = moment(action.payload).toISOString();
+        },
+        setCurrentDate(state, action) {
+            state.currentDate = action.payload;
+        },
+        setMyViewParticularDate(state, action) {
+            state.myViewParticularDate = moment(action.payload).toISOString();
+        },
+        setMyViewCurrentDate(state, action) {
+            state.myViewCurrentDate = action.payload
+        },
     }
 })
 

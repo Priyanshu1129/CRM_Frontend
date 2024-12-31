@@ -6,13 +6,21 @@ import { FullScreenLoading } from "@/components";
 import { FunnelChart, ConversionRates, Doughnut } from "./components";
 import { Row, Col } from "antd";
 import { useFetchFunnelView, useFetchMyFunnelView } from "@/hooks/dashboards";
+import { funnelViewActions } from "@/redux/slices/dashboardSlice";
+import { useSelector, useDispatch } from "react-redux";
 
 const FunnelView = () => {
-  const [particularDate, setParticularDate] = useState(moment());
-  const [myViewParticularDate, setMyViewParticularDate] = useState(moment());
+  const particularDate = moment(
+    useSelector((state) => state.funnelView.particularDate)
+  );
+  const myViewParticularDate = moment(
+    useSelector((state) => state.funnelView.myViewParticularDate)
+  );
 
   const [myView, setMyView] = useState(false);
   const [funnelViewData, setFunnelViewData] = useState(null);
+
+  const dispatch = useDispatch();
 
   const {
     loading,
@@ -51,11 +59,17 @@ const FunnelView = () => {
     myViewLoading,
   ]);
 
+  const handleDateChange = (newDate) => {
+    if (!myView) dispatch(funnelViewActions.setParticularDate(newDate));
+    else dispatch(funnelViewActions.setMyViewParticularDate(newDate));
+  };
+
   return (
     <>
       <DashboardHeader
         dashboard={"Funnel View"}
-        setDate={myView ? setMyViewParticularDate : setParticularDate}
+        setDate={handleDateChange}
+        selectedDate={myView ? myViewParticularDate : particularDate}
         setRefresh={myView ? myViewSetRefresh : setRefresh}
         setFilter={myView ? myViewSetFilter : setFilter}
         setFilters={myView ? myViewSetFilters : setFilters}

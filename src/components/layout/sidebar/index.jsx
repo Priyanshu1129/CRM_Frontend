@@ -23,7 +23,7 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
   return (
     <Sider
       breakpoint="lg"
-      width={256}
+      width={264}
       style={{
         border: "1px solid",
         borderColor: colorConfig.cardBorder,
@@ -67,11 +67,13 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
         onClick={onClick}
         style={{
           height: "calc(100% - 64px)", // Adjust to account for header height
-          scrollbarWidth: "thin",
+          overflow: "auto",
+          scrollbarWidth: "none",
           fontWeight: "500",
           paddingLeft: "12px",
           paddingRight: "12px",
           marginTop: "8px",
+          fontSize: "0.95rem",
         }}
         theme="light" // Ensures proper base styling
         title="title"

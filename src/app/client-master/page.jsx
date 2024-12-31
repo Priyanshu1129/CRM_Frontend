@@ -18,11 +18,17 @@ const ClientMaster = () => {
     filters,
     setFilter,
     setFilters,
-    total
+    total,
   } = useFetchClients({ currentPage, pageSize });
 
   return (
-    <>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100%", // Full viewport height
+      }}
+    >
       <ListHeader
         toPath={"/client-master/add-client"}
         setFilter={setFilter}
@@ -35,25 +41,34 @@ const ClientMaster = () => {
         setView={setView}
         view={view}
       />
-      {view == "table" ? (
-        <ClientsTableView
-          totalClients={total}
-          setCurrentPage={setCurrentPage}
-          setPageSize={setPageSize}
-          data={clients}
-          loading={loading}
-          handleFilter={handleFilter}
-        />
-      ) : (
-        <ClientsCardView
-          totalClients={total}
-          setCurrentPage={setCurrentPage}
-          setPageSize={setPageSize}
-          data={clients}
-          loading={loading}
-        />
-      )}
-    </>
+      <div
+        style={{
+          flex: "1", // Takes remaining space below header
+          overflow: "hidden", // Prevent overflow
+          borderRadius: "8px",
+          scrollbarWidth: "none",
+        }}
+      >
+        {view == "table" ? (
+          <ClientsTableView
+            totalClients={total}
+            setCurrentPage={setCurrentPage}
+            setPageSize={setPageSize}
+            data={clients}
+            loading={loading}
+            handleFilter={handleFilter}
+          />
+        ) : (
+          <ClientsCardView
+            totalClients={total}
+            setCurrentPage={setCurrentPage}
+            setPageSize={setPageSize}
+            data={clients}
+            loading={loading}
+          />
+        )}
+      </div>
+    </div>
   );
 };
 

@@ -12,14 +12,18 @@ import { stages, getStats } from "./stages";
 import moment from "moment";
 import { useRouter } from "next/navigation";
 import { ShowCurrency } from "../components";
+import { pipeViewActions } from "@/redux/slices/dashboardSlice";
+import { useSelector, useDispatch } from "react-redux";
 
 const PipeView = () => {
-  const [particularDate, setParticularDate] = useState(moment());
-  const [myViewParticularDate, setMyViewParticularDate] = useState(moment());
-
   const [myView, setMyView] = useState(false);
-  const [opportunities, setOpportunities] = useState(null);
-
+  const particularDate = moment(
+    useSelector((state) => state.pipeView.particularDate)
+  );
+  const myViewParticularDate = moment(
+    useSelector((state) => state.pipeView.myViewParticularDate)
+  );
+  const dispatch = useDispatch();
   const {
     loading,
     setRefresh,
@@ -28,8 +32,8 @@ const PipeView = () => {
     setFilter,
     setFilters,
   } = useFetchPipeView({
-    particularDate,
     myView,
+    particularDate,
   });
 
   const {
@@ -47,22 +51,24 @@ const PipeView = () => {
   const [stats, setStats] = useState(null);
   const router = useRouter();
 
-  useEffect(() => {
-    if (!loading)
-      setOpportunities(myView ? myViewOpportunities : allViewOpportunities);
-  }, [myViewOpportunities, allViewOpportunities, myView, loading]);
-
+  const opportunities = myView ? myViewOpportunities : allViewOpportunities;
   useEffect(() => {
     if (!loading && opportunities) {
       setStats(getStats(opportunities));
     }
   }, [opportunities, loading]);
 
+  const handleDateChange = (newDate) => {
+    if (!myView) dispatch(pipeViewActions.setParticularDate(newDate));
+    else dispatch(pipeViewActions.setMyViewParticularDate(newDate));
+  };
+
   return (
     <>
       <DashboardHeader
         dashboard={"Pipe View"}
-        setDate={myView ? setMyViewParticularDate : setParticularDate}
+        setDate={handleDateChange}
+        selectedDate={myView ? myViewParticularDate : particularDate}
         setRefresh={myView ? setMyViewRefresh : setRefresh}
         setFilter={myView ? setMyViewFilter : setFilter}
         setFilters={myView ? setMyViewFilters : setFilters}

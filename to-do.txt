@@ -1,11 +1,18 @@
-my-view
-rbac
-detail page 
-update phone / mobile in contact having problem
-testing
 auto reload on add
+rbac
+funnel view shimmer and design
+my-view filters
+currency change everywhere
+stage id is hard coded at heatmap view
+update phone / mobile in contact having problem
 business development hook
-stage id is hard coded at heatmap view 
+detail page
+target view
+frontend testing
+proper- logout and login 
+----------------------summary view ui
+
+
 
 https://demos.pixinvent.com/vuexy-nextjs-admin-template/demo-4/en/dashboards/ecommerce
 

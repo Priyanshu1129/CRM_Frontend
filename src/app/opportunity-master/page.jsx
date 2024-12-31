@@ -19,7 +19,13 @@ const OpportunityMaster = () => {
     });
 
   return (
-    <>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100%", // Full viewport height
+      }}
+    >
       <ListHeader
         toPath={"/opportunity-master/add-opportunity"}
         buttonText={"Add New Deal"}
@@ -30,15 +36,23 @@ const OpportunityMaster = () => {
         filters={filters}
         FilterComponent={Filter}
       />
-      <OpportunitiesTableView
-        data={opportunities}
-        setCurrentPage={setCurrentPage}
-        setPageSize={setPageSize}
-        loading={loading}
-        total={total}
-        handleFilter={handleFilter}
-      />
-    </>
+      <div
+        style={{
+          flex: "1", // Takes remaining space below header
+          overflow: "hidden", // Prevent overflow
+          borderRadius: "8px",
+        }}
+      >
+        <OpportunitiesTableView
+          data={opportunities}
+          setCurrentPage={setCurrentPage}
+          setPageSize={setPageSize}
+          loading={loading}
+          total={total}
+          handleFilter={handleFilter}
+        />
+      </div>
+    </div>
   );
 };
 

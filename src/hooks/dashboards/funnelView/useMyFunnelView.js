@@ -3,11 +3,14 @@ import { useSelector, useDispatch } from "react-redux"
 import { getMyFunnelView } from "@/redux/actions/dashboardAction"
 import { funnelViewActions } from "@/redux/slices/dashboardSlice"
 import { notification } from "antd"
+import moment from "moment"
 
 export const useFetchMyFunnelView = ({ myViewParticularDate, myView }) => {
+    console.log("inside use-my-funnel view")
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
-    const [currentDate, setCurrentDate] = useState(null);
+    const rawCurrentDate = useSelector((state) => state.funnelView.myViewCurrentDate);
+    const currentDate = rawCurrentDate ? moment(rawCurrentDate) : null;
     const [refresh, setRefresh] = useState(false);
     const [filters, setFilters] = useState({});
     const [filter, setFilter] = useState(false);
@@ -20,14 +23,14 @@ export const useFetchMyFunnelView = ({ myViewParticularDate, myView }) => {
     }, [dispatch, myViewParticularDate, filters])
 
     useEffect(() => {
-        if (refresh || currentDate != myViewParticularDate || (filter && filters)) {
+        if (refresh || !currentDate?.isSame(myViewParticularDate, 'day') || (filter && filters)) {
             if (myView) {
                 fetchFunnelView();
-                setCurrentDate(myViewParticularDate);
+                dispatch(funnelViewActions.setMyViewCurrentDate(myViewParticularDate.toISOString()))
             }
         }
         setFilter(false);
-    }, [currentDate, myViewParticularDate, refresh, fetchFunnelView, filter, filters, myView])
+    }, [currentDate, myViewParticularDate, refresh, fetchFunnelView, filter, filters, myView, dispatch])
 
     useEffect(() => {
         if (status === "pending") {

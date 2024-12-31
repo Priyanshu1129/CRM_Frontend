@@ -1,174 +1,48 @@
 "use client";
 import { useFetchLeaderboard } from "@/hooks/dashboards";
-import { DashboardHeader } from "../components";
-import { Board } from "./components/leaderboard";
-import React from "react";
-
-const data = [
-  {
-    _id: "670e85355a74d28e495aaf4e",
-    firstName: "Ashwin",
-    lastName: "Gorle",
-    entryDetails: {
-      currentQuarter: {
-        clientEntries: 9,
-        contactEntries: 2,
-        registrationEntries: 0,
-        tenderEntries: 0,
-        mentionEntries: 6,
-        leadEntries: 8,
-        prospectEntries: 5,
-        qualificationEntries: 50,
-        followUpEntries: 2,
-        proposalEntries: 12,
-        closingEntries: 6,
-        wonEntries: 2,
-      },
-      lastQuarter: {
-        clientEntries: 9,
-        contactEntries: 2,
-        registrationEntries: 0,
-        tenderEntries: 0,
-        mentionEntries: 6,
-        leadEntries: 1,
-        prospectEntries: 5,
-        qualificationEntries: 10,
-        followUpEntries: 2,
-        proposalEntries: 12,
-        closingEntries: 6,
-        wonEntries: 2,
-      },
-      last3rdQuarter: {
-        clientEntries: 9,
-        contactEntries: 2,
-        registrationEntries: 11,
-        tenderEntries: 0,
-        mentionEntries: 6,
-        leadEntries: 8,
-        prospectEntries: 5,
-        qualificationEntries: 50,
-        followUpEntries: 2,
-        proposalEntries: 12,
-        closingEntries: 25,
-        wonEntries: 2,
-      },
-      last4thQuarter: {
-        clientEntries: 9,
-        contactEntries: 2,
-        registrationEntries: 0,
-        tenderEntries: 0,
-        mentionEntries: 6,
-        leadEntries: 8,
-        prospectEntries: 5,
-        qualificationEntries: 50,
-        followUpEntries: 2,
-        proposalEntries: 12,
-        closingEntries: 6,
-        wonEntries: 2,
-      },
-      lastYear: {
-        clientEntries: 9,
-        contactEntries: 2,
-        registrationEntries: 0,
-        tenderEntries: 0,
-        mentionEntries: 6,
-        leadEntries: 8,
-        prospectEntries: 5,
-        qualificationEntries: 50,
-        followUpEntries: 2,
-        proposalEntries: 12,
-        closingEntries: 6,
-        wonEntries: 2,
-      },
-    },
-  },
-  {
-    _id: "670e85355a74d28e495aaf4e",
-    firstName: "Priyanshu",
-    lastName: "Jaj",
-    entryDetails: {
-      currentQuarter: {
-        clientEntries: 9,
-        contactEntries: 2,
-        registrationEntries: 0,
-        tenderEntries: 0,
-        mentionEntries: 6,
-        leadEntries: 8,
-        prospectEntries: 5,
-        qualificationEntries: 50,
-        followUpEntries: 2,
-        proposalEntries: 12,
-        closingEntries: 6,
-        wonEntries: 2,
-      },
-      lastQuarter: {
-        clientEntries: 9,
-        contactEntries: 2,
-        registrationEntries: 0,
-        tenderEntries: 0,
-        mentionEntries: 6,
-        leadEntries: 1,
-        prospectEntries: 5,
-        qualificationEntries: 10,
-        followUpEntries: 2,
-        proposalEntries: 12,
-        closingEntries: 6,
-        wonEntries: 2,
-      },
-      last3rdQuarter: {
-        clientEntries: 9,
-        contactEntries: 2,
-        registrationEntries: 11,
-        tenderEntries: 0,
-        mentionEntries: 6,
-        leadEntries: 8,
-        prospectEntries: 5,
-        qualificationEntries: 50,
-        followUpEntries: 2,
-        proposalEntries: 12,
-        closingEntries: 25,
-        wonEntries: 2,
-      },
-      last4thQuarter: {
-        clientEntries: 9,
-        contactEntries: 2,
-        registrationEntries: 0,
-        tenderEntries: 0,
-        mentionEntries: 6,
-        leadEntries: 8,
-        prospectEntries: 5,
-        qualificationEntries: 50,
-        followUpEntries: 2,
-        proposalEntries: 12,
-        closingEntries: 6,
-        wonEntries: 2,
-      },
-      lastYear: {
-        clientEntries: 9,
-        contactEntries: 2,
-        registrationEntries: 0,
-        tenderEntries: 0,
-        mentionEntries: 6,
-        leadEntries: 8,
-        prospectEntries: 5,
-        qualificationEntries: 50,
-        followUpEntries: 2,
-        proposalEntries: 12,
-        closingEntries: 6,
-        wonEntries: 2,
-      },
-    },
-  },
-];
+import { LeaderboardHeader, TableView, ChartView } from "./components";
+import React, { useState } from "react";
+import { data } from "./config";
 
 const Leaderboard = () => {
+  const [view, setView] = useState("chartView");
+  const [selectedQuarter, setSelectedQuarter] = useState("currentQuarter");
+  const [sortParameter, setSortParameter] = useState("clientEntries"); // Default sort parameter
   // const { loading, leaderboardData, setRefresh } = useFetchLeaderboard();
   // console.log(loading, leaderboardData);
   return (
-    <>
-      {/* <DashboardHeader dashboard={"Leaderboard"} setRefresh={null} /> */}
-      <Board data={data} />
-    </>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100%", // Full viewport height
+      }}
+    >
+      <LeaderboardHeader
+        setSortParameter={setSortParameter}
+        sortParameter={sortParameter}
+        selectedQuarter={selectedQuarter}
+        setSelectedQuarter={setSelectedQuarter}
+        view={view}
+        setView={setView}
+      />
+      <div
+        style={{
+          flex: "1", // Takes remaining space below header
+          overflow: "hidden", // Prevent overflow
+          borderRadius: "8px",
+        }}
+      >
+        {view == "chartView" && (
+          <ChartView
+            data={data}
+            selectedQuarter={selectedQuarter}
+            sortParameter={sortParameter}
+          />
+        )}
+        {view == "tableView" && <TableView data={data} />}
+      </div>
+    </div>
   );
 };
 
