@@ -18,16 +18,25 @@ const RegistrationDetails = () => {
   const { loading, registration } = useFetchRegistrationDetails(id);
 
   return (
-    <>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100%", // Full viewport height
+      }}
+    >
       <FormHeader backButtonText="Back to Registrations" />
       <Space
         direction="vertical"
         style={{
-          marginTop: "28px",
+          marginTop: "24px",
           width: "100%",
           background: colorBgContainer,
           borderRadius: borderRadiusLG,
           padding: screens.xs ? "16px" : "32px",
+          // flex: "1", // Takes remaining space below header
+          overflow: "scroll", // Prevent overflow
+          scrollbarWidth: "none",
         }}
       >
         {loading ? (
@@ -36,7 +45,7 @@ const RegistrationDetails = () => {
           <UpdateRegistrationForm registration={registration} />
         )}
       </Space>
-    </>
+    </div>
   );
 };
 export default RegistrationDetails;

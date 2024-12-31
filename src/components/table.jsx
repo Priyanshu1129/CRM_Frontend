@@ -36,7 +36,7 @@ export const Table = ({
       dataSource={data}
       style={{
         overflowY: "auto",
-        marginTop: "28px",
+        marginTop: "24px",
         height: "100%",
         scrollbarWidth: "none",
       }}

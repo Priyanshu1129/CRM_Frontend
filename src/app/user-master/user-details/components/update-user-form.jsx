@@ -43,6 +43,8 @@ export const UpdateUserForm = ({ user }) => {
       ...values,
       phone: `${phoneCountryCode} ${values.phone}`,
     };
+    // console.log("user Values: ", values);
+    // console.log("Updated Values: ", updatedValues);
     handleUpdateUser(updatedValues);
   };
 

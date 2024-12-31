@@ -3,14 +3,13 @@ import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Space, Col, Row } from "antd";
 import { CurrencyAmountInput } from "@/components";
 export const RevenueInput = ({ setCurrency, rules }) => {
-  console.log("revenue", setCurrency);
   return (
     <Form.List name="revenue">
       {(fields, { add, remove }) => (
         <>
           {fields.map(({ key, name, ...restField }) => (
             <Row gutter={24} key={key}>
-              <Col span={12}>
+              <Col xs={24} sm={12} md={8} lg={6}>
                 <Form.Item
                   label="Year"
                   {...restField}
@@ -20,18 +19,10 @@ export const RevenueInput = ({ setCurrency, rules }) => {
                   <Input />
                 </Form.Item>
               </Col>
-              <Col span={12}>
+              <Col xs={24} sm={12} md={16} lg={18} style={{ display: "flex" }}>
                 <MinusCircleOutlined onClick={() => remove(name)} />
               </Col>
               <Col span={6}>
-                {/* <Form.Item
-                {...restField}
-                label="Quarter 1"
-                name={[name, "Q1"]}
-                rules={rules.quarter}
-              >
-                <Input />
-              </Form.Item> */}
                 <CurrencyAmountInput
                   restField={restField}
                   label="Quarter 1"
@@ -41,14 +32,6 @@ export const RevenueInput = ({ setCurrency, rules }) => {
                 />
               </Col>
               <Col span={6}>
-                {/* <Form.Item
-                {...restField}
-                label="Quarter 2"
-                name={[name, "Q2"]}
-                rules={rules.quarter}
-              >
-                <Input />
-              </Form.Item> */}
                 <CurrencyAmountInput
                   restField={restField}
                   label="Quarter 2"
@@ -58,14 +41,6 @@ export const RevenueInput = ({ setCurrency, rules }) => {
                 />
               </Col>
               <Col span={6}>
-                {/* <Form.Item
-                {...restField}
-                label="Quarter 3"
-                name={[name, "Q3"]}
-                rules={rules.quarter}
-              >
-                <Input />
-              </Form.Item> */}
                 <CurrencyAmountInput
                   restField={restField}
                   label="Quarter 3"
@@ -75,14 +50,6 @@ export const RevenueInput = ({ setCurrency, rules }) => {
                 />
               </Col>
               <Col span={6}>
-                {/* <Form.Item
-                {...restField}
-                label="Quarter 4"
-                name={[name, "Q4"]}
-                rules={rules.quarter}
-              >
-                <Input />
-              </Form.Item> */}
                 <CurrencyAmountInput
                   restField={restField}
                   label="Quarter 4"
@@ -93,10 +60,10 @@ export const RevenueInput = ({ setCurrency, rules }) => {
               </Col>
             </Row>
           ))}
-          <Col span={24}>
+          <div style={{ padding: 0, width: "100%" }}>
             <Form.Item>
               <Button
-                type="dashed"
+                style={{ maxWidth: "200px" }}
                 onClick={() => add()}
                 block
                 icon={<PlusOutlined />}
@@ -104,7 +71,7 @@ export const RevenueInput = ({ setCurrency, rules }) => {
                 Add Revenue
               </Button>
             </Form.Item>
-          </Col>
+          </div>
         </>
       )}
     </Form.List>

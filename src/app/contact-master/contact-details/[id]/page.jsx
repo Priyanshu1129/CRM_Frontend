@@ -16,16 +16,26 @@ const ContactDetails = () => {
   const { loading, contact } = useFetchContactDetails(id);
 
   return (
-    <>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100%", // Full viewport height
+      }}
+    >
       <FormHeader backButtonText="Back to Contacts" />
       <Space
         direction="vertical"
         style={{
-          marginTop: "28px",
+          marginTop: "24px",
           width: "100%",
           background: colorBgContainer,
           borderRadius: borderRadiusLG,
           padding: screens.xs ? "16px" : "32px",
+          // flex: "1", // Takes remaining space below header
+          overflowY: "scroll", // Prevent overflow
+          scrollbarWidth: "none",
+          borderRadius: "8px",
         }}
       >
         {loading ? (
@@ -34,7 +44,7 @@ const ContactDetails = () => {
           <UpdateContactForm contact={contact} />
         )}
       </Space>
-    </>
+    </div>
   );
 };
 export default ContactDetails;

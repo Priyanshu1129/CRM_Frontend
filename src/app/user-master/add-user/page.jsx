@@ -51,16 +51,26 @@ const AddUser = () => {
   };
 
   return (
-    <>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100%", // Full viewport height
+      }}
+    >
       <FormHeader backButtonText={"Return"} />
       <Space
         direction="vertical"
         style={{
-          marginTop: "28px",
+          marginTop: "24px",
           width: "100%",
           background: colorBgContainer,
           borderRadius: borderRadiusLG,
           padding: !screens.xs ? "32px" : "16px",
+          // flex: "1", // Takes remaining space below header
+          overflowY: "scroll", // Prevent overflow
+          scrollbarWidth: "none",
+          borderRadius: "8px",
         }}
       >
         <Form
@@ -220,7 +230,7 @@ const AddUser = () => {
             <Col {...colSpan}>
               <Form.Item>
                 <Space>
-                  <Button type="primary" htmlType="submit">
+                  <Button loading={loading} type="primary" htmlType="submit">
                     Submit
                   </Button>
                   <Button
@@ -237,7 +247,7 @@ const AddUser = () => {
           </Row>
         </Form>
       </Space>
-    </>
+    </div>
   );
 };
 

@@ -26,7 +26,7 @@ const RoleDetails = () => {
       <Space
         direction="vertical"
         style={{
-          marginTop: "28px",
+          marginTop: "24px",
           width: "100%",
           background: colorBgContainer,
           borderRadius: borderRadiusLG,

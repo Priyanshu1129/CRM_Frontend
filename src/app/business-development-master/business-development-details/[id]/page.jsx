@@ -3,7 +3,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Grid, notification, Space, theme } from "antd";
 import { businessDevelopmentActions } from "@/redux/slices/businessDevelopmentSlice";
-import { UpdateBusinessDevelopmentForm} from "../../components/update-business-development";
+import { UpdateBusinessDevelopmentForm } from "../../components/update-business-development";
 import { getBusinessDevelopment } from "@/redux/actions/businessDevelopmentAction";
 import { useParams } from "next/navigation";
 import { FullScreenLoading, FormHeader } from "@/components";
@@ -55,16 +55,25 @@ const BusinessDevelopmentDetails = () => {
   }, [status, error, data?.data, dispatch]);
 
   return (
-    <>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100%", // Full viewport height
+      }}
+    >
       <FormHeader backButtonText="Back to BusinessDevelopments" />
       <Space
         direction="vertical"
         style={{
-          marginTop: "28px",
+          marginTop: "24px",
           width: "100%",
           background: colorBgContainer,
           borderRadius: borderRadiusLG,
           padding: screens.xs ? "16px" : "32px",
+          // flex: "1", // Takes remaining space below header
+          overflow: "scroll", // Prevent overflow
+          scrollbarWidth: "none",
         }}
       >
         {loading ? (
@@ -75,7 +84,7 @@ const BusinessDevelopmentDetails = () => {
           />
         )}
       </Space>
-    </>
+    </div>
   );
 };
 export default BusinessDevelopmentDetails;
