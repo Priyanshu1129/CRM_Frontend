@@ -39,4 +39,10 @@ export const resources = [
     icon: <TbReportAnalytics color={colorConfig.primary} size={24} />,
     description: "Generate reports",
   },
+  {
+    key: "system-config",
+    title: "System Config",
+    icon: <TbReportAnalytics color={colorConfig.primary} size={24} />,
+    description: "Setup your system",
+  },
 ];

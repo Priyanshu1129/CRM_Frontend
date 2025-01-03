@@ -96,8 +96,6 @@ export const createTender = (tenderData) => async (dispatch) => {
 };
 
 export const updateTender = (tenderData, tenderId) => async (dispatch) => {
-
-
     try {
         console.log("update-tenderData-req", tenderData,);
         dispatch(tenderActions.updateTenderRequest());
