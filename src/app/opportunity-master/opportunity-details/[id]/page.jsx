@@ -17,16 +17,25 @@ const OpportunityDetails = () => {
   } = theme.useToken();
 
   return (
-    <>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100%", // Full viewport height
+      }}
+    >
       <FormHeader backButtonText="Back to Opportunities" />
       <Space
         direction="vertical"
         style={{
-          marginTop: "28px",
+          marginTop: "24px",
           width: "100%",
           background: colorBgContainer,
           borderRadius: borderRadiusLG,
           padding: screens.xs ? "16px" : "32px",
+          // flex: "1", // Takes remaining space below header
+          overflow: "scroll", // Prevent overflow
+          scrollbarWidth: "none",
         }}
       >
         {loading ? (
@@ -35,7 +44,7 @@ const OpportunityDetails = () => {
           <UpdateOpportunityForm opportunity={opportunity} />
         )}
       </Space>
-    </>
+    </div>
   );
 };
 export default OpportunityDetails;

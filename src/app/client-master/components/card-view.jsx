@@ -23,7 +23,7 @@ export const ClientsCardView = ({
         height: "100%",
         overflow: "auto",
         scrollbarWidth: "none",
-        marginTop: "28px",
+        marginTop: "24px",
       }}
     >
       {loading ? (

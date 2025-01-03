@@ -220,16 +220,25 @@ const AddRegistration = () => {
   };
 
   return (
-    <>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100%", // Full viewport height
+      }}
+    >
       <FormHeader backButtonText={"Return"} />
       <Space
         direction="vertical"
         style={{
-          marginTop: "28px",
+          marginTop: "24px",
           width: "100%",
           background: colorBgContainer,
           borderRadius: borderRadiusLG,
           padding: !screens.xs ? "32px" : "16px",
+          // flex: "1", // Takes remaining space below header
+          overflow: "scroll", // Prevent overflow
+          scrollbarWidth: "none",
         }}
       >
         <Form layout="vertical" form={form} onFinish={onFinish}>
@@ -403,7 +412,7 @@ const AddRegistration = () => {
           </Row>
         </Form>
       </Space>
-    </>
+    </div>
   );
 };
 

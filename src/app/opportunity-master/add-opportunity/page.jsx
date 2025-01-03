@@ -211,7 +211,6 @@
 
 // export default AddOpportunity;
 
-
 "use client";
 import React, { useState } from "react";
 import {
@@ -258,7 +257,13 @@ const AddOpportunity = () => {
   const { loading, onFinish, currency, setCurrency } = useAddOpportunity();
 
   return (
-    <>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100%", // Full viewport height
+      }}
+    >
       <FormHeader
         fileUpload={true}
         setUploadModal={setUploadModal}
@@ -267,11 +272,14 @@ const AddOpportunity = () => {
       <Space
         direction="vertical"
         style={{
-          marginTop: "28px",
+          marginTop: "24px",
           width: "100%",
           background: colorConfig?.background || colorBgContainer,
           borderRadius: borderRadiusLG,
           padding: !screens.xs ? "32px" : "16px",
+          // flex: "1", // Takes remaining space below header
+          overflow: "scroll", // Prevent overflow
+          scrollbarWidth: "none",
         }}
       >
         <Form
@@ -472,7 +480,7 @@ const AddOpportunity = () => {
           resource="opportunity"
         />
       </Space>
-    </>
+    </div>
   );
 };
 

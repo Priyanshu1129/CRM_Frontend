@@ -35,7 +35,6 @@ import { colorConfig } from "@/config";
 
 export const UpdateOpportunityForm = ({ opportunity }) => {
   const [form] = Form.useForm();
-  const screens = Grid.useBreakpoint();
 
   const [currency, setCurrency] = useState(1);
 

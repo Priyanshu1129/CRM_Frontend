@@ -20,7 +20,7 @@ export const LeaderboardHeader = ({
         alignItems: "center",
         justifyContent: "space-between",
         paddingX: "8px",
-        marginBottom: "28px",
+        marginBottom: "24px",
       }}
     >
       <Space
