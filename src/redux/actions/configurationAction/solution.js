@@ -4,20 +4,28 @@ import { serverURL } from "@/config/config";
 import { axiosRequest } from "@/utilities/axiosHelper";
 const route = `${serverURL}/configuration/solution`;
 
-export const getAllSolutions = () => async (dispatch) => {
-  try {
-    dispatch(solutionActions.getAllSolutionsRequest());
-    console.log("getAllSolutions");
+export const getAllSolutions =
+  (config = false) =>
+  async (dispatch) => {
+    try {
+      dispatch(solutionActions.getAllSolutionsRequest());
+      console.log("getAllSolutions");
+      const params = { config };
+      const response = await axiosRequest(
+        dispatch,
+        "GET",
+        `${route}/`,
+        null,
+        params
+      ); // Use axiosRequest for the GET request
 
-    const response = await axiosRequest(dispatch, "GET", `${route}/`); // Use axiosRequest for the GET request
-
-    console.log("get-all-solution-res-data", response);
-    dispatch(solutionActions.getAllSolutionsSuccess(response));
-  } catch (error) {
-    console.log("Unexpected error in getAllSolutions:", error);
-    dispatch(solutionActions.getAllSolutionsFailure(error.message));
-  }
-};
+      console.log("get-all-solution-res-data", response);
+      dispatch(solutionActions.getAllSolutionsSuccess(response));
+    } catch (error) {
+      console.log("Unexpected error in getAllSolutions:", error);
+      dispatch(solutionActions.getAllSolutionsFailure(error.message));
+    }
+  };
 
 export const getSolution = (solutionId) => async (dispatch) => {
   try {

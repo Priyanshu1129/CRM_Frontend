@@ -3,29 +3,33 @@ import { serverURL } from "@/config/config";
 import { axiosRequest } from "@/utilities/axiosHelper";
 const route = `${serverURL}/configuration/sub-industry`;
 
-export const getAllSubIndustries = () => async (dispatch) => {
-  try {
-    dispatch(subIndustryActions.getAllSubIndustriesRequest());
-    console.log("getAllSubIndustries");
+export const getAllSubIndustries =
+  (config = false) =>
+  async (dispatch) => {
+    try {
+      dispatch(subIndustryActions.getAllSubIndustriesRequest());
+      console.log("getAllSubIndustries");
+      const params = { config };
+      // Use the axiosRequest helper function for GET request
+      const response = await axiosRequest(
+        dispatch,
+        "GET", // HTTP method
+        `${route}/`, // The URL for the sub-industry list
+        null,
+        params
+      );
 
-    // Use the axiosRequest helper function for GET request
-    const response = await axiosRequest(
-      dispatch,
-      "GET", // HTTP method
-      `${route}/` // The URL for the sub-industry list
-    );
-
-    console.log("get-all-subIndustry-res-data", response);
-    dispatch(subIndustryActions.getAllSubIndustriesSuccess(response));
-  } catch (error) {
-    console.log("error", error);
-    dispatch(
-      subIndustryActions.getAllSubIndustriesFailure(
-        error.message || "Failed to fetch sub-industries"
-      )
-    );
-  }
-};
+      console.log("get-all-subIndustry-res-data", response);
+      dispatch(subIndustryActions.getAllSubIndustriesSuccess(response));
+    } catch (error) {
+      console.log("error", error);
+      dispatch(
+        subIndustryActions.getAllSubIndustriesFailure(
+          error.message || "Failed to fetch sub-industries"
+        )
+      );
+    }
+  };
 
 export const getSubIndustry = (subIndustryId) => async (dispatch) => {
   try {

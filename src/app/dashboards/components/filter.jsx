@@ -25,11 +25,19 @@ export const Filter = ({ filters, setFilters, setFilter }) => {
   const [open, setOpen] = useState(false);
   const [openKeys, setOpenKeys] = useState([]);
   // Fetch data using custom hooks
-  const { industries, loading: industriesLoading } = useIndustries();
-  const { subIndustries, loading: subIndustriesLoading } = useSubIndustries();
-  const { territories, loading: territoriesLoading } = useTerritories();
+  const { industries, loading: industriesLoading } = useIndustries({
+    config: true,
+  });
+  const { subIndustries, loading: subIndustriesLoading } = useSubIndustries({
+    config: true,
+  });
+  const { territories, loading: territoriesLoading } = useTerritories({
+    config: true,
+  });
   const { users, loading: usersLoading } = useUsers();
-  const { solutions, loading: solutionsLoading } = useSolutions();
+  const { solutions, loading: solutionsLoading } = useSolutions({
+    config: true,
+  });
 
   // Fetch and prepare filter items
   useEffect(() => {

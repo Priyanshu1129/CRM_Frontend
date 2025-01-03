@@ -4,6 +4,6 @@
 // export const serverURL = "https://crm-backend-k0mi.onrender.com"
 // export const serverURL = "https://crm-backend-git-ashwin-ashwin-gorles-projects.vercel.app"
 
-export const serverURL = "http://localhost:4321";
+// export const serverURL = "http://localhost:4321";
 
-// export const serverURL = "https://crm-dashboard-backend.vercel.app" // server
+export const serverURL = "https://crm-dashboard-backend.vercel.app"; // server

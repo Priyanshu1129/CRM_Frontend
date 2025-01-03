@@ -7,7 +7,7 @@ import CreateConfigModal from "./create-config-modal";
 import { ConfigTableView } from "./table-view";
 import { useSolutions } from "@/hooks";
 import { useSubSolutions } from "@/hooks/useSubSolutions";
-import {  useSalesStages } from "@/hooks/useSalesStage";
+import { useSalesStages } from "@/hooks/useSalesStage";
 import { useSalesSubStages } from "@/hooks/useSalesSubStage";
 
 const ConfigPage = ({ configType }) => {
@@ -122,12 +122,13 @@ const ConfigPage = ({ configType }) => {
         setShowUpdateConfigPopup={setShowUpdateConfigPopup}
       />
 
-      { (configType != "sales-stage" ) && <CreateConfigModal
-        configType={configType}
-        showCreateConfigPopup={showCreateConfigPopup}
-        setShowCreateConfigPopup={setShowCreateConfigPopup}
-      />
-      }
+      {configType != "sales-stage" && (
+        <CreateConfigModal
+          configType={configType}
+          showCreateConfigPopup={showCreateConfigPopup}
+          setShowCreateConfigPopup={setShowCreateConfigPopup}
+        />
+      )}
     </>
   );
 };

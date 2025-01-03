@@ -3,48 +3,51 @@ import { useSelector, useDispatch } from "react-redux";
 import { getAllIndustries } from "@/redux/actions/configurationAction";
 
 export const useIndustries = (params = {}) => {
-    const [loading, setLoading] = useState(false);
-    const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
-    const { refresh = false, setRefresh = null, configType = null } = params
+  const {
+    refresh = false,
+    setRefresh = null,
+    configType = null,
+    config = false,
+  } = params;
 
+  const { status, data } = useSelector(
+    (state) => state.industry.getAllIndustries
+  );
+  const [industries, setIndustries] = useState(data?.data);
 
-    const { status, data } = useSelector(
-        (state) => state.industry.getAllIndustries
-    );
-    const [industries, setIndustries] = useState(data?.data);
+  const fetchAllIndustries = useCallback(() => {
+    if (!data || refresh) {
+      dispatch(getAllIndustries(config));
+    }
+  }, [dispatch, data, refresh]);
 
-    const fetchAllIndustries = useCallback(() => {
-        if (!data || refresh) {
-            dispatch(getAllIndustries());
-        }
-    }, [dispatch, data, refresh]);
+  useEffect(() => {
+    if (!configType || configType == "industry") fetchAllIndustries();
+  }, [fetchAllIndustries, configType]);
 
-    useEffect(() => {
-        if (!configType || configType == 'industry')
-            fetchAllIndustries();
-    }, [fetchAllIndustries, configType]);
+  useEffect(() => {
+    if (status === "pending") {
+      setLoading(true);
+    } else if (status === "success" && data?.status === "success") {
+      if (data?.data !== industries) {
+        setIndustries(data?.data);
+      }
+      setLoading(false);
+      setRefresh && setRefresh(false);
+    } else {
+      setLoading(false);
+    }
+  }, [status, data, industries, setRefresh]);
 
-    useEffect(() => {
-        if (status === "pending") {
-            setLoading(true);
-        } else if (status === "success" && data?.status === "success") {
-            if (data?.data !== industries) {
-                setIndustries(data?.data);
-            }
-            setLoading(false);
-            setRefresh && setRefresh(false);
-        } else {
-            setLoading(false);
-        }
-    }, [status, data, industries, setRefresh]);
+  const transformedIndustries = useMemo(() => {
+    return industries?.map(({ _id, label }) => ({
+      value: _id,
+      text: label,
+    }));
+  }, [industries]);
 
-    const transformedIndustries = useMemo(() => {
-        return industries?.map(({ _id, label }) => ({
-            value: _id,
-            text: label,
-        }));
-    }, [industries]);
-
-    return { industries: transformedIndustries ?? [], loading };
+  return { industries: transformedIndustries ?? [], loading };
 };

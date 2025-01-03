@@ -8,6 +8,8 @@ export const columns = [
     dataIndex: "name",
     key: "role",
     width: 150,
+    sorter: (a, b) => (a.name || "").localeCompare(b.name || ""), // Sorting by name
+    defaultSortOrder: "ascend", // Default sorting by name in ascending order
     render: (text) => text || "N/A",
   },
   {
@@ -15,7 +17,7 @@ export const columns = [
     dataIndex: "createdAt",
     key: "createdAt",
     width: 150,
-    // render: (text) => text || "N/A",
+    sorter: (a, b) => new Date(a.createdAt) - new Date(b.createdAt), // Sorting by createdAt date
     render: (text) => (text ? new Date(text).toLocaleDateString() : "N/A"),
   },
   {
@@ -23,7 +25,7 @@ export const columns = [
     dataIndex: "updatedAt",
     key: "last-edit",
     width: 150,
-    // render: (text) => text || "N/A",
+    sorter: (a, b) => new Date(a.updatedAt) - new Date(b.updatedAt), // Sorting by updatedAt date
     render: (text) => (text ? new Date(text).toLocaleDateString() : "N/A"),
   },
   {
@@ -31,7 +33,6 @@ export const columns = [
     key: "operation",
     fixed: "right",
     width: 100,
-    // render: (_, record) => (<Button icon={<EditOutlined />} />),
     render: (_, record) => (
       <TableActions
         showUrl={`/admin/roles-permissions/role-details/${record._id}`}

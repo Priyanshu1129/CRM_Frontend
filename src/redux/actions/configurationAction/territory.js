@@ -4,31 +4,33 @@ import { serverURL } from "@/config/config";
 
 const route = `${serverURL}/configuration/territory`;
 
-export const getAllTerritories = () => async (dispatch) => {
-  try {
-    dispatch(territoryActions.getAllTerritoriesRequest());
-    console.log("getAllTerritories");
+export const getAllTerritories =
+  (config = false) =>
+  async (dispatch) => {
+    try {
+      dispatch(territoryActions.getAllTerritoriesRequest());
+      console.log("getAllTerritories");
+      const params = { config };
+      // Use axiosRequest helper function for GET request
+      const response = await axiosRequest(
+        dispatch,
+        "GET", // HTTP method for GET request
+        `${route}/`, // URL to get all territories
+        null, // No data to send in the body for GET requests
+        params // No query parameters
+      );
 
-    // Use axiosRequest helper function for GET request
-    const response = await axiosRequest(
-      dispatch,
-      "GET", // HTTP method for GET request
-      `${route}/`, // URL to get all territories
-      null, // No data to send in the body for GET requests
-      null // No query parameters
-    );
-
-    console.log("get-all-territory-res-data", response);
-    dispatch(territoryActions.getAllTerritoriesSuccess(response));
-  } catch (error) {
-    console.log("error", error);
-    dispatch(
-      territoryActions.getAllTerritoriesFailure(
-        error.message || "Failed to fetch territories"
-      )
-    );
-  }
-};
+      console.log("get-all-territory-res-data", response);
+      dispatch(territoryActions.getAllTerritoriesSuccess(response));
+    } catch (error) {
+      console.log("error", error);
+      dispatch(
+        territoryActions.getAllTerritoriesFailure(
+          error.message || "Failed to fetch territories"
+        )
+      );
+    }
+  };
 
 export const getTerritory = (territoryId) => async (dispatch) => {
   try {

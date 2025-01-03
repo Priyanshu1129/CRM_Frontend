@@ -4,32 +4,34 @@ import { serverURL } from "@/config/config";
 
 const route = `${serverURL}/configuration/sales-sub-stage`;
 
-export const getAllSalesSubStages = () => async (dispatch) => {
-  try {
-    dispatch(salesSubStageActions.getAllSalesSubStagesRequest());
-    console.log("getAllSalesSubStages");
+export const getAllSalesSubStages =
+  (config = false) =>
+  async (dispatch) => {
+    try {
+      dispatch(salesSubStageActions.getAllSalesSubStagesRequest());
+      console.log("getAllSalesSubStages");
+      const params = { config };
+      // Use axiosRequest helper function for GET request
+      const response = await axiosRequest(
+        dispatch,
+        "GET",
+        `${route}/`,
+        null, // No data for GET request
+        params // No query params for GET request
+      );
 
-    // Use axiosRequest helper function for GET request
-    const response = await axiosRequest(
-      dispatch,
-      "GET",
-      `${route}/`,
-      null, // No data for GET request
-      null // No query params for GET request
-    );
-
-    console.log("get-all-salesSubStage-res-data", response);
-    dispatch(salesSubStageActions.getAllSalesSubStagesSuccess(response));
-  } catch (error) {
-    console.log("error", error);
-    // Error message is handled by axiosRequest, so just pass it to the failure action
-    dispatch(
-      salesSubStageActions.getAllSalesSubStagesFailure(
-        error.message || "Failed to get all sales sub-stages"
-      )
-    );
-  }
-};
+      console.log("get-all-salesSubStage-res-data", response);
+      dispatch(salesSubStageActions.getAllSalesSubStagesSuccess(response));
+    } catch (error) {
+      console.log("error", error);
+      // Error message is handled by axiosRequest, so just pass it to the failure action
+      dispatch(
+        salesSubStageActions.getAllSalesSubStagesFailure(
+          error.message || "Failed to get all sales sub-stages"
+        )
+      );
+    }
+  };
 
 export const getSalesSubStage = (salesSubStageId) => async (dispatch) => {
   try {

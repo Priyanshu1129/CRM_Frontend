@@ -15,9 +15,11 @@ export const Filter = ({ filters, setFilters, setFilter }) => {
   const [openKeys, setOpenKeys] = useState([]);
 
   // Fetch data using custom hooks
-  const { territories, loading: territoriesLoading } = useTerritories();
+  const { territories, loading: territoriesLoading } = useTerritories({
+    config: true,
+  });
   const { users, loading: usersLoading } = useUsers();
-  const { clients, loading: clientsLoading } = useClients();
+  const { clients, loading: clientsLoading } = useClients({ config: true });
 
   useEffect(() => {
     if (!territoriesLoading && !usersLoading && !clientsLoading) {

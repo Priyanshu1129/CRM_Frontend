@@ -4,31 +4,33 @@ import { serverURL } from "@/config/config";
 
 const route = `${serverURL}/configuration/sub-solution`;
 
-export const getAllSubSolutions = () => async (dispatch) => {
-  try {
-    dispatch(subSolutionActions.getAllSubSolutionsRequest());
-    console.log("getAllSubSolutions");
+export const getAllSubSolutions =
+  (config = false) =>
+  async (dispatch) => {
+    try {
+      dispatch(subSolutionActions.getAllSubSolutionsRequest());
+      console.log("getAllSubSolutions");
+      const params = { config };
+      // Use axiosRequest helper function for GET request
+      const response = await axiosRequest(
+        dispatch,
+        "GET", // HTTP method for fetching data
+        `${route}/`, // Endpoint for fetching all sub-solutions
+        null, // No data needed for GET requests
+        params // No query parameters for this request
+      );
 
-    // Use axiosRequest helper function for GET request
-    const response = await axiosRequest(
-      dispatch,
-      "GET", // HTTP method for fetching data
-      `${route}/`, // Endpoint for fetching all sub-solutions
-      null, // No data needed for GET requests
-      null // No query parameters for this request
-    );
-
-    console.log("get-all-subSolution-res-data", response);
-    dispatch(subSolutionActions.getAllSubSolutionsSuccess(response));
-  } catch (error) {
-    console.log("error", error);
-    dispatch(
-      subSolutionActions.getAllSubSolutionsFailure(
-        error.message || "Failed to get sub-solutions"
-      )
-    );
-  }
-};
+      console.log("get-all-subSolution-res-data", response);
+      dispatch(subSolutionActions.getAllSubSolutionsSuccess(response));
+    } catch (error) {
+      console.log("error", error);
+      dispatch(
+        subSolutionActions.getAllSubSolutionsFailure(
+          error.message || "Failed to get sub-solutions"
+        )
+      );
+    }
+  };
 
 export const getSubSolution = (subSolutionId) => async (dispatch) => {
   try {

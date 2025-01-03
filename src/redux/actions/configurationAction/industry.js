@@ -4,26 +4,34 @@ import { serverURL } from "@/config/config";
 import { axiosRequest } from "@/utilities/axiosHelper";
 const route = `${serverURL}/configuration/industry`;
 
-export const getAllIndustries = () => async (dispatch) => {
-  try {
-    dispatch(industryActions.getAllIndustriesRequest());
-    console.log("getAllIndustries");
+export const getAllIndustries =
+  (config = false) =>
+  async (dispatch) => {
+    try {
+      dispatch(industryActions.getAllIndustriesRequest());
+      console.log("getAllIndustries");
+      const params = { config };
+      // Use axiosRequest helper function to make the GET request
+      const response = await axiosRequest(
+        dispatch,
+        "GET",
+        `${route}/`,
+        null,
+        params
+      );
 
-    // Use axiosRequest helper function to make the GET request
-    const response = await axiosRequest(dispatch, "GET", `${route}/`);
-
-    console.log("get-all-industry-res-data", response);
-    dispatch(industryActions.getAllIndustriesSuccess(response));
-  } catch (error) {
-    console.log("get-all-industries-error", error);
-    // Error message is handled by axiosRequest, so just pass it to the failure action
-    dispatch(
-      industryActions.getAllIndustriesFailure(
-        error.message || "Failed to get industries"
-      )
-    );
-  }
-};
+      console.log("get-all-industry-res-data", response);
+      dispatch(industryActions.getAllIndustriesSuccess(response));
+    } catch (error) {
+      console.log("get-all-industries-error", error);
+      // Error message is handled by axiosRequest, so just pass it to the failure action
+      dispatch(
+        industryActions.getAllIndustriesFailure(
+          error.message || "Failed to get industries"
+        )
+      );
+    }
+  };
 
 export const getIndustry = (industryId) => async (dispatch) => {
   try {

@@ -5,32 +5,34 @@ import { axiosRequest } from "@/utilities/axiosHelper";
 
 const route = `${serverURL}/configuration/sales-stage`;
 
-export const getAllSalesStages = () => async (dispatch) => {
-  try {
-    dispatch(salesStageActions.getAllSalesStagesRequest());
-    console.log("getAllSalesStages");
+export const getAllSalesStages =
+  (config = false) =>
+  async (dispatch) => {
+    try {
+      dispatch(salesStageActions.getAllSalesStagesRequest());
+      console.log("getAllSalesStages");
+      const params = { config };
+      // Use axiosRequest helper function for GET request
+      const response = await axiosRequest(
+        dispatch,
+        "GET",
+        `${route}/`,
+        null, // No data for GET request
+        params // No query params for GET request
+      );
 
-    // Use axiosRequest helper function for GET request
-    const response = await axiosRequest(
-      dispatch,
-      "GET",
-      `${route}/`,
-      null, // No data for GET request
-      null // No query params for GET request
-    );
-
-    console.log("get-all-salesStage-res-data", response);
-    dispatch(salesStageActions.getAllSalesStagesSuccess(response));
-  } catch (error) {
-    console.log("error", error);
-    // Error message is handled by axiosRequest, so just pass it to the failure action
-    dispatch(
-      salesStageActions.getAllSalesStagesFailure(
-        error.message || "Failed to get sales stages"
-      )
-    );
-  }
-};
+      console.log("get-all-salesStage-res-data", response);
+      dispatch(salesStageActions.getAllSalesStagesSuccess(response));
+    } catch (error) {
+      console.log("error", error);
+      // Error message is handled by axiosRequest, so just pass it to the failure action
+      dispatch(
+        salesStageActions.getAllSalesStagesFailure(
+          error.message || "Failed to get sales stages"
+        )
+      );
+    }
+  };
 
 export const getSalesStage = (salesStageId) => async (dispatch) => {
   try {
