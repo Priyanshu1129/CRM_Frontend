@@ -8,23 +8,14 @@ export const getAllSolutions = () => async (dispatch) => {
   try {
     dispatch(solutionActions.getAllSolutionsRequest());
     console.log("getAllSolutions");
-    const response = await axios.get(`${route}/`, {
-      withCredentials: true,
-    });
 
-    console.log("get-all-solution-res-data", response.data);
-    dispatch(solutionActions.getAllSolutionsSuccess(response.data));
+    const response = await axiosRequest(dispatch, "GET", `${route}/`); // Use axiosRequest for the GET request
+
+    console.log("get-all-solution-res-data", response);
+    dispatch(solutionActions.getAllSolutionsSuccess(response));
   } catch (error) {
-    console.log("error", error);
-    let errorMessage = "An error occurred";
-    if (error.response) {
-      errorMessage = error.response.data.message || "Server error";
-    } else if (error.request) {
-      errorMessage = "Network error";
-    } else {
-      errorMessage = error.message || "Unknown error";
-    }
-    dispatch(solutionActions.getAllSolutionsFailure(errorMessage));
+    console.log("Unexpected error in getAllSolutions:", error);
+    dispatch(solutionActions.getAllSolutionsFailure(error.message));
   }
 };
 

@@ -1,137 +1,117 @@
-import axios from "axios";
-import { registrationActions } from "@/redux/slices/registrationSlice"
+import { axiosRequest } from "@/utilities/axiosHelper";
+import { registrationActions } from "@/redux/slices/registrationSlice";
 import { serverURL } from "@/config/config";
-const route = `${serverURL}/registration`
+const route = `${serverURL}/registration`;
 
-export const getAllRegistrations = ({ page = null, limit = null, config = false, entryDate = "", enteredBy = "" }) => async (dispatch) => {
+export const getAllRegistrations =
+  ({
+    page = null,
+    limit = null,
+    config = false,
+    entryDate = "",
+    enteredBy = "",
+  }) =>
+  async (dispatch) => {
     try {
-        dispatch(registrationActions.getAllRegistrationsRequest());
-        console.log('getAllRegistrations');
-        const response = await axios.get(`${route}/`, {
-            params: { limit, page, config, enteredBy, entry_date: entryDate },
-            withCredentials: true,
-        });
+      dispatch(registrationActions.getAllRegistrationsRequest());
+      console.log("getAllRegistrations");
 
-        console.log('get-all-registration-res-data', response.data);
-        dispatch(registrationActions.getAllRegistrationsSuccess(response.data.data));
+      const response = await axiosRequest(dispatch, "GET", `${route}/`, {
+        limit,
+        page,
+        config,
+        enteredBy,
+        entry_date: entryDate,
+      });
+
+      console.log("get-all-registration-res-data", response);
+      dispatch(registrationActions.getAllRegistrationsSuccess(response.data));
     } catch (error) {
-        console.log("error", error)
-        let errorMessage = "An error occurred";
-        if (error.response) {
-            errorMessage = error.response.data.message || "Server error";
-        } else if (error.request) {
-            errorMessage = "Network error";
-        } else {
-            errorMessage = error.message || "Unknown error";
-        }
-        dispatch(registrationActions.getAllRegistrationsFailure(errorMessage));
+      console.error("Unexpected error in getAllRegistrations:", error);
+      dispatch(registrationActions.getAllRegistrationsFailure(error.message));
     }
-};
+  };
 
+// Get Registration
 export const getRegistration = (registrationId) => async (dispatch) => {
-    try {
-        console.log("get-registration-data", registrationId);
-        dispatch(registrationActions.getRegistrationRequest());
+  try {
+    dispatch(registrationActions.getRegistrationRequest());
+    console.log("get-registration-data", registrationId);
 
-        const response = await axios.get(`${route}/${registrationId}`, {
-            withCredentials: true,
-        });
-        console.log('get-registration-details-res-data', response.data);
-        dispatch(registrationActions.getRegistrationSuccess(response.data));
-    } catch (error) {
-        console.log("error", error)
-        let errorMessage = "An error occurred";
-        if (error.response) {
-            errorMessage = error.response.data.message || "Server error";
-        } else if (error.request) {
-            errorMessage = "Network error";
-        } else {
-            errorMessage = error.message || "Unknown error";
-        }
-        dispatch(registrationActions.getRegistrationFailure(errorMessage));
-    }
+    const response = await axiosRequest(
+      dispatch,
+      "GET",
+      `${route}/${registrationId}`
+    );
+
+    console.log("get-registration-details-res-data", response);
+    dispatch(registrationActions.getRegistrationSuccess(response));
+  } catch (error) {
+    console.log("Unexpected error in getRegistration:", error);
+    dispatch(registrationActions.getRegistrationFailure(error.message));
+  }
 };
 
+// Create Registration
 export const createRegistration = (registrationData) => async (dispatch) => {
-    try {
-        console.log("create-registrationData", registrationData);
-        dispatch(registrationActions.createRegistrationRequest());
+  try {
+    dispatch(registrationActions.createRegistrationRequest());
+    console.log("create-registrationData", registrationData);
 
-        const response = await axios.post(
-            `${route}/`,
-            registrationData,
-            {
-                withCredentials: true,
-            }
-        );
-        console.log('create-registration-res-data', response.data);
-        dispatch(registrationActions.createRegistrationSuccess(response.data.data));
-    } catch (error) {
-        console.log("error", error)
-        let errorMessage = "An error occurred";
-        if (error.response) {
-            errorMessage = error.response.data.message || "Server error";
-        } else if (error.request) {
-            errorMessage = "Network error";
-        } else {
-            errorMessage = error.message || "Unknown error";
-        }
-        dispatch(registrationActions.createRegistrationFailure(errorMessage));
-    }
+    const response = await axiosRequest(
+      dispatch,
+      "POST",
+      `${route}/`,
+      registrationData
+    );
+
+    console.log("create-registration-res-data", response);
+    dispatch(registrationActions.createRegistrationSuccess(response.data));
+  } catch (error) {
+    console.log("Unexpected error in createRegistration:", error);
+    dispatch(registrationActions.createRegistrationFailure(error.message));
+  }
 };
 
-export const updateRegistration = (registrationData, registrationId) => async (dispatch) => {
-
+// Update Registration
+export const updateRegistration =
+  (registrationData, registrationId) => async (dispatch) => {
     try {
-        console.log("update-registrationData-req", registrationData,);
-        dispatch(registrationActions.updateRegistrationRequest());
-        const response = await axios.put(
-            `${route}/${registrationId}`, registrationData, {
-            withCredentials: true,
-        });
-        console.log('update-registration-res-data', response.data);
-        dispatch(registrationActions.getRegistrationSuccess(response.data));
-        dispatch(registrationActions.updateRegistrationSuccess(response.data));
-    } catch (error) {
-        console.log("error", error)
-        let errorMessage = "An error occurred";
-        if (error.response) {
-            errorMessage = error.response.data.message || "Server error";
-        } else if (error.request) {
-            errorMessage = "Network error";
-        } else {
-            errorMessage = error.message || "Unknown error";
-        }
-        dispatch(registrationActions.updateRegistrationFailure(errorMessage));
-    }
-};
+      dispatch(registrationActions.updateRegistrationRequest());
+      console.log("update-registrationData-req", registrationData);
 
-export const deleteRegistration = (registrationId, token) => async (dispatch) => {
-    try {
-        console.log("delete-registrationData", registrationId);
-        dispatch(registrationActions.deleteRegistrationRequest());
+      const response = await axiosRequest(
+        dispatch,
+        "PUT",
+        `${route}/${registrationId}`,
+        registrationData
+      );
 
-        const data = await axios.delete(
-            `${route}/${registrationId}`,
-            {
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                withCredentials: true,
-            }
-        );
-        console.log('delete-registration-res-data', data.data);
-        dispatch(registrationActions.deleteRegistrationSuccess(data.data));
+      console.log("update-registration-res-data", response);
+      dispatch(registrationActions.getRegistrationSuccess(response));
+      dispatch(registrationActions.updateRegistrationSuccess(response));
     } catch (error) {
-        console.log("delete-registration-error", error)
-        let errorMessage = "An error occurred";
-        if (error.response) {
-            errorMessage = error.response.data.message || "Server error";
-        } else if (error.request) {
-            errorMessage = "Network error";
-        } else {
-            errorMessage = error.message || "Unknown error";
-        }
-        dispatch(registrationActions.deleteRegistrationFailure(errorMessage));
+      console.log("Unexpected error in updateRegistration:", error);
+      dispatch(registrationActions.updateRegistrationFailure(error.message));
     }
+  };
+
+// Delete Registration
+export const deleteRegistration = (registrationId) => async (dispatch) => {
+  try {
+    dispatch(registrationActions.deleteRegistrationRequest());
+    console.log("delete-registrationData", registrationId);
+
+    const response = await axiosRequest(
+      dispatch,
+      "DELETE",
+      `${route}/${registrationId}`
+    );
+
+    console.log("delete-registration-res-data", response);
+    dispatch(registrationActions.deleteRegistrationSuccess(response));
+  } catch (error) {
+    console.log("Unexpected error in deleteRegistration:", error);
+    dispatch(registrationActions.deleteRegistrationFailure(error.message));
+  }
 };
