@@ -37,3 +37,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+<<<<<<< HEAD
+=======
+/to-do.txt
+.codegpt
+>>>>>>> 223ce3de00ca2d1b8e0e1126e7554c65c50738c0

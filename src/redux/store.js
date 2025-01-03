@@ -31,6 +31,7 @@ import { tenderReducer, stageReducer } from './slices/tenderSlice';
 import { registrationReducer, registrationStatusReducer } from './slices/registrationSlice';
 import { roleReducer } from './slices/roleAndPermissionSlice';
 import { authReducer } from './slices/authSlice';
+import { systemConfigReducer } from './slices/systemSlice';
 
 
 const store = configureStore({
@@ -65,7 +66,8 @@ const store = configureStore({
         stage: stageReducer,
         registration: registrationReducer,
         registrationStatus: registrationStatusReducer,
-        currency: currencyReducer
+        currency: currencyReducer,
+        systemConfig : systemConfigReducer
     }
 })
 
