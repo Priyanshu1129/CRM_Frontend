@@ -25,6 +25,7 @@ export const UpdateRoleForm = ({ role }) => {
             label="Role Name"
             name="roleName"
             rules={roleFormRules.roleName}
+            getValueFromEvent={(e) => e.target.value.toUpperCase()}
           >
             <Input />
           </Form.Item>

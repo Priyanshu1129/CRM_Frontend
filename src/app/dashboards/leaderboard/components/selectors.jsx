@@ -13,18 +13,18 @@ export const EntryTypeSelector = ({ sortParameter, handleChange, disable }) => {
           color: disable ? colorConfig.textGrayLight : "black",
         }}
       >
-        Sort By{" "}
+        Champions By{" "}
       </span>
       <Select
         disabled={disable}
         value={sortParameter}
         onChange={handleChange}
-        style={{ width: 175 }}
+        style={{ width: 150 }}
       >
         {parameterToLabelMap &&
           Object.keys(parameterToLabelMap).map((key) => (
             <Option key={key} value={key}>
-              {parameterToLabelMap[key]} Entries
+              {parameterToLabelMap[key]}
             </Option>
           ))}
       </Select>

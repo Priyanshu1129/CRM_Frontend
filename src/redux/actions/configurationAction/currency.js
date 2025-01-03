@@ -1,29 +1,26 @@
-import axios from "axios";
+import { axiosRequest } from "@/utilities/axiosHelper";
 import { currencyActions } from "@/redux/slices/configurationSlice";
 import { serverURL } from "@/config/config";
 
-const route = `${serverURL}/currency`
+const route = `${serverURL}/currency`;
 
 export const getAllCurrencies = () => async (dispatch) => {
-    try {
-        dispatch(currencyActions.getAllCurrenciesRequest());
-        console.log('getAllCurrencies');
-        const response = await axios.get(`${route}/`, {
-            withCredentials: true
-        });
+  try {
+    dispatch(currencyActions.getAllCurrenciesRequest());
+    console.log("getAllCurrencies");
 
-        console.log('get-all-currency-res-data', response.data);
-        dispatch(currencyActions.getAllCurrenciesSuccess(response.data));
-    } catch (error) {
-        console.log("error", error)
-        let errorMessage = "An error occurred";
-        if (error.response) {
-            errorMessage = error.response.data.message || "Server error";
-        } else if (error.request) {
-            errorMessage = "Network error";
-        } else {
-            errorMessage = error.message || "Unknown error";
-        }
-        dispatch(currencyActions.getAllCurrenciesFailure(errorMessage));
-    }
+    // Use axiosRequest helper function to make the GET request
+    const response = await axiosRequest(dispatch, "GET", `${route}/`);
+
+    console.log("get-all-currency-res-data", response);
+    dispatch(currencyActions.getAllCurrenciesSuccess(response));
+  } catch (error) {
+    console.log("get-all-currencies-error", error);
+    // Error message is handled by axiosRequest, so just pass it to the failure action
+    dispatch(
+      currencyActions.getAllCurrenciesFailure(
+        error.message || "Failed to get currencies"
+      )
+    );
+  }
 };

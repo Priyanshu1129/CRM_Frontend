@@ -1,156 +1,143 @@
-import axios from "axios";
+import { axiosRequest } from "@/utilities/axiosHelper";
 import { tenderActions } from "@/redux/slices/tenderSlice";
 import { serverURL } from "@/config/config";
 import { mastersConfigActions } from "@/redux/slices/configurationSlice";
 
-const route = `${serverURL}/tender`
+const route = `${serverURL}/tender`;
 
-export const getAllTenders = ({ page = null, limit = null, config = false, entryDate = "", enteredBy = "" }) => async (dispatch) => {
+export const getAllTenders =
+  ({
+    page = null,
+    limit = null,
+    config = false,
+    entryDate = "",
+    enteredBy = "",
+  }) =>
+  async (dispatch) => {
     try {
-        if (config) {
-            dispatch(mastersConfigActions.getConfigTendersRequest());
-        } else {
-            dispatch(tenderActions.getAllTendersRequest());
-        }
-        console.log('getAllTenders-config', config);
-        const response = await axios.get(`${route}/`, {
-            params: { limit, page, config, enteredBy, entry_date: entryDate },
-            withCredentials: true,
-        });
-        console.log('get-all-tender-res-data', response.data);
+      // Dispatching action for requesting data
+      if (config) {
+        dispatch(mastersConfigActions.getConfigTendersRequest());
+      } else {
+        dispatch(tenderActions.getAllTendersRequest());
+      }
 
-        if (config) {
-            dispatch(mastersConfigActions.getConfigTendersSuccess(response.data?.data));
-        } else {
-            dispatch(tenderActions.getAllTendersSuccess(response.data?.data));
-        }
+      console.log("getAllTenders-config", config);
+
+      // Using axiosRequest helper function for GET request
+      const data = await axiosRequest(
+        dispatch,
+        "GET", // HTTP method for GET request
+        `${route}/`, // URL for getting all tenders
+        null,
+        {
+          limit,
+          page,
+          config,
+          enteredBy,
+          entry_date: entryDate,
+        } // params as the request body
+      );
+
+      console.log("get-all-tender-res-data", data);
+
+      if (config) {
+        dispatch(mastersConfigActions.getConfigTendersSuccess(data?.data));
+      } else {
+        dispatch(tenderActions.getAllTendersSuccess(data?.data));
+      }
     } catch (error) {
-        console.log("error", error)
-        let errorMessage = "An error occurred";
-        if (error.response) {
-            errorMessage = error.response.data.message || "Server error";
-        } else if (error.request) {
-            errorMessage = "Network error";
-        } else {
-            errorMessage = error.message || "Unknown error";
-        }
-        if (config) {
-            dispatch(mastersConfigActions.getConfigTendersFailure());
-        } else {
-            dispatch(tenderActions.getAllTendersFailure(errorMessage));
-        }
+      console.log("error", error);
+      let errorMessage = error.message || "An error occurred";
+      if (config) {
+        dispatch(mastersConfigActions.getConfigTendersFailure());
+      } else {
+        dispatch(tenderActions.getAllTendersFailure(errorMessage));
+      }
     }
-};
+  };
 
 export const getTender = (tenderId) => async (dispatch) => {
-    try {
-        console.log("get-tender-data", tenderId);
-        dispatch(tenderActions.getTenderRequest());
+  try {
+    console.log("get-tender-data", tenderId);
+    dispatch(tenderActions.getTenderRequest());
 
-        const response = await axios.get(`${route}/${tenderId}`, {
-            withCredentials: true,
-        });
-        console.log('get-tender-details-res-data', response.data);
-        dispatch(tenderActions.getTenderSuccess(response.data));
-    } catch (error) {
-        console.log("error", error)
-        let errorMessage = "An error occurred";
-        if (error.response) {
-            errorMessage = error.response.data.message || "Server error";
-        } else if (error.request) {
-            errorMessage = "Network error";
-        } else {
-            errorMessage = error.message || "Unknown error";
-        }
-        dispatch(tenderActions.getTenderFailure(errorMessage));
-    }
+    const data = await axiosRequest(
+      dispatch,
+      "GET", // HTTP method for GET request
+      `${route}/${tenderId}`, // Endpoint for getting a tender by ID
+      null, // No data needed for GET request
+      null // No query parameters
+    );
+
+    console.log("get-tender-details-res-data", data);
+    dispatch(tenderActions.getTenderSuccess(data));
+  } catch (error) {
+    console.log("error", error);
+    dispatch(tenderActions.getTenderFailure(error.message));
+  }
 };
 
 export const createTender = (tenderData) => async (dispatch) => {
-    try {
-        console.log("create-tenderData", tenderData);
-        dispatch(tenderActions.createTenderRequest());
+  try {
+    console.log("create-tenderData", tenderData);
+    dispatch(tenderActions.createTenderRequest());
 
-        const data = await axios.post(
-            `${route}/`,
-            tenderData,
-            {
-                withCredentials: true
-            }
-        );
-        console.log('create-tender-res-data', data);
-        dispatch(tenderActions.createTenderSuccess(data.data));
+    const data = await axiosRequest(
+      dispatch,
+      "POST", // HTTP method for POST request
+      `${route}/`, // Endpoint for creating a tender
+      tenderData, // Data to be sent in the POST request
+      null // No query parameters
+    );
 
-    } catch (error) {
-        console.log("error", error)
-        let errorMessage = "An error occurred";
-        if (error.response) {
-            errorMessage = error.response.data.message || "Server error";
-        } else if (error.request) {
-            errorMessage = "Network error";
-        } else {
-            errorMessage = error.message || "Unknown error";
-        }
-        dispatch(tenderActions.createTenderFailure(errorMessage));
-    }
+    console.log("create-tender-res-data", data);
+    dispatch(tenderActions.createTenderSuccess(data));
+  } catch (error) {
+    console.log("error", error);
+    dispatch(tenderActions.createTenderFailure(error.message));
+  }
 };
 
 export const updateTender = (tenderData, tenderId) => async (dispatch) => {
+  try {
+    console.log("update-tenderData-req", tenderData);
+    dispatch(tenderActions.updateTenderRequest());
 
+    const data = await axiosRequest(
+      dispatch,
+      "PUT", // HTTP method for PUT request
+      `${route}/${tenderId}`, // Endpoint for updating a tender by ID
+      tenderData, // Data to be updated
+      null // No query parameters
+    );
 
-    try {
-        console.log("update-tenderData-req", tenderData,);
-        dispatch(tenderActions.updateTenderRequest());
-        const response = await axios.put(
-            `${route}/${tenderId}`,
-            tenderData,
-            {
-                withCredentials: true,
-            }
-        );
-        console.log('update-tender-res-data', response.data);
-        dispatch(tenderActions.getTenderSuccess(response.data));
-        dispatch(tenderActions.updateTenderSuccess(response.data));
-    } catch (error) {
-        console.log("error", error)
-        let errorMessage = "An error occurred";
-        if (error.response) {
-            errorMessage = error.response.data.message || "Server error";
-        } else if (error.request) {
-            errorMessage = "Network error";
-        } else {
-            errorMessage = error.message || "Unknown error";
-        }
-        dispatch(tenderActions.updateTenderFailure(errorMessage));
-    }
+    console.log("update-tender-res-data", data);
+    dispatch(tenderActions.getTenderSuccess(data)); // You might want to dispatch this if needed
+    dispatch(tenderActions.updateTenderSuccess(data));
+  } catch (error) {
+    console.log("error", error);
+    dispatch(tenderActions.updateTenderFailure(error.message));
+  }
 };
 
-export const deleteTender = (tenderId, token) => async (dispatch) => {
-    try {
-        console.log("delete-tenderData", tenderId);
-        dispatch(tenderActions.deleteTenderRequest());
+export const deleteTender = (tenderId) => async (dispatch) => {
+  try {
+    console.log("delete-tenderData", tenderId);
+    dispatch(tenderActions.deleteTenderRequest());
 
-        const data = await axios.delete(
-            `${route}/${tenderId}`,
-            {
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                withCredentials: true,
-            }
-        );
-        console.log('delete-tender-res-data', data.data);
-        dispatch(tenderActions.deleteTenderSuccess(data.data));
-    } catch (error) {
-        console.log("delete-tender-error", error)
-        let errorMessage = "An error occurred";
-        if (error.response) {
-            errorMessage = error.response.data.message || "Server error";
-        } else if (error.request) {
-            errorMessage = "Network error";
-        } else {
-            errorMessage = error.message || "Unknown error";
-        }
-        dispatch(tenderActions.deleteTenderFailure(errorMessage));
-    }
+    const data = await axiosRequest(
+      dispatch,
+      "DELETE", // HTTP method for DELETE request
+      `${route}/${tenderId}`, // Endpoint for deleting a tender by ID
+      null, // No data to send in DELETE request
+      null // No query parameters
+    );
+
+    console.log("delete-tender-res-data", data);
+    dispatch(tenderActions.deleteTenderSuccess(data));
+  } catch (error) {
+    console.log("delete-tender-error", error);
+    dispatch(tenderActions.deleteTenderFailure(error.message));
+  }
 };

@@ -1,160 +1,134 @@
-//user actions
-import axios from "axios";
-import { userActions } from "@/redux/slices/userSlice"
+import { axiosRequest } from "@/utilities/axiosHelper";
+import { userActions } from "@/redux/slices/userSlice";
 import { serverURL } from "@/config/config";
 import { mastersConfigActions } from "@/redux/slices/configurationSlice";
-const route = `${serverURL}/user`
+const route = `${serverURL}/user`;
 
-export const getAllUsers = ({ page = null, limit = null, config = false }) => async (dispatch) => {
+export const getAllUsers =
+  ({ page = null, limit = null, config = false }) =>
+  async (dispatch) => {
     try {
-        if (config) {
-            dispatch(mastersConfigActions.getConfigUsersRequest());
-        } else {
-            dispatch(userActions.getAllUsersRequest());
-        }
-        console.log('getAllUsers config', config);
-        const response = await axios.get(`${route}/`, {
-            params: { limit, page, config },
-            withCredentials: true,
-        });
+      // Dispatch the appropriate request action based on config flag
+      if (config) {
+        dispatch(mastersConfigActions.getConfigUsersRequest());
+      } else {
+        dispatch(userActions.getAllUsersRequest());
+      }
 
-        console.log('get-all-user-res-data', response?.data);
-        if (config) {
-            dispatch(mastersConfigActions.getConfigUsersSuccess(response.data?.data))
-        } else {
-            dispatch(userActions.getAllUsersSuccess(response.data.data));
-        }
+      console.log("getAllUsers config", config);
+
+      // Make the API call using the axiosRequest helper
+      const response = await axiosRequest(
+        dispatch,
+        "GET", // HTTP method for GET request
+        `${route}/`, // Endpoint for getting users
+        null, // No data for GET request
+        { limit, page, config } // Query parameters for pagination and config
+      );
+
+      console.log("get-all-user-res-data", response);
+
+      // Dispatch success actions based on config flag
+      if (config) {
+        dispatch(mastersConfigActions.getConfigUsersSuccess(response?.data));
+      } else {
+        dispatch(userActions.getAllUsersSuccess(response?.data));
+      }
     } catch (error) {
-        console.log("error", error)
-        let errorMessage = "An error occurred";
-        if (error.response) {
-            errorMessage = error.response.data.message || "Server error";
-        } else if (error.request) {
-            errorMessage = "Network error";
-        } else {
-            errorMessage = error.message || "Unknown error";
-        }
-        if (config) {
-            dispatch(mastersConfigActions.getConfigUsersFailure());
-        } else {
-            dispatch(userActions.getAllUsersFailure(errorMessage));
-        }
+      // If error occurs, handle failure with the specific error message
+      if (config) {
+        dispatch(mastersConfigActions.getConfigUsersFailure());
+      } else {
+        dispatch(
+          userActions.getAllUsersFailure(error.message || "An error occurred")
+        );
+      }
     }
-};
+  };
 
 export const getUser = (userId) => async (dispatch) => {
-    try {
-        console.log("get-user-data-by id", userId);
-        dispatch(userActions.getUserRequest());
+  try {
+    console.log("get-user-data-by id", userId);
+    dispatch(userActions.getUserRequest());
 
-        const response = await axios.get(`${route}/${userId}`, {
-            withCredentials: true,
-        });
-        console.log('get-user-details-res-data', response.data);
-        dispatch(userActions.getUserSuccess(response.data));
-    } catch (error) {
-        console.log("error", error)
-        let errorMessage = "An error occurred";
-        if (error.response) {
-            errorMessage = error.response.data.message || "Server error";
-        } else if (error.request) {
-            errorMessage = "Network error";
-        } else {
-            errorMessage = error.message || "Unknown error";
-        }
-        dispatch(userActions.getUserFailure(errorMessage));
-    }
+    // Make the API call using the axiosRequest helper
+    const response = await axiosRequest(
+      dispatch,
+      "GET", // HTTP method for GET request
+      `${route}/${userId}` // Endpoint for getting user by id
+    );
+
+    console.log("get-user-details-res-data", response);
+    dispatch(userActions.getUserSuccess(response));
+  } catch (error) {
+    dispatch(userActions.getUserFailure(error.message || "An error occurred"));
+  }
 };
 
 export const createUser = (userData) => async (dispatch) => {
-    try {
-        console.log("create-user-data", userData);
-        dispatch(userActions.createUserRequest());
+  try {
+    console.log("create-user-data", userData);
+    dispatch(userActions.createUserRequest());
 
-        const response = await axios.post(
-            `${route}/`,
-            userData,
-            {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
-                withCredentials: true,
-            }
-        );
-        console.log('create-user-res-data', response);
-        dispatch(userActions.createUserSuccess(response.data.data));
-    } catch (error) {
-        console.log("error", error)
-        let errorMessage = "An error occurred";
-        if (error.response) {
-            errorMessage = error.response.data.message || "Server error";
-        } else if (error.request) {
-            errorMessage = "Network error";
-        } else {
-            errorMessage = error.message || "Unknown error";
-        }
-        dispatch(userActions.createUserFailure(errorMessage));
-    }
+    // Make the API call using the axiosRequest helper
+    const response = await axiosRequest(
+      dispatch,
+      "POST", // HTTP method for POST request
+      `${route}/`, // Endpoint for creating a new user
+      userData, // Data to be sent in the request body
+      null // No query parameters
+    );
+
+    console.log("create-user-res-data", response);
+    dispatch(userActions.createUserSuccess(response.data));
+  } catch (error) {
+    dispatch(
+      userActions.createUserFailure(error.message || "An error occurred")
+    );
+  }
 };
 
 export const updateUser = (userData, userId) => async (dispatch) => {
+  try {
+    console.log("update-userData-req", userData);
+    dispatch(userActions.updateUserRequest());
 
-    try {
-        console.log("update-userData-req", userData,);
-        dispatch(userActions.updateUserRequest());
-        const response = await axios.put(
-            `${route}/${userId}`,
-            userData,
-            {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
-                withCredentials: true,
-            }
-        );
-        console.log('update-user-res-data', response.data);
-        dispatch(userActions.getUserSuccess(response.data));
-        dispatch(userActions.updateUserSuccess(response.data));
-    } catch (error) {
-        console.log("error", error)
-        let errorMessage = "An error occurred";
-        if (error.response) {
-            errorMessage = error.response.data.message || "Server error";
-        } else if (error.request) {
-            errorMessage = "Network error";
-        } else {
-            errorMessage = error.message || "Unknown error";
-        }
-        dispatch(userActions.updateUserFailure(errorMessage));
-    }
+    // Make the API call using the axiosRequest helper
+    const response = await axiosRequest(
+      dispatch,
+      "PUT", // HTTP method for PUT request
+      `${route}/${userId}`, // Endpoint for updating the user by ID
+      userData, // Data to be sent in the request body
+      null // No query parameters
+    );
+
+    console.log("update-user-res-data", response.data);
+    dispatch(userActions.getUserSuccess(response.data));
+    dispatch(userActions.updateUserSuccess(response.data));
+  } catch (error) {
+    dispatch(
+      userActions.updateUserFailure(error.message || "An error occurred")
+    );
+  }
 };
 
-export const deleteUser = (userId, token) => async (dispatch) => {
-    try {
-        console.log("delete-userData", userId);
-        dispatch(userActions.deleteUserRequest());
+export const deleteUser = (userId) => async (dispatch) => {
+  try {
+    console.log("delete-userData", userId);
+    dispatch(userActions.deleteUserRequest());
 
-        const data = await axios.delete(
-            `${route}/${userId}`,
-            {
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                withCredentials: true,
-            }
-        );
-        console.log('delete-user-res-data', data.data);
-        dispatch(userActions.deleteUserSuccess(data.data));
-    } catch (error) {
-        console.log("delete-user-error", error)
-        let errorMessage = "An error occurred";
-        if (error.response) {
-            errorMessage = error.response.data.message || "Server error";
-        } else if (error.request) {
-            errorMessage = "Network error";
-        } else {
-            errorMessage = error.message || "Unknown error";
-        }
-        dispatch(userActions.deleteUserFailure(errorMessage));
-    }
+    // Make the API call using the axiosRequest helper
+    const response = await axiosRequest(
+      dispatch,
+      "DELETE", // HTTP method for DELETE request
+      `${route}/${userId}` // Endpoint for deleting a user by ID
+    );
+
+    console.log("delete-user-res-data", response.data);
+    dispatch(userActions.deleteUserSuccess(response.data));
+  } catch (error) {
+    dispatch(
+      userActions.deleteUserFailure(error.message || "An error occurred")
+    );
+  }
 };

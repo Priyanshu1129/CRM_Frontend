@@ -1,55 +1,74 @@
-import axios from "axios";
+import { axiosRequest } from "@/utilities/axiosHelper";
 import { pipeViewActions } from "@/redux/slices/dashboardSlice";
 import { serverURL } from "@/config/config";
-const route = `${serverURL}/dashboards/pipe-view`
+const route = `${serverURL}/dashboards/pipe-view`;
 
-export const getPipeView = ({ particularDate, industry = "", subIndustry = "", territory = "", solution = "", enteredBy = "", myView=false }) => async (dispatch) => {
+export const getPipeView =
+  ({
+    particularDate,
+    industry = "",
+    subIndustry = "",
+    territory = "",
+    solution = "",
+    enteredBy = "",
+    myView = false,
+  }) =>
+  async (dispatch) => {
     try {
-        console.log("get-pipeView-data-req", solution);
-        dispatch(pipeViewActions.getPipeViewRequest());
+      console.log("get-pipeView-data-req", solution);
+      dispatch(pipeViewActions.getPipeViewRequest());
 
-        const response = await axios.post(`${route}?myView=false`, { particularDate }, {
-            params: { industry, subIndustry, territory, solution, enteredBy },
-            withCredentials: true,
-        });
-        console.log('get-pipeView-details-res-data', response.data);
-        dispatch(pipeViewActions.getPipeViewSuccess(response.data));
+      // Using axiosRequest helper for POST request to get the pipe view data
+      const response = await axiosRequest(
+        dispatch,
+        "POST", // HTTP method for POST request
+        `${route}?myView=false`, // Endpoint to fetch pipe view data
+        { particularDate }, // POST data (body)
+        { industry, subIndustry, territory, solution, enteredBy } // Query parameters
+      );
+
+      console.log("get-pipeView-details-res-data", response);
+      dispatch(pipeViewActions.getPipeViewSuccess(response)); // Dispatch success action
     } catch (error) {
-        console.log("error", error)
-        let errorMessage = "An error occurred";
-        if (error.response) {
-            errorMessage = error.response.data.message || "Server error";
-        } else if (error.request) {
-            errorMessage = "Network error";
-        } else {
-            errorMessage = error.message || "Unknown error";
-        }
-        dispatch(pipeViewActions.getPipeViewFailure(errorMessage));
+      dispatch(
+        pipeViewActions.getPipeViewFailure(error.message || "An error occurred")
+      );
+      console.log("error", error);
     }
-};
+  };
 
-export const getMyPipeView = ({ particularDate, industry = "", subIndustry = "", territory = "", solution = "", enteredBy = "", myView }) => async (dispatch) => {
+export const getMyPipeView =
+  ({
+    particularDate,
+    industry = "",
+    subIndustry = "",
+    territory = "",
+    solution = "",
+    enteredBy = "",
+    myView = false,
+  }) =>
+  async (dispatch) => {
     try {
-        console.log("get-my-pipeView-data-req", solution);
-        dispatch(pipeViewActions.getMyPipeViewRequest());
+      console.log("get-my-pipeView-data-req", solution);
+      dispatch(pipeViewActions.getMyPipeViewRequest());
 
-        const response = await axios.post(`${route}?myView=true`, { particularDate }, {
-            params: { industry, subIndustry, territory, solution, enteredBy },
-            withCredentials: true,
-        });
-        console.log('get-my-pipeView-details-res-data', response.data);
-        dispatch(pipeViewActions.getMyPipeViewSuccess(response.data));
+      // Using axiosRequest helper for POST request to get the user's pipe view data
+      const response = await axiosRequest(
+        dispatch,
+        "POST", // HTTP method for POST request
+        `${route}?myView=true`, // Endpoint to fetch my pipe view data
+        { particularDate }, // POST data (body)
+        { industry, subIndustry, territory, solution, enteredBy } // Query parameters
+      );
+
+      console.log("get-my-pipeView-details-res-data", response);
+      dispatch(pipeViewActions.getMyPipeViewSuccess(response)); // Dispatch success action
     } catch (error) {
-        console.log("error", error)
-        let errorMessage = "An error occurred";
-        if (error.response) {
-            errorMessage = error.response.data.message || "Server error";
-        } else if (error.request) {
-            errorMessage = "Network error";
-        } else {
-            errorMessage = error.message || "Unknown error";
-        }
-        dispatch(pipeViewActions.getMyPipeViewFailure(errorMessage));
+      dispatch(
+        pipeViewActions.getMyPipeViewFailure(
+          error.message || "An error occurred"
+        )
+      );
+      console.log("error", error);
     }
-};
-
+  };

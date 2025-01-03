@@ -84,7 +84,10 @@ export const PermissionTable = ({ role, permissionEntities }) => {
     setCheckedActions(initialCheckedActions);
   };
 
-  const { handleUpdate, loading } = useEditPermissions({ checkedActions , role});
+  const { handleUpdate, loading } = useEditPermissions({
+    checkedActions,
+    role,
+  });
 
   const columns = getColumns({
     checkedActions,
@@ -100,7 +103,9 @@ export const PermissionTable = ({ role, permissionEntities }) => {
           <Button loading={loading} type="primary" onClick={handleUpdate}>
             Update
           </Button>
-          <Button disabled={loading} onClick={handleReset}>Reset</Button>
+          <Button disabled={loading} onClick={handleReset}>
+            Reset
+          </Button>
         </Space>
       </div>
     </div>

@@ -1,145 +1,138 @@
-import axios from "axios";
 import { subIndustryActions } from "@/redux/slices/configurationSlice";
 import { serverURL } from "@/config/config";
-
-const route = `${serverURL}/configuration/sub-industry`
+import { axiosRequest } from "@/utilities/axiosHelper";
+const route = `${serverURL}/configuration/sub-industry`;
 
 export const getAllSubIndustries = () => async (dispatch) => {
-    try {
-        dispatch(subIndustryActions.getAllSubIndustriesRequest());
-        console.log('getAllSubIndustries');
-        const response = await axios.get(`${route}/`, {
-            withCredentials: true,
-        });
+  try {
+    dispatch(subIndustryActions.getAllSubIndustriesRequest());
+    console.log("getAllSubIndustries");
 
-        console.log('get-all-subIndustry-res-data', response.data);
-        dispatch(subIndustryActions.getAllSubIndustriesSuccess(response.data));
-    } catch (error) {
-        console.log("error", error)
-        let errorMessage = "An error occurred";
-        if (error.response) {
-            errorMessage = error.response.data.message || "Server error";
-        } else if (error.request) {
-            errorMessage = "Network error";
-        } else {
-            errorMessage = error.message || "Unknown error";
-        }
-        dispatch(subIndustryActions.getAllSubIndustriesFailure(errorMessage));
-    }
+    // Use the axiosRequest helper function for GET request
+    const response = await axiosRequest(
+      dispatch,
+      "GET", // HTTP method
+      `${route}/` // The URL for the sub-industry list
+    );
+
+    console.log("get-all-subIndustry-res-data", response);
+    dispatch(subIndustryActions.getAllSubIndustriesSuccess(response));
+  } catch (error) {
+    console.log("error", error);
+    dispatch(
+      subIndustryActions.getAllSubIndustriesFailure(
+        error.message || "Failed to fetch sub-industries"
+      )
+    );
+  }
 };
 
-export const getSubIndustry = (subIndustryId, token) => async (dispatch) => {
-    try {
-        console.log("get-subIndustry-data", subIndustryId, token);
-        dispatch(subIndustryActions.getSubIndustryRequest());
+export const getSubIndustry = (subIndustryId) => async (dispatch) => {
+  try {
+    dispatch(subIndustryActions.getSubIndustryRequest());
+    console.log("get-subIndustry-data", subIndustryId);
 
-        const data = await axios.get(`${route}/details/${subIndustryId}`, {
-            headers: {
-                "authorization": token
-            }
-        });
-        console.log('get-subIndustry-details-res-data', data.data);
-        dispatch(subIndustryActions.getSubIndustrySuccess(data.data));
-    } catch (error) {
-        console.log("error", error)
-        let errorMessage = "An error occurred";
-        if (error.response) {
-            errorMessage = error.response.data.message || "Server error";
-        } else if (error.request) {
-            errorMessage = "Network error";
-        } else {
-            errorMessage = error.message || "Unknown error";
-        }
-        dispatch(subIndustryActions.getSubIndustryFailure(errorMessage));
-    }
+    // Use the axiosRequest helper function for GET request
+    const response = await axiosRequest(
+      dispatch,
+      "GET", // HTTP method
+      `${route}/details/${subIndustryId}`, // The URL with subIndustryId
+      null, // No body required for GET request
+      null // No query parameters for this example
+    );
+
+    console.log("get-subIndustry-details-res-data", response);
+    dispatch(subIndustryActions.getSubIndustrySuccess(response));
+  } catch (error) {
+    console.log("error", error);
+    dispatch(
+      subIndustryActions.getSubIndustryFailure(
+        error.message || "Failed to fetch sub-industry details"
+      )
+    );
+  }
 };
 
 export const createSubIndustry = (subIndustryData) => async (dispatch) => {
-    try {
+  try {
+    dispatch(subIndustryActions.createSubIndustryRequest());
+    console.log("create-subIndustryData%", subIndustryData);
 
-        const data = await axios.post(
-            `${route}/`,
-            subIndustryData,
-            {
-                withCredentials : true
-            }
-        );
-        console.log('create-subIndustry-res-data', data);
-        dispatch(subIndustryActions.createSubIndustrySuccess(data.data));
-    } catch (error) {
-        console.log("error", error)
-        let errorMessage = "An error occurred";
-        if (error.response) {
-            errorMessage = error.response.data.message || "Server error";
-        } else if (error.request) {
-            errorMessage = "Network error";
-        } else {
-            errorMessage = error.message || "Unknown error";
-        }
-        dispatch(subIndustryActions.createSubIndustryFailure(errorMessage));
-    }
+    // Use axiosRequest helper function for POST request
+    const response = await axiosRequest(
+      dispatch,
+      "POST", // HTTP method
+      `${route}/`, // The URL endpoint for creating a new sub-industry
+      subIndustryData, // The body data for the POST request
+      null // No query parameters for this request
+    );
+
+    console.log("create-subIndustry-res-data", response);
+    dispatch(subIndustryActions.createSubIndustrySuccess(response));
+  } catch (error) {
+    console.log("error", error);
+    dispatch(
+      subIndustryActions.createSubIndustryFailure(
+        error.message || "Failed to create sub-industry"
+      )
+    );
+  }
 };
 
-export const updateSubIndustry = (subIndustryData, subIndustryId) => async (dispatch) => {
-
-   
-
+export const updateSubIndustry =
+  (subIndustryData, subIndustryId) => async (dispatch) => {
     try {
-        console.log("update-subIndustryData%", subIndustryData,);
-        
-        dispatch(subIndustryActions.updateSubIndustryRequest());
-        console.log("update url----------", `${route}/${subIndustryId}`);
-        const data = await axios.put(
-            `${route}/${subIndustryId}`,
-            subIndustryData,
-            {
-                withCredentials : true
-            }
-        );
-        console.log('update-subIndustry-res-data', data.data);
-        dispatch(subIndustryActions.updateSubIndustrySuccess(data.data));
-        getAllSubIndustries()
-        
-    } catch (error) {
-        console.log("error", error)
-        let errorMessage = "An error occurred";
-        if (error.response) {
-            errorMessage = error.response.data.message || "Server error";
-        } else if (error.request) {
-            errorMessage = "Network error";
-        } else {
-            errorMessage = error.message || "Unknown error";
-        }
-        dispatch(subIndustryActions.updateSubIndustryFailure(errorMessage));
-    }
-};
+      console.log("update-subIndustryData%", subIndustryData);
 
-export const deleteSubIndustry = (subIndustryId, token) => async (dispatch) => {
-    try {
-        console.log("delete-subIndustryData", subIndustryId);
-        dispatch(subIndustryActions.deleteSubIndustryRequest());
+      dispatch(subIndustryActions.updateSubIndustryRequest());
+      console.log("update url----------", `${route}/${subIndustryId}`);
 
-        const data = await axios.delete(
-            `${route}/${subIndustryId}`,
-            {
-                headers: {
-                    "Content-Type": "application/json",
-                    "authorization": token
-                },
-            }
-        );
-        console.log('delete-subIndustry-res-data', data.data);
-        dispatch(subIndustryActions.deleteSubIndustrySuccess(data.data));
+      // Use axiosRequest helper function for PUT request
+      const response = await axiosRequest(
+        dispatch,
+        "PUT", // HTTP method for updating
+        `${route}/${subIndustryId}`, // The endpoint for updating a specific sub-industry
+        subIndustryData, // The body data for the PUT request
+        null // No query parameters for this request
+      );
+
+      console.log("update-subIndustry-res-data", response);
+      dispatch(subIndustryActions.updateSubIndustrySuccess(response));
+
+      // You can re-fetch the sub-industries list if needed
+      dispatch(getAllSubIndustries());
     } catch (error) {
-        console.log("delete-subIndustry-error", error)
-        let errorMessage = "An error occurred";
-        if (error.response) {
-            errorMessage = error.response.data.message || "Server error";
-        } else if (error.request) {
-            errorMessage = "Network error";
-        } else {
-            errorMessage = error.message || "Unknown error";
-        }
-        dispatch(subIndustryActions.deleteSubIndustryFailure(errorMessage));
+      console.log("error", error);
+      dispatch(
+        subIndustryActions.updateSubIndustryFailure(
+          error.message || "Failed to update sub-industry"
+        )
+      );
     }
+  };
+
+export const deleteSubIndustry = (subIndustryId) => async (dispatch) => {
+  try {
+    console.log("delete-subIndustryData", subIndustryId);
+    dispatch(subIndustryActions.deleteSubIndustryRequest());
+
+    // Use axiosRequest helper function for DELETE request
+    const response = await axiosRequest(
+      dispatch,
+      "DELETE", // HTTP method for deleting
+      `${route}/${subIndustryId}`, // The endpoint for deleting a specific sub-industry
+      null, // No data needed for DELETE requests
+      null // No query parameters for this request
+    );
+
+    console.log("delete-subIndustry-res-data", response);
+    dispatch(subIndustryActions.deleteSubIndustrySuccess(response));
+  } catch (error) {
+    console.log("delete-subIndustry-error", error);
+    dispatch(
+      subIndustryActions.deleteSubIndustryFailure(
+        error.message || "Failed to delete sub-industry"
+      )
+    );
+  }
 };

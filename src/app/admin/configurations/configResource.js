@@ -56,7 +56,7 @@ export const getColumns = ({ counts }) => {
         return (
           <TableActions
             deleteAction={false}
-            showUrl={`/admin-panel/configurations/${record.key}`}
+            showUrl={`/admin/configurations/${record.key}`}
           />
         );
       },

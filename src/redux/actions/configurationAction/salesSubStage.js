@@ -1,141 +1,140 @@
-import axios from "axios";
+import { axiosRequest } from "@/utilities/axiosHelper";
 import { salesSubStageActions } from "@/redux/slices/configurationSlice";
 import { serverURL } from "@/config/config";
 
-const route = `${serverURL}/configuration/sales-sub-stage`
+const route = `${serverURL}/configuration/sales-sub-stage`;
 
 export const getAllSalesSubStages = () => async (dispatch) => {
-    try {
-        dispatch(salesSubStageActions.getAllSalesSubStagesRequest());
-        console.log('getAllSalesSubStages');
-        const response = await axios.get(`${route}/`, {
-            withCredentials: true,
-        });
+  try {
+    dispatch(salesSubStageActions.getAllSalesSubStagesRequest());
+    console.log("getAllSalesSubStages");
 
-        console.log('get-all-salesSubStage-res-data', response.data);
-        dispatch(salesSubStageActions.getAllSalesSubStagesSuccess(response.data));
-    } catch (error) {
-        console.log("error", error)
-        let errorMessage = "An error occurred";
-        if (error.response) {
-            errorMessage = error.response.data.message || "Server error";
-        } else if (error.request) {
-            errorMessage = "Network error";
-        } else {
-            errorMessage = error.message || "Unknown error";
-        }
-        dispatch(salesSubStageActions.getAllSalesSubStagesFailure(errorMessage));
-    }
+    // Use axiosRequest helper function for GET request
+    const response = await axiosRequest(
+      dispatch,
+      "GET",
+      `${route}/`,
+      null, // No data for GET request
+      null // No query params for GET request
+    );
+
+    console.log("get-all-salesSubStage-res-data", response);
+    dispatch(salesSubStageActions.getAllSalesSubStagesSuccess(response));
+  } catch (error) {
+    console.log("error", error);
+    // Error message is handled by axiosRequest, so just pass it to the failure action
+    dispatch(
+      salesSubStageActions.getAllSalesSubStagesFailure(
+        error.message || "Failed to get all sales sub-stages"
+      )
+    );
+  }
 };
 
-export const getSalesSubStage = (salesSubStageId, token) => async (dispatch) => {
-    try {
-        console.log("get-salesSubStage-data", salesSubStageId, token);
-        dispatch(salesSubStageActions.getSalesSubStageRequest());
+export const getSalesSubStage = (salesSubStageId) => async (dispatch) => {
+  try {
+    console.log("get-salesSubStage-data", salesSubStageId);
+    dispatch(salesSubStageActions.getSalesSubStageRequest());
 
-        const data = await axios.get(`${route}/details/${salesSubStageId}`, {
-            headers: {
-                "authorization": token
-            }
-        });
-        console.log('get-salesSubStage-details-res-data', data.data);
-        dispatch(salesSubStageActions.getSalesSubStageSuccess(data.data));
-    } catch (error) {
-        console.log("error", error)
-        let errorMessage = "An error occurred";
-        if (error.response) {
-            errorMessage = error.response.data.message || "Server error";
-        } else if (error.request) {
-            errorMessage = "Network error";
-        } else {
-            errorMessage = error.message || "Unknown error";
-        }
-        dispatch(salesSubStageActions.getSalesSubStageFailure(errorMessage));
-    }
+    // Use axiosRequest helper function for GET request
+    const response = await axiosRequest(
+      dispatch,
+      "GET",
+      `${route}/details/${salesSubStageId}`,
+      null, // No data for GET request
+      null // No query parameters
+    );
+
+    console.log("get-salesSubStage-details-res-data", response);
+    dispatch(salesSubStageActions.getSalesSubStageSuccess(response));
+  } catch (error) {
+    console.log("error", error);
+    // Error message is handled by axiosRequest, so just pass it to the failure action
+    dispatch(
+      salesSubStageActions.getSalesSubStageFailure(
+        error.message || "Failed to fetch sales sub-stage"
+      )
+    );
+  }
 };
 
 export const createSalesSubStage = (salesSubStageData) => async (dispatch) => {
-    try {
-        console.log("create-req-salesSubStageData", salesSubStageData);
-        
-        const data = await axios.post(
-            `${route}/`,
-            salesSubStageData,
-            {
-                withCredentials : true
-            }
-        );
-        console.log('create-salesSubStage-res-data', data);
-        dispatch(salesSubStageActions.createSalesSubStageSuccess(data.data));
-    } catch (error) {
-        console.log("error", error)
-        let errorMessage = "An error occurred";
-        if (error.response) {
-            errorMessage = error.response.data.message || "Server error";
-        } else if (error.request) {
-            errorMessage = "Network error";
-        } else {
-            errorMessage = error.message || "Unknown error";
-        }
-        dispatch(salesSubStageActions.createSalesSubStageFailure(errorMessage));
-    }
+  try {
+    console.log("create-req-salesSubStageData", salesSubStageData);
+
+    // Use axiosRequest helper function for POST request
+    const response = await axiosRequest(
+      dispatch,
+      "POST",
+      `${route}/`,
+      salesSubStageData, // Pass the salesSubStageData as the request payload
+      null // No query parameters needed
+    );
+
+    console.log("create-salesSubStage-res-data", response);
+    dispatch(salesSubStageActions.createSalesSubStageSuccess(response));
+  } catch (error) {
+    console.log("error", error);
+    // Error message is handled by axiosRequest, so just pass it to the failure action
+    dispatch(
+      salesSubStageActions.createSalesSubStageFailure(
+        error.message || "Failed to create sales sub-stage"
+      )
+    );
+  }
 };
 
-export const updateSalesSubStage = (salesSubStageData,salesSubStageId) => async (dispatch) => {
-
+export const updateSalesSubStage =
+  (salesSubStageData, salesSubStageId) => async (dispatch) => {
     try {
-        console.log("update-salesSubStageData%", salesSubStageData);
-        dispatch(salesSubStageActions.updateSalesSubStageRequest());
-        console.log("update url----------", `${route}/${salesSubStageId}`);
-        const data = await axios.put(
-            `${route}/${salesSubStageId}`,
-            salesSubStageData,
-            {
-                withCredentials : true
-            }
-        );
-        console.log('update-salesSubStage-res-data', data.data);
-        dispatch(salesSubStageActions.updateSalesSubStageSuccess(data.data));
-    } catch (error) {
-        console.log("error", error)
-        let errorMessage = "An error occurred";
-        if (error.response) {
-            errorMessage = error.response.data.message || "Server error";
-        } else if (error.request) {
-            errorMessage = "Network error";
-        } else {
-            errorMessage = error.message || "Unknown error";
-        }
-        dispatch(salesSubStageActions.updateSalesSubStageFailure(errorMessage));
-    }
-};
+      console.log("update-salesSubStageData", salesSubStageData);
+      dispatch(salesSubStageActions.updateSalesSubStageRequest());
 
-export const deleteSalesSubStage = (salesSubStageId, token) => async (dispatch) => {
-    try {
-        console.log("delete-salesSubStageData", salesSubStageId);
-        dispatch(salesSubStageActions.deleteSalesSubStageRequest());
+      // Use axiosRequest helper function for PUT request
+      const response = await axiosRequest(
+        dispatch,
+        "PUT", // HTTP method
+        `${route}/${salesSubStageId}`, // The URL with the specific salesSubStageId
+        salesSubStageData, // The data for the PUT request
+        null // No query parameters needed
+      );
 
-        const data = await axios.delete(
-            `${route}/${salesSubStageId}`,
-            {
-                headers: {
-                    "Content-Type": "application/json",
-                    "authorization": token
-                },
-            }
-        );
-        console.log('delete-salesSubStage-res-data', data.data);
-        dispatch(salesSubStageActions.deleteSalesSubStageSuccess(data.data));
+      console.log("update-salesSubStage-res-data", response);
+      dispatch(salesSubStageActions.updateSalesSubStageSuccess(response));
     } catch (error) {
-        console.log("delete-salesSubStage-error", error)
-        let errorMessage = "An error occurred";
-        if (error.response) {
-            errorMessage = error.response.data.message || "Server error";
-        } else if (error.request) {
-            errorMessage = "Network error";
-        } else {
-            errorMessage = error.message || "Unknown error";
-        }
-        dispatch(salesSubStageActions.deleteSalesSubStageFailure(errorMessage));
+      console.log("error", error);
+      // Error message is handled by axiosRequest, so just pass it to the failure action
+      dispatch(
+        salesSubStageActions.updateSalesSubStageFailure(
+          error.message || "Failed to update sales sub-stage"
+        )
+      );
     }
+  };
+
+export const deleteSalesSubStage = (salesSubStageId) => async (dispatch) => {
+  try {
+    console.log("delete-salesSubStageData", salesSubStageId);
+    dispatch(salesSubStageActions.deleteSalesSubStageRequest());
+
+    // Use axiosRequest helper function for DELETE request
+    const response = await axiosRequest(
+      dispatch,
+      "DELETE", // HTTP method
+      `${route}/${salesSubStageId}`, // The URL with the specific salesSubStageId
+      null, // No data to send with the request
+      null // No query parameters needed
+    );
+
+    console.log("delete-salesSubStage-res-data", response);
+    dispatch(salesSubStageActions.deleteSalesSubStageSuccess(response));
+  } catch (error) {
+    console.log("delete-salesSubStage-error", error);
+    // Error message is handled by axiosRequest, so just pass it to the failure action
+    dispatch(
+      salesSubStageActions.deleteSalesSubStageFailure(
+        error.message || "Failed to delete sales sub-stage"
+      )
+    );
+  }
 };

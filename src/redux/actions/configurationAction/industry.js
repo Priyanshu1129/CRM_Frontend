@@ -1,145 +1,136 @@
 import axios from "axios";
 import { industryActions } from "@/redux/slices/configurationSlice";
 import { serverURL } from "@/config/config";
-
-const route = `${serverURL}/configuration/industry`
+import { axiosRequest } from "@/utilities/axiosHelper";
+const route = `${serverURL}/configuration/industry`;
 
 export const getAllIndustries = () => async (dispatch) => {
-    try {
-        dispatch(industryActions.getAllIndustriesRequest());
-        console.log('getAllIndustries');
-        const response = await axios.get(`${route}/`, {
-            withCredentials: true
-        });
+  try {
+    dispatch(industryActions.getAllIndustriesRequest());
+    console.log("getAllIndustries");
 
-        console.log('get-all-industry-res-data', response.data);
-        dispatch(industryActions.getAllIndustriesSuccess(response.data));
-    } catch (error) {
-        console.log("error", error)
-        let errorMessage = "An error occurred";
-        if (error.response) {
-            errorMessage = error.response.data.message || "Server error";
-        } else if (error.request) {
-            errorMessage = "Network error";
-        } else {
-            errorMessage = error.message || "Unknown error";
-        }
-        dispatch(industryActions.getAllIndustriesFailure(errorMessage));
-    }
+    // Use axiosRequest helper function to make the GET request
+    const response = await axiosRequest(dispatch, "GET", `${route}/`);
+
+    console.log("get-all-industry-res-data", response);
+    dispatch(industryActions.getAllIndustriesSuccess(response));
+  } catch (error) {
+    console.log("get-all-industries-error", error);
+    // Error message is handled by axiosRequest, so just pass it to the failure action
+    dispatch(
+      industryActions.getAllIndustriesFailure(
+        error.message || "Failed to get industries"
+      )
+    );
+  }
 };
 
-export const getIndustry = (industryId, token) => async (dispatch) => {
-    try {
-        console.log("get-industry-data", industryId, token);
-        dispatch(industryActions.getIndustryRequest());
+export const getIndustry = (industryId) => async (dispatch) => {
+  try {
+    console.log("get-industry-data", industryId);
+    dispatch(industryActions.getIndustryRequest());
 
-        const data = await axios.get(`${route}/details/${industryId}`, {
-            headers: {
-                "authorization": token
-            }
-        });
-        console.log('get-industry-details-res-data', data.data);
-        dispatch(industryActions.getIndustrySuccess(data.data));
-    } catch (error) {
-        console.log("error", error)
-        let errorMessage = "An error occurred";
-        if (error.response) {
-            errorMessage = error.response.data.message || "Server error";
-        } else if (error.request) {
-            errorMessage = "Network error";
-        } else {
-            errorMessage = error.message || "Unknown error";
-        }
-        dispatch(industryActions.getIndustryFailure(errorMessage));
-    }
+    // Use axiosRequest helper function to make the GET request
+    const response = await axiosRequest(
+      dispatch,
+      "GET",
+      `${route}/details/${industryId}`,
+      null,
+      null
+    );
+
+    console.log("get-industry-details-res-data", response);
+    dispatch(industryActions.getIndustrySuccess(response));
+  } catch (error) {
+    console.log("get-industry-error", error);
+    // Error message is handled by axiosRequest, so just pass it to the failure action
+    dispatch(
+      industryActions.getIndustryFailure(
+        error.message || "Failed to get industry details"
+      )
+    );
+  }
 };
 
 export const createIndustry = (industryData) => async (dispatch) => {
-    try {
-        console.log("create-industryData", industryData);
-        dispatch(industryActions.createIndustryRequest());
-        
+  try {
+    console.log("create-industryData", industryData);
+    dispatch(industryActions.createIndustryRequest());
 
-        const data = await axios.post(
-            `${route}/`,
-            industryData,
-            {
-               withCredentials : true
-            }
-        );
-        console.log('create-industry-res-data', data);
-        dispatch(industryActions.createIndustrySuccess(data.data));
-    } catch (error) {
-        console.log("error", error)
-        let errorMessage = "An error occurred";
-        if (error.response) {
-            errorMessage = error.response.data.message || "Server error";
-        } else if (error.request) {
-            errorMessage = "Network error";
-        } else {
-            errorMessage = error.message || "Unknown error";
-        }
-        dispatch(industryActions.createIndustryFailure(errorMessage));
-    }
+    // Use axiosRequest helper function for POST request
+    const response = await axiosRequest(
+      dispatch,
+      "POST",
+      `${route}/`,
+      industryData,
+      null // No query params for POST
+    );
+
+    console.log("create-industry-res-data", response);
+    dispatch(industryActions.createIndustrySuccess(response));
+  } catch (error) {
+    console.log("create-industry-error", error);
+    // Error message is handled by axiosRequest, so just pass it to the failure action
+    dispatch(
+      industryActions.createIndustryFailure(
+        error.message || "Failed to create industry"
+      )
+    );
+  }
 };
 
-export const updateIndustry = (industryData,industryId) => async (dispatch) => {
-
-
+export const updateIndustry =
+  (industryData, industryId) => async (dispatch) => {
     try {
-        console.log("update-industryData%", industryData,);
-        console.log("update-industry-ID", industryId,);
-        dispatch(industryActions.updateIndustryRequest());
-        console.log("update url----------", `${route}/${industryId}`);
-        const data = await axios.put(
-            `${route}/${industryId}`,
-            industryData,
-            {
-               withCredentials : true
-            }
-        );
-        console.log('update-industry-res-data', data.data);
-        dispatch(industryActions.updateIndustrySuccess(data.data));
-    } catch (error) {
-        console.log("error", error)
-        let errorMessage = "An error occurred";
-        if (error.response) {
-            errorMessage = error.response.data.message || "Server error";
-        } else if (error.request) {
-            errorMessage = "Network error";
-        } else {
-            errorMessage = error.message || "Unknown error";
-        }
-        dispatch(industryActions.updateIndustryFailure(errorMessage));
-    }
-};
+      console.log("update-industryData%", industryData);
+      console.log("update-industry-ID", industryId);
+      dispatch(industryActions.updateIndustryRequest());
 
-export const deleteIndustry = (industryId, token) => async (dispatch) => {
-    try {
-        console.log("delete-industryData", industryId);
-        dispatch(industryActions.deleteIndustryRequest());
+      // Use axiosRequest helper function for PUT request
+      const response = await axiosRequest(
+        dispatch,
+        "PUT",
+        `${route}/${industryId}`,
+        industryData,
+        null // No query params for PUT
+      );
 
-        const data = await axios.delete(
-            `${route}/${industryId}`,
-            {
-                headers: {
-                    "Content-Type": "application/json",
-                    "authorization": token
-                },
-            }
-        );
-        console.log('delete-industry-res-data', data.data);
-        dispatch(industryActions.deleteIndustrySuccess(data.data));
+      console.log("update-industry-res-data", response);
+      dispatch(industryActions.updateIndustrySuccess(response));
     } catch (error) {
-        console.log("delete-industry-error", error)
-        let errorMessage = "An error occurred";
-        if (error.response) {
-            errorMessage = error.response.data.message || "Server error";
-        } else if (error.request) {
-            errorMessage = "Network error";
-        } else {
-            errorMessage = error.message || "Unknown error";
-        }
-        dispatch(industryActions.deleteIndustryFailure(errorMessage));
+      console.log("update-industry-error", error);
+      // Error message is handled by axiosRequest, so just pass it to the failure action
+      dispatch(
+        industryActions.updateIndustryFailure(
+          error.message || "Failed to update industry"
+        )
+      );
     }
+  };
+
+export const deleteIndustry = (industryId) => async (dispatch) => {
+  try {
+    console.log("delete-industryData", industryId);
+    dispatch(industryActions.deleteIndustryRequest());
+
+    // Use axiosRequest helper function for DELETE request
+    const response = await axiosRequest(
+      dispatch,
+      "DELETE",
+      `${route}/${industryId}`,
+      null, // No data for DELETE request
+      null // No query params for DELETE
+    );
+
+    console.log("delete-industry-res-data", response);
+    dispatch(industryActions.deleteIndustrySuccess(response));
+  } catch (error) {
+    console.log("delete-industry-error", error);
+    // Error message is handled by axiosRequest, so just pass it to the failure action
+    dispatch(
+      industryActions.deleteIndustryFailure(
+        error.message || "Failed to delete industry"
+      )
+    );
+  }
 };

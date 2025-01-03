@@ -3,13 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { notification } from "antd";
 import { createUser } from "@/redux/actions/userAction/user";
 import { userActions } from "@/redux/slices/userSlice";
+import { countryCode } from "@/config/data";
 
 export const useAddUser = () => {
   const [loading, setLoading] = useState(false);
   const [avatarChanged, setAvatarChanged] = useState(false);
   const [avatar, setAvatar] = useState(null);
   const [phoneCountryCode, setPhoneCountryCode] = useState("+1");
-
 
   const dispatch = useDispatch();
   const { status, error } = useSelector((state) => state.user.createUser);
@@ -50,10 +50,11 @@ export const useAddUser = () => {
     const formattedValues = {
       ...values,
       avatar: avatarChanged ? avatar : null,
-      phone: `${phoneCountryCode} ${values.phone}`,
+      phoneCountryCode,
     };
     setLoading(true);
-
+    console.log(values);
+    console.log(formattedValues);
     dispatch(createUser(formattedValues));
   };
 
@@ -62,6 +63,6 @@ export const useAddUser = () => {
     onFinish,
     loading,
     phoneCountryCode,
-    setPhoneCountryCode
+    setPhoneCountryCode,
   };
 };

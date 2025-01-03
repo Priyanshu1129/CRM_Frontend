@@ -26,7 +26,6 @@ import { colorConfig } from "@/config";
 
 export const UpdateUserForm = ({ user }) => {
   const [form] = Form.useForm();
-  const screens = Grid.useBreakpoint();
   const { loading: rolesLoading, roles = [] } = useFetchAllRoles();
 
   const {
@@ -41,10 +40,10 @@ export const UpdateUserForm = ({ user }) => {
   const onFinish = (values) => {
     const updatedValues = {
       ...values,
-      phone: `${phoneCountryCode} ${values.phone}`,
+      phoneCountryCode,
     };
-    // console.log("user Values: ", values);
-    // console.log("Updated Values: ", updatedValues);
+    console.log("user Values: ", values);
+    console.log("Updated Values: ", updatedValues);
     handleUpdateUser(updatedValues);
   };
 

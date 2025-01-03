@@ -1,29 +1,26 @@
-import axios from "axios";
+import { axiosRequest } from "@/utilities/axiosHelper";
 import { configurationActions } from "@/redux/slices/configurationSlice";
 import { serverURL } from "@/config/config";
 
-const route = `${serverURL}/configuration`
+const route = `${serverURL}/configuration`;
 
 export const getConfigCounts = () => async (dispatch) => {
-    try {
-        dispatch(configurationActions.getConfigCountsRequest());
-        console.log('getConfigCounts-req');
-        const response = await axios.get(`${route}/count`, {
-            withCredentials: true
-        });
+  try {
+    dispatch(configurationActions.getConfigCountsRequest());
+    console.log("getConfigCounts-req");
 
-        console.log('get-config-count-res-data', response.data);
-        dispatch(configurationActions.getConfigCountsSuccess(response.data));
-    } catch (error) {
-        console.log("error", error)
-        let errorMessage = "An error occurred";
-        if (error.response) {
-            errorMessage = error.response.data.message || "Server error";
-        } else if (error.request) {
-            errorMessage = "Network error";
-        } else {
-            errorMessage = error.message || "Unknown error";
-        }
-        dispatch(configurationActions.getConfigCountsFailure(errorMessage));
-    }
+    // Use axiosRequest helper function to make the GET request
+    const response = await axiosRequest(dispatch, "GET", `${route}/count`);
+
+    console.log("get-config-count-res-data", response);
+    dispatch(configurationActions.getConfigCountsSuccess(response));
+  } catch (error) {
+    console.log("get-config-counts-error", error);
+    // Error message is handled by axiosRequest, so just pass it to the failure action
+    dispatch(
+      configurationActions.getConfigCountsFailure(
+        error.message || "Failed to get config counts"
+      )
+    );
+  }
 };

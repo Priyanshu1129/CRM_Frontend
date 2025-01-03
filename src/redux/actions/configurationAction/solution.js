@@ -1,143 +1,138 @@
 import axios from "axios";
 import { solutionActions } from "@/redux/slices/configurationSlice";
 import { serverURL } from "@/config/config";
-
-const route = `${serverURL}/configuration/solution`
+import { axiosRequest } from "@/utilities/axiosHelper";
+const route = `${serverURL}/configuration/solution`;
 
 export const getAllSolutions = () => async (dispatch) => {
-    try {
-        dispatch(solutionActions.getAllSolutionsRequest());
-        console.log('getAllSolutions');
-        const response = await axios.get(`${route}/`, {
-            withCredentials: true,
-        });
+  try {
+    dispatch(solutionActions.getAllSolutionsRequest());
+    console.log("getAllSolutions");
+    const response = await axios.get(`${route}/`, {
+      withCredentials: true,
+    });
 
-        console.log('get-all-solution-res-data', response.data);
-        dispatch(solutionActions.getAllSolutionsSuccess(response.data));
-    } catch (error) {
-        console.log("error", error)
-        let errorMessage = "An error occurred";
-        if (error.response) {
-            errorMessage = error.response.data.message || "Server error";
-        } else if (error.request) {
-            errorMessage = "Network error";
-        } else {
-            errorMessage = error.message || "Unknown error";
-        }
-        dispatch(solutionActions.getAllSolutionsFailure(errorMessage));
+    console.log("get-all-solution-res-data", response.data);
+    dispatch(solutionActions.getAllSolutionsSuccess(response.data));
+  } catch (error) {
+    console.log("error", error);
+    let errorMessage = "An error occurred";
+    if (error.response) {
+      errorMessage = error.response.data.message || "Server error";
+    } else if (error.request) {
+      errorMessage = "Network error";
+    } else {
+      errorMessage = error.message || "Unknown error";
     }
+    dispatch(solutionActions.getAllSolutionsFailure(errorMessage));
+  }
 };
 
-export const getSolution = (solutionId, token) => async (dispatch) => {
-    try {
-        console.log("get-solution-data", solutionId, token);
-        dispatch(solutionActions.getSolutionRequest());
+export const getSolution = (solutionId) => async (dispatch) => {
+  try {
+    console.log("get-solution-data", solutionId);
+    dispatch(solutionActions.getSolutionRequest());
 
-        const data = await axios.get(`${route}/details/${solutionId}`, {
-            headers: {
-                "authorization": token
-            }
-        });
-        console.log('get-solution-details-res-data', data.data);
-        dispatch(solutionActions.getSolutionSuccess(data.data));
-    } catch (error) {
-        console.log("error", error)
-        let errorMessage = "An error occurred";
-        if (error.response) {
-            errorMessage = error.response.data.message || "Server error";
-        } else if (error.request) {
-            errorMessage = "Network error";
-        } else {
-            errorMessage = error.message || "Unknown error";
-        }
-        dispatch(solutionActions.getSolutionFailure(errorMessage));
-    }
+    // Use axiosRequest helper function for GET request
+    const response = await axiosRequest(
+      dispatch,
+      "GET", // HTTP method
+      `${route}/details/${solutionId}`, // The URL with the specific solutionId
+      null, // No data to send with the request
+      null // No query parameters needed
+    );
+
+    console.log("get-solution-details-res-data", response);
+    dispatch(solutionActions.getSolutionSuccess(response));
+  } catch (error) {
+    console.log("error", error);
+    // Error message is handled by axiosRequest, so just pass it to the failure action
+    dispatch(
+      solutionActions.getSolutionFailure(
+        error.message || "Failed to get solution details"
+      )
+    );
+  }
 };
 
 export const createSolution = (solutionData) => async (dispatch) => {
-    try {
-        console.log(" createSolution  solutionData : ", solutionData)
-        const data = await axios.post(
-            `${route}/`,
-            solutionData,
-            {
-                withCredentials: true
-            }
-        );
-        console.log('create-solution-res-data', data);
-        dispatch(solutionActions.createSolutionSuccess(data.data));
-    } catch (error) {
-        console.log("error", error)
-        let errorMessage = "An error occurred";
-        if (error.response) {
-            errorMessage = error.response.data.message || "Server error";
-        } else if (error.request) {
-            errorMessage = "Network error";
-        } else {
-            errorMessage = error.message || "Unknown error";
-        }
-        dispatch(solutionActions.createSolutionFailure(errorMessage));
-    }
+  try {
+    console.log("createSolution solutionData: ", solutionData);
+    dispatch(solutionActions.createSolutionRequest());
+
+    // Use axiosRequest helper function for POST request
+    const response = await axiosRequest(
+      dispatch,
+      "POST", // HTTP method
+      `${route}/`, // The URL for creating a new solution
+      solutionData, // The solution data to send with the request
+      null
+    );
+
+    console.log("create-solution-res-data", response);
+    dispatch(solutionActions.createSolutionSuccess(response));
+  } catch (error) {
+    console.log("error", error);
+    // Error message is handled by axiosRequest, so just pass it to the failure action
+    dispatch(
+      solutionActions.createSolutionFailure(
+        error.message || "Failed to create solution"
+      )
+    );
+  }
 };
 
-export const updateSolution = (solutionData, solutionId) => async (dispatch) => {
-
-    
-
+export const updateSolution =
+  (solutionData, solutionId) => async (dispatch) => {
     try {
-        console.log("update-solutionData%", solutionData,);
-       
-        dispatch(solutionActions.updateSolutionRequest());
-        console.log("update url----------", `${route}/${solutionId}`);
-        const data = await axios.put(
-            `${route}/${solutionId}`,
-            solutionData,
-            {
-                withCredentials : true
-            }
-        );
-        console.log('update-solution-res-data', data.data);
-        dispatch(solutionActions.updateSolutionSuccess(data.data));
-    } catch (error) {
-        console.log("error", error)
-        let errorMessage = "An error occurred";
-        if (error.response) {
-            errorMessage = error.response.data.message || "Server error";
-        } else if (error.request) {
-            errorMessage = "Network error";
-        } else {
-            errorMessage = error.message || "Unknown error";
-        }
-        dispatch(solutionActions.updateSolutionFailure(errorMessage));
-    }
-};
+      console.log("update-solutionData", solutionData);
 
-export const deleteSolution = (solutionId, token) => async (dispatch) => {
-    try {
-        console.log("delete-solutionData", solutionId);
-        dispatch(solutionActions.deleteSolutionRequest());
+      dispatch(solutionActions.updateSolutionRequest());
 
-        const data = await axios.delete(
-            `${route}/${solutionId}`,
-            {
-                headers: {
-                    "Content-Type": "application/json",
-                    "authorization": token
-                },
-            }
-        );
-        console.log('delete-solution-res-data', data.data);
-        dispatch(solutionActions.deleteSolutionSuccess(data.data));
+      // Use axiosRequest helper function for PUT request
+      const response = await axiosRequest(
+        dispatch,
+        "PUT", // HTTP method
+        `${route}/${solutionId}`, // The URL for updating the solution
+        solutionData, // The solution data to send with the request
+        null
+      );
+
+      console.log("update-solution-res-data", response);
+      dispatch(solutionActions.updateSolutionSuccess(response));
     } catch (error) {
-        console.log("delete-solution-error", error)
-        let errorMessage = "An error occurred";
-        if (error.response) {
-            errorMessage = error.response.data.message || "Server error";
-        } else if (error.request) {
-            errorMessage = "Network error";
-        } else {
-            errorMessage = error.message || "Unknown error";
-        }
-        dispatch(solutionActions.deleteSolutionFailure(errorMessage));
+      console.log("error", error);
+      // Error message is handled by axiosRequest, so just pass it to the failure action
+      dispatch(
+        solutionActions.updateSolutionFailure(
+          error.message || "Failed to update solution"
+        )
+      );
     }
+  };
+
+export const deleteSolution = (solutionId) => async (dispatch) => {
+  try {
+    console.log("delete-solutionData", solutionId);
+
+    dispatch(solutionActions.deleteSolutionRequest());
+
+    // Use axiosRequest helper function for DELETE request
+    const response = await axiosRequest(
+      dispatch,
+      "DELETE", // HTTP method
+      `${route}/${solutionId}` // The URL to delete the specific solution
+    );
+
+    console.log("delete-solution-res-data", response);
+    dispatch(solutionActions.deleteSolutionSuccess(response));
+  } catch (error) {
+    console.log("delete-solution-error", error);
+    // Error message is handled by axiosRequest, so just pass it to the failure action
+    dispatch(
+      solutionActions.deleteSolutionFailure(
+        error.message || "Failed to delete solution"
+      )
+    );
+  }
 };

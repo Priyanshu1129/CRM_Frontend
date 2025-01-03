@@ -1,56 +1,78 @@
-import axios from "axios";
+import { axiosRequest } from "@/utilities/axiosHelper";
 import { funnelViewActions } from "@/redux/slices/dashboardSlice";
 import { serverURL } from "@/config/config";
-const route = `${serverURL}/dashboards/funnel-view`
+const route = `${serverURL}/dashboards/funnel-view`;
 
-export const getFunnelView = ({ particularDate, industry = "", subIndustry = "", territory = "", solution = "", enteredBy = "", startDate = null, endDate = null }) => async (dispatch) => {
+export const getFunnelView =
+  ({
+    particularDate,
+    industry = "",
+    subIndustry = "",
+    territory = "",
+    solution = "",
+    enteredBy = "",
+    startDate = null,
+    endDate = null,
+  }) =>
+  async (dispatch) => {
     try {
-        console.log("get-funnelView-data-req", solution, particularDate);
-        dispatch(funnelViewActions.getFunnelViewRequest());
+      console.log("get-funnelView-data-req", solution, particularDate);
+      dispatch(funnelViewActions.getFunnelViewRequest());
 
-        const response = await axios.post(`${route}?myView=false`, { particularDate }, {
-            params: { industry, subIndustry, territory, solution, enteredBy },
-            withCredentials: true,
-        });
-        console.log('get-funnelView-details-res-data', response.data);
-        dispatch(funnelViewActions.getFunnelViewSuccess(response.data));
+      // Using axiosRequest helper for POST request to get the funnel view data
+      const response = await axiosRequest(
+        dispatch,
+        "POST", // HTTP method for POST request
+        `${route}?myView=false`, // Endpoint to fetch funnel view data
+        { particularDate }, // POST data (body)
+        { industry, subIndustry, territory, solution, enteredBy } // Query parameters
+      );
+
+      console.log("get-funnelView-details-res-data", response);
+      dispatch(funnelViewActions.getFunnelViewSuccess(response)); // Dispatch success action
     } catch (error) {
-        console.log("error", error)
-        let errorMessage = "An error occurred";
-        if (error.response) {
-            errorMessage = error.response.data.message || "Server error";
-        } else if (error.request) {
-            errorMessage = "Network error";
-        } else {
-            errorMessage = error.message || "Unknown error";
-        }
-        dispatch(funnelViewActions.getFunnelViewFailure(errorMessage));
+      dispatch(
+        funnelViewActions.getFunnelViewFailure(
+          error.message || "An error occurred"
+        )
+      );
+      console.log("error", error);
     }
-};
+  };
 
-
-export const getMyFunnelView = ({ particularDate, industry = "", subIndustry = "", territory = "", solution = "", enteredBy = "", startDate = null, endDate = null }) => async (dispatch) => {
+export const getMyFunnelView =
+  ({
+    particularDate,
+    industry = "",
+    subIndustry = "",
+    territory = "",
+    solution = "",
+    enteredBy = "",
+    startDate = null,
+    endDate = null,
+  }) =>
+  async (dispatch) => {
     try {
-        console.log("get-my-funnelView-data-req", solution, particularDate);
-        dispatch(funnelViewActions.getMyFunnelViewRequest());
+      console.log("get-my-funnelView-data-req", solution, particularDate);
+      dispatch(funnelViewActions.getMyFunnelViewRequest());
 
-        const response = await axios.post(`${route}?myView=true`, { particularDate }, {
-            params: { industry, subIndustry, territory, solution, enteredBy },
-            withCredentials: true,
-        });
-        console.log('get-my-funnelView-details-res-data', response.data);
-        dispatch(funnelViewActions.getMyFunnelViewSuccess(response.data));
+      // Using axiosRequest helper for POST request to get the user's funnel view data
+      const response = await axiosRequest(
+        dispatch,
+        "POST", // HTTP method for POST request
+        `${route}?myView=true`, // Endpoint to fetch my funnel view data
+        { particularDate }, // POST data (body)
+        { industry, subIndustry, territory, solution, enteredBy } // Query parameters
+      );
+
+      console.log("get-my-funnelView-details-res-data", response);
+      dispatch(funnelViewActions.getMyFunnelViewSuccess(response)); // Dispatch success action
     } catch (error) {
-        console.log("error", error)
-        let errorMessage = "An error occurred";
-        if (error.response) {
-            errorMessage = error.response.data.message || "Server error";
-        } else if (error.request) {
-            errorMessage = "Network error";
-        } else {
-            errorMessage = error.message || "Unknown error";
-        }
-        dispatch(funnelViewActions.getMyFunnelViewFailure(errorMessage));
+      dispatch(
+        funnelViewActions.getMyFunnelViewFailure(
+          error.message || "An error occurred"
+        )
+      );
+      console.log("error", error);
     }
-};
-
+  };

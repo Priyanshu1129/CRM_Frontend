@@ -13,7 +13,7 @@ const Login = () => {
   } = theme.useToken();
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  const { status, error } = useSelector((state) => state.auth.authDetails);
+  const { data, status, error } = useSelector((state) => state.auth.login);
   const router = useRouter();
 
   useEffect(() => {
@@ -22,11 +22,12 @@ const Login = () => {
     } else if (status === "success") {
       router.push("/cockpit");
       setLoading(false);
+      dispatch(authActions.checkAuthSuccess(data));
     } else if (status === "failed") {
       setLoading(false);
       notification.error({
         message: "Error",
-        description: error || "Email or Password is wrong",
+        description: error || "Incorrect Credentials!",
       });
       dispatch(authActions.clearAuthDetailsStatus());
       dispatch(authActions.clearAuthDetailsError());

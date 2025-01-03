@@ -6,13 +6,13 @@ import { CustomAvatar } from "./custom-avatar";
 import { Text } from "./text";
 import { AccountSettings } from "./account-settings";
 import { useLogout } from "@/hooks/auth";
-
+import { useSelector } from "react-redux";
 
 export const CurrentUser = () => {
   const [opened, setOpened] = useState(false);
-  let user = localStorage.getItem("user");
-  if (user) user = JSON.parse(user);
-  const {loading, handleLogout} = useLogout();
+  const { data, status } = useSelector((state) => state.auth.authDetails);
+  const user = data;
+  const { loading, handleLogout } = useLogout();
 
   const content = (
     <div

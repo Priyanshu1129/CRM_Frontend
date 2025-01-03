@@ -16,7 +16,7 @@ const RolesAndPermissions = () => {
       }}
     >
       <ListHeader
-        toPath={"/admin-panel/roles-permissions/add-role"}
+        toPath={"/admin/roles-permissions/add-role"}
         buttonText={"Add new role"}
         pageName={"role"}
         setRefresh={setRefresh}
