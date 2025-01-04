@@ -1,5 +1,7 @@
 rbac-
 configuration problem (implement rbac in frontend)
+utilize hook for global enums
+remove table filter options extra hook
 infinite loop or infinite request
 multiple notifications 
 check all routes
@@ -30,6 +32,7 @@ primary relationship is not added in add client
 salestage and substage field in opportunity update form 
 dates in add client - frontend
 filter experience is not good
+create hook for specific enums
 avoid repeated styles-
 
 

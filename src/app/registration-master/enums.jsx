@@ -26,7 +26,6 @@ export const RegistrationStatusSelector = ({ label, name, rules }) => {
     if (status == "pending") {
       setLoading(true);
     } else if (status == "success" && data?.status == "success") {
-      console.log("success-inside");
       setRegistrationStatus(data?.data);
       setLoading(false);
     } else {

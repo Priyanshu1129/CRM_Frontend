@@ -19,7 +19,6 @@ export const useAddRole = () => {
         description: "Role created successfully.",
       });
       dispatch(roleActions.clearCreateRoleStatus());
-      // dispatch(roleActions.clearCreateRoleData());
     } else if (status === "failed") {
       setLoading(false);
       notification.error({
@@ -32,8 +31,6 @@ export const useAddRole = () => {
   }, [status, error, dispatch]);
 
   const onFinish = (values) => {
-    setLoading(true);
-    console.log("create role", values);
     dispatch(createRole(values));
   };
 

@@ -51,7 +51,6 @@ export const ProtectedPage = ({ children }) => {
 
   useEffect(() => {
     if (!checked && data === null && status === "idle") {
-      console.log("check-auth-dispatched", data);
       dispatch(checkAuth());
     }
   }, [status, data, dispatch, checked]);

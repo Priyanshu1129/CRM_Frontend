@@ -457,10 +457,10 @@ export const ClientSelector = ({
 
   const [clients, setClients] = useState(data?.clients);
   const fetchAllClients = useCallback(() => {
-    if (!data) {
+    if (!clients) {
       dispatch(getAllClients({ config: true }));
     }
-  }, [dispatch, data]);
+  }, [dispatch, clients]);
 
   useEffect(() => {
     fetchAllClients();

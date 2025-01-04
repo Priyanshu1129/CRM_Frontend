@@ -43,6 +43,7 @@ const BusinessDevelopmentMaster = () => {
         })
       );
       setFilter(false);
+      setRefresh(false);
     }
   }, [
     dispatch,
@@ -72,13 +73,11 @@ const BusinessDevelopmentMaster = () => {
     } else if (status == "success") {
       setBusinessDevelopments(data?.businessDevelopments);
       setLoading(false);
-      setRefresh(false);
       dispatch(
         businessDevelopmentActions.clearGetAllBusinessDevelopmentsStatus()
       );
     } else if (status == "failed") {
       setLoading(false);
-      setRefresh(false);
       notification.error({
         message: "Error",
         description: error || "Failed to fetch businessDevelopments.",

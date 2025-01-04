@@ -23,6 +23,7 @@ export const useSolutions = (params = {}) => {
   const fetchAllSolutions = useCallback(() => {
     if (!data || refresh) {
       dispatch(getAllSolutions(config));
+      setRefresh && setRefresh(false);
     }
   }, [dispatch, data, refresh]);
 
@@ -38,7 +39,6 @@ export const useSolutions = (params = {}) => {
         setSolutions(data?.data);
       }
       setLoading(false);
-      setRefresh && setRefresh(false);
     } else {
       setLoading(false);
     }

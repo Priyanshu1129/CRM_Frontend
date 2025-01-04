@@ -24,12 +24,11 @@ export const ArcheTypeSelector = ({ label, name, rules }) => {
   useEffect(() => {
     fetchAllArcheTypes();
   }, [fetchAllArcheTypes]);
-
+  let a = 0;
   useEffect(() => {
     if (status == "pending") {
       setLoading(true);
     } else if (status == "success" && data?.status == "success") {
-      console.log("success-inside");
       setArcheTypes(data?.data);
       setLoading(false);
     } else {
@@ -79,7 +78,6 @@ export const RelationshipDegreeSelector = ({ label, name, rules }) => {
     if (status == "pending") {
       setLoading(true);
     } else if (status == "success" && data?.status == "success") {
-      console.log("success-inside");
       setRelationshipDegrees(data?.data);
       setLoading(false);
     } else {

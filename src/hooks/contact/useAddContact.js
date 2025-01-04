@@ -24,7 +24,6 @@ export const useAddContact = () => {
         description: "Contact added successfully.",
       });
       dispatch(contactActions.clearCreateContactStatus());
-      // dispatch(contactActions.clearCreateContactData());
     } else if (status === "failed") {
       setLoading(false);
       notification.error({
@@ -49,7 +48,6 @@ export const useAddContact = () => {
 
   const onFinish = (values) => {
     setLoading(true);
-    console.log("values", values);
     let newValues = {
       ...values,
       entryDate: new Date().toISOString(),
@@ -57,7 +55,6 @@ export const useAddContact = () => {
       phoneCountryCode,
       mobileCountryCode,
     };
-    console.log("submit", newValues);
     dispatch(createContact(newValues));
   };
 

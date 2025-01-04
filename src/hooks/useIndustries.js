@@ -5,7 +5,6 @@ import { getAllIndustries } from "@/redux/actions/configurationAction";
 export const useIndustries = (params = {}) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-
   const {
     refresh = false,
     setRefresh = null,
@@ -21,6 +20,7 @@ export const useIndustries = (params = {}) => {
   const fetchAllIndustries = useCallback(() => {
     if (!data || refresh) {
       dispatch(getAllIndustries(config));
+      setRefresh && setRefresh(false);
     }
   }, [dispatch, data, refresh]);
 
@@ -36,7 +36,6 @@ export const useIndustries = (params = {}) => {
         setIndustries(data?.data);
       }
       setLoading(false);
-      setRefresh && setRefresh(false);
     } else {
       setLoading(false);
     }

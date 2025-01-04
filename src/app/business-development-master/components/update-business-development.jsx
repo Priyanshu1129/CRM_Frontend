@@ -36,7 +36,6 @@ import { colorConfig } from "@/config";
 export const UpdateBusinessDevelopmentForm = ({ businessDevelopment }) => {
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
-  const screens = Grid.useBreakpoint();
   const dispatch = useDispatch();
   const [currency, setCurrency] = useState(1);
 

@@ -6,12 +6,15 @@ import { userActions } from "@/redux/slices/userSlice";
 
 export const useFetchUsers = (currentPage, pageSize, refresh, setRefresh) => {
   const dispatch = useDispatch();
-  const { status, data, error } = useSelector((state) => state.user.getAllUsers);
+  const { status, data, error } = useSelector(
+    (state) => state.user.getAllUsers
+  );
   const [loading, setLoading] = useState(false);
   const [users, setUsers] = useState(data?.users || []);
 
   const fetchAllUsers = useCallback(() => {
     dispatch(getAllUsers({ page: currentPage, limit: pageSize }));
+    setRefresh(false);
   }, [dispatch, currentPage, pageSize]);
 
   useEffect(() => {
@@ -23,7 +26,15 @@ export const useFetchUsers = (currentPage, pageSize, refresh, setRefresh) => {
     ) {
       fetchAllUsers();
     }
-  }, [fetchAllUsers, users, currentPage, pageSize, data?.page, data?.limit, refresh]);
+  }, [
+    fetchAllUsers,
+    users,
+    currentPage,
+    pageSize,
+    data?.page,
+    data?.limit,
+    refresh,
+  ]);
 
   useEffect(() => {
     if (status === "pending") {
@@ -31,11 +42,9 @@ export const useFetchUsers = (currentPage, pageSize, refresh, setRefresh) => {
     } else if (status === "success") {
       setUsers(data?.users);
       setLoading(false);
-      setRefresh(false);
       dispatch(userActions.clearGetAllUsersStatus());
     } else if (status === "failed") {
       setLoading(false);
-      setRefresh(false);
       notification.error({
         message: "Error",
         description: error || "Failed to fetch users.",

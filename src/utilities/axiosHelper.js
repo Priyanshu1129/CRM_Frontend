@@ -45,6 +45,10 @@ export const axiosRequest = async (
         errorMessage = "Session expired. Please log in again.";
         dispatch(logout());
         redirectTo("/login");
+        notification.error({
+          message: "Error",
+          description: errorMessage,
+        });
       }
       // Handle specific server errors like validation failures
       else if (status === 400 || status === 500) {
@@ -55,11 +59,11 @@ export const axiosRequest = async (
         errorMessage = error.response.data.message || `Error: ${status}`;
       }
     }
-    notification.error({
-      message: "Error",
-      description: errorMessage,
-    });
     // Return a uniform error format for the caller to handle
-    return { status: "failed", message: errorMessage };
+    throw {
+      ...error,
+      message: errorMessage,
+      status: error.response?.status || null,
+    };
   }
 };

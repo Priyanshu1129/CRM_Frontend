@@ -60,8 +60,9 @@ const roleSlice = createSlice({
       state.getAllRoles.status = "success";
       state.getAllRoles.data = action.payload;
     },
-    getAllRolesFailure: (state) => {
+    getAllRolesFailure: (state, action) => {
       state.getAllRoles.status = "failed";
+      state.getAllRoles.error = action.payload;
     },
     getAllEntitiesRequest: (state, action) => {
       state.getAllEntities.status = "pending";
@@ -70,8 +71,9 @@ const roleSlice = createSlice({
       state.getAllEntities.status = "success";
       state.getAllEntities.data = action.payload;
     },
-    getAllEntitiesFailure: (state) => {
+    getAllEntitiesFailure: (state, action) => {
       state.getAllEntities.status = "failed";
+      state.getAllEntities.error = action.payload;
     },
     createRoleRequest: (state, action) => {
       state.createRole.status = "pending";

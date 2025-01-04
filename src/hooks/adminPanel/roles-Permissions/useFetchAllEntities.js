@@ -16,10 +16,7 @@ export const useFetchAllEntities = () => {
 
   const fetchEntities = useCallback(() => {
     if (!permissionEntities) {
-      console.log("fetching permission entities");
       dispatch(getAllEntities());
-    } else {
-      console.log("permissionEntities already available");
     }
   }, [dispatch, permissionEntities]);
 

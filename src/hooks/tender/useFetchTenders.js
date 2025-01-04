@@ -12,13 +12,23 @@ export const useFetchTenders = ({ pageSize, currentPage }) => {
   const prevSorterRef = useRef({});
   const dispatch = useDispatch();
 
-  const { status, data, error } = useSelector((state) => state.tender.getAllTenders);
+  const { status, data, error } = useSelector(
+    (state) => state.tender.getAllTenders
+  );
   const [tenders, setTenders] = useState(data?.tenders);
 
   const fetchTenders = useCallback(() => {
-    if (currentPage !== Number(data?.page) || pageSize !== Number(data?.limit) || refresh || filter) {
-      dispatch(getAllTenders({ page: currentPage, limit: pageSize, ...filters }));
+    if (
+      currentPage !== Number(data?.page) ||
+      pageSize !== Number(data?.limit) ||
+      refresh ||
+      filter
+    ) {
+      dispatch(
+        getAllTenders({ page: currentPage, limit: pageSize, ...filters })
+      );
       setFilter(false);
+      setRefresh(false);
     }
   }, [currentPage, pageSize, filters, refresh, filter, dispatch, data]);
 
@@ -30,11 +40,10 @@ export const useFetchTenders = ({ pageSize, currentPage }) => {
     } else if (status === "success") {
       setLoading(false);
       setTenders(data?.tenders);
-      setRefresh(false);
+
       dispatch(tenderActions.clearGetAllTendersStatus());
     } else if (status === "failed") {
       setLoading(false);
-      setRefresh(false);
       notification.error({
         message: "Error",
         description: error || "Failed to fetch tenders.",
@@ -54,7 +63,12 @@ export const useFetchTenders = ({ pageSize, currentPage }) => {
       setFilter(true);
       setFilters({
         ...filters,
-        entryDate: sortField === "entryDate" ? (sortOrder === "descend" ? "-1" : "1") : "",
+        entryDate:
+          sortField === "entryDate"
+            ? sortOrder === "descend"
+              ? "-1"
+              : "1"
+            : "",
       });
     }
   };
@@ -67,6 +81,6 @@ export const useFetchTenders = ({ pageSize, currentPage }) => {
     handleFilter,
     setFilter,
     filters,
-    setFilters
+    setFilters,
   };
 };

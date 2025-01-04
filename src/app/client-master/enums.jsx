@@ -30,7 +30,6 @@ export const ClassificationsSelector = ({ label, name, rules }) => {
     if (status == "pending") {
       setLoading(true);
     } else if (status == "success" && data?.status == "success") {
-      console.log("success-inside");
       setClassifications(data?.data);
       setLoading(false);
     } else {
@@ -203,5 +202,3 @@ export const MarketCapSelector = ({ label, name, rules }) => {
     </Form.Item>
   );
 };
-
-

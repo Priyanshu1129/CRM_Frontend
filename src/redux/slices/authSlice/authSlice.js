@@ -81,11 +81,11 @@ const authSlice = createSlice({
     },
     logoutSuccess: (state, action) => {
       state.logout.status = "success";
-      state.logout.data = null;
       state.authDetails.data = null;
     },
     logoutFailure: (state, action) => {
       state.logout.status = "failed";
+      state.logout.error = action.payload;
     },
     forgotPasswordRequest: (state, action) => {
       state.authDetails.status = "pending";

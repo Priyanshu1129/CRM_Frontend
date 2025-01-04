@@ -20,6 +20,7 @@ export const useTerritories = (params = {}) => {
   const fetchAllTerritories = useCallback(() => {
     if (!data || refresh) {
       dispatch(getAllTerritories(config));
+      setRefresh && setRefresh(false);
     }
   }, [dispatch, data, refresh]);
 
@@ -33,7 +34,6 @@ export const useTerritories = (params = {}) => {
     } else if (status === "success" && data?.status === "success") {
       setTerritories(data?.data);
       setLoading(false);
-      setRefresh && setRefresh(false);
     } else {
       setLoading(false);
     }

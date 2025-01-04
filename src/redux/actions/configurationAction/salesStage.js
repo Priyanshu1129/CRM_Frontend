@@ -115,7 +115,6 @@ export const updateSalesStage =
     try {
       console.log("update-salesStageData", salesStageData);
       dispatch(salesStageActions.updateSalesStageRequest());
-      console.log("update url----------", `${route}/${salesStageId}`);
 
       // Use axiosRequest helper function for PUT request
       const response = await axiosRequest(

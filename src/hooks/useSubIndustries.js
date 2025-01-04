@@ -9,7 +9,6 @@ export const useSubIndustries = (params = {}) => {
     configType = null,
     config = false,
   } = params;
-
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const { status, data } = useSelector(
@@ -20,6 +19,7 @@ export const useSubIndustries = (params = {}) => {
   const fetchAllSubIndustries = useCallback(() => {
     if (!data || refresh) {
       dispatch(getAllSubIndustries(config));
+      setRefresh && setRefresh(false);
     }
   }, [dispatch, data, refresh]);
 
@@ -33,7 +33,6 @@ export const useSubIndustries = (params = {}) => {
     } else if (status === "success" && data?.status === "success") {
       setSubIndustries(data?.data);
       setLoading(false);
-      setRefresh && setRefresh(false);
     } else {
       setLoading(false);
     }

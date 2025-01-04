@@ -50,7 +50,6 @@ export const getAllClients =
     } catch (error) {
       console.log("getAllClients-error", error);
 
-      // Error message is handled by axiosRequest, use fallback for dispatch
       if (config) {
         dispatch(mastersConfigActions.getConfigClientsFailure());
       } else {

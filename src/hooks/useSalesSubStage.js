@@ -1,8 +1,6 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  getAllSalesSubStages,
-} from "@/redux/actions/configurationAction";
+import { getAllSalesSubStages } from "@/redux/actions/configurationAction";
 
 export const useSalesSubStages = (params = {}) => {
   const { refresh = false, setRefresh = null, configType = null } = params;
@@ -17,6 +15,7 @@ export const useSalesSubStages = (params = {}) => {
   const fetchAllSalesSubStages = useCallback(() => {
     if (!data || refresh) {
       dispatch(getAllSalesSubStages());
+      setRefresh && setRefresh(false);
     }
   }, [dispatch, data, refresh]);
 
@@ -33,7 +32,6 @@ export const useSalesSubStages = (params = {}) => {
         setSalesSubStages(data?.data);
       }
       setLoading(false);
-      setRefresh && setRefresh(false);
     } else {
       setLoading(false);
     }
@@ -46,7 +44,7 @@ export const useSalesSubStages = (params = {}) => {
         value: _id,
         text: label,
         salesStageLabel: salesStage?.label || null,
-        salesStage: salesStage
+        salesStage: salesStage,
       };
     });
   }, [salesSubStage]);

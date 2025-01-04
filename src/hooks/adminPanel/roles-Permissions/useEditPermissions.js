@@ -19,7 +19,6 @@ export const useEditPermissions = ({ checkedActions, role }) => {
         message: "Success",
         description: "Permission updated successfully.",
       });
-      // dispatch(getAllRoles({}));
       dispatch(roleActions.clearEditRolePermissionStatus());
     } else if (status === "failed") {
       setLoading(false);
@@ -39,8 +38,6 @@ export const useEditPermissions = ({ checkedActions, role }) => {
       );
     };
     const filteredPermissions = filterPermissions(checkedActions);
-
-    console.log("filteredPermissions", filteredPermissions);
 
     dispatch(
       editRolePermissions({ permissionUpdates: filteredPermissions }, role._id)

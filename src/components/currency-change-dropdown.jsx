@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Select, Button, Space } from "antd";
+import { Select } from "antd";
 import { useCurrencies } from "@/hooks";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { currencyActions } from "@/redux/slices/configurationSlice";
 
 export const CurrencyChangeDropDown = () => {
