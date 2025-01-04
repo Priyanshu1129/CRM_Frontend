@@ -1,20 +1,26 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllSalesSubStages } from "@/redux/actions/configurationAction";
+import { notification } from "antd";
 
 export const useSalesSubStages = (params = {}) => {
-  const { refresh = false, setRefresh = null, configType = null } = params;
+  const {
+    refresh = false,
+    setRefresh = null,
+    configType = null,
+    config = false,
+  } = params;
 
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  const { status, data } = useSelector(
+  const { status, data, error } = useSelector(
     (state) => state.salesSubStage.getAllSalesSubStages
   );
   const [salesSubStage, setSalesSubStages] = useState(data?.data);
 
   const fetchAllSalesSubStages = useCallback(() => {
     if (!data || refresh) {
-      dispatch(getAllSalesSubStages());
+      dispatch(getAllSalesSubStages(config));
       setRefresh && setRefresh(false);
     }
   }, [dispatch, data, refresh]);
@@ -32,8 +38,12 @@ export const useSalesSubStages = (params = {}) => {
         setSalesSubStages(data?.data);
       }
       setLoading(false);
-    } else {
+    } else if (status === "failed") {
       setLoading(false);
+      notification.error({
+        message: "Error",
+        description: error || "Failed to  fetch Sales Sub Stages",
+      });
     }
   }, [status, data, salesSubStage, setRefresh]);
 

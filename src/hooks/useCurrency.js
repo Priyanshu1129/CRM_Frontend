@@ -1,11 +1,12 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCurrencies } from "@/redux/actions/configurationAction";
+import { notification } from "antd";
 
 export const useCurrencies = () => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  const { status, data } = useSelector(
+  const { status, data, error } = useSelector(
     (state) => state.currency.getAllCurrencies
   );
   const [currencies, setCurrencies] = useState(data?.data.conversionRates);
@@ -26,8 +27,12 @@ export const useCurrencies = () => {
     } else if (status === "success" && data?.status === "success") {
       setCurrencies(data?.data.conversionRates);
       setLoading(false);
-    } else {
+    } else if (status === "failed") {
       setLoading(false);
+      notification.error({
+        message: "Error",
+        description: error || "Failed to  fetch Currencies",
+      });
     }
   }, [status, data]);
 

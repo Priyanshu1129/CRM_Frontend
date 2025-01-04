@@ -32,7 +32,8 @@ export const IndustrySelector = ({
 
   const fetchAllIndustries = useCallback(() => {
     if (!industries) {
-      dispatch(getAllIndustries());
+      let config = true;
+      dispatch(getAllIndustries(config));
     }
   }, [dispatch, industries]);
 
@@ -99,7 +100,6 @@ export const SubIndustrySelector = ({ name, label, rules }) => {
     if (status == "pending") {
       setLoading(true);
     } else if (status == "success" && data?.status == "success") {
-      console.log("success-inside");
       setSubIndustries(data?.data);
       setLoading(false);
     } else {
@@ -137,7 +137,8 @@ export const SolutionSelector = ({ name, label, rules, multiple = false }) => {
 
   const fetchAllSolutions = useCallback(() => {
     if (!solutions) {
-      dispatch(getAllSolutions());
+      let config = true;
+      dispatch(getAllSolutions(config));
     }
   }, [dispatch, solutions]);
 
@@ -149,7 +150,6 @@ export const SolutionSelector = ({ name, label, rules, multiple = false }) => {
     if (status == "pending") {
       setLoading(true);
     } else if (status == "success" && data?.status == "success") {
-      console.log("success-inside");
       setSolutions(data?.data);
       setLoading(false);
     } else {
@@ -188,7 +188,8 @@ export const SubSolutionSelector = ({ name, label, rules }) => {
 
   const fetchAllSubSolutions = useCallback(() => {
     if (!subSolutions) {
-      dispatch(getAllSubSolutions());
+      let config = true;
+      dispatch(getAllSubSolutions(config));
     }
   }, [dispatch, subSolutions]);
 
@@ -200,7 +201,6 @@ export const SubSolutionSelector = ({ name, label, rules }) => {
     if (status == "pending") {
       setLoading(true);
     } else if (status == "success" && data?.status == "success") {
-      console.log("success-inside-sub-solute", data);
       setSubSolutions(data?.data);
       setLoading(false);
     } else {
@@ -238,7 +238,8 @@ export const SalesStageSelector = ({ name, label, rules }) => {
 
   const fetchAllSalesStages = useCallback(() => {
     if (!salesStages) {
-      dispatch(getAllSalesStages());
+      let config = true;
+      dispatch(getAllSalesStages(config));
     }
   }, [dispatch, salesStages]);
 
@@ -250,7 +251,6 @@ export const SalesStageSelector = ({ name, label, rules }) => {
     if (status == "pending") {
       setLoading(true);
     } else if (status == "success" && data?.status == "success") {
-      console.log("success-inside");
       setSalesStages(data?.data);
       setLoading(false);
     } else {
@@ -288,7 +288,8 @@ export const SalesSubStageSelector = ({ name, label, rules }) => {
 
   const fetchAllSalesSubStages = useCallback(() => {
     if (!salesSubStages) {
-      dispatch(getAllSalesSubStages());
+      let config = true;
+      dispatch(getAllSalesSubStages(config));
     }
   }, [dispatch, salesSubStages]);
 
@@ -300,7 +301,6 @@ export const SalesSubStageSelector = ({ name, label, rules }) => {
     if (status == "pending") {
       setLoading(true);
     } else if (status == "success" && data?.status == "success") {
-      console.log("success-inside");
       setSubSalesStages(data?.data);
       setLoading(false);
     } else {
@@ -338,7 +338,8 @@ export const TerritorySelector = ({ name, label, rules, multiple = false }) => {
 
   const fetchAllTerritories = useCallback(() => {
     if (!territories) {
-      dispatch(getAllTerritories());
+      let config = true;
+      dispatch(getAllTerritories(config));
     }
   }, [dispatch, territories]);
 

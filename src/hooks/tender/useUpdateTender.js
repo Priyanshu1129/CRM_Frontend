@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { tenderActions } from "@/redux/slices/tenderSlice";
 import { updateTender, getAllTenders } from "@/redux/actions/tenderAction";
 import { getChangedValues } from "@/utilities/getChangedValues";
-import moment from "moment";
 import { notification } from "antd";
 import dayjs from "dayjs";
 

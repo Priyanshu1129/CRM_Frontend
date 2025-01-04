@@ -20,9 +20,9 @@ import {
   ImageUpload,
   BulkUploadModal,
   TerritorySelector,
+  ClientSelector,
 } from "@/components";
 import { contactFormRules } from "@/utilities/formValidationRules";
-import { ClientSelector } from "@/components";
 import { useAddContact } from "@/hooks/contact";
 import { InputPhoneNumber } from "@/components";
 import { colorConfig } from "@/config";

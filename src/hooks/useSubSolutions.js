@@ -1,17 +1,14 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  getAllIndustries,
-  getAllSolutions,
-  getAllSubSolutions,
-} from "@/redux/actions/configurationAction";
+import { getAllSubSolutions } from "@/redux/actions/configurationAction";
+import { notification } from "antd";
 
 export const useSubSolutions = (params = {}) => {
   const { refresh = false, setRefresh = null, configType = null } = params;
 
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  const { status, data } = useSelector(
+  const { status, data, error } = useSelector(
     (state) => state.subSolution.getAllSubSolutions
   );
   const [subSolutions, setSubSolutions] = useState(data?.data);
@@ -35,8 +32,12 @@ export const useSubSolutions = (params = {}) => {
         setSubSolutions(data?.data);
       }
       setLoading(false);
-    } else {
+    } else if (status === "failed") {
       setLoading(false);
+      notification.error({
+        message: "Error",
+        description: error || "Failed to  fetch Sub Solutions",
+      });
     }
   }, [status, data, subSolutions, setRefresh]);
 

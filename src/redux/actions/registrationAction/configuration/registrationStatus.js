@@ -20,7 +20,7 @@ export const getAllRegistrationStatus = () => async (dispatch) => {
 
     console.log("get-all-registrationStatus-res-data", response.data);
     dispatch(
-      registrationStatusActions.getAllRegistrationStatusSuccess(response.data)
+      registrationStatusActions.getAllRegistrationStatusSuccess(response)
     );
   } catch (error) {
     dispatch(

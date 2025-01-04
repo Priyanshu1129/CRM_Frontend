@@ -12,6 +12,8 @@ export const useFetchUserDetails = (id) => {
 
   const fetchUserDetails = useCallback(() => {
     if ((!user && id) || id !== String(user?._id)) {
+      setUser(null);
+      dispatch(userActions.clearGetUserData());
       dispatch(getUser(id));
     }
   }, [dispatch, id, user]);

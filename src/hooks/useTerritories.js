@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllTerritories } from "@/redux/actions/configurationAction";
+import { notification } from "antd";
 
 export const useTerritories = (params = {}) => {
   const [loading, setLoading] = useState(false);
@@ -12,7 +13,7 @@ export const useTerritories = (params = {}) => {
     config = false,
   } = params;
 
-  const { status, data } = useSelector(
+  const { status, data, error } = useSelector(
     (state) => state.territory.getAllTerritories
   );
   const [territories, setTerritories] = useState(data?.data);
@@ -34,8 +35,12 @@ export const useTerritories = (params = {}) => {
     } else if (status === "success" && data?.status === "success") {
       setTerritories(data?.data);
       setLoading(false);
-    } else {
+    } else if (status === "failed") {
       setLoading(false);
+      notification.error({
+        message: "Error",
+        description: error || "Failed to  fetch Territories",
+      });
     }
   }, [status, data, setRefresh]);
 

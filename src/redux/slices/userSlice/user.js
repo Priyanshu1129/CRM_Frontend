@@ -43,7 +43,7 @@ const userSlice = createSlice({
       state.getUser.status = "failed";
       state.getUser.error = action.payload;
     },
-    getAllUsersRequest: (state, action) => {
+    getAllUsersRequest: (state) => {
       state.getAllUsers.status = "pending";
     },
     getAllUsersSuccess: (state, action) => {
@@ -54,7 +54,7 @@ const userSlice = createSlice({
       state.getAllUsers.status = "failed";
       state.getAllUsers.error = action.payload;
     },
-    createUserRequest: (state, action) => {
+    createUserRequest: (state) => {
       state.createUser.status = "pending";
     },
     createUserSuccess: (state, action) => {
@@ -92,7 +92,7 @@ const userSlice = createSlice({
     clearGetUserStatus: (state) => {
       state.getUser.status = "idle";
     },
-    clearGetUserData: () => {
+    clearGetUserData: (state) => {
       state.getUser.data = null;
     },
     clearGetUserError: (state) => {
@@ -103,7 +103,7 @@ const userSlice = createSlice({
       state.getAllUsers.status = "idle";
     },
 
-    clearGetAllUsersData: () => {
+    clearGetAllUsersData: (state) => {
       state.getAllUsers.data = null;
     },
     clearGetAllUsersError: (state) => {
@@ -112,7 +112,7 @@ const userSlice = createSlice({
     clearCreateUserStatus: (state) => {
       state.createUser.status = "idle";
     },
-    clearCreateUserData: () => {
+    clearCreateUserData: (state) => {
       state.createUser.data = null;
     },
     clearCreateUserError: (state) => {
@@ -121,7 +121,7 @@ const userSlice = createSlice({
     clearUpdateUserStatus: (state) => {
       state.updateUser.status = "idle";
     },
-    clearUpdateUserData: () => {
+    clearUpdateUserData: (state) => {
       state.updateUser.data = null;
     },
     clearUpdateUserError: (state) => {
@@ -130,7 +130,7 @@ const userSlice = createSlice({
     clearDeleteUserStatus: (state) => {
       state.deleteUser.status = "idle";
     },
-    clearDeleteUserData: () => {
+    clearDeleteUserData: (state) => {
       state.deleteUser.data = null;
     },
     clearDeleteUserError: (state) => {

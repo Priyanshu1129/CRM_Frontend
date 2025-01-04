@@ -1,9 +1,7 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  getAllIndustries,
-  getAllSolutions,
-} from "@/redux/actions/configurationAction";
+import { getAllSolutions } from "@/redux/actions/configurationAction";
+import { notification } from "antd";
 
 export const useSolutions = (params = {}) => {
   const {
@@ -15,7 +13,7 @@ export const useSolutions = (params = {}) => {
 
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  const { status, data } = useSelector(
+  const { status, data, error } = useSelector(
     (state) => state.solution.getAllSolutions
   );
   const [solutions, setSolutions] = useState(data?.data);
@@ -39,7 +37,11 @@ export const useSolutions = (params = {}) => {
         setSolutions(data?.data);
       }
       setLoading(false);
-    } else {
+    } else if (status === "failed") {
+      notification.error({
+        message: "Error",
+        description: error || "Failed to  fetch Solutions",
+      });
       setLoading(false);
     }
   }, [status, data, solutions, setRefresh]);

@@ -40,7 +40,7 @@ const BusinessDevelopmentDetails = () => {
     if (status === "pending") {
       setLoading(true);
     } else if (status === "success") {
-      setBusinessDevelopment(null);
+      setBusinessDevelopment(data?.data);
       setLoading(false);
       dispatch(businessDevelopmentActions.clearGetBusinessDevelopmentStatus());
     } else if (status === "failed") {

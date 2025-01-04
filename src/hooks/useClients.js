@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllClients } from "@/redux/actions/clientAction";
+import { notification } from "antd";
 
 export const useClients = () => {
   const [loading, setLoading] = useState(false);
@@ -27,8 +28,12 @@ export const useClients = () => {
     } else if (status === "success") {
       setClients(data?.clients);
       setLoading(false);
-    } else {
+    } else if (status === "failed") {
       setLoading(false);
+      notification.error({
+        message: "Error",
+        description: error || "Failed to  fetch Clients",
+      });
     }
   }, [status, data, clients]);
 

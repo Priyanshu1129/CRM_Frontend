@@ -5,7 +5,7 @@ import { FilterOutlined } from "@ant-design/icons";
 import { colorConfig } from "@/config";
 
 export const SubStageSelector = ({ onChange, stage }) => {
-  const { loading, salesSubStages } = useSalesSubStages();
+  const { loading, salesSubStages } = useSalesSubStages({ config: true });
   const [selectedSubStage, setSelectedSubStage] = useState();
   const [filteredStages, setFilteredStages] = useState();
 

@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllSubIndustries } from "@/redux/actions/configurationAction";
+import { notification } from "antd";
 
 export const useSubIndustries = (params = {}) => {
   const {
@@ -11,7 +12,7 @@ export const useSubIndustries = (params = {}) => {
   } = params;
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  const { status, data } = useSelector(
+  const { status, data, error } = useSelector(
     (state) => state.subIndustry.getAllSubIndustries
   );
   const [subIndustries, setSubIndustries] = useState(data?.data);
@@ -33,8 +34,12 @@ export const useSubIndustries = (params = {}) => {
     } else if (status === "success" && data?.status === "success") {
       setSubIndustries(data?.data);
       setLoading(false);
-    } else {
+    } else if (status === "failed") {
       setLoading(false);
+      notification.error({
+        message: "Error",
+        description: error || "Failed to  fetch Sub Industries",
+      });
     }
   }, [status, data, setRefresh]);
 

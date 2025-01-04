@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllIndustries } from "@/redux/actions/configurationAction";
+import { notification } from "antd";
 
 export const useIndustries = (params = {}) => {
   const [loading, setLoading] = useState(false);
@@ -12,7 +13,7 @@ export const useIndustries = (params = {}) => {
     config = false,
   } = params;
 
-  const { status, data } = useSelector(
+  const { status, data, error } = useSelector(
     (state) => state.industry.getAllIndustries
   );
   const [industries, setIndustries] = useState(data?.data);
@@ -31,12 +32,16 @@ export const useIndustries = (params = {}) => {
   useEffect(() => {
     if (status === "pending") {
       setLoading(true);
-    } else if (status === "success" && data?.status === "success") {
+    } else if (status === "success") {
       if (data?.data !== industries) {
         setIndustries(data?.data);
       }
       setLoading(false);
-    } else {
+    } else if (status === "failed") {
+      notification.error({
+        message: "Error",
+        description: error || "Failed to  fetch Industries",
+      });
       setLoading(false);
     }
   }, [status, data, industries, setRefresh]);
