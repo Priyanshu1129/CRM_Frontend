@@ -3,7 +3,8 @@ import { useRouter } from "next/navigation";
 
 const App = () => {
   const router = useRouter();
-  return <button onClick={() => router.push("/login")}>LOGIN PAGE</button>;
+  router.push("/admin");
+  return <></>;
 };
 
 export default App;
