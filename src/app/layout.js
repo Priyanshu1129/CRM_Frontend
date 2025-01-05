@@ -6,6 +6,7 @@ import ErrorBoundary from "./ErrorBoundary";
 import "./globals.css";
 import { customTheme } from "@/config";
 import { StoreProvider } from "./storeProvider";
+import { AntdRegistry } from "@ant-design/nextjs-registry";
 // const roboto = Roboto({ subsets: ["latin"], weight: ["300", "400", "500"] });
 
 const poppins = Poppins({
@@ -19,9 +20,11 @@ export default function RootLayout({ children }) {
       <body className={poppins.className}>
         <ConfigProvider theme={customTheme} componentSize="middle">
           <StoreProvider>
-            <ProtectedPage>
-              <ErrorBoundary>{children}</ErrorBoundary>
-            </ProtectedPage>
+            <AntdRegistry>
+              <ProtectedPage>
+                <ErrorBoundary>{children}</ErrorBoundary>
+              </ProtectedPage>
+            </AntdRegistry>
           </StoreProvider>
         </ConfigProvider>
       </body>

@@ -68,33 +68,33 @@ export const resources = [
   //     ],
   // },
   {
-    key: "opportunity-master",
+    key: "opportunity",
     label: "Deals",
     icon: <FileOutlined />,
     // style: { marginTop: "15px", fontWeight: "600" },
   },
   {
-    key: "tender-master",
+    key: "tender",
     label: "Tenders",
     icon: <FileTextOutlined />,
   },
   {
-    key: "business-development-master",
+    key: "mention",
     label: "Mentions",
     icon: <ProjectOutlined />,
   },
   {
-    key: "registration-master",
+    key: "registration",
     label: "Registrations",
     icon: <FormOutlined />,
   },
   {
-    key: "client-master",
+    key: "client",
     label: "Clients",
     icon: <ShopOutlined />,
   },
   {
-    key: "contact-master",
+    key: "contact",
     label: "Contacts",
     icon: <TeamOutlined />,
   },
@@ -104,7 +104,7 @@ export const resources = [
   //     icon: <UsergroupAddOutlined />,
   // },
   {
-    key: "user-master",
+    key: "user",
     label: "Team",
     icon: <UserAddOutlined />,
   },

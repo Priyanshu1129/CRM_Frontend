@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import { hasRoutePermission } from "@/utilities/checkRoutePermission";
 import { useRouter, usePathname } from "next/navigation";
-import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { Layout } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import PrivateLayout from "@/components/layout/Layout";
@@ -33,64 +32,57 @@ export const ProtectedPage = ({ children }) => {
   const { checked, status, data, error, permissions } = useSelector(
     (state) => state.auth.authDetails
   );
-  const [allow, setAllow] = useState(false);
+  const [readyToRender, setReadyToRender] = useState(false);
 
   const dispatch = useDispatch();
   const router = useRouter();
+  const currentPath = usePathname();
+  const isPublicRoute = publicRoutes.includes(currentPath);
 
   useEffect(() => {
     setRouter(router);
   }, [router]);
 
-  const currentPath = usePathname();
-  const isPublicRoute = publicRoutes.includes(currentPath);
-
-  useEffect(() => {
-    if (checked) {
-      console.log(hasRoutePermission(permissions, currentPath));
-      if (data) {
-        if (isPublicRoute) {
-          router.replace("/");
-        } else {
-          if (
-            currentPath == "/unauthorized" ||
-            hasRoutePermission(permissions, currentPath)
-          ) {
-            setAllow(true);
-          } else {
-            router.replace("/unauthorized");
-          }
-        }
-      } else {
-        if (isPublicRoute) setAllow(true);
-        else router.replace("/login");
-      }
-    }
-  });
-
   useEffect(() => {
     if (!checked) {
       dispatch(checkAuth());
     }
-  }, [status, data, dispatch, checked]);
+  }, [checked, dispatch]);
 
-  if (!checked || !allow || status === "pending") {
-    return (
-      <AntdRegistry>
-        <NoLayout>Loading...</NoLayout>
-      </AntdRegistry>
-    );
+  useEffect(() => {
+    if (checked) {
+      if (data) {
+        isPublicRoute ? handlePublicRoute() : handleProtectedRoute();
+      } else {
+        isPublicRoute ? setReadyToRender(true) : router.replace("/login");
+      }
+    }
+  }, [checked, data, permissions, currentPath]);
+
+  const handlePublicRoute = () => {
+    router.replace("/");
+  };
+
+  const handleProtectedRoute = () => {
+    if (data.role.name === "SUPER ADMIN") {
+      setReadyToRender(true);
+    } else if (
+      currentPath === "/unauthorized" ||
+      hasRoutePermission(permissions, currentPath)
+    ) {
+      setReadyToRender(true);
+    } else {
+      router.replace("/unauthorized");
+    }
+  };
+
+  if (!checked || !readyToRender || status === "pending") {
+    return <NoLayout>Loading...</NoLayout>;
   }
 
   const Wrapper = isPublicRoute ? NoLayout : PrivateLayout;
 
-  return (
-    allow && (
-      <AntdRegistry>
-        <Wrapper>{children}</Wrapper>
-      </AntdRegistry>
-    )
-  );
+  return readyToRender && <Wrapper>{children}</Wrapper>;
 };
 
 // [
