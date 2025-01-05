@@ -64,7 +64,7 @@ export const ProtectedPage = ({ children }) => {
   };
 
   const handleProtectedRoute = () => {
-    if (data.role.name === "SUPER ADMIN") {
+    if (data?.role?.name === "SUPER ADMIN") {
       setReadyToRender(true);
     } else if (
       currentPath === "/unauthorized" ||
