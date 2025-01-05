@@ -5,7 +5,7 @@ import { pipeViewActions } from "@/redux/slices/dashboardSlice";
 import { notification } from "antd";
 import moment from "moment";
 
-export const useFetchMyPipeView = ({ myViewParticularDate, myView }) => {
+export const useFetchMyPipeView = ({ particularDate }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const rawCurrentDate = useSelector(
@@ -30,37 +30,30 @@ export const useFetchMyPipeView = ({ myViewParticularDate, myView }) => {
   );
 
   const fetchMyPipeView = useCallback(() => {
-    dispatch(
-      getMyPipeView({ particularDate: myViewParticularDate, ...filters })
-    );
-  }, [dispatch, myViewParticularDate, filters]);
+    dispatch(getMyPipeView({ particularDate: particularDate, ...filters }));
+  }, [dispatch, particularDate, filters]);
 
   useEffect(() => {
     if (
       refresh ||
-      !currentDate?.isSame(myViewParticularDate, "day") ||
+      !currentDate?.isSame(particularDate, "day") ||
       (filter && filters)
     ) {
-      if (myView) {
-        fetchMyPipeView();
-        dispatch(
-          pipeViewActions.setMyViewCurrentDate(
-            myViewParticularDate.toISOString()
-          )
-        );
-      }
+      fetchMyPipeView();
+      dispatch(
+        pipeViewActions.setMyViewCurrentDate(particularDate.toISOString())
+      );
     }
     setFilter(false);
     setRefresh(false);
   }, [
     currentDate,
     dispatch,
-    myViewParticularDate,
+    particularDate,
     refresh,
     fetchMyPipeView,
     filter,
     filters,
-    myView,
   ]);
 
   useEffect(() => {

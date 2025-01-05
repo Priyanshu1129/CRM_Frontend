@@ -4,6 +4,7 @@ import { Grid, Button, Space } from "antd";
 import { SelectDate } from "./date-selector";
 import { SelectDateRange } from "./date-range-selector";
 import { colorConfig } from "@/config";
+import { useRouter } from "next/navigation";
 
 export const DashboardHeader = ({
   setRefresh,
@@ -21,7 +22,7 @@ export const DashboardHeader = ({
   selectedDate,
 }) => {
   const screens = Grid.useBreakpoint();
-
+  const router = useRouter();
   return (
     <div
       style={{
@@ -67,7 +68,12 @@ export const DashboardHeader = ({
             style={
               myView ? { background: colorConfig.primary, color: "white" } : {}
             }
-            onClick={() => setMyView(!myView)}
+            // onClick={() => setMyView(!myView)}
+            onClick={() =>
+              myView
+                ? router.push("/dashboards/pipe-view/all-view")
+                : router.push("/dashboards/pipe-view/my-view")
+            }
           >
             {myViewButtonText}
           </Button>

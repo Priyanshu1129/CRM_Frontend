@@ -16,10 +16,6 @@ export const useLogout = () => {
       setLoading(true);
     } else if (status === "success") {
       setLoading(false);
-      notification.success({
-        message: "Success",
-        description: "Logged out successfully.",
-      });
       dispatch(authActions.clearLogoutStatus());
     } else if (status == "failed") {
       setLoading(false);

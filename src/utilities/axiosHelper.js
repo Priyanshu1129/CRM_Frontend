@@ -44,11 +44,10 @@ export const axiosRequest = async (
       if (status === 401) {
         errorMessage = "Session expired. Please log in again.";
         dispatch(logout());
-        redirectTo("/login");
-        notification.error({
-          message: "Error",
-          description: errorMessage,
-        });
+        // notification.error({
+        //   message: "Error",
+        //   description: errorMessage,
+        // });
       }
       // Handle specific server errors like validation failures
       else if (status === 400 || status === 500) {

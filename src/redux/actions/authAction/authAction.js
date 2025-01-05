@@ -20,15 +20,10 @@ export const checkAuth = () => async (dispatch) => {
       "get",
       `${serverURL}/check-login-user`
     );
-
+    console.log("check-auth-response-data", response.data);
     // Handle the response based on the returned status
-    if (response.status === "success") {
-      dispatch(authActions.checkAuthSuccess(response.data));
-    } else {
-      dispatch(authActions.checkAuthFailure(response.message));
-    }
+    dispatch(authActions.checkAuthSuccess(response.data));
   } catch (error) {
-    console.log("checkAuth-error", error);
     dispatch(authActions.checkAuthFailure(error.message));
   }
 };
@@ -45,14 +40,9 @@ export const login = (loginData) => async (dispatch) => {
       `${route}/login`, // Login endpoint
       loginData // Send the login data (username/password)
     );
-
-    // Handle the response status from the server
-    if (response.status === "success") {
-      dispatch(authActions.loginSuccess(response.data));
-      // Optionally store the token in localStorage or cookies for future use
-    } else {
-      dispatch(authActions.loginFailure(response.message));
-    }
+    console.log("login-response-data", response.data);
+    dispatch(authActions.loginSuccess(response.data));
+    // Optionally store the token in localStorage or cookies for future use
   } catch (error) {
     console.log("login-error", error);
     dispatch(authActions.loginFailure(error.message || "An error occurred"));
@@ -72,13 +62,8 @@ export const register = (registrationData) => async (dispatch) => {
       registrationData // Send the registration data (name, email, password, etc.)
     );
 
-    // Handle the response from the server
-    if (response.status === "success") {
-      dispatch(authActions.registerSuccess(response.data));
-      // Optionally store the token or other relevant info
-    } else {
-      dispatch(authActions.registerFailure(response.message));
-    }
+    dispatch(authActions.registerSuccess(response.data));
+    // Optionally store the token or other relevant info
   } catch (error) {
     console.log("registration-error", error);
     dispatch(authActions.registerFailure(error.message || "An error occurred"));
@@ -97,17 +82,11 @@ export const logout = () => async (dispatch) => {
       `${route}/logout` // Logout endpoint
     );
 
-    // If response is successful, proceed with the logout actions
-    if (response.status === "success") {
-      console.log("logout-successfully:");
-      dispatch(authActions.logoutSuccess(response));
-      dispatch(authActions.resetAuthState());
-      redirectTo("/login"); // Redirect to the login page after successful logout
-    } else {
-      dispatch(authActions.logoutFailure(response.message || "Logout failed"));
-    }
+    console.log("logout-successfully:");
+    dispatch(authActions.logoutSuccess(response));
+    dispatch(authActions.resetAuthState());
+    redirectTo("/login");
   } catch (error) {
-    // If there's any error, the axiosRequest function already handles it
     dispatch(
       authActions.logoutFailure(
         error.message || "Unable to logout. Please try again"
