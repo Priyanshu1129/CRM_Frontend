@@ -16,28 +16,15 @@ export const ListSearch = ({ pageName }) => {
   const renderSelector = () => {
     switch (pageName) {
       case "client":
-        return (
-          <ClientSelector setInput={setInput} name={pageName} />
-        );
+        return <ClientSelector setInput={setInput} name={pageName} />;
       case "contact":
-        return (
-          <ContactSelector setInput={setInput}  name={pageName} />
-        );
+        return <ContactSelector setInput={setInput} name={pageName} />;
       case "opportunity":
-        return (
-          <OpportunitySelector
-            setInput={setInput}
-            name={pageName}
-          />
-        );
+        return <OpportunitySelector setInput={setInput} name={pageName} />;
       case "tender":
-        return (
-          <TenderSelector setInput={setInput}  name={pageName} />
-        );
+        return <TenderSelector setInput={setInput} name={pageName} />;
       case "user":
-        return (
-          <UserSelector setInput={setInput}  name={pageName} />
-        );
+        return <UserSelector setInput={setInput} name={pageName} />;
       default:
         return null; // or you could render a fallback component here
     }
@@ -45,7 +32,7 @@ export const ListSearch = ({ pageName }) => {
 
   useEffect(() => {
     if (input && pageName) {
-      let url = `/${pageName}-master/${pageName}-details/${input}`;
+      let url = `/${pageName}/${pageName}-details/${input}`;
       router.push(url);
     }
   }, [input, router, pageName]);

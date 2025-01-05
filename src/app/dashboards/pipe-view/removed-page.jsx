@@ -97,9 +97,7 @@ const PipeView = () => {
                 }
                 count={stats ? stats[stage.key]?.count : 0}
                 key={index}
-                onAddClick={() =>
-                  router.push("/opportunity-master/add-opportunity")
-                }
+                onAddClick={() => router.push("/opportunity/add-opportunity")}
               >
                 {opportunities &&
                   Array.isArray(opportunities[stage?.key]) &&

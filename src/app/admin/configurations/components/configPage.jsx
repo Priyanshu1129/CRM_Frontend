@@ -95,7 +95,7 @@ const ConfigPage = ({ configType }) => {
   return (
     <>
       <ListHeader
-        toPath={"/tender-master/add-tender"}
+        toPath={"/tender/add-tender"}
         buttonText={`Add new ${configType}`}
         pageName={configType}
         setRefresh={setRefresh}

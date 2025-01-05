@@ -22,8 +22,11 @@ import {
   SalesSubStageSelector,
   FullScreenLoading,
 } from "@/components";
-import { StageSelector as TenderStageSelector } from "@/app/tender-master/enums";
-import { opportunityFormRules, tenderFormRules } from "@/utilities/formValidationRules";
+import { StageSelector as TenderStageSelector } from "@/app/tender/enums";
+import {
+  opportunityFormRules,
+  tenderFormRules,
+} from "@/utilities/formValidationRules";
 import { useUpdateTender } from "@/hooks/tender";
 import { colorConfig } from "@/config";
 import { useFetchSystemConfigDetails } from "@/hooks/systemConfig/useFetchSystemConfig";
@@ -35,9 +38,13 @@ const UpdateSystemConfigForm = () => {
   const [currency, setCurrency] = useState(1);
 
   // const { loading, onFinish } = useUpdateTender({ tender, form, currency });
-  const { loading : getSystemConfigLoading , systemConfig } = useFetchSystemConfigDetails();
+  const { loading: getSystemConfigLoading, systemConfig } =
+    useFetchSystemConfigDetails();
 
-  const { loading : updateLoading, onFinish } = useUpdateSystemConfig({systemConfig, form});
+  const { loading: updateLoading, onFinish } = useUpdateSystemConfig({
+    systemConfig,
+    form,
+  });
   console.log("system config in : ", systemConfig);
 
   const handleOnFinishLocal = (values) => {
@@ -50,11 +57,9 @@ const UpdateSystemConfigForm = () => {
     md: 6, // 4 fields per row on desktop and larger
   };
 
-  useEffect(()=>{
-    
-  },[systemConfig])
+  useEffect(() => {}, [systemConfig]);
 
-if(getSystemConfigLoading) return <FullScreenLoading/>
+  if (getSystemConfigLoading) return <FullScreenLoading />;
 
   return (
     <>
@@ -93,7 +98,11 @@ if(getSystemConfigLoading) return <FullScreenLoading/>
           <Col span={24}>
             <Form.Item>
               <Space>
-                <Button type="primary" htmlType="submit" loading={getSystemConfigLoading}>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  loading={getSystemConfigLoading}
+                >
                   Update
                 </Button>
                 <Button
