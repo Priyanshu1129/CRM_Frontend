@@ -40,7 +40,7 @@ const authSlice = createSlice({
       state.authDetails.status = "success";
       state.authDetails.data = action.payload;
       state.authDetails.checked = true;
-      state.authDetails.permissions = action.payload.role.permissions;
+      state.authDetails.permissions = action.payload?.role?.permissions;
     },
     checkAuthFailure: (state, action) => {
       state.authDetails.status = "failed";
@@ -75,7 +75,7 @@ const authSlice = createSlice({
       state.login.data = action.payload;
       state.authDetails.checked = true;
       state.authDetails.data = action.payload;
-      state.authDetails.permissions = action.payload.role.permissions;
+      state.authDetails.permissions = action.payload?.role?.permissions;
     },
     loginFailure: (state, action) => {
       state.login.status = "failed";
