@@ -1,10 +1,11 @@
 'use client';
 
 import React, { useState, useEffect } from "react";
-import { Button, Select, Input, Row, Col, Typography, Spin } from "antd";
+import { Button, Select, Input, Row, Col, Typography, Spin, Space } from "antd";
 import { useFetchAllTargets } from "@/hooks/target/useFetchAllTargets";
 import { useUpdateTarget } from "@/hooks/target/useUpdateTarget";
 import { SearchOutlined } from "@ant-design/icons"; // Import Ant Design Icons
+import { colorConfig } from "@/config";
 
 const { Option } = Select;
 const { Title } = Typography;
@@ -69,7 +70,9 @@ const TargetPage = () => {
         }}
       >
         <Col span={4}>
-          <strong>{target.label}</strong>
+          <div style={{ fontWeight : 600, textAlign: "left" , color : `${colorConfig.primary}` }}>
+          {target.label}
+          </div>
         </Col>
         {["q1", "q2", "q3", "q4"].map((quarter) => (
           <Col span={4} key={quarter}>
@@ -99,7 +102,7 @@ const TargetPage = () => {
 
   return (
     <div style={{ padding: "24px", background: "#fafafa" }}>
-      <Title level={3} style={{ textAlign: "center" }}>
+      <Title level={3} style={{ textAlign: "center" , color : `${colorConfig.primary}` }}>
         Target Management
       </Title>
       <div
