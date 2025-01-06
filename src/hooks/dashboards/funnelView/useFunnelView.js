@@ -5,7 +5,11 @@ import { funnelViewActions } from "@/redux/slices/dashboardSlice";
 import { notification } from "antd";
 import moment from "moment";
 
-export const useFetchFunnelView = ({ particularDate, myView }) => {
+export const useFetchFunnelView = ({
+  particularDate,
+  myView,
+  viewChecking,
+}) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const rawCurrentDate = useSelector((state) => state.funnelView.currentDate);
@@ -31,7 +35,7 @@ export const useFetchFunnelView = ({ particularDate, myView }) => {
       !currentDate?.isSame(particularDate, "day") ||
       (filter && filters)
     ) {
-      if (!myView) {
+      if (!myView && !viewChecking) {
         fetchFunnelView();
         dispatch(
           funnelViewActions.setCurrentDate(particularDate.toISOString())
@@ -49,6 +53,7 @@ export const useFetchFunnelView = ({ particularDate, myView }) => {
     filters,
     myView,
     dispatch,
+    viewChecking,
   ]);
 
   useEffect(() => {

@@ -1,18 +1,37 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
-import { Menu, Layout, theme, Grid } from "antd";
+import { Menu, Layout } from "antd";
 import { Title } from "../title";
 const { Sider } = Layout;
 import { colorConfig, resources } from "@/config";
+import { getAuthorizedResources } from "@/utilities/checkPermission";
 
 const Sidebar = ({ collapsed, setCollapsed }) => {
   const router = useRouter();
   const [selectedKey, setSelectedKey] = useState("");
+  const [authorizedResources, setAuthorizedResources] = useState([]);
+  const { data, permissions } = useSelector((state) => state.auth.authDetails);
+
   useEffect(() => {
-    // Set the selected key based on the current route (optional improvement for route-based selection)
+    try {
+      if (data?.role?.name !== "SUPER ADMIN") {
+        setAuthorizedResources(resources);
+      } else {
+        const authorized = getAuthorizedResources(resources, permissions || []);
+        setAuthorizedResources(authorized);
+      }
+    } catch (error) {
+      console.error("Error while filtering authorized resources:", error);
+      setAuthorizedResources([]); // Fallback to empty array
+    }
+  }, [permissions, data]);
+
+  useEffect(() => {
+    // Set the selected key based on the current route
     const path = window.location.pathname.substring(1); // Remove leading "/"
-    setSelectedKey(path || "cockpit");
+    setSelectedKey(path || "dashboard");
   }, []);
 
   const onClick = (e) => {
@@ -80,7 +99,7 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
         selectedKeys={[selectedKey]}
         // defaultOpenKeys={["sub1"]}
         mode="inline"
-        items={resources}
+        items={authorizedResources}
       />
     </Sider>
   );

@@ -41,7 +41,6 @@ const Login = () => {
     if (status === "pending") {
       setLoading(true);
     } else if (status === "success") {
-      router.push("/");
       setLoading(false);
       dispatch(authActions.checkAuthSuccess(data));
     } else if (status === "failed") {

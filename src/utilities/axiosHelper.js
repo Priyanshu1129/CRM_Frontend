@@ -49,6 +49,10 @@ export const axiosRequest = async (
         //   description: errorMessage,
         // });
       }
+      if (status === 403) {
+        errorMessage = "You are not authorized for this action!";
+        // redirectTo("/unauthorized");
+      }
       // Handle specific server errors like validation failures
       else if (status === 400 || status === 500) {
         errorMessage = error.response.data.message || "Server error";

@@ -8,8 +8,11 @@ import { Row, Col } from "antd";
 import { useFetchFunnelView, useFetchMyFunnelView } from "@/hooks/dashboards";
 import { funnelViewActions } from "@/redux/slices/dashboardSlice";
 import { useSelector, useDispatch } from "react-redux";
-
+import { useCheckDashboardViewPermission } from "../hooks/useCheckViewPermission";
 const FunnelView = () => {
+  const { hasAllView, disabledViewButton } =
+    useCheckDashboardViewPermission("FUNNEL VIEW");
+  const [myView, setMyView] = useState(!hasAllView);
   const particularDate = moment(
     useSelector((state) => state.funnelView.particularDate)
   );
@@ -17,7 +20,6 @@ const FunnelView = () => {
     useSelector((state) => state.funnelView.myViewParticularDate)
   );
 
-  const [myView, setMyView] = useState(false);
   const [funnelViewData, setFunnelViewData] = useState(null);
 
   const dispatch = useDispatch();
@@ -74,6 +76,7 @@ const FunnelView = () => {
         setFilter={myView ? myViewSetFilter : setFilter}
         setFilters={myView ? myViewSetFilters : setFilters}
         myView={myView}
+        disabledViewButton={disabledViewButton}
         setMyView={setMyView}
         filters={myView ? myViewFilters : filters}
         FilterComponent={Filter}

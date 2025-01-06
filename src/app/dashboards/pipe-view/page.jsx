@@ -14,9 +14,11 @@ import { useRouter } from "next/navigation";
 import { ShowCurrency } from "../components";
 import { pipeViewActions } from "@/redux/slices/dashboardSlice";
 import { useSelector, useDispatch } from "react-redux";
-
+import { useCheckDashboardViewPermission } from "../hooks/useCheckViewPermission";
 const PipeView = () => {
-  const [myView, setMyView] = useState(false);
+  const { hasAllView, disabledViewButton, viewChecking } =
+    useCheckDashboardViewPermission("PIPE VIEW");
+  const [myView, setMyView] = useState(!hasAllView);
   const particularDate = moment(
     useSelector((state) => state.pipeView.particularDate)
   );
@@ -24,6 +26,7 @@ const PipeView = () => {
     useSelector((state) => state.pipeView.myViewParticularDate)
   );
   const dispatch = useDispatch();
+
   const {
     loading,
     setRefresh,
@@ -34,6 +37,7 @@ const PipeView = () => {
   } = useFetchPipeView({
     myView,
     particularDate,
+    viewChecking,
   });
 
   const {
@@ -46,6 +50,7 @@ const PipeView = () => {
   } = useFetchMyPipeView({
     myView,
     myViewParticularDate,
+    viewChecking,
   });
 
   const [stats, setStats] = useState(null);
@@ -74,6 +79,7 @@ const PipeView = () => {
         setFilters={myView ? setMyViewFilters : setFilters}
         myView={myView}
         setMyView={setMyView}
+        disabledViewButton={disabledViewButton}
         filters={myView ? myViewFilters : filters}
         FilterComponent={Filter}
         myViewButtonText="My Pipe View"

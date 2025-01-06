@@ -85,7 +85,6 @@ export const logout = () => async (dispatch) => {
     console.log("logout-successfully:");
     dispatch(authActions.logoutSuccess(response));
     dispatch(authActions.resetAuthState());
-    redirectTo("/login");
   } catch (error) {
     dispatch(
       authActions.logoutFailure(

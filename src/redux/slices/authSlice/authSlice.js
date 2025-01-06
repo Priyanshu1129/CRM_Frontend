@@ -52,6 +52,8 @@ const authSlice = createSlice({
     resetAuthState: (state) => {
       state.authDetails.status = "idle";
       state.authDetails.data = null;
+      state.authDetails.permissions = null;
+      state.authDetails.checked = true;
       state.login.data = null;
       state.authDetails.error = null;
     },

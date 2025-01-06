@@ -4,7 +4,6 @@ import { Grid, Button, Space } from "antd";
 import { SelectDate } from "./date-selector";
 import { SelectDateRange } from "./date-range-selector";
 import { colorConfig } from "@/config";
-import { useRouter } from "next/navigation";
 
 export const DashboardHeader = ({
   setRefresh,
@@ -14,6 +13,7 @@ export const DashboardHeader = ({
   setEndDate,
   myView = null,
   setMyView,
+  disabledViewButton,
   FilterComponent,
   setFilter,
   filters,
@@ -22,7 +22,7 @@ export const DashboardHeader = ({
   selectedDate,
 }) => {
   const screens = Grid.useBreakpoint();
-  const router = useRouter();
+  console.log("disabledViewButton", disabledViewButton);
   return (
     <div
       style={{
@@ -65,15 +65,11 @@ export const DashboardHeader = ({
         )}
         {myView != null && (
           <Button
+            disabled={disabledViewButton}
             style={
               myView ? { background: colorConfig.primary, color: "white" } : {}
             }
-            // onClick={() => setMyView(!myView)}
-            onClick={() =>
-              myView
-                ? router.push("/dashboards/pipe-view/all-view")
-                : router.push("/dashboards/pipe-view/my-view")
-            }
+            onClick={() => setMyView(!myView)}
           >
             {myViewButtonText}
           </Button>

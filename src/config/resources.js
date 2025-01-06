@@ -47,31 +47,10 @@ export const resources = [
       },
     ],
   },
-  // {
-  //     key: "calendar",
-  //     label: "Calendar",
-  //     icon: <CalendarOutlined />,
-  // },
-  // {
-  //     key: "scrumboard",
-  //     label: "Scrum Board",
-  //     icon: <ProjectOutlined />,
-  //     children: [
-  //         {
-  //             key: "9",
-  //             label: "Project Kanban",
-  //         },
-  //         {
-  //             key: "10",
-  //             label: "Sales Pipeline",
-  //         }
-  //     ],
-  // },
   {
     key: "opportunity",
     label: "Deals",
     icon: <FileOutlined />,
-    // style: { marginTop: "15px", fontWeight: "600" },
   },
   {
     key: "tender",
@@ -98,21 +77,11 @@ export const resources = [
     label: "Contacts",
     icon: <TeamOutlined />,
   },
-  // {
-  //     key: "team-master",
-  //     label: "Team Master",
-  //     icon: <UsergroupAddOutlined />,
-  // },
   {
     key: "user",
     label: "Team",
     icon: <UserAddOutlined />,
   },
-  // {
-  //     key: "project-master",
-  //     label: "Project Master",
-  //     icon: <ProjectFilled />,
-  // },
   {
     key: "admin",
     label: "Admin",

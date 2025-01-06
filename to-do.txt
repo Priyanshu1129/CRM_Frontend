@@ -1,5 +1,10 @@
 rbac-
+-------------------------------------------------------------------correct the flow
+component level rbac
+handole dashboard permission
+authorize and authenticated seperate boundary
 check all routes
+self understandable permission action names 
 ---------------------------
 subindustries refresh not working
 --------------------------------------------------------remove table filter options extra hook
