@@ -33,6 +33,7 @@ import { roleReducer } from './slices/roleAndPermissionSlice';
 import { authReducer } from './slices/authSlice';
 import { systemConfigReducer } from './slices/systemSlice';
 import { targetReducer } from './slices/targetSlice';
+import { trendViewReducer } from './slices/dashboardSlice/trendView';
 
 
 const store = configureStore({
@@ -42,6 +43,7 @@ const store = configureStore({
         funnelView: funnelViewReducer,
         summaryView: summaryViewReducer,
         leaderboard: leaderboardReducer,
+        trendView: trendViewReducer,
         client: clientReducer,
         classification: classificationReducer,
         incorporationType: incorporationTypeReducer,

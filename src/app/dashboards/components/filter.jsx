@@ -11,7 +11,7 @@ import {
 } from "@/hooks";
 import { colorConfig } from "@/config";
 
-export const Filter = ({ filters, setFilters, setFilter }) => {
+export const Filter = ({filters, setFilters, setFilter }) => {
   const screens = Grid.useBreakpoint();
 
   const [filterItems, setFilterItems] = useState([]);

@@ -16,10 +16,10 @@ const TargetPage = () => {
   const { targets, loading: fetchingTargets, handleGetTargets } = useFetchAllTargets();
   const { handleUpdateTarget, loading: updatingTarget, updatedTarget } = useUpdateTarget();
 
-  // Handle Submit to fetch targets
-  const onSubmit = () => {
+  // Automatically fetch targets when entityType or year changes
+  useEffect(() => {
     handleGetTargets(entityType, year);
-  };
+  }, [entityType, year, handleGetTargets]);
 
   // Handle input change for a specific target
   const handleInputChange = (entityId, quarter, value) => {
@@ -135,17 +135,6 @@ const TargetPage = () => {
               </Option>
             ))}
           </Select>
-        </div>
-        <div>
-          <Button
-            type="primary"
-            onClick={onSubmit}
-            disabled={fetchingTargets}
-            block
-            icon={<SearchOutlined />}
-          >
-            {fetchingTargets ? <Spin size="small" /> : "Submit"}
-          </Button>
         </div>
       </div>
 
