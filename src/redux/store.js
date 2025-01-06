@@ -32,6 +32,7 @@ import { registrationReducer, registrationStatusReducer } from './slices/registr
 import { roleReducer } from './slices/roleAndPermissionSlice';
 import { authReducer } from './slices/authSlice';
 import { systemConfigReducer } from './slices/systemSlice';
+import { targetReducer } from './slices/targetSlice';
 
 
 const store = configureStore({
@@ -67,7 +68,8 @@ const store = configureStore({
         registration: registrationReducer,
         registrationStatus: registrationStatusReducer,
         currency: currencyReducer,
-        systemConfig : systemConfigReducer
+        systemConfig : systemConfigReducer,
+        target : targetReducer
     }
 })
 
