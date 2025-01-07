@@ -125,7 +125,14 @@ const TargetPage = () => {
       }}
     >
       <BackButton />
-      <div style={{ padding: "24px", background: "#fafafa", height: "100%" }}>
+      <div
+        style={{
+          padding: "24px",
+          // borderRadius: "8px",
+          background: "#fafafa",
+          height: "100%",
+        }}
+      >
         <div
           style={{
             display: "flex",
