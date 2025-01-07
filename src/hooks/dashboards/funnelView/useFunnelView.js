@@ -6,17 +6,22 @@ import { notification } from "antd";
 import moment from "moment";
 
 export const useFetchFunnelView = ({
-  particularDate,
+  allViewParticularDate,
   myView,
-  viewChecking,
+  canSeeAllView,
+  filters,
+  filter,
+  setFilter,
+  refresh,
+  setRefresh,
 }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  const rawCurrentDate = useSelector((state) => state.funnelView.currentDate);
+  const rawCurrentDate = useSelector(
+    (state) => state.funnelView.allViewCurrentDate
+  );
   const currentDate = rawCurrentDate ? moment(rawCurrentDate) : null;
-  const [refresh, setRefresh] = useState(false);
-  const [filters, setFilters] = useState({});
-  const [filter, setFilter] = useState(false);
+
   const { status, data, error } = useSelector(
     (state) => state.funnelView.getFunnelView
   );
@@ -25,20 +30,32 @@ export const useFetchFunnelView = ({
     data?.data?.conversionStats || {}
   );
 
+  if (!canSeeAllView || myView) {
+    return {
+      loading: false,
+      funnelViewData: null,
+      conversionStats: null,
+    };
+  }
+
   const fetchFunnelView = useCallback(() => {
-    dispatch(getFunnelView({ particularDate, ...filters }));
-  }, [dispatch, particularDate, filters]);
+    dispatch(
+      getFunnelView({ particularDate: allViewParticularDate, ...filters })
+    );
+  }, [dispatch, allViewParticularDate, filters]);
 
   useEffect(() => {
     if (
       refresh ||
-      !currentDate?.isSame(particularDate, "day") ||
+      !currentDate?.isSame(allViewParticularDate, "day") ||
       (filter && filters)
     ) {
-      if (!myView && !viewChecking) {
+      if (!myView && canSeeAllView) {
         fetchFunnelView();
         dispatch(
-          funnelViewActions.setCurrentDate(particularDate.toISOString())
+          funnelViewActions.setAllViewCurrentDate(
+            allViewParticularDate.toISOString()
+          )
         );
       }
     }
@@ -46,14 +63,14 @@ export const useFetchFunnelView = ({
     setRefresh(false);
   }, [
     currentDate,
-    particularDate,
+    allViewParticularDate,
     refresh,
     fetchFunnelView,
     filter,
     filters,
     myView,
     dispatch,
-    viewChecking,
+    canSeeAllView,
   ]);
 
   useEffect(() => {
@@ -79,9 +96,5 @@ export const useFetchFunnelView = ({
     loading,
     funnelViewData,
     conversionStats,
-    setRefresh,
-    setFilters,
-    setFilter,
-    filters,
   };
 };

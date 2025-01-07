@@ -1,19 +1,21 @@
 rbac-
 -------------------------------------------------------------------correct the flow
+--------------------------------------------------------------------handle dashboard permission
+-------------------------------------------------------------self understandable permission action names 
+-----------------------------------------------------------------sort entities
 component level rbac
-handole dashboard permission
 authorize and authenticated seperate boundary
 check all routes
-self understandable permission action names 
 ---------------------------
 subindustries refresh not working
 --------------------------------------------------------remove table filter options extra hook
 --------------------------------------------------------infinite loop or infinite request
 --------------------------------------------------------multiple notifications 
+
+
 utilize hook for global enums
 configuration problem (implement rbac in frontend)
 add User tag in role entities
-sort entities
 super admin should not come in user
 create unauthorze 
 update phone / mobile in contact having problem

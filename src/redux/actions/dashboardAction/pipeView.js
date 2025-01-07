@@ -45,7 +45,6 @@ export const getMyPipeView =
     territory = "",
     solution = "",
     enteredBy = "",
-    myView = false,
   }) =>
   async (dispatch) => {
     try {

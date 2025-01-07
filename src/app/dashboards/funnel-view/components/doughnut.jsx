@@ -4,6 +4,7 @@ import { ChartComponent } from "../../components";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import { Chart as ChartJS } from "chart.js/auto";
 import { colorConfig } from "@/config";
+import { BsFillTrophyFill } from "react-icons/bs";
 
 // Updated centerTextPlugin to accept dynamic value
 const centerTextPlugin = {

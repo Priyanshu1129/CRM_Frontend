@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Button, Table, Checkbox, Space } from "antd";
+import React, { useEffect, useState } from "react";
+import { Button, Table, Space } from "antd";
 import { useEditPermissions } from "@/hooks/adminPanel/roles-Permissions";
 import { getColumns } from "./columns";
 
@@ -76,8 +76,6 @@ export const PermissionTable = ({ role, permissionEntities }) => {
     setCheckedActions(newCheckedActions);
     // console.log("checked", newCheckedActions);
   };
-
-  // Handle update action (this could be replaced with an API call)
 
   // Handle reset action
   const handleReset = () => {

@@ -3,8 +3,10 @@ import { DatePicker } from "antd";
 import dayjs from "dayjs";
 import { CalendarOutlined } from "@ant-design/icons";
 import { colorConfig } from "@/config";
-export const YearPicker = ({ onChange, myView }) => {
-  let calendarIcon = <CalendarOutlined style={{ color: colorConfig.primary }} />;
+export const YearPicker = ({ onChange }) => {
+  let calendarIcon = (
+    <CalendarOutlined style={{ color: colorConfig.primary }} />
+  );
   return (
     <DatePicker
       picker="year"

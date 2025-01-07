@@ -6,7 +6,7 @@ const initialSummaryViewState = {
     error: null,
     data: null,
   },
-  currentYear: new Date().getFullYear(),
+  currentYear: null,
   //   getHeatmapView: {
   //     status: "idle",
   //     error: null,

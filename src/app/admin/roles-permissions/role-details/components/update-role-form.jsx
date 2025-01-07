@@ -13,24 +13,21 @@ export const UpdateRoleForm = ({ role }) => {
   const colSpan = screens.xs ? 24 : screens.sm ? 8 : screens.md ? 8 : 8;
 
   return (
-    <Form
-      form={form}
-      layout="vertical"
-      onFinish={onFinish}
-      // size="default"
-    >
+    <Form form={form} layout="horizontal" onFinish={onFinish}>
       <Row gutter={24}>
-        <Col span={colSpan}>
+        <Col span={6} style={{ paddingLeft: 0 }}>
           <Form.Item
             label="Role Name"
             name="roleName"
             rules={roleFormRules.roleName}
             getValueFromEvent={(e) => e.target.value.toUpperCase()}
+            labelCol={{ span: 12 }}
+            wrapperCol={{ span: 12 }}
           >
             <Input />
           </Form.Item>
         </Col>
-        <Col span={colSpan} style={{ display: "flex", alignItems: "flex-end" }}>
+        <Col span={18} style={{ display: "flex", alignItems: "flex-end" }}>
           <Form.Item>
             <Space>
               <Button type="primary" htmlType="submit" loading={loading}>

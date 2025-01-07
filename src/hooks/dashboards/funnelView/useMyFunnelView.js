@@ -8,7 +8,12 @@ import moment from "moment";
 export const useFetchMyFunnelView = ({
   myViewParticularDate,
   myView,
-  viewChecking,
+  canSeeMyView,
+  filters,
+  filter,
+  setFilter,
+  refresh,
+  setRefresh,
 }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
@@ -16,9 +21,7 @@ export const useFetchMyFunnelView = ({
     (state) => state.funnelView.myViewCurrentDate
   );
   const currentDate = rawCurrentDate ? moment(rawCurrentDate) : null;
-  const [refresh, setRefresh] = useState(false);
-  const [filters, setFilters] = useState({});
-  const [filter, setFilter] = useState(false);
+
   const { status, data, error } = useSelector(
     (state) => state.funnelView.getMyFunnelView
   );
@@ -26,6 +29,14 @@ export const useFetchMyFunnelView = ({
   const [conversionStats, setConversionStats] = useState(
     data?.data?.conversionStats || {}
   );
+
+  if (!canSeeMyView || !myView) {
+    return {
+      loading: false,
+      funnelViewData: null,
+      conversionStats: null,
+    };
+  }
 
   const fetchFunnelView = useCallback(() => {
     dispatch(
@@ -39,7 +50,7 @@ export const useFetchMyFunnelView = ({
       !currentDate?.isSame(myViewParticularDate, "day") ||
       (filter && filters)
     ) {
-      if (myView && !viewChecking) {
+      if (myView && canSeeMyView) {
         fetchFunnelView();
         dispatch(
           funnelViewActions.setMyViewCurrentDate(
@@ -59,7 +70,7 @@ export const useFetchMyFunnelView = ({
     filters,
     myView,
     dispatch,
-    viewChecking,
+    canSeeMyView,
   ]);
 
   useEffect(() => {
@@ -85,9 +96,5 @@ export const useFetchMyFunnelView = ({
     loading,
     funnelViewData,
     conversionStats,
-    setRefresh,
-    setFilters,
-    setFilter,
-    filters,
   };
 };

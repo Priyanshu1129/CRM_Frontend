@@ -3,6 +3,7 @@ import { ReloadOutlined } from "@ant-design/icons";
 import { Grid, Button, Space } from "antd";
 import { SelectDate } from "./date-selector";
 import { SelectDateRange } from "./date-range-selector";
+import { DashboatdViewSelector } from "./viewTypeSelector";
 import { colorConfig } from "@/config";
 
 export const DashboardHeader = ({
@@ -13,16 +14,15 @@ export const DashboardHeader = ({
   setEndDate,
   myView = null,
   setMyView,
-  disabledViewButton,
   FilterComponent,
   setFilter,
   filters,
   setFilters,
-  myViewButtonText = "My View",
   selectedDate,
+  viewOptions,
 }) => {
   const screens = Grid.useBreakpoint();
-  console.log("disabledViewButton", disabledViewButton);
+
   return (
     <div
       style={{
@@ -64,15 +64,11 @@ export const DashboardHeader = ({
           />
         )}
         {myView != null && (
-          <Button
-            disabled={disabledViewButton}
-            style={
-              myView ? { background: colorConfig.primary, color: "white" } : {}
-            }
-            onClick={() => setMyView(!myView)}
-          >
-            {myViewButtonText}
-          </Button>
+          <DashboatdViewSelector
+            value={myView}
+            handleChange={(value) => setMyView(value)}
+            viewOptions={viewOptions}
+          />
         )}
       </Space>
       <Space

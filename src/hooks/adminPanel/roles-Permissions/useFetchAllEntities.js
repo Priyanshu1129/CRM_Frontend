@@ -28,7 +28,40 @@ export const useFetchAllEntities = () => {
     if (status === "pending") {
       setLoading(true);
     } else if (status === "success") {
-      setPermissionEntities(data);
+      const customOrder = ["GET ALL", "READ", "CREATE", "UPDATE", "DELETE"];
+
+      // Transform and sort the data
+      const transformedData = data.map((item) => {
+        // Create a shallow copy of the item to avoid modifying the original object
+        const newItem = { ...item };
+
+        if (
+          newItem.actions.includes("CREATE") &&
+          newItem.actions.includes("READ") &&
+          newItem.actions.includes("UPDATE") &&
+          newItem.actions.includes("DELETE") &&
+          newItem.actions.includes("GET ALL")
+        ) {
+          // Rearrange to the custom order
+          newItem.actions = customOrder;
+        } else {
+          // Sort alphabetically if the custom condition is not met
+          newItem.actions = [...newItem.actions].sort((a, b) =>
+            a.localeCompare(b)
+          );
+        }
+
+        return newItem;
+      });
+
+      // Sort by labels
+      const sortedData = transformedData.sort((a, b) => {
+        if (a.label < b.label) return -1;
+        if (a.label > b.label) return 1;
+        return 0;
+      });
+
+      setPermissionEntities(sortedData);
       setLoading(false);
       dispatch(roleActions.clearGetAllEntitiesStatus());
     } else if (status === "failed") {

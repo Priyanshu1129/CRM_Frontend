@@ -4,6 +4,7 @@ import { Grid, Space, theme } from "antd";
 import { UpdateRoleForm, PermissionTable } from "../components";
 import { useParams } from "next/navigation";
 import { FullScreenLoading, FormHeader } from "@/components";
+import { BackButton } from "@/components";
 import {
   useFetchAllEntities,
   useFetchRoleDetails,
@@ -22,7 +23,16 @@ const RoleDetails = () => {
 
   return (
     <>
-      <FormHeader backButtonText="Back to Roles" />
+      <div
+        style={{
+          width: "100%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        <BackButton buttonText={"Back To Roles"} />
+      </div>
       <Space
         direction="vertical"
         style={{

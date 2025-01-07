@@ -4,6 +4,7 @@ export * from "./funnelView/useFunnelView";
 export * from "./funnelView/useMyFunnelView";
 export * from "./summaryView/useFetchSummaryView";
 export * from "./leaderboard/useLeaderboard";
+export * from "./useCheckDashboardViewPermission";
 
 // --------------------
 export * from "./old-summaryView/useSummaryView";

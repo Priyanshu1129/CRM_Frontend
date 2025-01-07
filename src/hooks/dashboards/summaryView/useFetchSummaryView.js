@@ -10,7 +10,7 @@ export const useFetchSummaryView = ({ year }) => {
   const dispatch = useDispatch();
   const [refresh, setRefresh] = useState(false);
   const { status, data, error } = useSelector(
-    (state) => state?.summaryView?.getSummaryView || {}
+    (state) => state?.summaryView?.getSummaryView
   );
   const currentYear = useSelector((state) => state.summaryView.currentYear);
   const [summaryViewData, setSummaryViewData] = useState(data);
@@ -22,6 +22,7 @@ export const useFetchSummaryView = ({ year }) => {
   useEffect(() => {
     if (refresh || currentYear != year) {
       fetchSummaryView();
+      setRefresh(false);
       dispatch(summaryViewActions.setCurrentYear(year));
     }
   }, [refresh, fetchSummaryView]);
@@ -32,11 +33,9 @@ export const useFetchSummaryView = ({ year }) => {
     } else if (status === "success") {
       setSummaryViewData(data);
       setLoading(false);
-      setRefresh(false);
       dispatch(summaryViewActions.clearGetSummaryViewStatus());
     } else if (status === "failed") {
       setLoading(false);
-      setRefresh(false);
       notification.error({
         message: "Error",
         description: error || "Failed to fetch summary view data.",

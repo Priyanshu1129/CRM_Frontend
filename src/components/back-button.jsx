@@ -3,7 +3,7 @@ import { Text } from ".";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
 
-export const BackButton = ({ text = true }) => {
+export const BackButton = ({ text = true, buttonText = null }) => {
   const screens = Grid.useBreakpoint();
   const router = useRouter();
 
@@ -25,7 +25,7 @@ export const BackButton = ({ text = true }) => {
         }}
         className="hover-text-go-back-button"
       >
-        {!screens.xs && text ? "Go Back" : null}
+        {!screens.xs && text ? buttonText || "Go Back" : null}
       </div>
     </Button>
   );
