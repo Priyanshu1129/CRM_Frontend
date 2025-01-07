@@ -16,7 +16,7 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
 
   useEffect(() => {
     try {
-      if (data?.role?.name !== "SUPER ADMIN") {
+      if (data?.role?.name === "SUPER ADMIN") {
         setAuthorizedResources(resources);
       } else {
         const authorized = getAuthorizedResources(resources, permissions || []);
