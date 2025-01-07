@@ -35,12 +35,12 @@ export const useFetchPipeView = ({
     }
   );
 
-  if (!canSeeAllView || myView) {
-    return {
-      loading: false,
-      opportunities: null,
-    };
-  }
+  // if (!canSeeAllView || myView) {
+  //   return {
+  //     loading: false,
+  //     opportunities: null,
+  //   };
+  // }
 
   const fetchPipeView = useCallback(() => {
     dispatch(

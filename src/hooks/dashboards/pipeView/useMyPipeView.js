@@ -35,12 +35,12 @@ export const useFetchMyPipeView = ({
     }
   );
 
-  if (!canSeeMyView || !myView) {
-    return {
-      loading: false,
-      opportunities: null,
-    };
-  }
+  // if (!canSeeMyView || !myView) {
+  //   return {
+  //     loading: false,
+  //     opportunities: null,
+  //   };
+  // }
 
   const fetchMyPipeView = useCallback(() => {
     dispatch(

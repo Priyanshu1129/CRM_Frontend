@@ -30,13 +30,13 @@ export const useFetchFunnelView = ({
     data?.data?.conversionStats || {}
   );
 
-  if (!canSeeAllView || myView) {
-    return {
-      loading: false,
-      funnelViewData: null,
-      conversionStats: null,
-    };
-  }
+  // if (!canSeeAllView || myView) {
+  //   return {
+  //     loading: false,
+  //     funnelViewData: null,
+  //     conversionStats: null,
+  //   };
+  // }
 
   const fetchFunnelView = useCallback(() => {
     dispatch(
