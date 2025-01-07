@@ -1,11 +1,11 @@
 import { Spin } from "antd";
 
-export const FullScreenLoading = () => {
+export const FullScreenLoading = ({center = false}) => {
   return (
     <Spin
       size="large"
       style={{
-        height: "100vh",
+        height: `${center ? "100%" : "100vh"}`,
         width: "100%",
         display: "flex",
         alignItems: "center",

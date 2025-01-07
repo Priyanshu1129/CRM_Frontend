@@ -1,10 +1,11 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Button, Select, Input, Row, Col, Typography, Spin } from "antd";
+import { Button, Select, Input, Row, Col, Typography, Spin, Space } from "antd";
 import { useFetchAllTargets } from "@/hooks/target/useFetchAllTargets";
 import { useUpdateTarget } from "@/hooks/target/useUpdateTarget";
 import { SearchOutlined } from "@ant-design/icons"; // Import Ant Design Icons
+import { colorConfig } from "@/config";
 import { BackButton, FullScreenLoading } from "@/components";
 
 const { Option } = Select;
@@ -25,10 +26,10 @@ const TargetPage = () => {
     updatedTarget,
   } = useUpdateTarget();
 
-  // Handle Submit to fetch targets
-  const onSubmit = () => {
+  // Automatically fetch targets when entityType or year changes
+  useEffect(() => {
     handleGetTargets(entityType, year);
-  };
+  }, [entityType, year, handleGetTargets]);
 
   // Handle input change for a specific target
   const handleInputChange = (entityId, quarter, value) => {
@@ -78,7 +79,15 @@ const TargetPage = () => {
         }}
       >
         <Col span={4}>
-          <strong>{target.label}</strong>
+          <div
+            style={{
+              fontWeight: 600,
+              textAlign: "left",
+              color: `${colorConfig.primary}`,
+            }}
+          >
+            {target.label}
+          </div>
         </Col>
         {["q1", "q2", "q3", "q4"].map((quarter) => (
           <Col span={4} key={quarter}>
@@ -116,15 +125,7 @@ const TargetPage = () => {
       }}
     >
       <BackButton />
-      <div
-        style={{
-          flex: "1", // Takes remaining space below header
-          overflow: "hidden", // Prevent overflow
-          borderRadius: "8px",
-          padding: "24px",
-          background: "#fafafa",
-        }}
-      >
+      <div style={{ padding: "24px", background: "#fafafa", height: "100%" }}>
         <div
           style={{
             display: "flex",
@@ -152,34 +153,19 @@ const TargetPage = () => {
               style={{ width: "100%" }}
               placeholder="Select Year"
             >
-              {[2023, 2024, 2025].map((yr) => (
+              {Array.from({ length: 41 }, (_, i) => 2000 + i).map((yr) => (
                 <Option key={yr} value={yr}>
                   {yr}
                 </Option>
               ))}
             </Select>
           </div>
-          <div>
-            <Button
-              type="primary"
-              onClick={onSubmit}
-              disabled={fetchingTargets}
-              block
-              icon={<SearchOutlined />}
-            >
-              {fetchingTargets ? <Spin size="small" /> : "Submit"}
-            </Button>
-          </div>
         </div>
-        {fetchingTargets && <FullScreenLoading />}
+
+        {/* Render Targets */}
+        {fetchingTargets && <FullScreenLoading center={true} />}
         {!fetchingTargets && targets && targets.length > 0 && (
-          <div
-            style={{
-              overflowY: "auto",
-              height: "100%",
-              scrollbarWidth: "none",
-            }}
-          >
+          <div>
             <Row
               gutter={16}
               style={{ marginBottom: "16px", fontWeight: "bold" }}
