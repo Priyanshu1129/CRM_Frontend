@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import React, { useState, useEffect } from "react";
 import { Button, Select, Input, Row, Col, Typography, Spin, Space } from "antd";
@@ -14,8 +14,16 @@ const TargetPage = () => {
   const [entityType, setEntityType] = useState("Territory");
   const [year, setYear] = useState(new Date().getFullYear());
   const [editedTargets, setEditedTargets] = useState({}); // To track edited rows
-  const { targets, loading: fetchingTargets, handleGetTargets } = useFetchAllTargets();
-  const { handleUpdateTarget, loading: updatingTarget, updatedTarget } = useUpdateTarget();
+  const {
+    targets,
+    loading: fetchingTargets,
+    handleGetTargets,
+  } = useFetchAllTargets();
+  const {
+    handleUpdateTarget,
+    loading: updatingTarget,
+    updatedTarget,
+  } = useUpdateTarget();
 
   // Automatically fetch targets when entityType or year changes
   useEffect(() => {
@@ -70,8 +78,14 @@ const TargetPage = () => {
         }}
       >
         <Col span={4}>
-          <div style={{ fontWeight : 600, textAlign: "left" , color : `${colorConfig.primary}` }}>
-          {target.label}
+          <div
+            style={{
+              fontWeight: 600,
+              textAlign: "left",
+              color: `${colorConfig.primary}`,
+            }}
+          >
+            {target.label}
           </div>
         </Col>
         {["q1", "q2", "q3", "q4"].map((quarter) => (
@@ -102,7 +116,10 @@ const TargetPage = () => {
 
   return (
     <div style={{ padding: "24px", background: "#fafafa" }}>
-      <Title level={3} style={{ textAlign: "center" , color : `${colorConfig.primary}` }}>
+      <Title
+        level={3}
+        style={{ textAlign: "center", color: `${colorConfig.primary}` }}
+      >
         Target Management
       </Title>
       <div
@@ -132,7 +149,7 @@ const TargetPage = () => {
             style={{ width: "100%" }}
             placeholder="Select Year"
           >
-            {[2023, 2024, 2025].map((yr) => (
+            {Array.from({ length: 41 }, (_, i) => 2000 + i).map((yr) => (
               <Option key={yr} value={yr}>
                 {yr}
               </Option>

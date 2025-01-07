@@ -14,6 +14,7 @@ import {
   Legend,
 } from "chart.js";
 import { Card, Spin } from "antd";
+import { colorConfig } from "@/config";
 
 // Register Chart.js components
 ChartJS.register(BarElement, CategoryScale, LinearScale, Title, Tooltip, Legend);
@@ -45,9 +46,10 @@ const TrendViewPage = () => {
             {
               label: "Revenue",
               data: trendViewForChart.map((item) => item.revenue),
-              backgroundColor: "#1890FF", // Solid Ant Design primary blue
+              backgroundColor: `${colorConfig.primary}`, // Solid Ant Design primary blue
               borderColor: "#0050B3", // Darker blue for border
-              borderWidth: 1,
+              // borderWidth: 1,
+              borderRadius : 4
             },
           ],
         },
@@ -56,31 +58,51 @@ const TrendViewPage = () => {
           maintainAspectRatio: false,
           plugins: {
             legend: {
-              position: "top",
+              display : false
             },
             title: {
               display: true,
               text: "Trend View Revenue Over Years",
+              color : `${colorConfig.textGrayDark}`,
+              font : {
+                size : 14
+              }
             },
           },
           scales: {
             x: {
+              ticks : {
+                font : {
+                  size : 14
+                }
+              },
               title: {
                 display: true,
                 text: "Years",
+                font : {
+                  size : 14
+                }
               },
               grid: {
                 display: false, // Remove x-axis grid lines
               },
             },
             y: {
+              ticks : {
+                font : {
+                  size : 14
+                }
+              },
               title: {
                 display: true,
                 text: "Revenue",
+                font : {
+                  size : 14
+                }
               },
               beginAtZero: true,
               grid: {
-                display: false, // Remove y-axis grid lines
+                display: true, // Remove y-axis grid lines
               },
             },
           },
@@ -90,7 +112,7 @@ const TrendViewPage = () => {
   }, [trendViewForChart]);
 
   return (
-    <div style={{ padding: "24px" }}>
+    <div style={{ height : "100%" }}>
       <DashboardHeader
         dashboard={"Trend-View"}
         setRefresh={setRefresh}
@@ -101,9 +123,11 @@ const TrendViewPage = () => {
       />
 
       {/* Chart Section */}
-      <Card
+      <div
         style={{
+          borderRadius : "8px",
           marginTop: "24px",
+          height : "90%",
           padding: "16px",
           backgroundColor: "#fff", // White background
           boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)", // Subtle shadow
@@ -117,13 +141,15 @@ const TrendViewPage = () => {
           <div
             style={{
               width: "100%",
-              height: "400px",
+              height: "100%",
+              padding : "24px",
+              paddingBottom : "8px"
             }}
           >
-            <canvas ref={chartRef} />
+            <canvas height={100} ref={chartRef} />
           </div>
         )}
-      </Card>
+      </div>
     </div>
   );
 };
