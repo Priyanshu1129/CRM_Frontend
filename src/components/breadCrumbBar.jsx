@@ -5,11 +5,12 @@ import { Breadcrumb } from "antd";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import breadcrumbNames from "@/config/breadCrumbItems";
+import { frontEndServerUrl } from "@/config";
 
 export const BreadcrumbBar = () => {
   const pathname = usePathname();
 
-  let domain = "http://localhost:3000";
+  let domain = frontEndServerUrl;
 
   const generateBreadcrumbItems = () => {
     // Special case for the root path "/"
