@@ -1,18 +1,16 @@
 "use client";
 import React from "react";
-import { Button, Form, Input, Flex, theme } from "antd";
+import { Button, Form, Input, Flex } from "antd";
 const ChangePassword = () => {
   const [form] = Form.useForm();
-  const {
-    token: { colorBgContainer, borderRadiusLG },
-  } = theme.useToken();
+
   return (
     <div
       style={{
         backgroundColor: "#fff",
         padding: "32px",
         width: 360,
-        borderRadius: borderRadiusLG,
+        borderRadius: "8px",
         margin: "auto",
         border: 1,
       }}

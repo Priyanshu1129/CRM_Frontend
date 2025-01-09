@@ -6,6 +6,7 @@ import { ListSearch } from "./list-search";
 import { AppstoreOutlined, UnorderedListOutlined } from "@ant-design/icons";
 import { ConfigListTitleButton } from "./config-list-title-button";
 import { BackButton } from ".";
+// import { useCheckPermission } from "@/hooks/permissions/useCheckPermission";
 
 export const ListHeader = ({
   setView,
@@ -22,9 +23,12 @@ export const ListHeader = ({
   backButton = false,
   backButtonText = true,
   setShowCreateConfigPopup,
-  configType
+  configType,
 }) => {
   const screens = Grid.useBreakpoint();
+
+  // const canAddEntity = useCheckPermission(toPath);
+  const canAddEntity = true;
 
   return (
     <div
@@ -44,14 +48,18 @@ export const ListHeader = ({
         }}
       >
         {backButton && <BackButton text={backButtonText} />}
-        {type == "config" ? (
-          configType != "sales-stage" && <ConfigListTitleButton
-            buttonText={buttonText}
-            setShowCreateConfigPopup={setShowCreateConfigPopup}
-          />
-        ) : (
-           <ListTitleButton toPath={toPath} buttonText={buttonText} />
-        )}
+        {canAddEntity ? (
+          type == "config" ? (
+            configType != "sales-stage" && (
+              <ConfigListTitleButton
+                buttonText={buttonText}
+                setShowCreateConfigPopup={setShowCreateConfigPopup}
+              />
+            )
+          ) : (
+            <ListTitleButton toPath={toPath} buttonText={buttonText} />
+          )
+        ) : null}
         {pageName !== "user" && FilterComponent && (
           <FilterComponent
             filters={filters}
@@ -74,17 +82,13 @@ export const ListHeader = ({
           onClick={() => {
             setRefresh(true);
           }}
-
         />
 
         {/* {!pageName && !view && ( */}
         <Space>
           {pageName && <ListSearch pageName={pageName} />}
           {!screens.xs && view ? (
-            <Radio.Group
-              value={view}
-              onChange={(e) => setView(e.target.value)}
-            >
+            <Radio.Group value={view} onChange={(e) => setView(e.target.value)}>
               <Radio.Button value="card">
                 <AppstoreOutlined />
               </Radio.Button>

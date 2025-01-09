@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Button, Card, Dropdown, Space, Tooltip } from "antd";
 import { ClientCardSkeleton } from "./skeleton";
 import { AvatarGroup } from "./avatar-group";
+// import { useCheckPermission } from "@/hooks/permissions/useCheckPermission";
 
 export const ClientCard = ({ client }) => {
   // const { edit } = useNavigation();
@@ -27,6 +28,11 @@ export const ClientCard = ({ client }) => {
       src: contact.avatar,
     };
   });
+
+  let showURL = `/client/client-details/${_id}`;
+
+  // const canViewClient = useCheckPermission(showURL);
+  const canViewClient = true;
 
   return (
     <Card
@@ -115,27 +121,23 @@ export const ClientCard = ({ client }) => {
         <Dropdown
           menu={{
             items: [
-              {
+              canViewClient && {
                 label: "View client",
                 key: "1",
                 // @ts-expect-error Ant Design Icon's v5.0.1 has an issue with @types/react@^18.2.66
                 icon: <EyeOutlined />,
                 onClick: () => {
-                  router.push(`/client/client-details/${_id}`);
+                  router.push(showURL);
                 },
               },
               {
                 danger: true,
                 label: "Delete client",
                 key: "2",
+                disabled: true,
                 // @ts-expect-error Ant Design Icon's v5.0.1 has an issue with @types/react@^18.2.66
                 icon: <DeleteOutlined />,
-                onClick: () => {
-                  // mutate({
-                  //   resource: "client",
-                  //   id: client.id,
-                  // });
-                },
+                onClick: () => {},
               },
             ],
           }}

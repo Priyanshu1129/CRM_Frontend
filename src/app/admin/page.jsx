@@ -9,7 +9,7 @@ const AdminPanel = () => {
     <>
       <List
         grid={{
-          gutter: 32,
+          gutter: 24,
           // column: 4,
           xs: 1,
           sm: 1,
@@ -20,7 +20,7 @@ const AdminPanel = () => {
         }}
         dataSource={resources}
         renderItem={(resource) => (
-          <List.Item>
+          <List.Item style={{ marginBottom: "24px" }}>
             <AdminPanelCard resource={resource} />
           </List.Item>
         )}

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Card, Tooltip } from "antd";
-import { BsFillTrophyFill } from "react-icons/bs";
+
 
 export const FunnelChart = ({
   funnelStats = {

@@ -96,8 +96,12 @@ export const columns = [
     key: "operation",
     fixed: "right",
     width: 100,
-    render: (_, record) => (
-      <TableActions showUrl={`/user/user-details/${record._id}`} />
-    ),
+    render: (_, record) => {
+      const roleId = record.role._id;
+      const userId = record._id;
+      return (
+        <TableActions showUrl={`/user/user-details/${roleId}/${userId}`} />
+      );
+    },
   },
 ];

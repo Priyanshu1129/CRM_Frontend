@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { getEntityPermissions } from "../../app/dashboards/utilites/getDashboardViewPermission";
+import { getEntityPermissions } from "@/utilities/checkPermission";
 
 export const useCheckViewPermissions = (entity) => {
   const { permissions, data } = useSelector((state) => state.auth.authDetails);
