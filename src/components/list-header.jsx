@@ -6,7 +6,7 @@ import { ListSearch } from "./list-search";
 import { AppstoreOutlined, UnorderedListOutlined } from "@ant-design/icons";
 import { ConfigListTitleButton } from "./config-list-title-button";
 import { BackButton } from ".";
-import { useCheckPermission } from "@/hooks/permissions/useCheckPermission";
+// import { useCheckPermission } from "@/hooks/permissions/useCheckPermission";
 
 export const ListHeader = ({
   setView,
@@ -27,6 +27,9 @@ export const ListHeader = ({
 }) => {
   const screens = Grid.useBreakpoint();
 
+  // const canAddEntity = useCheckPermission(toPath);
+  const canAddEntity = true;
+
   return (
     <div
       style={{
@@ -45,7 +48,7 @@ export const ListHeader = ({
         }}
       >
         {backButton && <BackButton text={backButtonText} />}
-        {useCheckPermission(toPath) ? (
+        {canAddEntity ? (
           type == "config" ? (
             configType != "sales-stage" && (
               <ConfigListTitleButton

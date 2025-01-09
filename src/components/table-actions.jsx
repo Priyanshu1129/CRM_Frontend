@@ -2,7 +2,8 @@ import React from "react";
 import { Button, Space } from "antd";
 import { EyeOutlined, DeleteOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
-import { useCheckPermission } from "@/hooks/permissions/useCheckPermission";
+// import { useCheckPermission } from "@/hooks/permissions/useCheckPermission";
+
 export const TableActions = ({
   setUpdateConfigData,
   updateConfigData,
@@ -13,11 +14,15 @@ export const TableActions = ({
   deleteAction = true,
 }) => {
   const router = useRouter();
+  // const canSeeDetails = useCheckPermission(showUrl);
+  // const canDelete = useCheckPermission(deleteUrl);
+  const canSeeDetails = true;
+  const canDelete = true;
 
   return (
     <>
       <Space>
-        {useCheckPermission(showUrl) && (
+        {canSeeDetails && (
           <Button
             size="small"
             onClick={() => {
@@ -31,7 +36,7 @@ export const TableActions = ({
             icon={<EyeOutlined />}
           />
         )}
-        {useCheckPermission(deleteUrl) && deleteAction && (
+        {canDelete && deleteAction && (
           <Button
             disabled
             size="small"

@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { Button, Card, Dropdown, Space, Tooltip } from "antd";
 import { ClientCardSkeleton } from "./skeleton";
 import { AvatarGroup } from "./avatar-group";
-import { useCheckPermission } from "@/hooks/permissions/useCheckPermission";
+// import { useCheckPermission } from "@/hooks/permissions/useCheckPermission";
 
 export const ClientCard = ({ client }) => {
   // const { edit } = useNavigation();
@@ -31,7 +31,8 @@ export const ClientCard = ({ client }) => {
 
   let showURL = `/client/client-details/${_id}`;
 
-  const canViewClient = useCheckPermission(showURL);
+  // const canViewClient = useCheckPermission(showURL);
+  const canViewClient = true;
 
   return (
     <Card
