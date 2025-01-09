@@ -32,11 +32,12 @@ import {
 } from "@/utilities/formValidationRules";
 import { useUpdateOpportunity } from "@/hooks/opportunity";
 import { colorConfig } from "@/config";
+import { useCheckPermission } from "@/hooks/permissions/useCheckPermission";
 
 export const UpdateOpportunityForm = ({ opportunity }) => {
   const [form] = Form.useForm();
-
   const [currency, setCurrency] = useState(1);
+  const canUpdateOpportunity = useCheckPermission("/opportunity/update");
 
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -52,6 +53,7 @@ export const UpdateOpportunityForm = ({ opportunity }) => {
     <Form
       layout="vertical"
       form={form}
+      disabled={!canUpdateOpportunity}
       // size={"default"}
       onFinish={onFinish}
     >
@@ -181,6 +183,7 @@ export const UpdateOpportunityForm = ({ opportunity }) => {
             rules={opportunityFormRules.salesTopLine}
             currency={currency}
             setCurrency={setCurrency}
+            disabled={!canUpdateOpportunity}
           />
         </Col>
         <Col xs={24} sm={12} md={8} lg={6}>
@@ -190,6 +193,7 @@ export const UpdateOpportunityForm = ({ opportunity }) => {
             rules={opportunityFormRules.offsets}
             currency={currency}
             setCurrency={setCurrency}
+            disabled={!canUpdateOpportunity}
           />
         </Col>
         <Col span={24}>
@@ -229,6 +233,7 @@ export const UpdateOpportunityForm = ({ opportunity }) => {
                 type="primary"
                 htmlType="submit"
                 loading={loading}
+                disabled={!canUpdateOpportunity}
               >
                 Update
               </Button>
@@ -236,7 +241,7 @@ export const UpdateOpportunityForm = ({ opportunity }) => {
                 type="default"
                 htmlType="button"
                 onClick={() => form.resetFields()}
-                disabled={loading}
+                disabled={loading || !canUpdateOpportunity}
               >
                 Reset
               </Button>

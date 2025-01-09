@@ -35,13 +35,6 @@ export const useFetchMyPipeView = ({
     }
   );
 
-  // if (!canSeeMyView || !myView) {
-  //   return {
-  //     loading: false,
-  //     opportunities: null,
-  //   };
-  // }
-
   const fetchMyPipeView = useCallback(() => {
     dispatch(
       getMyPipeView({ particularDate: myViewParticularDate, ...filters })
@@ -54,7 +47,7 @@ export const useFetchMyPipeView = ({
       !currentDate?.isSame(myViewParticularDate, "day") ||
       (filter && filters)
     ) {
-      if (myView) {
+      if (myView && canSeeMyView) {
         fetchMyPipeView();
         dispatch(
           pipeViewActions.setMyViewCurrentDate(
@@ -93,6 +86,13 @@ export const useFetchMyPipeView = ({
       dispatch(pipeViewActions.clearGetMyPipeViewError());
     }
   }, [status, data, error, dispatch]);
+
+  if (!canSeeMyView || !myView) {
+    return {
+      loading: false,
+      opportunities: null,
+    };
+  }
 
   return { loading, opportunities };
 };

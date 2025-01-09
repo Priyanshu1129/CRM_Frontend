@@ -32,12 +32,14 @@ import {
 } from "@/redux/actions/businessDevelopmentAction";
 import { getChangedValues } from "@/utilities/getChangedValues";
 import { colorConfig } from "@/config";
+import { useCheckPermission } from "@/hooks/permissions/useCheckPermission";
 
 export const UpdateBusinessDevelopmentForm = ({ businessDevelopment }) => {
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const [currency, setCurrency] = useState(1);
+  const canUpdateBusinessDevelopment = useCheckPermission("/mention/update");
 
   const { status, error } = useSelector(
     (state) => state.businessDevelopment.updateBusinessDevelopment
@@ -131,7 +133,12 @@ export const UpdateBusinessDevelopmentForm = ({ businessDevelopment }) => {
 
   return (
     <>
-      <Form form={form} layout="vertical" onFinish={onFinish}>
+      <Form
+        disabled={!canUpdateBusinessDevelopment}
+        form={form}
+        layout="vertical"
+        onFinish={onFinish}
+      >
         {/* Client Information Section */}
         <Space>
           <Text style={{ color: colorConfig?.primary, fontWeight: "500" }}>
@@ -229,6 +236,7 @@ export const UpdateBusinessDevelopmentForm = ({ businessDevelopment }) => {
         <Row gutter={24}>
           <Col {...colSpan}>
             <CurrencyAmountInput
+              disabled={!canUpdateBusinessDevelopment}
               name="potentialTopLine"
               label="Potential TopLine"
               rules={businessDevelopmentFormRules.potentialTopLine}
@@ -238,6 +246,7 @@ export const UpdateBusinessDevelopmentForm = ({ businessDevelopment }) => {
           </Col>
           <Col {...colSpan}>
             <CurrencyAmountInput
+              disabled={!canUpdateBusinessDevelopment}
               name="potentialOffset"
               label="Potential Offsets"
               rules={businessDevelopmentFormRules.potentialOffset}
@@ -271,14 +280,19 @@ export const UpdateBusinessDevelopmentForm = ({ businessDevelopment }) => {
           <Col span={24}>
             <Form.Item>
               <Space>
-                <Button type="primary" htmlType="submit" loading={loading}>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  loading={loading}
+                  disabled={!canUpdateBusinessDevelopment}
+                >
                   Update
                 </Button>
                 <Button
                   type="default"
                   htmlType="button"
                   onClick={() => form.resetFields()}
-                  disabled={loading}
+                  disabled={loading || !canUpdateBusinessDevelopment}
                 >
                   Reset
                 </Button>

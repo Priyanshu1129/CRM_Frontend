@@ -1,8 +1,8 @@
 import React from "react";
 import { Button, Space } from "antd";
-import { EyeOutlined, DeleteOutlined } from "@ant-design/icons";
+import { EyeOutlined, DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
-// import { useCheckPermission } from "@/hooks/permissions/useCheckPermission";
+import { useCheckPermission } from "@/hooks/permissions/useCheckPermission";
 
 export const TableActions = ({
   setUpdateConfigData,
@@ -10,21 +10,23 @@ export const TableActions = ({
   setShowUpdateConfigPopup = null,
   showUrl = "",
   deleteUrl = "",
+  permissionUrl = null,
   record = {},
   deleteAction = true,
+  detailsAction = true,
+  updateAction = false,
 }) => {
   const router = useRouter();
-  // const canSeeDetails = useCheckPermission(showUrl);
-  // const canDelete = useCheckPermission(deleteUrl);
-  const canSeeDetails = true;
-  const canDelete = true;
+  const canSeeDetails = useCheckPermission(permissionUrl || showUrl);
+  const canDelete = useCheckPermission(deleteUrl);
 
   return (
     <>
       <Space>
-        {canSeeDetails && (
+        {detailsAction && (
           <Button
             size="small"
+            disabled={!canSeeDetails}
             onClick={() => {
               if (record.updateConfigPopup) {
                 setUpdateConfigData(updateConfigData);
@@ -36,9 +38,22 @@ export const TableActions = ({
             icon={<EyeOutlined />}
           />
         )}
-        {canDelete && deleteAction && (
+        {updateAction && (
           <Button
-            disabled
+            size="small"
+            disabled={!canSeeDetails}
+            onClick={() => {
+              if (record.updateConfigPopup) {
+                setUpdateConfigData(updateConfigData);
+                setShowUpdateConfigPopup(true);
+              }
+            }}
+            icon={<EditOutlined />}
+          />
+        )}
+        {deleteAction && (
+          <Button
+            disabled={!canDelete}
             size="small"
             href=""
             danger

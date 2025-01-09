@@ -24,10 +24,12 @@ import { RegistrationStatusSelector } from "../../enums";
 import { registrationFormRules } from "@/utilities/formValidationRules";
 import { useUpdateRegistration } from "@/hooks/registration";
 import { colorConfig } from "@/config";
+import { useCheckPermission } from "@/hooks/permissions/useCheckPermission";
 
 export const UpdateRegistrationForm = ({ registration }) => {
   const [form] = Form.useForm();
   const screens = Grid.useBreakpoint();
+  const canUpdateRegistration = useCheckPermission("/registration/update");
 
   const { loading, onFinish } = useUpdateRegistration({ registration, form });
 
@@ -41,6 +43,7 @@ export const UpdateRegistrationForm = ({ registration }) => {
   return (
     <>
       <Form
+        disabled={!canUpdateRegistration}
         layout="vertical"
         form={form}
         onFinish={onFinish}
@@ -205,7 +208,7 @@ export const UpdateRegistrationForm = ({ registration }) => {
                   type="default"
                   htmlType="button"
                   onClick={() => form.resetFields()}
-                  disabled={loading}
+                  disabled={loading || !canUpdateRegistration}
                 >
                   Reset
                 </Button>

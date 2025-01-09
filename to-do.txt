@@ -1,33 +1,40 @@
-rbac-
--------------------------------------------------------------------correct the flow
--------------------handle dashboard permission
--------------------------------------------------------------self understandable permission action names 
------------------------------------------------------------------sort entities
-permission on - update action, client card details button, according to different user roles for details page
--------------------------------------------------------------component level rbac
+-------------------------------------------------------update error
+-------------------------------------------------------handle dashboard permission + component permission (solve error)
+---not allow changing self permission 
+super admin should not come in list
+update action
 authorize and authenticated seperate boundary
-check all routes
+admin cards are not hiding
+list is should also hide
+auth check on required boxes
+seprate field for country code - small
+arrange entities 
+fix role and permission
+make currency change working
+
+
+-------------------------------------------------------------------correct the flow
+-------------------------------------------------------------self understandable permission action names 
 ---------------------------
-subindustries refresh not working
+-----------------------------------------------------------------sort entities
+-------------------------------------------------------------component level rbac
 --------------------------------------------------------remove table filter options extra hook
 --------------------------------------------------------infinite loop or infinite request
 --------------------------------------------------------multiple notifications 
+subindustries refresh not working
+check all routes
 
 
 utilize hook for global enums
 configuration problem (implement rbac in frontend)
-add User tag in role entities
-super admin should not come in user
 create unauthorze 
 update phone / mobile in contact having problem-
-seprate field for country code - small
+
 proper- logout and login 
 add .env
-target view and set target
 my-view filters
 funnel view shimmer and design
 opportunity revenue is not showing in update form
-currency change everywhere
 sorting
 detail page needed
 notes is not visible in mention update form
@@ -43,7 +50,7 @@ dates in add client - frontend
 filter experience is not good
 create hook for specific enums
 avoid repeated styles-
-
+network error in frontend on off server 
 
 
 #config accessibility

@@ -32,7 +32,6 @@ export const ProtectedPage = ({ children }) => {
   const { checked, status, data, permissions } = useSelector(
     (state) => state.auth.authDetails
   );
-  console.log("permissions", permissions);
 
   const dispatch = useDispatch();
   const router = useRouter();

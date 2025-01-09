@@ -3,17 +3,24 @@ import React from "react";
 import { Button, Form, Input, Space, Grid, Row, Col } from "antd";
 import { roleFormRules } from "@/utilities/formValidationRules";
 import { useUpdateRole } from "@/hooks/adminPanel/roles-Permissions";
+import { useCheckPermission } from "@/hooks/permissions/useCheckPermission";
 
 export const UpdateRoleForm = ({ role }) => {
   const [form] = Form.useForm();
   const screens = Grid.useBreakpoint();
+  const canUpdateRole = useCheckPermission("/admin/roles-permissions/update");
 
   const { loading, onFinish } = useUpdateRole({ role, form });
 
   const colSpan = screens.xs ? 24 : screens.sm ? 8 : screens.md ? 8 : 8;
 
   return (
-    <Form form={form} layout="horizontal" onFinish={onFinish}>
+    <Form
+      disabled={!canUpdateRole}
+      form={form}
+      layout="horizontal"
+      onFinish={onFinish}
+    >
       <Row gutter={24}>
         <Col span={6} style={{ paddingLeft: 0 }}>
           <Form.Item
@@ -37,7 +44,7 @@ export const UpdateRoleForm = ({ role }) => {
                 type="default"
                 htmlType="button"
                 onClick={() => form.resetFields()}
-                disabled={loading}
+                disabled={loading || !canUpdateRole}
               >
                 Reset
               </Button>
