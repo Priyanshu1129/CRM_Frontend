@@ -147,6 +147,7 @@ export const UpdateOpportunityForm = ({ opportunity }) => {
           <SalesStageSelector
             name="salesStage"
             label="Sales Stage"
+            form={form}
             rules={opportunityFormRules.salesStage}
           />
         </Col>

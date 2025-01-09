@@ -11,6 +11,7 @@ const initialSalesStageState = {
     error: null,
     data: null,
   },
+  
   createSalesStage: {
     status: "idle",
     error: null,
