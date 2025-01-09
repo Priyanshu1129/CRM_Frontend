@@ -34,7 +34,6 @@ notes is not visible in mention update form
 insert in list  on add 
 update list on update
 business development hook
-stage id is hard coded at heatmap view
 frontend testing
 added user not coming 
 something memorable is not working - contact
