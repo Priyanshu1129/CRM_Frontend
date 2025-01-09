@@ -9,6 +9,7 @@ import { opportunityActions } from "@/redux/slices/opportunitySlice";
 import { notification } from "antd";
 import { getChangedValues } from "@/utilities/getChangedValues";
 import dayjs from "dayjs";
+import { salesSubStageActions } from "@/redux/slices/configurationSlice";
 
 export const useUpdateOpportunity = ({ opportunity, currency, form }) => {
   const [loading, setLoading] = useState(false);
@@ -39,6 +40,8 @@ export const useUpdateOpportunity = ({ opportunity, currency, form }) => {
           : null,
       };
       form.setFieldsValue(opportunityInitialValues);
+      // align the sales sub stage with sales stage 
+      dispatch(salesSubStageActions.filterSalesSubStages(opportunityInitialValues.salesStage._id.toString()))
       initialValues.current = opportunityInitialValues;
     }
   }, [opportunity, form, currency]);
