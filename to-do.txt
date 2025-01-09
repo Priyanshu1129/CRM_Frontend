@@ -1,9 +1,10 @@
 rbac-
 -------------------------------------------------------------------correct the flow
---------------------------------------------------------------------handle dashboard permission
+-------------------handle dashboard permission
 -------------------------------------------------------------self understandable permission action names 
 -----------------------------------------------------------------sort entities
-component level rbac
+permission on - update action, client card details button, according to different user roles for details page
+-------------------------------------------------------------component level rbac
 authorize and authenticated seperate boundary
 check all routes
 ---------------------------
@@ -18,7 +19,7 @@ configuration problem (implement rbac in frontend)
 add User tag in role entities
 super admin should not come in user
 create unauthorze 
-update phone / mobile in contact having problem
+update phone / mobile in contact having problem-
 seprate field for country code - small
 proper- logout and login 
 add .env

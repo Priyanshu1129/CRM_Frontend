@@ -3,11 +3,11 @@ import React from "react";
 import { Grid, Space, theme } from "antd";
 import { useParams } from "next/navigation";
 import { FullScreenLoading, FormHeader } from "@/components";
-import { UpdateUserForm } from "../components/update-user-form";
+import { UpdateUserForm } from "../../components/update-user-form";
 import { useFetchUserDetails } from "@/hooks/user";
 
 const UserDetails = () => {
-  const { id } = useParams();
+  const { id, roldId } = useParams();
   const screens = Grid.useBreakpoint();
 
   const {

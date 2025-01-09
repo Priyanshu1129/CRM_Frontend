@@ -128,8 +128,8 @@ const TargetPage = () => {
       <div
         style={{
           padding: "24px",
-          // borderRadius: "8px",
-          background: "#fafafa",
+          borderRadius: "8px",
+          background: "#fff",
           height: "100%",
         }}
       >

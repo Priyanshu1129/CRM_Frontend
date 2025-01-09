@@ -26,7 +26,7 @@ const UserMaster = () => {
     >
       <ListHeader
         toPath={"/user/add-user"}
-        buttonText={"Add New User"}
+        buttonText={"Add New Member"}
         pageName={"user"}
         setRefresh={setRefresh}
       />

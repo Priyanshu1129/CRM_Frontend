@@ -1,16 +1,4 @@
 export const routePermissions = {
-  "/dashboards/pipe-view/all-view": [
-    {
-      entity: "PIPE VIEW",
-      action: ["ALL VIEW"],
-    },
-  ],
-  "/dashboards/pipe-view/my-view": [
-    {
-      entity: "PIPE VIEW",
-      action: ["MY VIEW"],
-    },
-  ],
   "/dashboards/pipe-view": [
     {
       entity: "PIPE VIEW",
@@ -70,7 +58,9 @@ export const routePermissions = {
 
   "/user": [{ entity: "ROLE ENTITY", action: ["GET ALL", "CREATE"] }],
   "/user/add-user": [{ entity: "ROLE ENTITY", action: ["CREATE"] }],
-  "/user/user-details/:id": [{ entity: "ROLE ENTITY", action: ["READ"] }],
+  "/user/user-details/:roleId/:id": [
+    { entity: "ROLE ENTITY", action: ["READ"] },
+  ],
 
   // admin routes
   "/admin": [
@@ -79,6 +69,9 @@ export const routePermissions = {
   ],
   // admin configuration routes
   "/admin/configurations": [{ entity: "CONFIGURATION", action: ["GET ALL"] }],
+  "/admin/configurations/add-configuration": [
+    { entity: "CONFIGURATION", action: ["CREATE"] },
+  ],
   "/admin/configurations/industry": [
     { entity: "CONFIGURATION", action: ["GET ALL"] },
   ],
@@ -103,9 +96,10 @@ export const routePermissions = {
 
   // admin roles and permission routes
   "/admin/roles-permissions": [{ entity: "ROLE", action: ["GET ALL"] }],
-  // "/admin/roles-permissions/role-details/:id": [
-  //   { entity: "ROLE", action: ["READ"] },
-  // ],
+  "/admin/roles-permissions/add-role": [{ entity: "ROLE", action: ["CREATE"] }],
+  "/admin/roles-permissions/role-details/:id": [
+    { entity: "ROLE", action: ["READ"] },
+  ],
 };
 
 export const sideBarPermissions = {
