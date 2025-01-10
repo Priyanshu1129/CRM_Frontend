@@ -89,6 +89,9 @@ const authSlice = createSlice({
       state.logout.status = "failed";
       state.logout.error = action.payload;
     },
+    changePasswordRequest: (state, action) => {
+      state.changePassword.status = "pending";
+    },
     changePasswordSuccess: (state, action) => {
       state.changePassword.status = "success";
       state.changePassword.data = action.payload;
