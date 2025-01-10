@@ -2,13 +2,13 @@
 import React, { useState } from "react";
 import { MailOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Flex, theme } from "antd";
-import { useforgotPassword } from "@/hooks/auth";
+import { useForgotPassword } from "@/hooks/auth";
 import InputOTP from "./input-otp";
 
 const ForgotPassword = () => {
   const [inputEmail, setInputEmail] = useState(null);
   const { emailVerified, loading, handleSendOtp } =
-    useforgotPassword(setInputEmail);
+    useForgotPassword(setInputEmail);
 
   const {
     token: { borderRadiusLG },

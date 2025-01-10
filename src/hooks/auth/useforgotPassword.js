@@ -4,7 +4,7 @@ import { forgotPasswordAction } from "@/redux/actions/authAction";
 import { notification } from "antd";
 import { forgotPasswordActions } from "@/redux/slices/forgotPasswordSlice";
 
-export const useforgotPassword = (setInputEmail) => {
+export const useForgotPassword = (setInputEmail) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [emailVerified, setEmailVerified] = useState(false);
