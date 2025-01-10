@@ -1,4 +1,4 @@
-export * from "./useForgotPassword.js";
+export * from "./useforgotPassword.js";
 export * from "./useLogout";
 export * from "./useChangePassword";
 // export * from "./useSetNewPassword";
