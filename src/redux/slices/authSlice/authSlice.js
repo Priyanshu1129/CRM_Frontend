@@ -17,11 +17,6 @@ const initialUserState = {
     status: null,
     error: null,
   },
-  verifyOTP: {
-    status: null,
-    error: null,
-    data: null,
-  },
   changePassword: {
     status: null,
     error: null,
@@ -94,31 +89,6 @@ const authSlice = createSlice({
       state.logout.status = "failed";
       state.logout.error = action.payload;
     },
-    forgotPasswordRequest: (state, action) => {
-      state.authDetails.status = "pending";
-    },
-    forgotPasswordSuccess: (state, action) => {
-      state.authDetails.status = "success";
-      state.authDetails.data = action.payload;
-    },
-    forgotPasswordFailure: (state, action) => {
-      state.authDetails.status = "failed";
-      state.authDetails.error = action.payload;
-    },
-    verifyOTPRequest: (state) => {
-      state.verifyOTP.status = "pending";
-    },
-    verifyOTPSuccess: (state, action) => {
-      state.verifyOTP.status = "success";
-      state.verifyOTP.data = action.payload;
-    },
-    verifyOTPFailure: (state, action) => {
-      state.verifyOTP.status = "failed";
-      state.verifyOTP.error = action.payload;
-    },
-    changePasswordRequest: (state) => {
-      state.changePassword.status = "pending";
-    },
     changePasswordSuccess: (state, action) => {
       state.changePassword.status = "success";
       state.changePassword.data = action.payload;
@@ -144,12 +114,6 @@ const authSlice = createSlice({
     },
     clearLogoutData: (state) => {
       state.logout.data = null;
-    },
-    clearVerifyOTPStatus: (state) => {
-      state.verifyOTP.status = null;
-    },
-    clearVerifyOTPError: (state) => {
-      state.verifyOTP.error = null;
     },
     clearChangePasswordStatus: (state) => {
       state.changePassword.status = null;

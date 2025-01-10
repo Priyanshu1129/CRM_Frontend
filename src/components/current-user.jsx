@@ -1,11 +1,16 @@
 "use client";
 import { useState } from "react";
-import { LogoutOutlined, SettingOutlined } from "@ant-design/icons";
+import {
+  EditOutlined,
+  LogoutOutlined,
+  SettingOutlined,
+} from "@ant-design/icons";
+import { useRouter } from "next/navigation";
 import { Button, Popover } from "antd";
 import { CustomAvatar } from "./custom-avatar";
 import { Text } from "./text";
 import { AccountSettings } from "./account-settings";
-import { useLogout } from "@/hooks/auth";
+import { useLogout, useChangePassword } from "@/hooks/auth";
 import { useSelector } from "react-redux";
 
 export const CurrentUser = () => {
@@ -13,6 +18,9 @@ export const CurrentUser = () => {
   const { data, status } = useSelector((state) => state.auth.authDetails);
   const user = data;
   const { loading, handleLogout } = useLogout();
+  // const { handleChangePassword } = useChangePassword();
+
+  const router = useRouter();
 
   const content = (
     <div
@@ -48,6 +56,14 @@ export const CurrentUser = () => {
         >
           Account settings
         </Button>
+        <Button
+          style={{ border: "none", textAlign: "left" }}
+          icon={<EditOutlined />}
+          onClick={() => router.push("/change-password")}
+        >
+          Change Password
+        </Button>
+
         <Button
           style={{ textAlign: "left" }}
           // @ts-expect-error Ant Design Icon's v5.0.1 has an issue with @types/react@^18.2.66
