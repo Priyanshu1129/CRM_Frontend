@@ -31,11 +31,13 @@ import {
 import { clientFormRules } from "@/utilities/formValidationRules";
 import { useUpdateClient } from "@/hooks/client";
 import { colorConfig } from "@/config";
+import { useCheckPermission } from "@/hooks/permissions/useCheckPermission";
 
 export const UpdateClientForm = ({ client }) => {
   const [form] = Form.useForm();
   const screens = Grid.useBreakpoint();
   const [currency, setCurrency] = useState(1);
+  const canUpdateClient = useCheckPermission("/client/update");
   const { loading, onFinish, handleAvatarChange } = useUpdateClient({
     client,
     currency,
@@ -50,7 +52,8 @@ export const UpdateClientForm = ({ client }) => {
         form={form}
         layout="vertical"
         onFinish={onFinish}
-        //  size="default"
+        //  size="default"-
+        disabled={!canUpdateClient}
       >
         <Row>
           <Col span={24}>
@@ -158,6 +161,7 @@ export const UpdateClientForm = ({ client }) => {
         <Row gutter={24}>
           <Col xs={24} sm={12} md={8} lg={6}>
             <CurrencyAmountInput
+              disabled={!canUpdateClient}
               name="annualRevenue"
               label="Annual Revenue"
               rules={clientFormRules.annualRevenue}
@@ -269,14 +273,19 @@ export const UpdateClientForm = ({ client }) => {
           <Col span={24}>
             <Form.Item>
               <Space>
-                <Button type="primary" htmlType="submit" loading={loading}>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  loading={loading}
+                  disabled={!canUpdateClient}
+                >
                   Update
                 </Button>
                 <Button
                   type="default"
                   htmlType="button"
                   onClick={() => form.resetFields()}
-                  disabled={loading}
+                  disabled={loading || !canUpdateClient}
                 >
                   Reset
                 </Button>

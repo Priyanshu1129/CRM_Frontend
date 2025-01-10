@@ -35,13 +35,6 @@ export const useFetchPipeView = ({
     }
   );
 
-  // if (!canSeeAllView || myView) {
-  //   return {
-  //     loading: false,
-  //     opportunities: null,
-  //   };
-  // }
-
   const fetchPipeView = useCallback(() => {
     dispatch(
       getPipeView({ particularDate: allViewParticularDate, ...filters })
@@ -93,6 +86,13 @@ export const useFetchPipeView = ({
       dispatch(pipeViewActions.clearGetPipeViewError());
     }
   }, [status, data, error, dispatch]);
+
+  if (!canSeeAllView || myView) {
+    return {
+      loading: false,
+      opportunities: null,
+    };
+  }
 
   return { loading, opportunities };
 };

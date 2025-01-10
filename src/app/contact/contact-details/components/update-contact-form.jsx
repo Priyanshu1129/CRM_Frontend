@@ -19,10 +19,12 @@ import { ClientSelector } from "@/components";
 import { InputPhoneNumber } from "@/components";
 import { useUpdateContact } from "@/hooks/contact";
 import { colorConfig } from "@/config";
+import { useCheckPermission } from "@/hooks/permissions/useCheckPermission";
 
 export const UpdateContactForm = ({ contact }) => {
   const [form] = Form.useForm();
   const screens = Grid.useBreakpoint();
+  const canUpdateContact = useCheckPermission("/contact/update");
 
   const {
     loading,
@@ -48,6 +50,7 @@ export const UpdateContactForm = ({ contact }) => {
         form={form}
         // size={"default"}
         onFinish={onFinish}
+        disabled={!canUpdateContact}
       >
         <Row>
           <Col span={24}>
@@ -252,12 +255,17 @@ export const UpdateContactForm = ({ contact }) => {
           <Col span={24}>
             <Form.Item>
               <Space>
-                <Button type="primary" htmlType="submit" loading={loading}>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  loading={loading}
+                  disabled={!canUpdateContact}
+                >
                   Update
                 </Button>
                 <Button
                   type="default"
-                  disabled={loading}
+                  disabled={loading || !canUpdateContact}
                   onClick={() => form.resetFields()}
                 >
                   Reset

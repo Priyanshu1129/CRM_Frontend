@@ -1,5 +1,6 @@
 import { axiosRequest } from "@/utilities/axiosHelper";
 import { authActions } from "@/redux/slices/authSlice";
+import { forgotPasswordActions } from "@/redux/slices/forgotPasswordSlice";
 import { serverURL } from "@/config/config";
 import { redirectTo } from "@/utilities/globalRouter";
 
@@ -94,48 +95,79 @@ export const logout = () => async (dispatch) => {
   }
 };
 
-export const forgotPassword = (forgotPasswordData) => async (dispatch) => {
-  try {
-    console.log("forgotPasswordData", forgotPasswordData);
-    dispatch(authActions.forgotPasswordRequest());
+export const forgotPasswordAction =
+  (forgotPasswordData) => async (dispatch) => {
+    try {
+      console.log("forgotPasswordData", forgotPasswordData);
+      dispatch(forgotPasswordActions.forgotPasswordRequest());
 
-    // Using axiosRequest to perform the forgot password request
-    const response = await axiosRequest(
-      dispatch,
-      "post", // POST request method
-      `${route}/send-reset-password-email`, // API endpoint for sending reset email
-      forgotPasswordData
-    );
+      // Using axiosRequest to perform the forgot password request
+      const response = await axiosRequest(
+        dispatch,
+        "post", // POST request method
+        `${route}/send-reset-password-email`, // API endpoint for sending reset email
+        forgotPasswordData
+      );
 
-    // If the response is successful, dispatch the success action
-    dispatch(authActions.forgotPasswordSuccess(response));
-  } catch (error) {
-    // If an error occurs, it will be handled by axiosRequest
-    dispatch(
-      authActions.forgotPasswordFailure(error.message || "An error occurred")
-    );
-  }
-};
+      // If the response is successful, dispatch the success action
+      dispatch(forgotPasswordActions.forgotPasswordSuccess(response));
+    } catch (error) {
+      // If an error occurs, it will be handled by axiosRequest
+      dispatch(
+        forgotPasswordActions.forgotPasswordFailure(
+          error.message || "An error occurred"
+        )
+      );
+    }
+  };
 
-export const resetPasswordWithOTP = (otpData) => async (dispatch) => {
+export const setNewPasswordAction =
+  (forgotPasswordData) => async (dispatch) => {
+    try {
+      console.log("setNewPasswordData", forgotPasswordData);
+      dispatch(forgotPasswordActions.setNewPasswordRequest());
+
+      // Using axiosRequest to perform the forgot password request
+      const response = await axiosRequest(
+        dispatch,
+        "post", // POST request method
+        `${route}/reset-password-with-otp`, // API endpoint for sending reset email
+        forgotPasswordData
+      );
+
+      // If the response is successful, dispatch the success action
+      dispatch(forgotPasswordActions.setNewPasswordSuccess(response));
+    } catch (error) {
+      // If an error occurs, it will be handled by axiosRequest
+      dispatch(
+        forgotPasswordActions.setNewPasswordFailure(
+          error.message || "An error occurred"
+        )
+      );
+    }
+  };
+
+export const verifyOtpAction = (otpData) => async (dispatch) => {
   try {
     console.log("verifyOTPData", otpData);
-    dispatch(authActions.verifyOTPRequest());
+    dispatch(forgotPasswordActions.verifyOTPRequest());
 
     // Using axiosRequest to perform the reset password with OTP request
     const response = await axiosRequest(
       dispatch,
       "post", // POST request method
-      `${route}/reset-password-with-otp`, // API endpoint for reset password with OTP
+      `${route}/verify-otp`, // API endpoint for reset password with OTP
       otpData
     );
 
     // If the response is successful, dispatch the success action
-    dispatch(authActions.verifyOTPSuccess(response));
+    dispatch(forgotPasswordActions.verifyOTPSuccess(response.data));
   } catch (error) {
     // If an error occurs, it will be handled by axiosRequest
     dispatch(
-      authActions.verifyOTPFailure(error.message || "An error occurred")
+      forgotPasswordActions.verifyOTPFailure(
+        error.message || "An error occurred"
+      )
     );
   }
 };

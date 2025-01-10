@@ -23,10 +23,12 @@ import { userFormRules } from "@/utilities/formValidationRules";
 import { useUpdateUser } from "@/hooks/user";
 import { useFetchAllRoles } from "@/hooks/adminPanel/roles-Permissions";
 import { colorConfig } from "@/config";
+import { useCheckPermission } from "@/hooks/permissions/useCheckPermission";
 
 export const UpdateUserForm = ({ user }) => {
   const [form] = Form.useForm();
   const { loading: rolesLoading, roles = [] } = useFetchAllRoles();
+  const canUpdateUser = useCheckPermission(`/user/update/${user?.role}`);
 
   const {
     handleUpdateUser,
@@ -42,8 +44,6 @@ export const UpdateUserForm = ({ user }) => {
       ...values,
       phoneCountryCode,
     };
-    console.log("user Values: ", values);
-    console.log("Updated Values: ", updatedValues);
     handleUpdateUser(updatedValues);
   };
 
@@ -71,6 +71,7 @@ export const UpdateUserForm = ({ user }) => {
       layout="vertical"
       onFinish={onFinish}
       // size="default"
+      disabled={!canUpdateUser}
     >
       <Row>
         <Col span={24}>
@@ -221,14 +222,19 @@ export const UpdateUserForm = ({ user }) => {
         <Col span={24}>
           <Form.Item>
             <Space>
-              <Button type="primary" htmlType="submit" loading={loading}>
+              <Button
+                type="primary"
+                htmlType="submit"
+                loading={loading}
+                disabled={!canUpdateUser}
+              >
                 Update
               </Button>
               <Button
                 type="default"
                 htmlType="button"
                 onClick={() => form.resetFields()}
-                disabled={loading}
+                disabled={loading || !canUpdateUser}
               >
                 Reset
               </Button>

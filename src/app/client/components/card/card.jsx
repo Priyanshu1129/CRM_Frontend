@@ -5,12 +5,11 @@ import { useRouter } from "next/navigation";
 import { Button, Card, Dropdown, Space, Tooltip } from "antd";
 import { ClientCardSkeleton } from "./skeleton";
 import { AvatarGroup } from "./avatar-group";
-// import { useCheckPermission } from "@/hooks/permissions/useCheckPermission";
+import { useCheckPermission } from "@/hooks/permissions/useCheckPermission";
 
 export const ClientCard = ({ client }) => {
   // const { edit } = useNavigation();
   const router = useRouter();
-  if (!client) return <ClientCardSkeleton />;
   const {
     _id,
     avatar = "",
@@ -21,6 +20,12 @@ export const ClientCard = ({ client }) => {
     clientCode,
     marketCap,
   } = client;
+
+  let showURL = `/client/client-details/${_id}`;
+  const canViewClient = useCheckPermission(showURL);
+
+  if (!client) return <ClientCardSkeleton />;
+
   const relatedContactAvatars = relatedContacts?.map((contact) => {
     return {
       name:
@@ -28,11 +33,6 @@ export const ClientCard = ({ client }) => {
       src: contact.avatar,
     };
   });
-
-  let showURL = `/client/client-details/${_id}`;
-
-  // const canViewClient = useCheckPermission(showURL);
-  const canViewClient = true;
 
   return (
     <Card
