@@ -56,7 +56,10 @@ export const getColumns = ({
             updateConfigData={updateConfigData}
             setShowUpdateConfigPopup={setShowUpdateConfigPopup}
             record={record}
-            showUrl={`/admin/configurations/territory/${record.value}`}
+            // showUrl={`/admin/configurations/territory/${record.value}`}
+            showUrl={`/admin/configurations/update`}
+            updateAction={true}
+            detailsAction={false}
           />
         );
       },

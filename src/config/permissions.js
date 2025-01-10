@@ -18,6 +18,7 @@ export const routePermissions = {
   "/tender": [{ entity: "TENDER", action: ["GET ALL", "CREATE"] }],
   "/tender/add-tender": [{ entity: "TENDER", action: ["CREATE"] }],
   "/tender/tender-details/:id": [{ entity: "TENDER", action: ["READ"] }],
+  "/tender/update": [{ entity: "TENDER", action: ["UPDATE"] }], // fake route
 
   // opportunity routes
   "/opportunity": [{ entity: "OPPORTUNITY", action: ["GET ALL", "CREATE"] }],
@@ -27,15 +28,18 @@ export const routePermissions = {
   "/opportunity/opportunity-details/:id": [
     { entity: "OPPORTUNITY", action: ["READ"] },
   ],
+  "/opportunity/update": [{ entity: "OPPORTUNITY", action: ["UPDATE"] }], // fake route
 
   // client routes
   "/client": [{ entity: "CLIENT", action: ["GET ALL", "CREATE"] }],
   "/client/add-client": [{ entity: "CLIENT", action: ["CREATE"] }],
   "/client/client-details/:id": [{ entity: "CLIENT", action: ["READ"] }],
+  "/client/update": [{ entity: "CLIENT", action: ["UPDATE"] }], // fake route
 
   "/contact": [{ entity: "CONTACT", action: ["GET ALL", "CREATE"] }],
   "/contact/add-contact": [{ entity: "CONTACT", action: ["CREATE"] }],
   "/contact/contact-details/:id": [{ entity: "CONTACT", action: ["READ"] }],
+  "/contact/update": [{ entity: "CONTACT", action: ["UPDATE"] }], // fake route
 
   "/registration": [{ entity: "REGISTRATION", action: ["GET ALL", "CREATE"] }],
   "/registration/add-registration": [
@@ -44,6 +48,7 @@ export const routePermissions = {
   "/registration/registration-details/:id": [
     { entity: "REGISTRATION", action: ["READ"] },
   ],
+  "/registration/update": [{ entity: "REGISTRATION", action: ["UPDATE"] }], // fake route
 
   // client routes
   "/mention": [
@@ -55,23 +60,33 @@ export const routePermissions = {
   "/mention/mention-details/:id": [
     { entity: "BUSINESS DEVELOPMENT", action: ["READ"] },
   ],
+  "/mention/update": [{ entity: "MENTION", action: ["UPDATE"] }], // fake route
 
   "/user": [{ entity: "ROLE ENTITY", action: ["GET ALL", "CREATE"] }],
   "/user/add-user": [{ entity: "ROLE ENTITY", action: ["CREATE"] }],
   "/user/user-details/:roleId/:id": [
     { entity: "ROLE ENTITY", action: ["READ"] },
   ],
+  "/user/update/:roleId": [{ entity: "ROLE ENTITY", action: ["UPDATE"] }], // fake route
 
   // admin routes
   "/admin": [
     { entity: "CONFIGURATION", action: ["GET ALL", "CREATE"] },
     { entity: "ROLE", action: ["GET ALL", "CREATE"] },
   ],
+
   // admin configuration routes
   "/admin/configurations": [{ entity: "CONFIGURATION", action: ["GET ALL"] }],
+  "/admin/configurations/details": [
+    { entity: "CONFIGURATION", action: ["READ"] },
+  ],
   "/admin/configurations/add-configuration": [
     { entity: "CONFIGURATION", action: ["CREATE"] },
   ],
+  "/admin/configurations/update": [
+    { entity: "CONFIGURATION", action: ["UPDATE"] },
+  ],
+
   "/admin/configurations/industry": [
     { entity: "CONFIGURATION", action: ["GET ALL"] },
   ],
@@ -100,6 +115,7 @@ export const routePermissions = {
   "/admin/roles-permissions/role-details/:id": [
     { entity: "ROLE", action: ["READ"] },
   ],
+  "/admin/roles-permissions/update": [{ entity: "ROLE", action: ["UPDATE"] }], // fake route
 };
 
 export const sideBarPermissions = {

@@ -24,11 +24,13 @@ import { StageSelector } from "../../enums";
 import { tenderFormRules } from "@/utilities/formValidationRules";
 import { useUpdateTender } from "@/hooks/tender";
 import { colorConfig } from "@/config";
+import { useCheckPermission } from "@/hooks/permissions/useCheckPermission";
 
 export const UpdateTenderForm = ({ tender }) => {
   const [form] = Form.useForm();
   const screens = Grid.useBreakpoint();
   const [currency, setCurrency] = useState(1);
+  const canUpdateTender = useCheckPermission("/tender/update");
 
   const { loading, onFinish } = useUpdateTender({ tender, form, currency });
 
@@ -44,6 +46,7 @@ export const UpdateTenderForm = ({ tender }) => {
         onFinish={onFinish}
         layout="vertical"
         form={form}
+        disabled={!canUpdateTender}
         // size={"default"}
       >
         <Space>
@@ -142,6 +145,7 @@ export const UpdateTenderForm = ({ tender }) => {
           </Col>
           <Col {...colSpan}>
             <CurrencyAmountInput
+              disabled={!canUpdateTender}
               name="bondValue"
               label="Bond Value"
               rules={tenderFormRules.bondValue}
@@ -255,14 +259,19 @@ export const UpdateTenderForm = ({ tender }) => {
           <Col span={24}>
             <Form.Item>
               <Space>
-                <Button type="primary" htmlType="submit" loading={loading}>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  disabled={!canUpdateTender}
+                  loading={loading}
+                >
                   Update
                 </Button>
                 <Button
                   type="default"
                   htmlType="button"
                   onClick={() => form.resetFields()}
-                  disabled={loading}
+                  disabled={loading || !canUpdateTender}
                 >
                   Reset
                 </Button>

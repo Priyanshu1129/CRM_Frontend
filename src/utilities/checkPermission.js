@@ -81,7 +81,6 @@ const extractDynamicParams = (route, matchedRoute) => {
 };
 
 const matchDynamicRoute = (route) => {
-  console.log("route matching", route);
   const routeKeys = Object.keys(routePermissions);
   // Find the first route pattern that matches the current route
   return routeKeys.find((pattern) => {
@@ -91,16 +90,13 @@ const matchDynamicRoute = (route) => {
 };
 
 export const hasRoutePermission = (permissions, route) => {
-  console.log("has route permission", route);
   const matchedRoute = matchDynamicRoute(route);
-  console.log("matchedRoute", matchedRoute);
-  console.log("required permission", routePermissions[matchedRoute]);
   if (!matchedRoute) return true; // If no permissions are defined for the route
   const routePermission = routePermissions[matchedRoute];
   if (!routePermission || routePermission.length === 0) return true; // No specific permissions required for this route
   // Extract dynamic parameters from the route
   const dynamicParams = extractDynamicParams(route, matchedRoute);
-
+  console.log("dynamic params", dynamicParams);
   return hasPermission(permissions, routePermission, dynamicParams);
 };
 

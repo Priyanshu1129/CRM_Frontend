@@ -16,7 +16,6 @@ export const ConfigTableView = ({
     setUpdateConfigData,
     configType,
   });
-  console.log("DIT : ",data)
 
   return (
     <>

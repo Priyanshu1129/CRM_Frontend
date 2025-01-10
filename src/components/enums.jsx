@@ -16,6 +16,8 @@ import { getAllClients } from "@/redux/actions/clientAction";
 import { getAllContacts } from "@/redux/actions/contactAction";
 import { getAllTenders } from "@/redux/actions/tenderAction";
 import { getAllOpportunities } from "@/redux/actions/opportunityAction";
+import { salesSubStageActions } from "@/redux/slices/configurationSlice";
+import { CodeSandboxCircleFilled } from "@ant-design/icons";
 
 export const IndustrySelector = ({
   name = "industry",
@@ -67,6 +69,7 @@ export const IndustrySelector = ({
         filterOption={(input, option) =>
           option?.children?.toLowerCase().includes(input.toLowerCase())
         }
+        onChange={handleSelectChange}
       >
         {industries?.map(({ label, _id }, idx) => (
           <Select.Option key={idx} value={_id}>
@@ -228,7 +231,7 @@ export const SubSolutionSelector = ({ name, label, rules }) => {
   );
 };
 
-export const SalesStageSelector = ({ name, label, rules }) => {
+export const SalesStageSelector = ({ name, label, rules, form }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const { status, data, error } = useSelector(
@@ -257,6 +260,20 @@ export const SalesStageSelector = ({ name, label, rules }) => {
       setLoading(false);
     }
   }, [status, data]);
+  
+  // to get form initial value 
+  useEffect(() => {
+    console.log("name : ", name)
+    console.log("form -----", form)
+    const initialValue = form?.getFieldValue(name); // Get the initial value of the field
+    console.log("Initial Value for SalesStageSelector:", initialValue);
+  }, [form, name]);
+  
+  // this helps to algn the sales sub stage with the selected sales stage
+  const handleSelectChange = (id) => {
+    console.log("selected----------------------", id);
+    dispatch(salesSubStageActions.filterSalesSubStages(id));
+ }
 
   return (
     <Form.Item name={name} label={label} rules={rules}>
@@ -267,6 +284,7 @@ export const SalesStageSelector = ({ name, label, rules }) => {
         filterOption={(input, option) =>
           option?.children?.toLowerCase().includes(input.toLowerCase())
         }
+        onChange={handleSelectChange} 
       >
         {salesStages?.map(({ label, _id }, idx) => (
           <Select.Option key={idx} value={_id}>
@@ -281,10 +299,15 @@ export const SalesStageSelector = ({ name, label, rules }) => {
 export const SalesSubStageSelector = ({ name, label, rules }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
+  const {data : filteredData} = useSelector(
+    (state) => state.salesSubStage.getFilteredSalesSubStages
+  );
+
   const { status, data, error } = useSelector(
     (state) => state.salesSubStage.getAllSalesSubStages
   );
   const [salesSubStages, setSubSalesStages] = useState(data?.data);
+  const [filteredSalesSubStages, setFilteredSubSalesStages] = useState(filteredData);
 
   const fetchAllSalesSubStages = useCallback(() => {
     if (!salesSubStages) {
@@ -296,6 +319,10 @@ export const SalesSubStageSelector = ({ name, label, rules }) => {
   useEffect(() => {
     fetchAllSalesSubStages();
   }, [fetchAllSalesSubStages]);
+  
+  useEffect(()=>{
+    setFilteredSubSalesStages(filteredData)
+  },[filteredData])
 
   useEffect(() => {
     if (status == "pending") {
@@ -318,7 +345,7 @@ export const SalesSubStageSelector = ({ name, label, rules }) => {
           option?.children?.toLowerCase().includes(input.toLowerCase())
         }
       >
-        {salesSubStages?.map(({ label, _id }, idx) => (
+        {filteredSalesSubStages?.map(({ label, _id }, idx) => (
           <Select.Option key={idx} value={_id}>
             {label ?? "Missing Value"}
           </Select.Option>

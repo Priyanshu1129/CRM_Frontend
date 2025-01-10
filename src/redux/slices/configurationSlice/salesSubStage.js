@@ -11,6 +11,11 @@ const initialSalesSubStageState = {
     error: null,
     data: null,
   },
+  getFilteredSalesSubStages: {
+    status: "idle",
+    error: null,
+    data: null,
+  },
   createSalesSubStage: {
     status: "idle",
     error: null,
@@ -32,6 +37,14 @@ const salesSubStageSlice = createSlice({
   name: "salesSubStage",
   initialState: initialSalesSubStageState,
   reducers: {
+   // reducer to filter the salesSubStages acc to selected sales stage
+    filterSalesSubStages : (state , action) => {
+      const salesStageId = action.payload;
+      console.log("filtered executed-----", salesStageId)
+      const allSubStages = JSON.parse(JSON.stringify(state?.getAllSalesSubStages?.data?.data));
+      state.getFilteredSalesSubStages.data = allSubStages.filter((subStage)=> subStage?.salesStage?._id?.toString() == salesStageId);
+    }, 
+
     getSalesSubStageRequest: (state, action) => {
       state.getSalesSubStage.status = "pending";
     },

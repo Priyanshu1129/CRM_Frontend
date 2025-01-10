@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Button, Table, Space } from "antd";
 import { useEditPermissions } from "@/hooks/adminPanel/roles-Permissions";
 import { getColumns } from "./columns";
+import { useCheckPermission } from "@/hooks/permissions/useCheckPermission";
 
 export const PermissionTable = ({ role, permissionEntities }) => {
   let dataSource = permissionEntities?.map((entity, index) => ({
     key: index,
     ...entity,
   }));
+  const canUpdateRole = useCheckPermission("/admin/roles-permissions/update");
 
   // Initialize checkedActions as an array of objects with entity and allowedActions
   const initialCheckedActions = dataSource?.map((entity) => {
@@ -91,6 +93,7 @@ export const PermissionTable = ({ role, permissionEntities }) => {
     checkedActions,
     handleActionCheck,
     handleModuleCheck,
+    canUpdateRole,
   });
 
   return (
@@ -98,10 +101,15 @@ export const PermissionTable = ({ role, permissionEntities }) => {
       <Table columns={columns} dataSource={dataSource} pagination={false} />
       <div style={{ marginTop: 16 }}>
         <Space style={{ marginLeft: 16 }}>
-          <Button loading={loading} type="primary" onClick={handleUpdate}>
+          <Button
+            loading={loading}
+            type="primary"
+            onClick={handleUpdate}
+            disabled={!canUpdateRole}
+          >
             Update
           </Button>
-          <Button disabled={loading} onClick={handleReset}>
+          <Button disabled={loading || !canUpdateRole} onClick={handleReset}>
             Reset
           </Button>
         </Space>
