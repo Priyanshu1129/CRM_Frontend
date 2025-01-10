@@ -69,7 +69,6 @@ export const IndustrySelector = ({
         filterOption={(input, option) =>
           option?.children?.toLowerCase().includes(input.toLowerCase())
         }
-        onChange={handleSelectChange}
       >
         {industries?.map(({ label, _id }, idx) => (
           <Select.Option key={idx} value={_id}>
