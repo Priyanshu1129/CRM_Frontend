@@ -10,6 +10,7 @@ export const TableActions = ({
   setShowUpdateConfigPopup = null,
   showUrl = "",
   deleteUrl = "",
+  onDelete = null,
   permissionUrl = null,
   record = {},
   deleteAction = true,
@@ -53,9 +54,12 @@ export const TableActions = ({
         )}
         {deleteAction && (
           <Button
+            onClick={()=> {
+              console.log("delete opp url : ", deleteUrl)
+              router.push(deleteUrl)
+            }}
             disabled={!canDelete}
             size="small"
-            href=""
             danger
             icon={<DeleteOutlined />}
           />
