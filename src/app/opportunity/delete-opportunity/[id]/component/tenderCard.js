@@ -6,8 +6,8 @@ import { useRouter } from "next/navigation";
 const { Text } = Typography;
 
 const TenderCard = ({ tender }) => {
-  if (!tender) return null;
   const router = useRouter();
+  if (!tender) return null;
   return (
     <Card
       bordered

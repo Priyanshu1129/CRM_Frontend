@@ -6,8 +6,8 @@ import { useRouter } from "next/navigation";
 const { Text } = Typography;
 
 const OpportunityCard = ({ opportunity }) => {
-  if (!opportunity) return null;
   const router = useRouter();
+  if (!opportunity) return null;
   return (
     <Card
       bordered
