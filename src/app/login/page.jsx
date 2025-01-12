@@ -88,7 +88,9 @@ const Login = () => {
             <Form.Item name="remember" valuePropName="checked" noStyle>
               <Checkbox>Remember me</Checkbox>
             </Form.Item>
-            <a href="/forgot-password">Forgot password</a>
+            <Button onClick={() => router.push("/forgot-password")}>
+              Forgot Password
+            </Button>
           </Flex>
         </Form.Item>
 

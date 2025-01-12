@@ -129,7 +129,7 @@ export const updateOpportunity =
     }
   };
 
-export const deleteOpportunity = (opportunityId) => async (dispatch) => {
+export const deleteOpportunity = (opportunityId, confirm = 'false') => async (dispatch) => {
   try {
     console.log("delete-opportunityData", opportunityId);
     dispatch(opportunityActions.deleteOpportunityRequest());
@@ -138,13 +138,11 @@ export const deleteOpportunity = (opportunityId) => async (dispatch) => {
     const response = await axiosRequest(
       dispatch,
       "DELETE", // HTTP method for DELETE request
-      `${route}/${opportunityId}`, // Endpoint for deleting opportunity by ID
-      null, // No request body
-      null // No query parameters
+      `${route}/${opportunityId}?confirm=${confirm}`, // Endpoint for deleting opportunity by ID
     );
 
     console.log("delete-opportunity-res-data", response.data);
-    dispatch(opportunityActions.deleteOpportunitySuccess(response.data));
+    dispatch(opportunityActions.deleteOpportunitySuccess(response));
   } catch (error) {
     dispatch(
       opportunityActions.deleteOpportunityFailure(

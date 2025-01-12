@@ -192,6 +192,7 @@ export const getColumns = ({ selectedCurrency, data }) => {
       render: (_, record) => (
         <TableActions
           showUrl={`/opportunity/opportunity-details/${record._id}`}
+          deleteUrl={`/opportunity/delete-opportunity/${record._id}`}
         />
       ),
     },

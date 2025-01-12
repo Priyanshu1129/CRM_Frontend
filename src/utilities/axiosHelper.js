@@ -6,7 +6,7 @@ export const axiosRequest = async (
   dispatch,
   method,
   url,
-  data = null,
+  data = {},
   params = null
 ) => {
   try {
