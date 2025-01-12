@@ -1,6 +1,6 @@
 import React from "react";
 import { Table } from "@/components";
-import { columns } from "./columns";
+import { getColumns } from "./columns";
 export const UsersTableView = ({
   setCurrentPage,
   setPageSize,
@@ -8,6 +8,7 @@ export const UsersTableView = ({
   data,
   total,
 }) => {
+  const columns = getColumns({ data });
   return (
     <>
       <Table

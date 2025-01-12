@@ -21,6 +21,7 @@ export const TendersTableView = ({
 
   const columns = getColumns({
     selectedCurrency,
+    data,
   });
 
   return (

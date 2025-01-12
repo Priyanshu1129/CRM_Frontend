@@ -1,11 +1,13 @@
+import urls from "./urls";
+
 export const routePermissions = {
-  "/dashboards/pipe-view": [
+  [urls.DASHBOARD_PIPE_VIEW]: [
     {
       entity: "PIPE VIEW",
       action: ["MY VIEW", "ALL VIEW"],
     },
   ],
-  "/dashboards/funnel-view": [
+  [urls.DASHBOARD_FUNNEL_VIEW]: [
     {
       entity: "FUNNEL VIEW",
       action: ["MY VIEW", "ALL VIEW"],
@@ -15,107 +17,103 @@ export const routePermissions = {
   // all masters route
 
   // tender routes
-  "/tender": [{ entity: "TENDER", action: ["GET ALL", "CREATE"] }],
-  "/tender/add-tender": [{ entity: "TENDER", action: ["CREATE"] }],
-  "/tender/tender-details/:id": [{ entity: "TENDER", action: ["READ"] }],
-  "/tender/update": [{ entity: "TENDER", action: ["UPDATE"] }], // fake route
+  [urls.TENDER]: [{ entity: "TENDER", action: ["GET ALL", "CREATE"] }],
+  [urls.TENDER_ADD]: [{ entity: "TENDER", action: ["CREATE"] }],
+  [urls.TENDER_DETAILS]: [{ entity: "TENDER", action: ["READ"] }],
+  [urls.TENDER_UPDATE]: [{ entity: "TENDER", action: ["UPDATE"] }], // fake route
 
   // opportunity routes
-  "/opportunity": [{ entity: "OPPORTUNITY", action: ["GET ALL", "CREATE"] }],
-  "/opportunity/add-opportunity": [
-    { entity: "OPPORTUNITY", action: ["CREATE"] },
+  [urls.OPPORTUNITY]: [
+    { entity: "OPPORTUNITY", action: ["GET ALL", "CREATE"] },
   ],
-  "/opportunity/opportunity-details/:id": [
-    { entity: "OPPORTUNITY", action: ["READ"] },
-  ],
-  "/opportunity/update": [{ entity: "OPPORTUNITY", action: ["UPDATE"] }], // fake route
+  [urls.OPPORTUNITY_ADD]: [{ entity: "OPPORTUNITY", action: ["CREATE"] }],
+  [urls.OPPORTUNITY_DETAILS]: [{ entity: "OPPORTUNITY", action: ["READ"] }],
+  [urls.OPPORTUNITY_UPDATE]: [{ entity: "OPPORTUNITY", action: ["UPDATE"] }], // fake route
 
   // client routes
-  "/client": [{ entity: "CLIENT", action: ["GET ALL", "CREATE"] }],
-  "/client/add-client": [{ entity: "CLIENT", action: ["CREATE"] }],
-  "/client/client-details/:id": [{ entity: "CLIENT", action: ["READ"] }],
-  "/client/update": [{ entity: "CLIENT", action: ["UPDATE"] }], // fake route
+  [urls.CLIENT]: [{ entity: "CLIENT", action: ["GET ALL", "CREATE"] }],
+  [urls.CLIENT_ADD]: [{ entity: "CLIENT", action: ["CREATE"] }],
+  [urls.CLIENT_DETAILS]: [{ entity: "CLIENT", action: ["READ"] }],
+  [urls.CLIENT_UPDATE]: [{ entity: "CLIENT", action: ["UPDATE"] }], // fake route
 
-  "/contact": [{ entity: "CONTACT", action: ["GET ALL", "CREATE"] }],
-  "/contact/add-contact": [{ entity: "CONTACT", action: ["CREATE"] }],
-  "/contact/contact-details/:id": [{ entity: "CONTACT", action: ["READ"] }],
-  "/contact/update": [{ entity: "CONTACT", action: ["UPDATE"] }], // fake route
+  [urls.CONTACT]: [{ entity: "CONTACT", action: ["GET ALL", "CREATE"] }],
+  [urls.CONTACT_ADD]: [{ entity: "CONTACT", action: ["CREATE"] }],
+  [urls.CONTACT_DETAILS]: [{ entity: "CONTACT", action: ["READ"] }],
+  [urls.CONTACT_UPDATE]: [{ entity: "CONTACT", action: ["UPDATE"] }], // fake route
 
-  "/registration": [{ entity: "REGISTRATION", action: ["GET ALL", "CREATE"] }],
-  "/registration/add-registration": [
-    { entity: "REGISTRATION", action: ["CREATE"] },
+  [urls.REGISTRATION]: [
+    { entity: "REGISTRATION", action: ["GET ALL", "CREATE"] },
   ],
-  "/registration/registration-details/:id": [
-    { entity: "REGISTRATION", action: ["READ"] },
-  ],
-  "/registration/update": [{ entity: "REGISTRATION", action: ["UPDATE"] }], // fake route
+  [urls.REGISTRATION_ADD]: [{ entity: "REGISTRATION", action: ["CREATE"] }],
+  [urls.REGISTRATION_DETAILS]: [{ entity: "REGISTRATION", action: ["READ"] }],
+  [urls.REGISTRATION_UPDATE]: [{ entity: "REGISTRATION", action: ["UPDATE"] }], // fake route
 
   // client routes
-  "/mention": [
+  [urls.MENTION]: [
     { entity: "BUSINESS DEVELOPMENT", action: ["GET ALL", "CREATE"] },
   ],
-  "/mention/add-mention": [
-    { entity: "BUSINESS DEVELOPMENT", action: ["CREATE"] },
-  ],
-  "/mention/mention-details/:id": [
+  [urls.MENTION_ADD]: [{ entity: "BUSINESS DEVELOPMENT", action: ["CREATE"] }],
+  [urls.MENTION_DETAILS]: [
     { entity: "BUSINESS DEVELOPMENT", action: ["READ"] },
   ],
-  "/mention/update": [{ entity: "MENTION", action: ["UPDATE"] }], // fake route
+  [urls.MENTION_UPDATE]: [{ entity: "MENTION", action: ["UPDATE"] }], // fake route
 
-  "/user": [{ entity: "ROLE ENTITY", action: ["GET ALL", "CREATE"] }],
-  "/user/add-user": [{ entity: "ROLE ENTITY", action: ["CREATE"] }],
-  "/user/user-details/:roleId/:id": [
-    { entity: "ROLE ENTITY", action: ["READ"] },
-  ],
-  "/user/update/:roleId": [{ entity: "ROLE ENTITY", action: ["UPDATE"] }], // fake route
+  [urls.USER]: [{ entity: "ROLE ENTITY", action: ["GET ALL", "CREATE"] }],
+  [urls.USER_ADD]: [{ entity: "ROLE ENTITY", action: ["CREATE"] }],
+  [urls.USER_DETAILS]: [{ entity: "ROLE ENTITY", action: ["READ"] }],
+  [urls.USER_UPDATE]: [{ entity: "ROLE ENTITY", action: ["UPDATE"] }], // fake route
 
   // admin routes
-  "/admin": [
+  [urls.ADMIN]: [
     { entity: "CONFIGURATION", action: ["GET ALL", "CREATE"] },
     { entity: "ROLE", action: ["GET ALL", "CREATE"] },
   ],
 
   // admin configuration routes
-  "/admin/configurations": [{ entity: "CONFIGURATION", action: ["GET ALL"] }],
-  "/admin/configurations/details": [
+  [urls.ADMIN_CONFIGURATIONS]: [
+    { entity: "CONFIGURATION", action: ["GET ALL"] },
+  ],
+  [urls.ADMIN_CONFIGURATIONS_DETAILS]: [
     { entity: "CONFIGURATION", action: ["READ"] },
   ],
-  "/admin/configurations/add-configuration": [
+  [urls.ADMIN.ADMIN_CONFIGURATIONS_ADD]: [
     { entity: "CONFIGURATION", action: ["CREATE"] },
   ],
-  "/admin/configurations/update": [
+  [urls.ADMIN_CONFIGURATIONS_UPDATE]: [
     { entity: "CONFIGURATION", action: ["UPDATE"] },
   ],
 
-  "/admin/configurations/industry": [
+  [urls.ADMIN_CONFIGURATIONS_INDUSTRY]: [
     { entity: "CONFIGURATION", action: ["GET ALL"] },
   ],
-  "/admin/configurations/sub-industry": [
+  [urls.ADMIN_CONFIGURATIONS_SUB_INDUSTRY]: [
     { entity: "CONFIGURATION", action: ["GET ALL"] },
   ],
-  "/admin/configurations/solution": [
+  [urls.ADMIN_CONFIGURATIONS_SOLUTION]: [
     { entity: "CONFIGURATION", action: ["GET ALL"] },
   ],
-  "/admin/configurations/sub-solution": [
+  [urls.ADMIN_CONFIGURATIONS_SUB_SOLUTION]: [
     { entity: "CONFIGURATION", action: ["GET ALL"] },
   ],
-  "/admin/configurations/territory": [
+  [urls.ADMIN_CONFIGURATIONS_TERRITORY]: [
     { entity: "CONFIGURATION", action: ["GET ALL"] },
   ],
-  "/admin/configurations/sales-stage": [
+  [urls.ADMIN_CONFIGURATIONS_SALES_STAGE]: [
     { entity: "CONFIGURATION", action: ["GET ALL"] },
   ],
-  "/admin/configurations/sales-sub-stage": [
+  [urls.ADMIN_CONFIGURATIONS_SALES_SUB_STAGE]: [
     { entity: "CONFIGURATION", action: ["GET ALL"] },
   ],
 
   // admin roles and permission routes
-  "/admin/roles-permissions": [{ entity: "ROLE", action: ["GET ALL"] }],
-  "/admin/roles-permissions/add-role": [{ entity: "ROLE", action: ["CREATE"] }],
-  "/admin/roles-permissions/role-details/:id": [
+  [urls.ADMIN_ROLES_PERMISSIONS]: [{ entity: "ROLE", action: ["GET ALL"] }],
+  [urls.ADMIN_ROLES_PERMISSIONS_ADD]: [{ entity: "ROLE", action: ["CREATE"] }],
+  [urls.ADMIN_ROLES_PERMISSIONS_DETAILS]: [
     { entity: "ROLE", action: ["READ"] },
   ],
-  "/admin/roles-permissions/update": [{ entity: "ROLE", action: ["UPDATE"] }], // fake route
+  [urls.ADMIN_ROLES_PERMISSIONS_UPDATE]: [
+    { entity: "ROLE", action: ["UPDATE"] },
+  ], // fake route
 };
 
 export const sideBarPermissions = {
@@ -125,8 +123,9 @@ export const sideBarPermissions = {
   "dashboards/funnel-view": [
     { entity: "FUNNEL VIEW", action: ["ALL VIEW", "MY VIEW"] },
   ],
-  "dashboards/trend-view": [], // No permissions required for the dashboard
-  "dashboards/leaderboard": [{ entity: "LEADERBOARD", action: ["ALL VIEW"] }], // No permissions required for the dashboard
+  "dashboards/summary-view": [{ entity: "SUMMARY VIEW", action: ["ALL VIEW"] }],
+  "dashboards/trend-view": [{ entity: "TREND VIEW", action: ["ALL VIEW"] }],
+  "dashboards/leaderboard": [{ entity: "LEADERBOARD", action: ["ALL VIEW"] }],
   opportunity: [{ entity: "OPPORTUNITY", action: ["GET ALL", "CREATE"] }],
   tender: [{ entity: "TENDER", action: ["GET ALL", "CREATE"] }],
   mention: [{ entity: "BUSINESS DEVELOPMENT", action: ["GET ALL", "CREATE"] }],

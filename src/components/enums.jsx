@@ -69,7 +69,7 @@ export const IndustrySelector = ({
         filterOption={(input, option) =>
           option?.children?.toLowerCase().includes(input.toLowerCase())
         }
-        onChange={handleSelectChange}
+        // onChange={handleSelectChange}
       >
         {industries?.map(({ label, _id }, idx) => (
           <Select.Option key={idx} value={_id}>
@@ -260,20 +260,16 @@ export const SalesStageSelector = ({ name, label, rules, form }) => {
       setLoading(false);
     }
   }, [status, data]);
-  
-  // to get form initial value 
+
+  // to get form initial value
   useEffect(() => {
-    console.log("name : ", name)
-    console.log("form -----", form)
-    const initialValue = form?.getFieldValue(name); // Get the initial value of the field
-    console.log("Initial Value for SalesStageSelector:", initialValue);
+    const initialValue = form?.getFieldValue(name);
   }, [form, name]);
-  
+
   // this helps to algn the sales sub stage with the selected sales stage
   const handleSelectChange = (id) => {
-    console.log("selected----------------------", id);
     dispatch(salesSubStageActions.filterSalesSubStages(id));
- }
+  };
 
   return (
     <Form.Item name={name} label={label} rules={rules}>
@@ -284,7 +280,7 @@ export const SalesStageSelector = ({ name, label, rules, form }) => {
         filterOption={(input, option) =>
           option?.children?.toLowerCase().includes(input.toLowerCase())
         }
-        onChange={handleSelectChange} 
+        onChange={handleSelectChange}
       >
         {salesStages?.map(({ label, _id }, idx) => (
           <Select.Option key={idx} value={_id}>
@@ -299,7 +295,7 @@ export const SalesStageSelector = ({ name, label, rules, form }) => {
 export const SalesSubStageSelector = ({ name, label, rules }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  const {data : filteredData} = useSelector(
+  const { data: filteredData } = useSelector(
     (state) => state.salesSubStage.getFilteredSalesSubStages
   );
 
@@ -307,7 +303,8 @@ export const SalesSubStageSelector = ({ name, label, rules }) => {
     (state) => state.salesSubStage.getAllSalesSubStages
   );
   const [salesSubStages, setSubSalesStages] = useState(data?.data);
-  const [filteredSalesSubStages, setFilteredSubSalesStages] = useState(filteredData);
+  const [filteredSalesSubStages, setFilteredSubSalesStages] =
+    useState(filteredData);
 
   const fetchAllSalesSubStages = useCallback(() => {
     if (!salesSubStages) {
@@ -319,10 +316,10 @@ export const SalesSubStageSelector = ({ name, label, rules }) => {
   useEffect(() => {
     fetchAllSalesSubStages();
   }, [fetchAllSalesSubStages]);
-  
-  useEffect(()=>{
-    setFilteredSubSalesStages(filteredData)
-  },[filteredData])
+
+  useEffect(() => {
+    setFilteredSubSalesStages(filteredData);
+  }, [filteredData]);
 
   useEffect(() => {
     if (status == "pending") {

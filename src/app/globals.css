@@ -152,14 +152,14 @@ html, body {
   }
 
   /* avoid wrapping in table*/
-  .ant-table-thead th {
-  white-space: nowrap; /* Prevent wrapping */
+  /* .ant-table-thead th {
+  white-space: nowrap; 
   text-overflow: ellipsis; 
   text-align: center;
   overflow: hidden;
-  padding: 12px; /* Adjust padding for better spacing */
-  font-weight: bold; /* Optional: Make header text bold */
-}
+  padding: 12px;
+  font-weight: bold;
+} */
 
 .ant-table-cell {
   white-space: nowrap; /* Prevent cell wrapping */

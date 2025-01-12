@@ -172,10 +172,13 @@ const TargetPage = () => {
         {/* Render Targets */}
         {fetchingTargets && <FullScreenLoading center={true} />}
         {!fetchingTargets && targets && targets.length > 0 && (
-          <div>
+          <div style={{ height: "100%" }}>
             <Row
               gutter={16}
-              style={{ marginBottom: "16px", fontWeight: "bold" }}
+              style={{
+                marginBottom: "16px",
+                fontWeight: "bold",
+              }}
             >
               <Col span={4}>Label</Col>
               <Col span={4}>Q1</Col>
@@ -184,7 +187,15 @@ const TargetPage = () => {
               <Col span={4}>Q4</Col>
               <Col span={4}>Action</Col>
             </Row>
-            {targets.map((target) => renderTargetRow(target))}
+            <div
+              style={{
+                maxHeight: "400px", // Adjust the height as needed
+                overflowY: "auto",
+                padding: "8px",
+              }}
+            >
+              {targets.map((target) => renderTargetRow(target))}
+            </div>
           </div>
         )}
       </div>
