@@ -8,9 +8,9 @@ const { Title, Text } = Typography;
 
 const ClientCard = ({ client }) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  if (!client) return null;
   const router = useRouter();
-
+  if (!client) return null;
+  
   const toggleExpand = () => {
     setIsExpanded((prev) => !prev);
   };

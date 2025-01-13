@@ -98,7 +98,7 @@ const DeleteClientPage = () => {
           danger
           size="large"
           loading={loading}
-          onClick={() => handleDeleteClient(id, 'true')}
+          onClick={() => handleDeleteClient(id, 'true')} // finally deletes the client
         >
           Confirm Delete
         </Button>

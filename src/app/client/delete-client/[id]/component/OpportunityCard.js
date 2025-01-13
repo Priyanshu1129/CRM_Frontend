@@ -3,13 +3,13 @@ import { Card, Row, Col, Typography, Button, Divider, Space } from "antd";
 import { EyeOutlined, DownOutlined, UpOutlined } from "@ant-design/icons";
 import { colorConfig } from "@/config";
 import { useRouter } from "next/navigation";
+import TenderCard from "./tenderCard";
 
 const { Title, Text } = Typography;
 
 const OpportunityCard = ({ opportunity }) => {
   const router = useRouter();
   const [isOpportunityExpanded, setIsOpportunityExpanded] = useState(false);
-  const [isTenderExpanded, setIsTenderExpanded] = useState(false);
 
   if (!opportunity) return null;
 
@@ -17,9 +17,7 @@ const OpportunityCard = ({ opportunity }) => {
     setIsOpportunityExpanded((prev) => !prev);
   };
 
-  const toggleTenderExpand = () => {
-    setIsTenderExpanded((prev) => !prev);
-  };
+  
 
   const {
     customId,
@@ -115,93 +113,8 @@ const OpportunityCard = ({ opportunity }) => {
       </div>
 
       {/* Associated Tender Section (Nested Card) */}
-      {associatedTender && (
-        <Card
-          title={
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <Title level={5} style={{ margin: 0, color: "#fff" }}>
-                Associated Tender: {associatedTender.rfpTitle || "N/A"}
-              </Title>
-              <Button
-               onClick={()=>{
-                router.push(`/tender/tender-details/${associatedTender._id.toString()}`)
-              }}
-                type="text"
-                icon={<EyeOutlined style={{ fontSize: 18, color: "#fff" }} />}
-              />
-            </div>
-          }
-          headStyle={{ backgroundColor: colorConfig.primary }}
-          bodyStyle={{ padding: "16px" }}
-          style={{
-            marginTop: "16px",
-            borderRadius: "8px",
-            borderWidth: "1px",
-            borderColor: colorConfig.primary,
-            backgroundColor: "#f4f6f8",
-          }}
-        >
-          <Row gutter={[16, 16]}>
-            <Col span={12}>
-              <Text>Tender ID:</Text> <Text strong>{associatedTender.customId || "N/A"}</Text>
-            </Col>
-            <Col span={12}>
-              <Text>RFP Title:</Text> <Text strong>{associatedTender.rfpTitle || "N/A"}</Text>
-            </Col>
-            <Col span={12}>
-              <Text>Submission Due Date:</Text>{" "}
-              <Text strong>
-                {associatedTender.submissionDueDate
-                  ? new Date(associatedTender.submissionDueDate).toLocaleDateString()
-                  : "N/A"}
-              </Text>
-            </Col>
-            <Col span={12}>
-              <Text>Bond Value:</Text> <Text strong>${associatedTender.bondValue?.toLocaleString() || "N/A"}</Text>
-            </Col>
-          </Row>
-
-          {isTenderExpanded && (
-            <div style={{ marginTop: "16px" }}>
-              <Divider />
-              <Row gutter={[16, 16]}>
-                <Col span={12}>
-                  <Text>Bond Issue Date:</Text>{" "}
-                  <Text strong>
-                    {associatedTender.bondIssueDate
-                      ? new Date(associatedTender.bondIssueDate).toLocaleDateString()
-                      : "N/A"}
-                  </Text>
-                </Col>
-                <Col span={12}>
-                  <Text>Bond Expiry Date:</Text>{" "}
-                  <Text strong>
-                    {associatedTender.bondExpiry
-                      ? new Date(associatedTender.bondExpiry).toLocaleDateString()
-                      : "N/A"}
-                  </Text>
-                </Col>
-                <Col span={12}>
-                  <Text>Stage:</Text> <Text strong>{associatedTender.stage?.label || "N/A"}</Text>
-                </Col>
-                <Col span={12}>
-                  <Text>Stage Explanation:</Text>{" "}
-                  <Text strong>{associatedTender.stageExplanation || "N/A"}</Text>
-                </Col>
-              </Row>
-            </div>
-          )}
-
-          <div style={{ textAlign: "center", marginTop: "16px" }}>
-            <Button
-              type="text"
-              icon={isTenderExpanded ? <UpOutlined /> : <DownOutlined />}
-              onClick={toggleTenderExpand}
-            >
-              {isTenderExpanded ? "Show Less" : "Show More"}
-            </Button>
-          </div>
-        </Card>
+      {associatedTender && associatedTender._id && (
+        <TenderCard tender={associatedTender} />
       )}
     </Card>
   );
