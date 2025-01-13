@@ -2,6 +2,7 @@ import React from "react";
 import { Button, Card, Descriptions, Space, Typography } from "antd";
 import { EyeOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
+import { colorConfig } from "@/config";
 
 const { Text } = Typography;
 

@@ -142,26 +142,25 @@ export const updateClient = (clientData, clientId) => async (dispatch) => {
   }
 };
 
-export const deleteClient = (clientId, token) => async (dispatch) => {
+
+export const deleteClient = (clientId, confirm = 'false') => async (dispatch) => {
   try {
-    console.log("delete-clientData", clientId);
+    console.log("delete-ClientData", clientId);
     dispatch(clientActions.deleteClientRequest());
 
-    // Use axiosRequest helper function for DELETE request
+    // Make the API call using the axiosRequest helper
     const response = await axiosRequest(
       dispatch,
-      "DELETE",
-      `${route}/${clientId}`
+      "DELETE", // HTTP method for DELETE request
+      `${route}/${clientId}?confirm=${confirm}`, // Endpoint for deleting Client by ID
     );
 
-    console.log("delete-client-res-data", response);
-    dispatch(clientActions.deleteClientSuccess(response));
+    console.log("delete-Client-res-data", response.data);
+    dispatch(clientActions.deleteClientSuccess(response.data));
   } catch (error) {
-    console.log("delete-client-error", error);
-    // Error message is automatically handled by axiosRequest
     dispatch(
       clientActions.deleteClientFailure(
-        error.message || "Failed to delete client"
+        error.message || "An error occurred"
       )
     );
   }
