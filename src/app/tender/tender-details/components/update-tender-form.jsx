@@ -77,6 +77,7 @@ export const UpdateTenderForm = ({ tender }) => {
               name="client"
               label="Client Name"
               rules={tenderFormRules.clientName}
+              disabled={true}
             />
           </Col>
           <Col {...colSpan}>

@@ -8,6 +8,10 @@ import {
   UserAddOutlined,
   FormOutlined,
   FileTextOutlined,
+  SettingOutlined,
+  SolutionOutlined,
+  GiftOutlined,
+  CheckSquareOutlined,
 } from "@ant-design/icons";
 
 import { MdOutlineCircle } from "react-icons/md";
@@ -90,22 +94,22 @@ export const resources = [
   {
     key: "account-management",
     label: "Account Management",
-    icon: <UserAddOutlined />,
+    icon: <SettingOutlined />,
   },
   {
     key: "customer-360",
     label: "Customer 360",
-    icon: <UserAddOutlined />,
+    icon: <SolutionOutlined />,
   },
   {
     key: "incentive",
     label: "Incentive",
-    icon: <UserAddOutlined />,
+    icon: <GiftOutlined />,
   },
   {
     key: "task",
     label: "Task",
-    icon: <UserAddOutlined />,
+    icon: <CheckSquareOutlined />,
   },
   {
     key: "admin",

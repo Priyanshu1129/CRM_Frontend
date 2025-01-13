@@ -69,6 +69,11 @@ export const UpdateOpportunityForm = ({ opportunity }) => {
           </Form.Item>
         </Col>
         <Col xs={24} sm={12} md={8} lg={6}>
+          <Form.Item name="customId" label="Custom Id">
+            <Input disabled />
+          </Form.Item>
+        </Col>
+        <Col xs={24} sm={12} md={8} lg={6}>
           <ClientSelector
             name="client"
             label="Client Name"
@@ -108,6 +113,7 @@ export const UpdateOpportunityForm = ({ opportunity }) => {
             name="associatedTender"
             label="Associated Tender"
             rules={opportunityFormRules.associatedTender}
+            disabled={true}
           />
         </Col>
         <Col xs={24} sm={12} md={8} lg={6}>
@@ -192,7 +198,7 @@ export const UpdateOpportunityForm = ({ opportunity }) => {
           />
         </Col>
         <Col span={24}>
-          <RevenueInput rules={opportunityFormRules.revenue} />
+          <RevenueInput form={form} rules={opportunityFormRules.revenue} />
         </Col>
       </Row>
 
@@ -211,6 +217,11 @@ export const UpdateOpportunityForm = ({ opportunity }) => {
             rules={tenderFormRules.bondIssueDate}
           >
             <DatePicker style={{ width: "100%" }} />
+          </Form.Item>
+        </Col>
+        <Col xs={24} sm={12} md={8} lg={6}>
+          <Form.Item name="closingDate" label="Closing Date">
+            <DatePicker disabled style={{ width: "100%" }} />
           </Form.Item>
         </Col>
       </Row>

@@ -108,6 +108,7 @@ const AddTender = () => {
                 name="client"
                 label="Client Name"
                 rules={tenderFormRules.clientName}
+                disabled={true}
               />
             </Col>
             <Col {...colSpan}>

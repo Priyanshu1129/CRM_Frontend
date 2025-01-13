@@ -137,4 +137,10 @@ export const sideBarPermissions = {
     { entity: "CONFIGURATION", action: ["GET ALL", "CREATE"] },
     { entity: "ROLE", action: ["GET ALL", "CREATE"] },
   ],
+  configurations: [{ entity: "CONFIGURATION", action: ["GET ALL"] }],
+  "roles-permissions": [{ entity: "ROLE", action: ["GET ALL"] }],
+  targets: [{ entity: "TARGET", action: ["GET ALL"] }],
+  "db-backup": [{ entity: "BACKUP", action: ["YES"] }],
+  report: [{ entity: "REPORT", action: ["YES"] }],
+  "system-config": [{ entity: "SYSTEM_CONFIG", action: ["YES"] }],
 };

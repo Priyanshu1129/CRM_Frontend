@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { convertToUSD } from "@/utilities/convertCurrency";
+import { convertRevenue, convertCurrency } from "@/utilities/convertCurrency";
 import {
   updateOpportunity,
   getAllOpportunities,
@@ -25,6 +25,7 @@ export const useUpdateOpportunity = ({ opportunity, form }) => {
     if (opportunity) {
       const opportunityInitialValues = {
         client: opportunity.client,
+        customId: opportunity.customId,
         partneredWith: opportunity.partneredWith,
         projectName: opportunity.projectName,
         associatedTender: opportunity.associatedTender,
@@ -42,12 +43,16 @@ export const useUpdateOpportunity = ({ opportunity, form }) => {
           value: opportunity.offsets,
           selectedCurrency: currency?.value,
         }),
-        // revenue: convertCurrency({
-        //   value: opportunity.revenue,
-        //   selectedCurrency: currency?.value,
-        // }),
+        revenue: convertRevenue({
+          revenue: opportunity?.revenue,
+          selectedCurrency: currency?.value,
+          toUSD: false,
+        }),
         expectedWonDate: opportunity.expectedWonDate
           ? dayjs(opportunity.expectedWonDate)
+          : null,
+        closingDate: opportunity.closingDate
+          ? dayjs(opportunity.closingDate)
           : null,
       };
       form.setFieldsValue(opportunityInitialValues);
@@ -139,7 +144,11 @@ export const useUpdateOpportunity = ({ opportunity, form }) => {
         });
       }
       if (changedValues.revenue) {
-        changedValues.revenue = convertToUSD(values.revenue, currency?.value);
+        changedValues.revenue = convertRevenue({
+          revenue: values.revenue,
+          selectedCurrency: currency?.value,
+          toUSD: true,
+        });
       }
       dispatch(updateOpportunity(changedValues, opportunity._id));
     } else {

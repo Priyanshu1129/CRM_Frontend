@@ -2,7 +2,7 @@ import React from "react";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Space, Col, Row } from "antd";
 import { CurrencyAmountInput } from "@/components";
-export const RevenueInput = ({ rules }) => {
+export const RevenueInput = ({ rules, form }) => {
   return (
     <Form.List name="revenue">
       {(fields, { add, remove }) => (

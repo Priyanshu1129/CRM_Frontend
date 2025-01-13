@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { opportunityActions } from "@/redux/slices/opportunitySlice";
 import { createOpportunity } from "@/redux/actions/opportunityAction";
 import { notification } from "antd";
-import { convertToUSD } from "@/utilities/convertCurrency";
+import { convertRevenue } from "@/utilities/convertCurrency";
 import { convertCurrency } from "@/utilities/convertCurrency";
 
 export const useAddOpportunity = () => {
@@ -47,8 +47,12 @@ export const useAddOpportunity = () => {
       selectedCurrency: currency?.value,
       toUSD: true,
     });
-    if (values.revenue) {
-      values.revenue = convertToUSD(values.revenue, currency?.value);
+    if (values?.revenue) {
+      values.revenue = convertRevenue({
+        revenue: values.revenue,
+        selectedCurrency: currency?.value,
+        toUSD: true,
+      });
     }
     let newValues = {
       ...values,

@@ -341,6 +341,7 @@ const AddOpportunity = () => {
                 name="associatedTender"
                 label="Associated Tender"
                 rules={opportunityFormRules.associatedTender}
+                disabled={true}
               />
             </Col>
             <Col xs={24} sm={12} md={8} lg={6}>
