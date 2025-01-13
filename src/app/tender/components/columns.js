@@ -211,7 +211,7 @@ export const getColumns = ({ selectedCurrency, data }) => {
       fixed: "right",
       width: 120,
       render: (_, record) => (
-        <TableActions showUrl={`/tender/tender-details/${record._id}`} />
+        <TableActions showUrl={`/tender/tender-details/${record._id}` } deleteUrl={`/tender/delete-tender/${record._id}`} />
       ),
     },
   ];
