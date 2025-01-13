@@ -121,7 +121,7 @@ export const updateTender = (tenderData, tenderId) => async (dispatch) => {
   }
 };
 
-export const deleteTender = (tenderId) => async (dispatch) => {
+export const deleteTender = (tenderId, confirm = 'false') => async (dispatch) => {
   try {
     console.log("delete-tenderData", tenderId);
     dispatch(tenderActions.deleteTenderRequest());
@@ -129,9 +129,7 @@ export const deleteTender = (tenderId) => async (dispatch) => {
     const data = await axiosRequest(
       dispatch,
       "DELETE", // HTTP method for DELETE request
-      `${route}/${tenderId}`, // Endpoint for deleting a tender by ID
-      null, // No data to send in DELETE request
-      null // No query parameters
+      `${route}/${tenderId}?confirm=${confirm}`, // Endpoint for deleting a tender by ID
     );
 
     console.log("delete-tender-res-data", data);
