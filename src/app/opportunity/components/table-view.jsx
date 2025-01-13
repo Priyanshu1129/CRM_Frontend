@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Table } from "@/components";
 import { getColumns } from "./columns";
 import { useSelector } from "react-redux";
@@ -21,6 +21,7 @@ export const OpportunitiesTableView = ({
 
   const columns = getColumns({
     selectedCurrency,
+    data,
   });
   return (
     <>

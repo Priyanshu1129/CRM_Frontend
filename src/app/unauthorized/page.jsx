@@ -1,8 +1,8 @@
 const UnauthorizedPage = () => {
   return (
-    <div>
-      <h1>Unauthorized</h1>
-      <p>You do not have permission to access this page.</p>
+    <div style={{ textAlign: "center" }}>
+      <h1>403 Unauthorized</h1>
+      <p>Sorry, You do not have permission to access this resource.</p>
     </div>
   );
 };

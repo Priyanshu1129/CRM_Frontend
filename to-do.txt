@@ -1,18 +1,30 @@
--------------------------------------------------------update error
+-------------------------------------------------------perm -update error
 -------------------------------------------------------handle dashboard permission + component permission (solve error)
----not allow changing self permission 
-super admin should not come in list
-update action
-authorize and authenticated seperate boundary
-admin cards are not hiding
-list is should also hide
-auth check on required boxes
-seprate field for country code - small
-arrange entities 
-fix role and permission
+--------------------------------------------------------update action
+-------------------------------------------------not allow changing self permission 
+-----------------------------------------------------super admin should not come in list
+-----------------------------------------------------authorize and authenticated seperate boundary
+----------------------------------------------------auth check on required boxes
+--------------------------------------------------seprate field for country code - small
+praveen new changes
 make currency change working
+salestage and substage field in opportunity update form
+opportunity revenue is not showing in update form
+notes is not visible in mention update form
+something memorable is not working - contact 
+arrange entities 
+primary relationship is not added in add client
 
+fix role and permission
+admin cards are not hiding
+dashboard filters
+funnel view shimmer and design
+sorting
+check all routes
 
+update list on update/add + added user not coming
+
+-------------------------------------------------------------list is should also hide (excluded)
 -------------------------------------------------------------------correct the flow
 -------------------------------------------------------------self understandable permission action names 
 ---------------------------
@@ -21,31 +33,20 @@ make currency change working
 --------------------------------------------------------remove table filter options extra hook
 --------------------------------------------------------infinite loop or infinite request
 --------------------------------------------------------multiple notifications 
+
 subindustries refresh not working
-check all routes
-
-
 utilize hook for global enums
 configuration problem (implement rbac in frontend)
-create unauthorze 
-update phone / mobile in contact having problem-
+
 
 proper- logout and login 
 add .env
-my-view filters
-funnel view shimmer and design
-opportunity revenue is not showing in update form
-sorting
+
+
 detail page needed
-notes is not visible in mention update form
-insert in list  on add 
-update list on update
+
 business development hook
 frontend testing
-added user not coming 
-something memorable is not working - contact
-primary relationship is not added in add client
-salestage and substage field in opportunity update form 
 dates in add client - frontend
 filter experience is not good
 create hook for specific enums

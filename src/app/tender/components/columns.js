@@ -1,27 +1,54 @@
 import { TableActions } from "@/components";
 import { convertCurrency } from "@/utilities/convertCurrency";
 
-export const getColumns = ({ selectedCurrency }) => {
+const calculateDynamicWidth = (title, dataIndex, data) => {
+  // Calculate the maximum value length in the column
+  const maxValueLength = data?.reduce((max, record) => {
+    const value = Array.isArray(dataIndex)
+      ? dataIndex.reduce((obj, key) => (obj ? obj[key] : ""), record)
+      : record[dataIndex];
+
+    // Calculate the length of the value or fallback to 0 for null/undefined
+    const length = value ? value.toString().length : 0;
+    return Math.max(max, length);
+  }, 0);
+
+  // Compare with the title length
+  const titleLength = title.length;
+  const maxLength = Math.max(maxValueLength, titleLength) ?? 100;
+
+  // Set a base width factor (e.g., 10px per character)
+  const widthFactor = 10;
+  return maxLength * widthFactor;
+};
+
+export const getColumns = ({ selectedCurrency, data }) => {
   const columns = [
     {
-      title: "Custom ID",
-      dataIndex: "customId",
-      key: "customId",
-      render: (text) => text || "N/A",
-      width: 150,
+      title: "S No.",
+      key: "serialNumber",
+      width: 80, // Fixed width for serial number
+      render: (_, __, rowIndex) => rowIndex + 1, // Dynamically calculate serial number
     },
+    // {
+    //   title: "Custom ID",
+    //   dataIndex: "customId",
+    //   key: "customId",
+    //   render: (text) => text || "N/A",
+    //   width: 150,
+    // },
     {
       title: "RFP Date",
       dataIndex: "rfpDate",
       key: "rfpDate",
       render: (text) => (text ? new Date(text).toLocaleDateString() : "N/A"),
-      width: 120,
+      width: 150,
     },
     {
       title: "Entry Date",
       dataIndex: "entryDate",
       key: "entryDate",
-      width: 120,
+      width: 150,
       sorter: (a, b) => {},
       sortDirections: ["ascend", "descend"],
       render: (text) => (text ? new Date(text).toLocaleDateString() : "N/A"),
@@ -30,7 +57,7 @@ export const getColumns = ({ selectedCurrency }) => {
       title: "Entered By",
       dataIndex: "enteredBy",
       key: "enteredBy",
-      width: 200,
+      width: calculateDynamicWidth("Entered By", "enteredBy", data),
       render: (enteredBy) =>
         enteredBy ? `${enteredBy.firstName} ${enteredBy.lastName}` : "N/A",
     },
@@ -47,41 +74,46 @@ export const getColumns = ({ selectedCurrency }) => {
       key: "client",
       render: (clientName) => clientName || "N/A",
       width: 200,
+      width: calculateDynamicWidth("Client", ["client", "name"], data),
     },
     {
       title: "Reference",
       dataIndex: "reference",
       key: "reference",
       render: (text) => text || "N/A",
-      width: 150,
+      width: calculateDynamicWidth("Reference", "reference", data),
     },
     {
       title: "RFP Title",
       dataIndex: "rfpTitle",
       key: "rfpTitle",
       render: (text) => text || "N/A",
-      width: 200,
+      width: calculateDynamicWidth("RFP Title", "rfpTitle", data),
     },
     {
       title: "RFP Source",
       dataIndex: "rfpSource",
       key: "rfpSource",
       render: (text) => text || "N/A",
-      width: 150,
+      width: calculateDynamicWidth("RFP Source", "rfpSource", data),
     },
     {
       title: "Associated Opportunity",
       dataIndex: ["associatedOpportunity", "customId"],
       key: "associatedOpportunity",
       render: (text) => text || "N/A",
-      width: 200,
+      width: calculateDynamicWidth(
+        "Associated Opportunity",
+        ["associatedOpportunity", "customId"],
+        data
+      ),
     },
     {
       title: "Bond",
       dataIndex: "bond",
       key: "bond",
       render: (text) => (text ? "Yes" : "No"),
-      width: 100,
+      width: calculateDynamicWidth("Bond", "bond", data),
     },
     {
       title: `Bond Value (${selectedCurrency?.key})`,
@@ -91,7 +123,11 @@ export const getColumns = ({ selectedCurrency }) => {
           ? convertCurrency(value, selectedCurrency?.value)
           : "N/A",
       key: "bondValue",
-      width: 140,
+      width: calculateDynamicWidth(
+        `Bond Value (${selectedCurrency?.key})`,
+        "bondValue",
+        data
+      ),
     },
     {
       title: "Bond Issue Date",
@@ -112,7 +148,7 @@ export const getColumns = ({ selectedCurrency }) => {
       dataIndex: "submissionMode",
       key: "submissionMode",
       render: (text) => text || "N/A",
-      width: 150,
+      width: calculateDynamicWidth("Submission Mode", "submissionMode", data),
     },
     {
       title: "Evaluation Date",
@@ -129,7 +165,7 @@ export const getColumns = ({ selectedCurrency }) => {
         officer
           ? `${officer.firstName || "N/A"} ${officer.lastName || "N/A"}`
           : "N/A",
-      width: 150,
+      width: calculateDynamicWidth("Officer", "officer", data),
     },
     {
       title: "Bid Manager",
@@ -139,28 +175,32 @@ export const getColumns = ({ selectedCurrency }) => {
         manager
           ? `${manager.firstName || "N/A"} ${manager.lastName || "N/A"}`
           : "N/A",
-      width: 150,
+      width: calculateDynamicWidth("Bid Manager", "bidManager", data),
     },
     {
       title: "Stage",
       dataIndex: ["stage", "label"],
       key: "stage",
       render: (text) => text || "N/A",
-      width: 150,
+      width: calculateDynamicWidth("Stage", ["stage", "label"], data),
     },
     {
       title: "Stage Explanation",
       dataIndex: "stageExplanation",
       key: "stageExplanation",
       render: (text) => text || "N/A",
-      width: 200,
+      width: calculateDynamicWidth(
+        "Stage Explanation",
+        "stageExplanation",
+        data
+      ),
     },
     {
       title: "Submission Date",
       dataIndex: "submissionDate",
       key: "submissionDate",
       render: (text) => (text ? new Date(text).toLocaleDateString() : "N/A"),
-      width: 120,
+      width: 150,
     },
     {
       title: "Action",

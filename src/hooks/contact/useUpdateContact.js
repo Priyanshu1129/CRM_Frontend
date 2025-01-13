@@ -110,7 +110,9 @@ export const useUpdateContact = ({ form, contact }) => {
     loading,
     onFinish,
     phoneCountryCode,
+    setPhoneCountryCode,
     mobileCountryCode,
+    setMobileCountryCode,
     handleAvatarChange,
   };
 };
