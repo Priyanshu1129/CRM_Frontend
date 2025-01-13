@@ -236,7 +236,10 @@ export const getColumns = ({ selectedCurrency, data }) => {
       fixed: "right",
       width: 100,
       render: (_, record) => (
-        <TableActions showUrl={`/client/client-details/${record._id}`} />
+        <TableActions 
+        showUrl={`/client/client-details/${record._id}`}
+        deleteUrl={`/client/delete-client/${record._id}`}
+        />
       ),
     },
   ];
