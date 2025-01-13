@@ -119,7 +119,10 @@ export const getColumns = ({ selectedCurrency, data }) => {
       key: "potentialTopLine",
       render: (value) =>
         value || value == 0
-          ? convertCurrency(value, selectedCurrency?.value)
+          ? convertCurrency({
+              value,
+              selectedCurrency: selectedCurrency?.value,
+            })
           : "N/A",
       width: calculateDynamicWidth(
         `Potential Top Line (${selectedCurrency?.key})`,
@@ -133,7 +136,10 @@ export const getColumns = ({ selectedCurrency, data }) => {
       key: "potentialOffset",
       render: (value) =>
         value || value == 0
-          ? convertCurrency(value, selectedCurrency?.value)
+          ? convertCurrency({
+              value,
+              selectedCurrency: selectedCurrency?.value,
+            })
           : "N/A",
       width: calculateDynamicWidth(
         `Potential Offset (${selectedCurrency?.key})`,
@@ -152,7 +158,10 @@ export const getColumns = ({ selectedCurrency, data }) => {
       ),
       render: (value) =>
         value || value == 0
-          ? convertCurrency(value, selectedCurrency?.value)
+          ? convertCurrency({
+              value,
+              selectedCurrency: selectedCurrency?.value,
+            })
           : "N/A",
     },
     {

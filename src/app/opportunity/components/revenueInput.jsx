@@ -2,7 +2,7 @@ import React from "react";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Space, Col, Row } from "antd";
 import { CurrencyAmountInput } from "@/components";
-export const RevenueInput = ({ setCurrency, rules }) => {
+export const RevenueInput = ({ rules }) => {
   return (
     <Form.List name="revenue">
       {(fields, { add, remove }) => (
@@ -28,7 +28,6 @@ export const RevenueInput = ({ setCurrency, rules }) => {
                   label="Quarter 1"
                   name={[name, "Q1"]}
                   rules={rules.quarter}
-                  setCurrency={setCurrency}
                 />
               </Col>
               <Col span={6}>
@@ -37,7 +36,6 @@ export const RevenueInput = ({ setCurrency, rules }) => {
                   label="Quarter 2"
                   name={[name, "Q2"]}
                   rules={rules.quarter}
-                  setCurrency={setCurrency}
                 />
               </Col>
               <Col span={6}>
@@ -46,7 +44,6 @@ export const RevenueInput = ({ setCurrency, rules }) => {
                   label="Quarter 3"
                   name={[name, "Q3"]}
                   rules={rules.quarter}
-                  setCurrency={setCurrency}
                 />
               </Col>
               <Col span={6}>
@@ -55,7 +52,6 @@ export const RevenueInput = ({ setCurrency, rules }) => {
                   label="Quarter 4"
                   name={[name, "Q4"]}
                   rules={rules.quarter}
-                  setCurrency={setCurrency}
                 />
               </Col>
             </Row>

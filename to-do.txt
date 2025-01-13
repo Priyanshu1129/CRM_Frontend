@@ -6,8 +6,8 @@
 -----------------------------------------------------authorize and authenticated seperate boundary
 ----------------------------------------------------auth check on required boxes
 --------------------------------------------------seprate field for country code - small
+---------------------------------------------------make currency change working
 praveen new changes
-make currency change working
 salestage and substage field in opportunity update form
 opportunity revenue is not showing in update form
 notes is not visible in mention update form

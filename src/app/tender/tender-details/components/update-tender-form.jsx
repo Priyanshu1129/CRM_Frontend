@@ -28,11 +28,9 @@ import { useCheckPermission } from "@/hooks/permissions/useCheckPermission";
 
 export const UpdateTenderForm = ({ tender }) => {
   const [form] = Form.useForm();
-  const screens = Grid.useBreakpoint();
-  const [currency, setCurrency] = useState(1);
   const canUpdateTender = useCheckPermission("/tender/update");
 
-  const { loading, onFinish } = useUpdateTender({ tender, form, currency });
+  const { loading, onFinish } = useUpdateTender({ tender, form });
 
   const colSpan = {
     xs: 24, // 1 field per row on mobile
@@ -149,8 +147,6 @@ export const UpdateTenderForm = ({ tender }) => {
               name="bondValue"
               label="Bond Value"
               rules={tenderFormRules.bondValue}
-              currency={currency}
-              setCurrency={setCurrency}
             />
           </Col>
           <Col {...colSpan}>

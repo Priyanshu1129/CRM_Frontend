@@ -3,11 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { clientActions } from "@/redux/slices/clientSlice";
 import { createClient } from "@/redux/actions/clientAction";
 import { notification } from "antd";
+import { convertCurrency } from "@/utilities/convertCurrency";
 
-export const useAddClient = ({ currency }) => {
+export const useAddClient = () => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const { status, error } = useSelector((state) => state.client.createClient);
+  const { currency } = useSelector((state) => state.currency.viewCurrency);
 
   const [avatarChanged, setAvatarChanged] = useState(false);
   const [avatar, setAvatar] = useState(null);
@@ -45,9 +47,11 @@ export const useAddClient = ({ currency }) => {
   };
 
   const onFinish = (values) => {
-    const annualRevenueInUSD = parseFloat(
-      values?.annualRevenue / currency
-    ).toFixed(2);
+    const annualRevenueInUSD = convertCurrency({
+      value: values?.annualRevenue,
+      selectedCurrency: currency?.value,
+      toUSD: true,
+    });
 
     let newValues = {
       ...values,

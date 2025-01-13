@@ -12,7 +12,8 @@ export const ShowCurrency = ({ value }) => {
   }, [currency, selectedCurrency]);
   return (
     <>
-      {selectedCurrency?.key} {convertCurrency(value, selectedCurrency?.value)}
+      {selectedCurrency?.key}{" "}
+      {convertCurrency({ value, selectedCurrency: selectedCurrency?.value })}
     </>
   );
 };

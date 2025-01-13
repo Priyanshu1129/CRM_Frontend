@@ -36,7 +36,7 @@ const AddTender = () => {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
-  const { loading, onFinish, currency, setCurrency } = useAddTender();
+  const { loading, onFinish } = useAddTender();
 
   // Define dynamic span for different screen sizes
   const colSpan = {
@@ -177,8 +177,6 @@ const AddTender = () => {
                 name="bondValue"
                 label="Bond Value"
                 rules={tenderFormRules.bondValue}
-                currency={currency}
-                setCurrency={setCurrency}
               />
             </Col>
             <Col {...colSpan}>

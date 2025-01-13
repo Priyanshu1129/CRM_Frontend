@@ -132,7 +132,10 @@ export const getColumns = ({ selectedCurrency, data }) => {
       ),
       render: (value) =>
         value || value == 0
-          ? convertCurrency(value, selectedCurrency?.value)
+          ? convertCurrency({
+              value: value,
+              selectedCurrency: selectedCurrency?.value,
+            })
           : "N/A",
     },
     {
@@ -214,7 +217,10 @@ export const getColumns = ({ selectedCurrency, data }) => {
       ),
       render: (value) =>
         value || value == 0
-          ? convertCurrency(value, selectedCurrency?.value)
+          ? convertCurrency({
+              value,
+              selectedCurrency: selectedCurrency?.value,
+            })
           : "N/A",
     },
     {

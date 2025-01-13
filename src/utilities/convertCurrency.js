@@ -1,8 +1,8 @@
-export const convertCurrency = (value, selectedCurrency) => {
+export const convertCurrency = ({ value, selectedCurrency, toUSD = false }) => {
   const conversionRate = parseFloat(selectedCurrency) || 1;
-  return `${(value * conversionRate).toFixed(2)}`;
+  if (toUSD) return `${(value / conversionRate).toFixed(2)}`;
+  else return `${(value * conversionRate).toFixed(2)}`;
 };
-
 
 export const convertToUSD = (revenueArray, conversionRateToUSD) => {
   if (revenueArray)
@@ -18,5 +18,4 @@ export const convertToUSD = (revenueArray, conversionRateToUSD) => {
 
       return convertedItem;
     });
-
 };
