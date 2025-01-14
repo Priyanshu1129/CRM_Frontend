@@ -1,144 +1,182 @@
-import React, { useState } from 'react';
-import { Card, Row, Col, Typography, Avatar, Button, Space } from 'antd';
-import { EyeOutlined, EyeInvisibleOutlined, DownOutlined, UpOutlined } from '@ant-design/icons';
-import { colorConfig } from '@/config';
-import { useRouter } from 'next/navigation';
-
+import React, { useState } from "react";
+import {
+  Card,
+  Typography,
+  Button,
+  Avatar,
+  Descriptions,
+  Divider,
+  Row,
+  Col,
+  Space,
+} from "antd";
+import { EyeOutlined, DownOutlined, UpOutlined, EyeInvisibleOutlined, UserOutlined } from "@ant-design/icons";
+import { colorConfig } from "@/config";
+import { useRouter } from "next/navigation";
 
 const { Title, Text } = Typography;
 
 const RegistrationCard = ({ registration }) => {
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
- const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
+
   if (!registration) return null;
 
-  const togglePasswordVisibility = () => {
-    setIsPasswordVisible((prev) => !prev);
-  };
+  const toggleExpand = () => setIsExpanded((prev) => !prev);
+  const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
 
-  const toggleExpand = () => {
-    setIsExpanded((prev) => !prev);
-  };
+  const renderProfile = (user, label) => (
+    <Space size="small">
+      <Avatar src={user?.avatar} icon={!user?.avatar && <UserOutlined />} />
+      <div>
+        <Typography.Text strong>
+          {`${user?.firstName || "N/A"} ${user?.lastName || ""}`.trim()}
+        </Typography.Text>
+        <br />
+        <Typography.Text type="secondary">{label}</Typography.Text>
+      </div>
+    </Space>
+  );
 
-  const labelStyle = { color: '#808080', fontWeight: '500' }; // Greyish color for labels
-  const fieldValueStyle = { fontWeight: '500' };
+  const topSectionItems = [
+    {
+      key: "1",
+      label: "Registration Champ",
+      children: renderProfile(registration.registrationChamp, "Registration Champ"),
+    },
+    {
+      key: "2",
+      label: "Status",
+      children: registration.status?.label || "N/A",
+    },
+    {
+      key: "3",
+      label: "Registration Date",
+      children: new Date(registration.registrationDate).toLocaleDateString() || "N/A",
+    },
+    {
+      key: "4",
+      label: "Expiry Date",
+      children: new Date(registration.expiryDate).toLocaleDateString() || "N/A",
+    },
+  ];
 
-  const {
-    enteredBy,
-    registrationChamp,
-    websiteDetails,
-    submittedDocuments,
-    status,
-    entryDate,
-    expiryDate,
-    client,
-    otherDetails,
-  } = registration;
-
-  return (
-    <Row justify="center" style={{ marginBottom: '16px' }}>
-      <Col span={24}>
-        <Card
-          title={
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <Title level={4} style={{ margin: 0, color: '#fff' }}>
-                Registration Details
-              </Title>
-              <Button
-               onClick={()=>{
-                router.push(`/registration/registration-details/${registration._id.toString()}`)
-              }}
-                type="text"
-                icon={<EyeOutlined style={{ fontSize: 18, color: '#fff' }} />}
-              />
-            </div>
-          }
-          bordered
-          headStyle={{ backgroundColor: colorConfig.primary }}
-          style={{
-            
-            backgroundColor: '#f9f9f9',
-            borderRadius: '8px',
-            borderWidth:'1px', borderColor : colorConfig.primary
-          }}
-          bodyStyle={{ padding: '16px' }}
-        >
-          {/* Basic Information */}
-          <Row gutter={[16, 8]}>
-            <Col xs={24} sm={6}>
-              <Avatar size={64} src={registrationChamp?.avatar || enteredBy?.avatar} />
-            </Col>
-            <Col xs={24} sm={18}>
-              <Text style={labelStyle}>Registration Champion:</Text>{' '}
-              {registrationChamp
-                ? `${registrationChamp.firstName} ${registrationChamp.lastName}`
-                : 'N/A'}
-              <br />
-              <Text style={labelStyle}>Entered By:</Text>{' '}
-              {enteredBy ? `${enteredBy.firstName} ${enteredBy.lastName}` : 'N/A'}
-              <br />
-              <Text style={labelStyle}>Status:</Text> {status || 'N/A'}
-              <br />
-              <Text style={labelStyle}>Submitted Documents:</Text> {submittedDocuments || 'N/A'}
-            </Col>
-          </Row>
-
-          {/* Website Details (Hidden by Default) */}
-          {isExpanded && (
-            <div style={{ marginTop: '16px' }}>
-              <Title level={5} style={{ color: colorConfig.primary }}>
-                Website Details
-              </Title>
-              <Text style={labelStyle}>Link:</Text>{' '}
-              <a href={websiteDetails?.link} target="_blank" rel="noopener noreferrer">
-                {websiteDetails?.link || 'N/A'}
-              </a>
-              <br />
-              <Text style={labelStyle}>Username:</Text> {websiteDetails?.username || 'N/A'}
-              <br />
-              <Text style={labelStyle}>Password:</Text>{' '}
-              <Space>
-                <span style={fieldValueStyle}>
-                  {isPasswordVisible
-                    ? websiteDetails?.password || 'N/A'
-                    : '•'.repeat(8)} {/* Show dots if hidden */}
-                </span>
-                <Button
-                  type="text"
-                  icon={isPasswordVisible ? <EyeInvisibleOutlined /> : <EyeOutlined />}
-                  onClick={togglePasswordVisibility}
-                />
-              </Space>
-            </div>
-          )}
-
-          {/* Additional Details (Expanded Section) */}
-          {isExpanded && (
-            <div style={{ marginTop: '16px' }}>
-              <Text style={labelStyle}>Entry Date:</Text> {new Date(entryDate).toLocaleDateString()}
-              <br />
-              <Text style={labelStyle}>Expiry Date:</Text>{' '}
-              {new Date(expiryDate).toLocaleDateString()}
-              <br />
-              <Text style={labelStyle}>Other Details:</Text> {otherDetails || 'N/A'}
-            </div>
-          )}
-
-          {/* Show More / Show Less Button */}
-          <div style={{ textAlign: 'center', marginTop: '16px' }}>
+  const expandableSectionItems = [
+    {
+      key: "1",
+      label: "Entered By",
+      children: renderProfile(registration.enteredBy, "Entered By"),
+    },
+    {
+      key: "2",
+      label: "Primary Contact",
+      children: registration.primaryContact || "N/A",
+    },
+    {
+      key: "3",
+      label: "Submitted Documents",
+      children: registration.submittedDocuments || "N/A",
+    },
+    {
+      key: "4",
+      label: "Other Details",
+      children: registration.otherDetails || "N/A",
+    },
+    {
+      key: "5",
+      label: "Website Details",
+      children: (
+        <Space size="small">
+          <Text strong>Username:</Text> {registration.websiteDetails.username || "N/A"}
+          <br />
+          <Text strong>Password:</Text>
+          <Space>
+            {showPassword ? registration.websiteDetails.password : "••••••••"}
             <Button
               type="text"
-              icon={isExpanded ? <UpOutlined /> : <DownOutlined />}
-              onClick={toggleExpand}
-              style={{ color: '#007CA6' }}
-            >
-              {isExpanded ? 'Show Less' : 'Show More'}
-            </Button>
-          </div>
-        </Card>
-      </Col>
-    </Row>
+              icon={showPassword ? <EyeInvisibleOutlined /> : <EyeOutlined />}
+              onClick={togglePasswordVisibility}
+            />
+          </Space>
+          <br />
+          <Text strong>Link:</Text> {registration.websiteDetails.link || "N/A"}
+        </Space>
+      ),
+    },
+  ];
+
+  return (
+    <Card
+      title={
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <Title level={5} style={{ margin: 0, color: "#fff" }}>
+            {registration.registrationChamp?.firstName || "Registration"}
+          </Title>
+          <Button
+            onClick={() =>
+              router.push(`/registration/registration-details/${registration._id.toString()}`)
+            }
+            type="text"
+            icon={<EyeOutlined style={{ fontSize: 18, color: "#fff" }} />}
+          />
+        </div>
+      }
+      headStyle={{ backgroundColor: colorConfig.primary }}
+      bodyStyle={{ padding: "16px" }}
+      style={{
+        marginBottom: "16px",
+        borderRadius: "8px",
+        borderWidth: "1px",
+        borderColor: colorConfig.primary,
+        backgroundColor: "#f4f6f8",
+      }}
+    >
+      {/* Top Section */}
+      <Row style={{ marginBottom: "16px" }}>
+        <Col span={4}>
+          <Avatar size={64} src={registration.registrationChamp?.avatar} />
+        </Col>
+        <Col span={20}>
+          <Descriptions
+            bordered
+            column={{ xs: 1, sm: 1, md: 2 }}
+            items={topSectionItems}
+          />
+        </Col>
+      </Row>
+
+      {/* Expandable Section */}
+      {isExpanded && (
+        <div style={{ marginTop: "16px" }}>
+          <Divider />
+          <Descriptions
+            title="Additional Details"
+            bordered
+            column={{ xs: 1, sm: 1, md: 2 }}
+            items={expandableSectionItems}
+          />
+        </div>
+      )}
+
+      {/* Expand/Collapse Button */}
+      <div style={{ textAlign: "center", marginTop: "16px" }}>
+        <Button
+          type="text"
+          icon={isExpanded ? <UpOutlined /> : <DownOutlined />}
+          onClick={toggleExpand}
+          style={{ color: colorConfig.primary }}
+        >
+          {isExpanded ? "Show Less" : "Show More"}
+        </Button>
+      </div>
+    </Card>
   );
 };
 

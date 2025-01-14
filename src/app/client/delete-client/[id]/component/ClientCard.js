@@ -1,91 +1,191 @@
-import React, { useState } from 'react';
-import { Card, Row, Button, Avatar, Typography, Col } from 'antd';
-import { EyeOutlined, DownOutlined, UpOutlined } from '@ant-design/icons';
-import { colorConfig } from '@/config';
-import { useRouter } from 'next/navigation';
+import React, { useState } from "react";
+import {
+  Card,
+  Typography,
+  Button,
+  Avatar,
+  Descriptions,
+  Divider,
+  Row,
+  Col,
+  Space,
+} from "antd";
+import { EyeOutlined, DownOutlined, UpOutlined, UserOutlined } from "@ant-design/icons";
+import { colorConfig } from "@/config";
+import { useRouter } from "next/navigation";
 
 const { Title, Text } = Typography;
 
 const ClientCard = ({ client }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const router = useRouter();
-  if (!client) return null;
-  
-  const toggleExpand = () => {
-    setIsExpanded((prev) => !prev);
-  };
 
-  const labelStyle = { color: '#808080', fontWeight: '500' }; // Greyish color for labels
+  if (!client) return null;
+
+  const toggleExpand = () => setIsExpanded((prev) => !prev);
+
+  const renderProfile = (user, label) => (
+    <Space size="small">
+      <Avatar src={user?.avatar} icon={!user?.avatar && <UserOutlined />} />
+      <div>
+        <Typography.Text strong>
+          {`${user?.firstName || "N/A"} ${user?.lastName || ""}`.trim()}
+        </Typography.Text>
+        <br />
+        <Typography.Text type="secondary">{label}</Typography.Text>
+      </div>
+    </Space>
+  );
+
+
+  const topSectionItems = [
+    {
+      key: "1",
+      label: "Name",
+      children: client.name || "N/A",
+    },
+    {
+      key: "1",
+      label: "Entered By",
+      children: renderProfile(client.enteredBy, "Entered By"),
+    },
+    {
+      key: "2",
+      label: "Territory",
+      children: client.territory?.label || "N/A",
+    },
+    {
+      key: "3",
+      label: "Industry",
+      children: client.industry?.label || "N/A",
+    },
+    {
+      key: "4",
+      label: "Sub-Industry",
+      children: client.subIndustry?.label || "N/A",
+    },
+  ];
+
+  const expandableSectionItems = [
+    {
+      key: "1",
+      label: "Entered By",
+      children: renderProfile(client.enteredBy, "Entered By"),
+    },
+    {
+      key: "2",
+      label: "Primary Relationship",
+      children: renderProfile(client.primaryRelationship, "Primary relationship"),
+    },
+    {
+      key: "3",
+      label: "Secondary Relationship",
+      children: renderProfile(client.secondaryRelationship, "Secondary relationship"),
+    },
+    {
+      key: "5",
+      label: "Offering",
+      children: client.offering || "N/A",
+    },
+    {
+      key: "6",
+      label: "Annual Revenue",
+      children: `$${client.annualRevenue?.toLocaleString() || "N/A"}`,
+    },
+    {
+      key: "7",
+      label: "Incorporation Type",
+      children: client.incorporationType?.label || "N/A",
+    },
+    {
+      key: "8",
+      label: "Classification",
+      children: client.classification?.label || "N/A",
+    },
+    {
+      key: "9",
+      label: "Relationship Status",
+      children: client.relationshipStatus?.label || "N/A",
+    },
+    {
+      key: "10",
+      label: "Priority",
+      children: client.priority || "N/A",
+    },
+  ];
 
   return (
-    <Row justify="center" style={{ marginBottom: '16px' }}>
-      <Col span={24}>
-        <Card
-          title={
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <Title level={4} style={{ margin: 0, color: '#fff' }}>
-                {client.name}
-              </Title>
-              <Button
-               onClick={()=>{
-                router.push(`/client/client-details/${client._id.toString()}`)
-              }}
-                type="text"
-                icon={<EyeOutlined style={{ fontSize: 18, color: '#fff' }} />}
-              />
-            </div>
-          }
-          bordered
-          headStyle={{ backgroundColor: colorConfig.primary }}
+    <Card
+      title={
+        <div
           style={{
-            backgroundColor: '#f9f9f9',
-            borderRadius: '8px',
-            borderWidth:'1px', borderColor : colorConfig.primary
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
           }}
-          bodyStyle={{ padding: '16px' }}
         >
-          <Row gutter={[16, 8]} align="middle">
-            <Col xs={24} sm={6}>
-              <Avatar size={64} src={client.avatar} />
-            </Col>
-            <Col xs={24} sm={18}>
-              <Text style={labelStyle}>Industry:</Text> {client.industry?.label}
-              <br />
-              <Text style={labelStyle}>Sub-Industry:</Text> {client.subIndustry?.label}
-              <br />
-              <Text style={labelStyle}>Offering:</Text> {client.offering}
-              <br />
-              <Text style={labelStyle}>Annual Revenue:</Text> ${client.annualRevenue}
-            </Col>
-          </Row>
+          <Title level={5} style={{ margin: 0, color: "#fff" }}>
+            {client.name || "Client"}
+          </Title>
+          <Button
+            onClick={() =>
+              router.push(`/client/client-details/${client._id.toString()}`)
+            }
+            type="text"
+            icon={<EyeOutlined style={{ fontSize: 18, color: "#fff" }} />}
+          />
+        </div>
+      }
+      headStyle={{ backgroundColor: colorConfig.primary }}
+      bodyStyle={{ padding: "16px" }}
+      style={{
+        marginBottom: "16px",
+        borderRadius: "8px",
+        borderWidth: "1px",
+        borderColor: colorConfig.primary,
+        backgroundColor: "#f4f6f8",
+      }}
+    >
+      {/* Avatar and Top Section */}
+      <Row style={{ marginBottom: "16px" }}>
+        <Col span={4}>
+          <Avatar size={64} src={client.avatar} />
+        </Col>
+        <Col span={20}>
+          <Descriptions
+            bordered
+            column={{ xs: 1, sm: 1, md: 2 }}
+            items={topSectionItems}
+          />
+        </Col>
+      </Row>
 
-          {isExpanded && (
-            <div style={{ marginTop: '16px' }}>
-              <Text style={labelStyle}>Territory:</Text> {client.territory?.label || 'N/A'}
-              <br />
-              <Text style={labelStyle}>Incorporation Type:</Text> {client.incorporationType?.label}
-              <br />
-              <Text style={labelStyle}>Classification:</Text> {client.classification?.label}
-              <br />
-              <Text style={labelStyle}>Relationship Status:</Text> {client.relationshipStatus?.label || 'N/A'}
-              <br />
-              <Text style={labelStyle}>Priority:</Text> {client.priority}
-            </div>
-          )}
 
-          <div style={{ textAlign: 'center', marginTop: '16px' }}>
-            <Button
-              type="text"
-              icon={isExpanded ? <UpOutlined /> : <DownOutlined />}
-              onClick={toggleExpand}
-              style={{ color: colorConfig.primary }}
-            >
-              {isExpanded ? 'Show Less' : 'Show More'}
-            </Button>
-          </div>
-        </Card>
-      </Col>
-    </Row>
+      {/* Expandable Section */}
+      {isExpanded && (
+        <div style={{ marginTop: "16px" }}>
+          <Divider />
+          <Descriptions
+            title="Additional Details"
+            bordered
+            column={{ xs: 1, sm: 1, md: 2 }}
+            items={expandableSectionItems}
+          />
+        </div>
+      )}
+
+      {/* Expand/Collapse Button */}
+      <div style={{ textAlign: "center", marginTop: "16px" }}>
+        <Button
+          type="text"
+          icon={isExpanded ? <UpOutlined /> : <DownOutlined />}
+          onClick={toggleExpand}
+          style={{ color: colorConfig.primary }}
+        >
+          {isExpanded ? "Show Less" : "Show More"}
+        </Button>
+      </div>
+    </Card>
   );
 };
 

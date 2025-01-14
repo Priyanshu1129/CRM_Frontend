@@ -97,7 +97,7 @@ export const updateRegistration =
   };
 
 // Delete Registration
-export const deleteRegistration = (registrationId) => async (dispatch) => {
+export const deleteRegistration = (registrationId, confirm = 'false') => async (dispatch) => {
   try {
     dispatch(registrationActions.deleteRegistrationRequest());
     console.log("delete-registrationData", registrationId);
@@ -105,7 +105,7 @@ export const deleteRegistration = (registrationId) => async (dispatch) => {
     const response = await axiosRequest(
       dispatch,
       "DELETE",
-      `${route}/${registrationId}`
+      `${route}/${registrationId}?confirm=${confirm}`
     );
 
     console.log("delete-registration-res-data", response);
@@ -115,3 +115,4 @@ export const deleteRegistration = (registrationId) => async (dispatch) => {
     dispatch(registrationActions.deleteRegistrationFailure(error.message));
   }
 };
+

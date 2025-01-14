@@ -121,6 +121,7 @@ export const getColumns = () => {
       render: (_, record) => (
         <TableActions
           showUrl={`/registration/registration-details/${record._id}`}
+          deleteUrl={`/registration/delete-registration/${record._id}`}
         />
       ),
     },
