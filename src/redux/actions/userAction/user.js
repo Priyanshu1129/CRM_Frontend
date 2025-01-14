@@ -81,6 +81,12 @@ export const createUser = (userData) => async (dispatch) => {
 
     console.log("create-user-res-data", response);
     dispatch(userActions.createUserSuccess(response.data));
+    dispatch(
+      userActions.updateUserList({
+        type: "add",
+        payload: response.data.user,
+      })
+    );
   } catch (error) {
     dispatch(
       userActions.createUserFailure(error.message || "An error occurred")
@@ -104,6 +110,12 @@ export const updateUser = (userData, userId) => async (dispatch) => {
 
     console.log("update-user-res-data", response.data);
     dispatch(userActions.getUserSuccess(response.data));
+    dispatch(
+      userActions.updateUserList({
+        type: "update",
+        payload: response.data,
+      })
+    );
     dispatch(userActions.updateUserSuccess(response.data));
   } catch (error) {
     dispatch(

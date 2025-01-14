@@ -386,12 +386,15 @@ export const data = [
   },
 ];
 
-export const parameterToLabelMap = {
+export const parameterToLabelMapLeft = {
   clientEntries: "Client",
   contactEntries: "Contact",
   registrationEntries: "Registration",
   tenderEntries: "Tender",
   mentionEntries: "Mention",
+};
+
+export const parameterToLabelMapRight = {
   leadEntries: "Lead",
   prospectEntries: "Prospect",
   qualificationEntries: "Qualification",

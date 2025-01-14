@@ -88,7 +88,6 @@ const userSlice = createSlice({
       state.deleteUser.status = "failed";
       state.deleteUser.error = action.payload;
     },
-
     clearGetUserStatus: (state) => {
       state.getUser.status = "idle";
     },
@@ -135,6 +134,51 @@ const userSlice = createSlice({
     },
     clearDeleteUserError: (state) => {
       state.deleteUser.error = null;
+    },
+    updateUserList: (state, action) => {
+      const { type, payload } = action.payload;
+
+      console.log("Current data:", state.getAllUsers.data);
+
+      // Ensure `state.getAllUsers.data.users` exists and is an array
+      if (!Array.isArray(state.getAllUsers?.data?.users)) {
+        state.getAllUsers.data = {
+          ...state.getAllUsers.data,
+          users: [],
+          totalCount: 0,
+        };
+      }
+
+      switch (type) {
+        case "add": {
+          state.getAllUsers.data.users = [
+            ...state.getAllUsers.data.users,
+            payload,
+          ];
+          state.getAllUsers.data.totalCount++;
+          break;
+        }
+
+        case "update": {
+          const index = state.getAllUsers.data.users.findIndex(
+            (user) => user._id.toString() === payload._id.toString()
+          );
+          if (index !== -1) {
+            state.getAllUsers.data.users[index] = payload;
+          }
+          break;
+        }
+
+        case "delete": {
+          state.getAllUsers.data.users = state.getAllUsers.data.users.filter(
+            (user) => user._id.toString() !== payload._id.toString()
+          );
+          break;
+        }
+
+        default:
+          console.warn(`Unhandled type: ${type}`);
+      }
     },
   },
 });
