@@ -18,6 +18,8 @@ arrange entities
 something memorable is not working - contact 
 notes is not visible in mention update form
 after delete------fix role and permission
+profile change error
+breadcrumb bug
 
 add .env
 dashboard filters
@@ -25,7 +27,7 @@ funnel view shimmer and design
 subindustries refresh not working
 check all routes
 sorting
-update list on update/add + added user not coming
+---------------------------------------------------update list on update/add + added user not coming
 frontend testing
 
 -------------------------------------------------------------list is should also hide (excluded)

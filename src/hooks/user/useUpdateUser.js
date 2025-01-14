@@ -47,7 +47,7 @@ export const useUpdateUser = ({ user, form }) => {
         message: "Success",
         description: "User updated successfully.",
       });
-      dispatch(getAllUsers({}));
+      // dispatch(getAllUsers({}));
       setLoading(false);
       dispatch(userActions.clearUpdateUserStatus());
     } else if (status === "failed") {

@@ -1,19 +1,37 @@
 import React, { useEffect, useRef, useState } from "react";
 import Chart from "chart.js/auto";
-import { List, Avatar } from "antd";
-import { parameterToLabelMap } from "../config";
+import { List, Avatar, Radio } from "antd";
+import { parameterToLabelMapLeft, parameterToLabelMapRight } from "../config";
 import { colorConfig } from "@/config";
 import { TrophyFilled, TrophyOutlined } from "@ant-design/icons";
 import { ImTrophy } from "react-icons/im";
 
 // Main App Component
-export const ChartView = ({ data, selectedQuarter, sortParameter }) => {
+export const ChartView = ({
+  data,
+  selectedQuarter,
+  sortParameter,
+  type,
+  setType,
+}) => {
   const chartRefs = useRef([]);
-  const activeLabel = parameterToLabelMap[sortParameter];
 
-  const renderChart = (canvas, salesChamp) => {
+  // const activeLabel = parameterToLabelMap[sortParameter];
+  const [activeLabel, setActiveLabel] = useState();
+  useEffect(() => {
+    if (type == "left") setActiveLabel(parameterToLabelMapLeft[sortParameter]);
+    if (type == "right")
+      setActiveLabel(parameterToLabelMapRight[sortParameter]);
+  }, [sortParameter, type]);
+
+  let parameterToLabelMap;
+
+  const renderChart = (canvas, salesChamp, type) => {
     const ctx = canvas.getContext("2d");
     const quarterData = salesChamp.entryDetails[selectedQuarter];
+
+    if (type == "left") parameterToLabelMap = parameterToLabelMapLeft;
+    if (type == "right") parameterToLabelMap = parameterToLabelMapRight;
 
     const parameters = Object.keys(parameterToLabelMap); // Use keys from the map
     const entries = parameters.map((key) => quarterData[key]);
@@ -51,12 +69,10 @@ export const ChartView = ({ data, selectedQuarter, sortParameter }) => {
             },
             ticks: {
               color: (context) => {
-                console.log("inside color", context.tick.label, activeLabel);
                 const label = context.tick.label;
                 return label === `${activeLabel}` ? "#D4AF37" : "#000"; // Highlight active label
               },
               font: (context) => {
-                console.log("inside font", context.tick.label, activeLabel);
                 const label = context.tick.label;
                 return {
                   weight: label === `${activeLabel}` ? "bold" : "normal", // Bold font for active label
@@ -101,7 +117,7 @@ export const ChartView = ({ data, selectedQuarter, sortParameter }) => {
     sortedData.forEach((salesChamp, index) => {
       const canvas = document.getElementById(`chart-${index}`);
       if (canvas) {
-        const chartInstance = renderChart(canvas, salesChamp);
+        const chartInstance = renderChart(canvas, salesChamp, type);
         chartRefs.current.push(chartInstance);
       }
     });
@@ -120,7 +136,13 @@ export const ChartView = ({ data, selectedQuarter, sortParameter }) => {
         background: "#fff",
       }}
     >
-      <div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
         <div
           style={{
             fontSize: "13px",
@@ -138,6 +160,12 @@ export const ChartView = ({ data, selectedQuarter, sortParameter }) => {
           />
 
           {`Sales Champions By ${activeLabel}`}
+        </div>
+        <div>
+          <Radio.Group value={type} onChange={(e) => setType(e.target.value)}>
+            <Radio.Button value="left">Masters</Radio.Button>
+            <Radio.Button value="right">Stages</Radio.Button>
+          </Radio.Group>
         </div>
       </div>
       <hr style={{ marginTop: "7px", marginBottom: "14px" }} />

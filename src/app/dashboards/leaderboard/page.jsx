@@ -6,10 +6,11 @@ import { data } from "./config";
 
 const Leaderboard = () => {
   const [view, setView] = useState("chartView");
+  const [type, setType] = useState("left");
   const [selectedQuarter, setSelectedQuarter] = useState("currentQuarter");
   const [sortParameter, setSortParameter] = useState("clientEntries"); // Default sort parameter
   // const { loading, leaderboardData, setRefresh } = useFetchLeaderboard();
-  // console.log(loading, leaderboardData);
+
   return (
     <div
       style={{
@@ -24,6 +25,7 @@ const Leaderboard = () => {
         selectedQuarter={selectedQuarter}
         setSelectedQuarter={setSelectedQuarter}
         view={view}
+        type={type}
         setView={setView}
       />
       <div
@@ -38,6 +40,8 @@ const Leaderboard = () => {
             data={data}
             selectedQuarter={selectedQuarter}
             sortParameter={sortParameter}
+            type={type}
+            setType={setType}
           />
         )}
         {view == "tableView" && <TableView data={data} />}
