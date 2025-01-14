@@ -120,7 +120,10 @@ export const getColumns = ({ selectedCurrency, data }) => {
       dataIndex: "bondValue",
       render: (value) =>
         value || value == 0
-          ? convertCurrency(value, selectedCurrency?.value)
+          ? convertCurrency({
+              value,
+              selectedCurrency: selectedCurrency?.value,
+            })
           : "N/A",
       key: "bondValue",
       width: calculateDynamicWidth(

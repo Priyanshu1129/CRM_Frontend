@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { notification } from "antd";
 import { targetActions } from "@/redux/slices/targetSlice";
 import { updateTarget } from "@/redux/actions/target";
+import { convertCurrency } from "@/utilities/convertCurrency";
 
-export const useUpdateTarget = () => {
+export const useUpdateTarget = ({ currency }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
@@ -14,6 +15,28 @@ export const useUpdateTarget = () => {
 
   const handleUpdateTarget = useCallback(
     (entityType, entityId, year, targets) => {
+      console.log("initial", targets);
+      targets.q1 = convertCurrency({
+        value: targets.q1,
+        selectedCurrency: currency?.value,
+        toUSD: true,
+      });
+      targets.q2 = convertCurrency({
+        value: targets.q2,
+        selectedCurrency: currency?.value,
+        toUSD: true,
+      });
+      targets.q3 = convertCurrency({
+        value: targets.q3,
+        selectedCurrency: currency?.value,
+        toUSD: true,
+      });
+      targets.q4 = convertCurrency({
+        value: targets.q4,
+        selectedCurrency: currency?.value,
+        toUSD: true,
+      });
+      console.log("later", targets);
       dispatch(updateTarget(entityType, entityId, year, targets));
     },
     [dispatch]

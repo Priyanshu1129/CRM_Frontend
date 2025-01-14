@@ -254,7 +254,7 @@ const AddOpportunity = () => {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
-  const { loading, onFinish, currency, setCurrency } = useAddOpportunity();
+  const { loading, onFinish } = useAddOpportunity();
 
   return (
     <div
@@ -341,6 +341,7 @@ const AddOpportunity = () => {
                 name="associatedTender"
                 label="Associated Tender"
                 rules={opportunityFormRules.associatedTender}
+                disabled={true}
               />
             </Col>
             <Col xs={24} sm={12} md={8} lg={6}>
@@ -412,8 +413,6 @@ const AddOpportunity = () => {
                 name="salesTopLine"
                 label="Sales Top-Line"
                 rules={opportunityFormRules.salesTopLine}
-                currency={currency}
-                setCurrency={setCurrency}
               />
             </Col>
             <Col xs={24} sm={12} md={8} lg={6}>
@@ -421,16 +420,10 @@ const AddOpportunity = () => {
                 name="offsets"
                 label="Offsets"
                 rules={opportunityFormRules.offsets}
-                currency={currency}
-                setCurrency={setCurrency}
               />
             </Col>
             <Col span={24}>
-              <RevenueInput
-                currency={currency}
-                setCurrency={setCurrency}
-                rules={opportunityFormRules.revenue}
-              />
+              <RevenueInput rules={opportunityFormRules.revenue} />
             </Col>
           </Row>
 

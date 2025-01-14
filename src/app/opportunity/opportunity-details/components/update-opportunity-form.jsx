@@ -36,7 +36,6 @@ import { useCheckPermission } from "@/hooks/permissions/useCheckPermission";
 
 export const UpdateOpportunityForm = ({ opportunity }) => {
   const [form] = Form.useForm();
-  const [currency, setCurrency] = useState(1);
   const canUpdateOpportunity = useCheckPermission("/opportunity/update");
 
   const {
@@ -45,7 +44,6 @@ export const UpdateOpportunityForm = ({ opportunity }) => {
 
   const { loading, onFinish } = useUpdateOpportunity({
     opportunity,
-    currency,
     form,
   });
 
@@ -68,6 +66,11 @@ export const UpdateOpportunityForm = ({ opportunity }) => {
         <Col xs={24} sm={12} md={8} lg={6}>
           <Form.Item name="updateDate" label="Update Date">
             <DatePicker style={{ width: "100%" }} />
+          </Form.Item>
+        </Col>
+        <Col xs={24} sm={12} md={8} lg={6}>
+          <Form.Item name="customId" label="Custom Id">
+            <Input disabled />
           </Form.Item>
         </Col>
         <Col xs={24} sm={12} md={8} lg={6}>
@@ -110,6 +113,7 @@ export const UpdateOpportunityForm = ({ opportunity }) => {
             name="associatedTender"
             label="Associated Tender"
             rules={opportunityFormRules.associatedTender}
+            disabled={true}
           />
         </Col>
         <Col xs={24} sm={12} md={8} lg={6}>
@@ -182,8 +186,6 @@ export const UpdateOpportunityForm = ({ opportunity }) => {
             name="salesTopLine"
             label="Sales Top-Line"
             rules={opportunityFormRules.salesTopLine}
-            currency={currency}
-            setCurrency={setCurrency}
             disabled={!canUpdateOpportunity}
           />
         </Col>
@@ -192,16 +194,11 @@ export const UpdateOpportunityForm = ({ opportunity }) => {
             name="offsets"
             label="Offsets"
             rules={opportunityFormRules.offsets}
-            currency={currency}
-            setCurrency={setCurrency}
             disabled={!canUpdateOpportunity}
           />
         </Col>
         <Col span={24}>
-          <RevenueInput
-            setCurrency={setCurrency}
-            rules={opportunityFormRules.revenue}
-          />
+          <RevenueInput form={form} rules={opportunityFormRules.revenue} />
         </Col>
       </Row>
 
@@ -220,6 +217,11 @@ export const UpdateOpportunityForm = ({ opportunity }) => {
             rules={tenderFormRules.bondIssueDate}
           >
             <DatePicker style={{ width: "100%" }} />
+          </Form.Item>
+        </Col>
+        <Col xs={24} sm={12} md={8} lg={6}>
+          <Form.Item name="closingDate" label="Closing Date">
+            <DatePicker disabled style={{ width: "100%" }} />
           </Form.Item>
         </Col>
       </Row>

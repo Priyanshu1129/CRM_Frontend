@@ -33,12 +33,13 @@ import {
 import { getChangedValues } from "@/utilities/getChangedValues";
 import { colorConfig } from "@/config";
 import { useCheckPermission } from "@/hooks/permissions/useCheckPermission";
+import { convertCurrency } from "@/utilities/convertCurrency";
 
 export const UpdateBusinessDevelopmentForm = ({ businessDevelopment }) => {
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
   const dispatch = useDispatch();
-  const [currency, setCurrency] = useState(1);
+  const { currency } = useSelector((state) => state.currency.viewCurrency);
   const canUpdateBusinessDevelopment = useCheckPermission("/mention/update");
 
   const { status, error } = useSelector(
@@ -59,8 +60,14 @@ export const UpdateBusinessDevelopmentForm = ({ businessDevelopment }) => {
         industry: businessDevelopment.industry,
         territory: businessDevelopment.territory,
         salesChamp: businessDevelopment.salesChamp,
-        potentialTopLine: businessDevelopment.potentialTopLine * currency,
-        potentialOffset: businessDevelopment.potentialOffset * currency,
+        potentialTopLine: convertCurrency({
+          value: businessDevelopment.potentialTopLine,
+          selectedCurrency: currency?.value,
+        }),
+        potentialOffset: convertCurrency({
+          value: businessDevelopment.potentialOffset,
+          selectedCurrency: currency?.value,
+        }),
         Notes: businessDevelopment.Notes,
       };
       form.setFieldsValue(businessDevelopmentInitialValues);
@@ -104,14 +111,18 @@ export const UpdateBusinessDevelopmentForm = ({ businessDevelopment }) => {
     // Dispatch only if there are changed values
     if (Object.keys(changedValues).length > 0) {
       if (changedValues.potentialTopLine) {
-        changedValues.potentialTopLine = parseFloat(
-          values?.potentialTopLine / currency
-        ).toFixed(2);
+        changedValues.potentialTopLine = convertCurrency({
+          value: values?.potentialTopLine,
+          selectedCurrency: currency?.value,
+          toUSD: true,
+        });
       }
       if (changedValues.potentialOffset) {
-        changedValues.potentialOffset = parseFloat(
-          values?.potentialOffset / currency
-        ).toFixed(2);
+        changedValues.potentialOffset = convertCurrency({
+          value: values?.potentialOffset,
+          selectedCurrency: currency?.value,
+          toUSD: true,
+        });
       }
       dispatch(
         updateBusinessDevelopment(changedValues, businessDevelopment._id)
@@ -240,8 +251,6 @@ export const UpdateBusinessDevelopmentForm = ({ businessDevelopment }) => {
               name="potentialTopLine"
               label="Potential TopLine"
               rules={businessDevelopmentFormRules.potentialTopLine}
-              currency={currency}
-              setCurrency={setCurrency}
             />
           </Col>
           <Col {...colSpan}>
@@ -250,8 +259,6 @@ export const UpdateBusinessDevelopmentForm = ({ businessDevelopment }) => {
               name="potentialOffset"
               label="Potential Offsets"
               rules={businessDevelopmentFormRules.potentialOffset}
-              currency={currency}
-              setCurrency={setCurrency}
             />
           </Col>
         </Row>

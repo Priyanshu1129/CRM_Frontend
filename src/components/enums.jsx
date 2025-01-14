@@ -472,6 +472,7 @@ export const ClientSelector = ({
   rules = [],
   size = "medium",
   setInput = null,
+  disabled = false,
 }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
@@ -523,6 +524,7 @@ export const ClientSelector = ({
           option?.children?.toLowerCase().includes(input.toLowerCase())
         }
         onSelect={handleSelect}
+        disabled={disabled}
       >
         {clients?.map(({ name, _id }, idx) => (
           <Select.Option key={idx} value={_id}>
@@ -604,6 +606,7 @@ export const TenderSelector = ({
   label = "",
   rules = [],
   size = "medium",
+  disabled = false,
 }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
@@ -643,6 +646,7 @@ export const TenderSelector = ({
       <Select
         size={size}
         showSearch
+        disabled={disabled}
         placeholder={name ? `Search tender` : ""}
         loading={loading}
         optionFilterProp="children"

@@ -39,13 +39,12 @@ const AddClient = () => {
   const [uploadModal, setUploadModal] = useState(false);
   const [form] = Form.useForm();
   const screens = Grid.useBreakpoint();
-  const [currency, setCurrency] = useState(1);
 
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
-  const { loading, handleAvatarChange, onFinish } = useAddClient({ currency });
+  const { loading, handleAvatarChange, onFinish } = useAddClient();
 
   const colSpan = screens.xs
     ? 24
@@ -197,8 +196,6 @@ const AddClient = () => {
                 name="annualRevenue"
                 label="Annual Revenue"
                 rules={clientFormRules.annualRevenue}
-                currency={currency}
-                setCurrency={setCurrency}
               />
             </Col>
             <Col xs={24} sm={12} md={8} lg={6}>

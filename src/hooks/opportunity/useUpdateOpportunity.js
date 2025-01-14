@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { convertToUSD } from "@/utilities/convertCurrency";
+import { convertRevenue, convertCurrency } from "@/utilities/convertCurrency";
 import {
   updateOpportunity,
   getAllOpportunities,
@@ -11,8 +11,10 @@ import { getChangedValues } from "@/utilities/getChangedValues";
 import dayjs from "dayjs";
 import { salesSubStageActions } from "@/redux/slices/configurationSlice";
 
-export const useUpdateOpportunity = ({ opportunity, currency, form }) => {
+export const useUpdateOpportunity = ({ opportunity, form }) => {
   const [loading, setLoading] = useState(false);
+  const { currency } = useSelector((state) => state.currency.viewCurrency);
+
   const dispatch = useDispatch();
   const { status, error } = useSelector(
     (state) => state.opportunity.updateOpportunity
@@ -23,6 +25,7 @@ export const useUpdateOpportunity = ({ opportunity, currency, form }) => {
     if (opportunity) {
       const opportunityInitialValues = {
         client: opportunity.client,
+        customId: opportunity.customId,
         partneredWith: opportunity.partneredWith,
         projectName: opportunity.projectName,
         associatedTender: opportunity.associatedTender,
@@ -32,16 +35,33 @@ export const useUpdateOpportunity = ({ opportunity, currency, form }) => {
         salesStage: opportunity.salesStage,
         salesSubStage: opportunity.salesSubStage,
         stageClarification: opportunity.stageClarification,
-        salesTopLine: opportunity.salesTopLine * currency,
-        offsets: opportunity.offsets * currency,
-        revenue: opportunity.revenue * currency,
+        salesTopLine: convertCurrency({
+          value: opportunity.salesTopLine,
+          selectedCurrency: currency?.value,
+        }),
+        offsets: convertCurrency({
+          value: opportunity.offsets,
+          selectedCurrency: currency?.value,
+        }),
+        revenue: convertRevenue({
+          revenue: opportunity?.revenue,
+          selectedCurrency: currency?.value,
+          toUSD: false,
+        }),
         expectedWonDate: opportunity.expectedWonDate
           ? dayjs(opportunity.expectedWonDate)
           : null,
+        closingDate: opportunity.closingDate
+          ? dayjs(opportunity.closingDate)
+          : null,
       };
       form.setFieldsValue(opportunityInitialValues);
-      // align the sales sub stage with sales stage 
-      dispatch(salesSubStageActions.filterSalesSubStages(opportunityInitialValues.salesStage._id.toString()))
+      // align the sales sub stage with sales stage
+      dispatch(
+        salesSubStageActions.filterSalesSubStages(
+          opportunityInitialValues.salesStage._id.toString()
+        )
+      );
       initialValues.current = opportunityInitialValues;
     }
   }, [opportunity, form, currency]);
@@ -110,17 +130,25 @@ export const useUpdateOpportunity = ({ opportunity, currency, form }) => {
     // Dispatch only if there are changed values
     if (Object.keys(changedValues).length > 0) {
       if (changedValues.offsets) {
-        changedValues.offsets = parseFloat(values?.offsets / currency).toFixed(
-          2
-        );
+        changedValues.offsets = convertCurrency({
+          value: values?.offsets,
+          selectedCurrency: currency?.value,
+          toUSD: true,
+        });
       }
       if (changedValues.salesTopLine) {
-        changedValues.salesTopLine = parseFloat(
-          values?.salesTopLine / currency
-        ).toFixed(2);
+        changedValues.salesTopLine = convertCurrency({
+          value: values?.salesTopLine,
+          selectedCurrency: currency?.value,
+          toUSD: true,
+        });
       }
       if (changedValues.revenue) {
-        changedValues.revenue = convertToUSD(values.revenue, currency);
+        changedValues.revenue = convertRevenue({
+          revenue: values.revenue,
+          selectedCurrency: currency?.value,
+          toUSD: true,
+        });
       }
       dispatch(updateOpportunity(changedValues, opportunity._id));
     } else {

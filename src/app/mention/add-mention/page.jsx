@@ -32,11 +32,12 @@ import { createBusinessDevelopment } from "@/redux/actions/businessDevelopmentAc
 import { businessDevelopmentFormRules } from "@/utilities/formValidationRules";
 import { colorConfig } from "@/config";
 import { Text } from "@/components";
+import { convertCurrency } from "@/utilities/convertCurrency";
 
 const AddBusinessDevelopment = () => {
   const [loading, setLoading] = useState(false);
   const [uploadModal, setUploadModal] = useState(false);
-  const [currency, setCurrency] = useState(1);
+  const { currency } = useSelector((state) => state.currency.viewCurrency);
   const [form] = Form.useForm();
   const screens = Grid.useBreakpoint();
   const dispatch = useDispatch();
@@ -78,12 +79,16 @@ const AddBusinessDevelopment = () => {
 
   const onFinish = (values) => {
     setLoading(true);
-    const potentialTopLineInUSD = parseFloat(
-      values?.potentialTopLine / currency
-    ).toFixed(2);
-    const potentialOffsetInUSD = parseFloat(
-      values?.potentialOffset / currency
-    ).toFixed(2);
+    const potentialTopLineInUSD = convertCurrency({
+      value: values?.potentialTopLine,
+      selectedCurrency: currency?.value,
+      toUSD: true,
+    });
+    const potentialOffsetInUSD = convertCurrency({
+      value: values?.potentialOffset,
+      selectedCurrency: currency?.value,
+      toUSD: true,
+    });
 
     let newValues = {
       ...values,
@@ -234,8 +239,6 @@ const AddBusinessDevelopment = () => {
                 name="potentialTopLine"
                 label="Potential TopLine"
                 rules={businessDevelopmentFormRules.potentialTopLine}
-                currency={currency}
-                setCurrency={setCurrency}
               />
             </Col>
             <Col {...colSpan}>
@@ -243,8 +246,6 @@ const AddBusinessDevelopment = () => {
                 name="potentialOffset"
                 label="Potential Offsets"
                 rules={businessDevelopmentFormRules.potentialOffset}
-                currency={currency}
-                setCurrency={setCurrency}
               />
             </Col>
           </Row>

@@ -36,11 +36,9 @@ import { useCheckPermission } from "@/hooks/permissions/useCheckPermission";
 export const UpdateClientForm = ({ client }) => {
   const [form] = Form.useForm();
   const screens = Grid.useBreakpoint();
-  const [currency, setCurrency] = useState(1);
   const canUpdateClient = useCheckPermission("/client/update");
   const { loading, onFinish, handleAvatarChange } = useUpdateClient({
     client,
-    currency,
     form,
   });
 
@@ -165,8 +163,6 @@ export const UpdateClientForm = ({ client }) => {
               name="annualRevenue"
               label="Annual Revenue"
               rules={clientFormRules.annualRevenue}
-              currency={currency}
-              setCurrency={setCurrency}
             />
           </Col>
           <Col xs={24} sm={12} md={8} lg={6}>
@@ -261,8 +257,6 @@ export const UpdateClientForm = ({ client }) => {
             <CurrencyAmountInput
               label="Life Time Value"
               name="lifeTimeValue"
-              currency={currency}
-              setCurrency={setCurrency}
               disabled={true}
             />
           </Col>

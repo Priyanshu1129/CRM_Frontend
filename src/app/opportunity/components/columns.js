@@ -127,7 +127,10 @@ export const getColumns = ({ selectedCurrency, data }) => {
       key: "salesTopLine",
       render: (value) =>
         value || value == 0
-          ? convertCurrency(value, selectedCurrency?.value)
+          ? convertCurrency({
+              value,
+              selectedCurrency: selectedCurrency?.value,
+            })
           : "N/A",
       width: calculateDynamicWidth(
         `Sales Top Line (${selectedCurrency?.key})`,
@@ -141,7 +144,10 @@ export const getColumns = ({ selectedCurrency, data }) => {
       key: "offsets",
       render: (value) =>
         value || value == 0
-          ? convertCurrency(value, selectedCurrency?.value)
+          ? convertCurrency({
+              value,
+              selectedCurrency: selectedCurrency?.value,
+            })
           : "N/A",
       width: calculateDynamicWidth(
         `Offsets (${selectedCurrency?.key})`,
@@ -155,7 +161,10 @@ export const getColumns = ({ selectedCurrency, data }) => {
       key: "revenue",
       render: (value) =>
         value || value == 0
-          ? convertCurrency(value, selectedCurrency?.value)
+          ? convertCurrency({
+              value,
+              selectedCurrency: selectedCurrency?.value,
+            })
           : "N/A",
       width: calculateDynamicWidth(
         `Total Revenue (${selectedCurrency?.key})`,
@@ -176,7 +185,10 @@ export const getColumns = ({ selectedCurrency, data }) => {
       key: "expectedSales",
       render: (value) =>
         value || value == 0
-          ? convertCurrency(value, selectedCurrency?.value)
+          ? convertCurrency({
+              value,
+              selectedCurrency: selectedCurrency?.value,
+            })
           : "N/A",
       width: calculateDynamicWidth(
         `Expected Sales (${selectedCurrency?.key})`,

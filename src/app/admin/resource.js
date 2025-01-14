@@ -6,8 +6,8 @@ import { FaCloudDownloadAlt } from "react-icons/fa";
 import { TbReportAnalytics } from "react-icons/tb";
 import { LuTarget } from "react-icons/lu";
 import { GrSystem } from "react-icons/gr";
-
 import { colorConfig } from "@/config";
+
 export const resources = [
   {
     key: "configurations",
