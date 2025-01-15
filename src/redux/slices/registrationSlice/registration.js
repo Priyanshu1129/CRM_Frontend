@@ -133,6 +133,58 @@ const registrationSlice = createSlice({
     clearDeleteRegistrationError: (state) => {
       state.deleteRegistration.error = null;
     },
+    updateRegistrationList: (state, action) => {
+      const { type, payload } = action.payload;
+
+      console.log(
+        "Current data:",
+        state.getAllRegistrations.data?.registrations
+      );
+      console.log("insert on", type, payload);
+
+      // Ensure `state.getAllUsers.data.users` exists and is an array
+      if (!Array.isArray(state.getAllRegistrations?.data?.registrations)) {
+        state.getAllRegistrations.data = {
+          ...state.getAllRegistrations.data,
+          registrations: [],
+          totalCount: 0,
+        };
+      }
+
+      switch (type) {
+        case "add": {
+          state.getAllRegistrations.data.registrations = [
+            payload,
+            ...state.getAllRegistrations.data.registrations,
+          ];
+          state.getAllRegistrations.data.totalCount++;
+          break;
+        }
+
+        case "update": {
+          const index = state.getAllRegistrations.data.registrations.findIndex(
+            (registration) =>
+              registration._id.toString() === payload?._id.toString()
+          );
+          if (index !== -1) {
+            state.getAllRegistrations.data.registrations[index] = payload;
+          }
+          break;
+        }
+
+        case "delete": {
+          state.getAllRegistrations.data.registrations =
+            state.getAllRegistrations.data.registrations.filter(
+              (registration) =>
+                registration._id.toString() !== payload._id.toString()
+            );
+          break;
+        }
+
+        default:
+          console.warn(`Unhandled type: ${type}`);
+      }
+    },
   },
 });
 

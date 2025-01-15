@@ -67,6 +67,12 @@ export const createRegistration = (registrationData) => async (dispatch) => {
 
     console.log("create-registration-res-data", response);
     dispatch(registrationActions.createRegistrationSuccess(response.data));
+    dispatch(
+      registrationActions.updateRegistrationList({
+        type: "add",
+        payload: response.data,
+      })
+    );
   } catch (error) {
     console.log("Unexpected error in createRegistration:", error);
     dispatch(registrationActions.createRegistrationFailure(error.message));
@@ -90,6 +96,12 @@ export const updateRegistration =
       console.log("update-registration-res-data", response);
       dispatch(registrationActions.getRegistrationSuccess(response));
       dispatch(registrationActions.updateRegistrationSuccess(response));
+      dispatch(
+        registrationActions.updateRegistrationList({
+          type: "update",
+          payload: response.data,
+        })
+      );
     } catch (error) {
       console.log("Unexpected error in updateRegistration:", error);
       dispatch(registrationActions.updateRegistrationFailure(error.message));
@@ -97,22 +109,23 @@ export const updateRegistration =
   };
 
 // Delete Registration
-export const deleteRegistration = (registrationId, confirm = 'false') => async (dispatch) => {
-  try {
-    dispatch(registrationActions.deleteRegistrationRequest());
-    console.log("delete-registrationData", registrationId);
+export const deleteRegistration =
+  (registrationId, confirm = "false") =>
+  async (dispatch) => {
+    try {
+      dispatch(registrationActions.deleteRegistrationRequest());
+      console.log("delete-registrationData", registrationId);
 
-    const response = await axiosRequest(
-      dispatch,
-      "DELETE",
-      `${route}/${registrationId}?confirm=${confirm}`
-    );
+      const response = await axiosRequest(
+        dispatch,
+        "DELETE",
+        `${route}/${registrationId}?confirm=${confirm}`
+      );
 
-    console.log("delete-registration-res-data", response);
-    dispatch(registrationActions.deleteRegistrationSuccess(response));
-  } catch (error) {
-    console.log("Unexpected error in deleteRegistration:", error);
-    dispatch(registrationActions.deleteRegistrationFailure(error.message));
-  }
-};
-
+      console.log("delete-registration-res-data", response);
+      dispatch(registrationActions.deleteRegistrationSuccess(response));
+    } catch (error) {
+      console.log("Unexpected error in deleteRegistration:", error);
+      dispatch(registrationActions.deleteRegistrationFailure(error.message));
+    }
+  };

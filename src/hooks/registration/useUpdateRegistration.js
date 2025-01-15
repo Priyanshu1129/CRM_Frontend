@@ -53,7 +53,6 @@ export const useUpdateRegistration = ({ registration, form }) => {
         message: "Success",
         description: "Registration updated successfully.",
       });
-      dispatch(getAllRegistrations({}));
       dispatch(registrationActions.clearUpdateRegistrationStatus());
     } else if (status === "failed") {
       setLoading(false);
