@@ -1,41 +1,21 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Form, Input, Flex, theme, notification } from "antd";
-import { useDispatch, useSelector } from "react-redux";
-import { login } from "@/redux/actions/authAction";
-import { authActions } from "@/redux/slices/authSlice";
+import { Button, Checkbox, Form, Input, Flex, theme } from "antd";
+import { useLogin } from "@/hooks/auth";
 import { useRouter } from "next/navigation";
 
 const Login = () => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
-  const [loading, setLoading] = useState(false);
-  const dispatch = useDispatch();
-  const { data, status, error } = useSelector((state) => state.auth.login);
+
+  const { loading, getLogin } = useLogin();
 
   const router = useRouter();
 
-  useEffect(() => {
-    if (status === "pending") {
-      setLoading(true);
-    } else if (status === "success") {
-      setLoading(false);
-      dispatch(authActions.checkAuthSuccess(data));
-    } else if (status === "failed") {
-      setLoading(false);
-      notification.error({
-        message: "Error",
-        description: error || "Incorrect Credentials!",
-      });
-      dispatch(authActions.clearAuthDetailsStatus());
-      dispatch(authActions.clearAuthDetailsError());
-    }
-  }, [status, error, dispatch, router]);
-
   const onFinish = (values) => {
-    dispatch(login(values));
+    getLogin(values);
   };
 
   return (
@@ -54,7 +34,6 @@ const Login = () => {
         initialValues={{
           remember: true,
         }}
-        style={{}}
         onFinish={onFinish}
       >
         <Form.Item

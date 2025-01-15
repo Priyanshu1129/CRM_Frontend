@@ -15,6 +15,7 @@ const BusinessDevelopmentMaster = () => {
   const [pageSize, setPageSize] = useState(12);
   const [filters, setFilters] = useState({});
   const [filter, setFilter] = useState(false);
+
   const prevSorterRef = useRef({});
   const dispatch = useDispatch();
   const { status, data, error } = useSelector(
