@@ -21,23 +21,23 @@ export const useUpdateClient = ({ client, form }) => {
     if (client) {
       const clientInitialValues = {
         name: client.name,
-        industry: client.industry,
-        territory: client.territory,
-        subIndustry: client.subIndustry,
+        industry: client.industry._id,
+        territory: client.territory._id,
+        subIndustry: client.subIndustry._id,
         offering: client.offering,
-        incorporationType: client.incorporationType,
+        incorporationType: client.incorporationType._id,
         listedCompany: client.listedCompany,
         marketCap: client.marketCap,
         annualRevenue: convertCurrency({
           value: client?.annualRevenue,
           selectedCurrency: currency?.value,
         }),
-        classification: client.classification,
+        classification: client.classification._id,
         totalEmployeeStrength: client.totalEmployeeStrength,
         itEmployeeStrength: client.itEmployeeStrength,
-        primaryRelationship: client.primaryRelationship,
-        secondaryRelationship: client.secondaryRelationship,
-        relationshipStatus: client.relationshipStatus,
+        primaryRelationship: client.primaryRelationship._id,
+        secondaryRelationship: client.secondaryRelationship._id,
+        relationshipStatus: client.relationshipStatus._id,
         relatedContacts: client.relatedContacts,
         priority: client.priority,
         avatar: client.avatar,
@@ -62,7 +62,6 @@ export const useUpdateClient = ({ client, form }) => {
         message: "Success",
         description: "Client updated successfully.",
       });
-      dispatch(getAllClients({}));
       dispatch(clientActions.clearUpdateClientStatus());
     } else if (status === "failed") {
       setLoading(false);
