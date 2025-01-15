@@ -7,7 +7,7 @@ import { UpdateUserForm } from "../../components/update-user-form";
 import { useFetchUserDetails } from "@/hooks/user";
 
 const UserDetails = () => {
-  const { id, roldId } = useParams();
+  const { id } = useParams();
   const screens = Grid.useBreakpoint();
 
   const {

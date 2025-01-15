@@ -1,10 +1,31 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Select } from "antd";
-import { parameterToLabelMap } from "../config";
+import { parameterToLabelMapRight, parameterToLabelMapLeft } from "../config";
 import { colorConfig } from "@/config";
 const { Option } = Select;
 
-export const EntryTypeSelector = ({ sortParameter, handleChange, disable }) => {
+export const EntryTypeSelector = ({
+  sortParameter,
+  handleChange,
+  disable,
+  type,
+}) => {
+  let parameterToLabelMap;
+  if (type == "left") parameterToLabelMap = parameterToLabelMapLeft;
+  if (type == "right") parameterToLabelMap = parameterToLabelMapRight;
+
+  useEffect(() => {
+    if (parameterToLabelMap) {
+      const firstKey = Object.keys(parameterToLabelMap)[0];
+      if (
+        !sortParameter ||
+        !Object.keys(parameterToLabelMap).includes(sortParameter)
+      ) {
+        handleChange(firstKey); // Only update if the current value is invalid
+      }
+    }
+  }, [type, parameterToLabelMap, sortParameter, handleChange]);
+
   return (
     <div>
       <span

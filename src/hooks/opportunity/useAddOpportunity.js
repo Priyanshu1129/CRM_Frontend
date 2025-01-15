@@ -3,12 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { opportunityActions } from "@/redux/slices/opportunitySlice";
 import { createOpportunity } from "@/redux/actions/opportunityAction";
 import { notification } from "antd";
-import { convertToUSD } from "@/utilities/convertCurrency";
+import { convertRevenue } from "@/utilities/convertCurrency";
+import { convertCurrency } from "@/utilities/convertCurrency";
 
 export const useAddOpportunity = () => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  const [currency, setCurrency] = useState(1);
+  const { currency } = useSelector((state) => state.currency.viewCurrency);
+
   const { status, error } = useSelector(
     (state) => state.opportunity.createOpportunity
   );
@@ -35,12 +37,22 @@ export const useAddOpportunity = () => {
   }, [status, error, dispatch]);
 
   const onFinish = (values) => {
-    const salesTopLineInUSD = parseFloat(
-      values?.salesTopLine / currency
-    ).toFixed(2);
-    const offsetsInUSD = parseFloat(values?.offsets / currency).toFixed(2);
-    if (values.revenue) {
-      values.revenue = convertToUSD(values.revenue, currency);
+    const salesTopLineInUSD = convertCurrency({
+      value: values?.salesTopLine,
+      selectedCurrency: currency?.value,
+      toUSD: true,
+    });
+    const offsetsInUSD = convertCurrency({
+      value: values?.offsets,
+      selectedCurrency: currency?.value,
+      toUSD: true,
+    });
+    if (values?.revenue) {
+      values.revenue = convertRevenue({
+        revenue: values.revenue,
+        selectedCurrency: currency?.value,
+        toUSD: true,
+      });
     }
     let newValues = {
       ...values,
@@ -48,8 +60,9 @@ export const useAddOpportunity = () => {
       offsets: offsetsInUSD,
       // entryDate: new Date().toISOString(),
     };
-    dispatch(createOpportunity(newValues));
+    console.log(newValues);
+    // dispatch(createOpportunity(newValues));
   };
 
-  return { loading, onFinish, currency, setCurrency };
+  return { loading, onFinish };
 };

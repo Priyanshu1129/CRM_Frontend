@@ -10,7 +10,7 @@ export const ContactsTableView = ({
   total,
   handleFilter,
 }) => {
-  const columns = getColumns();
+  const columns = getColumns({ data });
   return (
     <>
       <Table

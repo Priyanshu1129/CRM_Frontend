@@ -1,17 +1,19 @@
 import {
-  ContainerOutlined,
   TeamOutlined,
   ShopOutlined,
   DashboardOutlined,
-  CalendarOutlined,
   ProjectOutlined,
   CrownOutlined,
   FileOutlined,
-  UsergroupAddOutlined,
   UserAddOutlined,
   FormOutlined,
   FileTextOutlined,
+  SettingOutlined,
+  SolutionOutlined,
+  GiftOutlined,
+  CheckSquareOutlined,
 } from "@ant-design/icons";
+
 import { MdOutlineCircle } from "react-icons/md";
 
 export const resources = [
@@ -66,6 +68,13 @@ export const resources = [
     key: "registration",
     label: "Registrations",
     icon: <FormOutlined />,
+    // children: [
+    //   {
+    //     key: "entitlements",
+    //     label: "Entitlements",
+    //     icon: <MdOutlineCircle />,
+    //   },
+    // ],
   },
   {
     key: "client",
@@ -81,6 +90,26 @@ export const resources = [
     key: "user",
     label: "Team",
     icon: <UserAddOutlined />,
+  },
+  {
+    key: "account-management",
+    label: "Account Management",
+    icon: <SettingOutlined />,
+  },
+  {
+    key: "customer-360",
+    label: "Customer 360",
+    icon: <SolutionOutlined />,
+  },
+  {
+    key: "incentive",
+    label: "Incentive",
+    icon: <GiftOutlined />,
+  },
+  {
+    key: "task",
+    label: "Task",
+    icon: <CheckSquareOutlined />,
   },
   {
     key: "admin",

@@ -6,7 +6,7 @@ export const axiosRequest = async (
   dispatch,
   method,
   url,
-  data = null,
+  data = {},
   params = null
 ) => {
   try {
@@ -50,7 +50,9 @@ export const axiosRequest = async (
         // });
       }
       if (status === 403) {
-        errorMessage = "You are not authorized for this action!";
+        errorMessage =
+          error.response.data.message ||
+          "You are not authorized for this action!";
         // redirectTo("/unauthorized");
       }
       // Handle specific server errors like validation failures

@@ -14,6 +14,7 @@ export const getColumns = ({
   handleActionCheck,
   handleModuleCheck,
   canUpdateRole,
+  isMyRole,
 }) => {
   // Columns configuration for the table
   const columns = [
@@ -23,7 +24,7 @@ export const getColumns = ({
       key: "entity",
       render: (text, record, index) => (
         <Checkbox
-          disabled={!canUpdateRole}
+          disabled={!canUpdateRole || isMyRole}
           checked={
             checkedActions[index].allowedActions.length ===
               record.actions.length && record.actions.length > 0
@@ -43,7 +44,7 @@ export const getColumns = ({
           {actions.map((action) => (
             <Checkbox
               key={action}
-              disabled={!canUpdateRole}
+              disabled={!canUpdateRole || isMyRole}
               checked={checkedActions[index].allowedActions.includes(action)}
               onChange={(e) =>
                 handleActionCheck(index, action, e.target.checked)

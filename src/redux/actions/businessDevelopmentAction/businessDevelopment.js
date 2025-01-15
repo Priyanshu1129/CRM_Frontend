@@ -155,7 +155,7 @@ export const updateBusinessDevelopment =
   };
 
 export const deleteBusinessDevelopment =
-  (businessDevelopmentId) => async (dispatch) => {
+  (businessDevelopmentId, confirm = 'false') => async (dispatch) => {
     try {
       console.log("delete-businessDevelopmentData", businessDevelopmentId);
       dispatch(businessDevelopmentActions.deleteBusinessDevelopmentRequest());
@@ -164,7 +164,7 @@ export const deleteBusinessDevelopment =
       const response = await axiosRequest(
         dispatch,
         "DELETE",
-        `${route}/${businessDevelopmentId}`
+        `${route}/${businessDevelopmentId}?confirm=${confirm}`
       );
 
       console.log("delete-businessDevelopment-res-data", response);

@@ -4,11 +4,13 @@ import { tenderActions } from "@/redux/slices/tenderSlice";
 import { updateTender, getAllTenders } from "@/redux/actions/tenderAction";
 import { getChangedValues } from "@/utilities/getChangedValues";
 import { notification } from "antd";
+import { convertCurrency } from "@/utilities/convertCurrency";
 import dayjs from "dayjs";
 
-export const useUpdateTender = ({ tender, form, currency }) => {
+export const useUpdateTender = ({ tender, form }) => {
   const [loading, setLoading] = useState(false);
   const { status, error } = useSelector((state) => state.tender.updateTender);
+  const { currency } = useSelector((state) => state.currency.viewCurrency);
   const dispatch = useDispatch();
   const initialValues = useRef({});
 
@@ -35,7 +37,10 @@ export const useUpdateTender = ({ tender, form, currency }) => {
         rfpSource: tender.rfpSource,
         associatedOpportunity: tender.associatedOpportunity,
         bond: tender.bond,
-        bondValue: tender.bondValue * currency,
+        bondValue: convertCurrency({
+          value: tender.bondValue,
+          selectedCurrency: currency?.value,
+        }),
         submissionMode: tender.submissionMode,
         officer: tender.officer,
         bidManager: tender.bidManager,
@@ -45,7 +50,7 @@ export const useUpdateTender = ({ tender, form, currency }) => {
       form.setFieldsValue(tenderInitialValues);
       initialValues.current = tenderInitialValues;
     }
-  }, [tender, form, currency]);
+  }, [tender, form, currency?.value]);
 
   useEffect(() => {
     if (status === "pending") {
@@ -76,9 +81,11 @@ export const useUpdateTender = ({ tender, form, currency }) => {
     if (Object.keys(changedValues).length > 0) {
       setLoading(true);
       if (changedValues.bondValue) {
-        changedValues.bondValue = parseFloat(
-          values?.bondValue / currency
-        ).toFixed(2);
+        changedValues.bondValue = convertCurrency({
+          value: values?.bondValue,
+          selectedCurrency: currency?.value,
+          toUSD: true,
+        });
       }
       dispatch(updateTender(changedValues, tender._id));
     } else {

@@ -54,7 +54,7 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
         bottom: 0,
         zIndex: 1,
         scrollbarWidth: "thin",
-        scrollbarColor: "unset",
+        // scrollbarColor: "unset",
       }}
       theme="light"
       // trigger={true}
@@ -92,7 +92,7 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
           paddingLeft: "12px",
           paddingRight: "12px",
           marginTop: "8px",
-          fontSize: "0.95rem",
+          fontSize: "0.90rem",
         }}
         theme="light" // Ensures proper base styling
         title="title"

@@ -1,22 +1,30 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Form, Input, Space, Grid, Row, Col } from "antd";
 import { roleFormRules } from "@/utilities/formValidationRules";
 import { useUpdateRole } from "@/hooks/adminPanel/roles-Permissions";
 import { useCheckPermission } from "@/hooks/permissions/useCheckPermission";
+import { useSelector } from "react-redux";
 
 export const UpdateRoleForm = ({ role }) => {
   const [form] = Form.useForm();
   const screens = Grid.useBreakpoint();
+  const { data } = useSelector((state) => state.auth.authDetails);
+  const [isMyRole, setIsMyRole] = useState(true);
   const canUpdateRole = useCheckPermission("/admin/roles-permissions/update");
 
   const { loading, onFinish } = useUpdateRole({ role, form });
 
   const colSpan = screens.xs ? 24 : screens.sm ? 8 : screens.md ? 8 : 8;
 
+  useEffect(() => {
+    if (data && role)
+      setIsMyRole(data?.role?._id.toString() == role?._id.toString());
+  }, [role, data]);
+
   return (
     <Form
-      disabled={!canUpdateRole}
+      disabled={!canUpdateRole || isMyRole}
       form={form}
       layout="horizontal"
       onFinish={onFinish}
@@ -44,7 +52,7 @@ export const UpdateRoleForm = ({ role }) => {
                 type="default"
                 htmlType="button"
                 onClick={() => form.resetFields()}
-                disabled={loading || !canUpdateRole}
+                disabled={loading || !canUpdateRole || isMyRole}
               >
                 Reset
               </Button>

@@ -23,15 +23,30 @@ const initialOpportunityState = {
   },
   deleteOpportunity: {
     status: "idle",
+    confirm: false,
     error: null,
     data: null,
   },
+  deleteOpportunityPopup : {
+    open : false,
+    opportunityId : null
+  }
 };
 
 const opportunitySlice = createSlice({
   name: "opportunity",
   initialState: initialOpportunityState,
   reducers: {
+    // delete popup
+    setDeleteOpportunityPopup : (state, action) => {
+      state.deleteOpportunityPopup.open = true,
+      state.deleteOpportunityPopup.opportunityId = action.payload.toString()
+    },
+    clearDeleteOpportunityPopup : (state, action) => {
+      state.deleteOpportunityPopup.open = false,
+      state.deleteOpportunityPopup.opportunityId = null
+    },
+    
     getOpportunityRequest: (state, action) => {
       state.getOpportunity.status = "pending";
     },
@@ -82,7 +97,8 @@ const opportunitySlice = createSlice({
     },
     deleteOpportunitySuccess: (state, action) => {
       state.deleteOpportunity.status = "success";
-      state.deleteOpportunity.data = action.payload;
+      state.deleteOpportunity.data = action.payload.data;
+      state.deleteOpportunity.confirm = action.payload.confirm;  
     },
     deleteOpportunityFailure: (state, action) => {
       state.deleteOpportunity.status = "failed";

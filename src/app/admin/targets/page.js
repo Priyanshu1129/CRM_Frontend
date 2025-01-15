@@ -7,6 +7,8 @@ import { useUpdateTarget } from "@/hooks/target/useUpdateTarget";
 import { SearchOutlined } from "@ant-design/icons"; // Import Ant Design Icons
 import { colorConfig } from "@/config";
 import { BackButton, FullScreenLoading } from "@/components";
+import { useSelector } from "react-redux";
+import { convertCurrency } from "@/utilities/convertCurrency";
 
 const { Option } = Select;
 const { Title } = Typography;
@@ -15,6 +17,7 @@ const TargetPage = () => {
   const [entityType, setEntityType] = useState("Territory");
   const [year, setYear] = useState(new Date().getFullYear());
   const [editedTargets, setEditedTargets] = useState({}); // To track edited rows
+  const { currency } = useSelector((state) => state.currency.viewCurrency);
   const {
     targets,
     loading: fetchingTargets,
@@ -24,7 +27,7 @@ const TargetPage = () => {
     handleUpdateTarget,
     loading: updatingTarget,
     updatedTarget,
-  } = useUpdateTarget();
+  } = useUpdateTarget({ currency });
 
   // Automatically fetch targets when entityType or year changes
   useEffect(() => {
@@ -64,6 +67,60 @@ const TargetPage = () => {
   }, [updatedTarget]);
 
   // Render Target Rows
+  // const renderTargetRow = (target) => {
+  //   const isEdited = !!editedTargets[target.entityId]; // Check if this row is edited
+
+  //   return (
+  //     <Row
+  //       key={target.entityId}
+  //       gutter={16}
+  //       align="middle"
+  //       style={{
+  //         borderBottom: "1px solid #f0f0f0",
+  //         paddingBottom: "8px",
+  //         marginBottom: "8px",
+  //       }}
+  //     >
+  //       <Col span={4}>
+  //         <div
+  //           style={{
+  //             fontWeight: 600,
+  //             textAlign: "left",
+  //             color: `${colorConfig.primary}`,
+  //           }}
+  //         >
+  //           {target.label}
+  //         </div>
+  //       </Col>
+  //       {["q1", "q2", "q3", "q4"].map((quarter) => (
+  //         <Col span={4} key={quarter}>
+  //           <Input
+  //             defaultValue={convertCurrency(
+  //               target.targets[quarter],
+  //               currency?.value
+  //             )}
+  //             onChange={(e) =>
+  //               handleInputChange(target.entityId, quarter, e.target.value)
+  //             }
+  //             placeholder={quarter.toUpperCase()}
+  //           />
+  //         </Col>
+  //       ))}
+  //       <Col span={4}>
+  //         <Button
+  //           type="primary"
+  //           onClick={() => onUpdateTarget(target)}
+  //           disabled={!isEdited || updatingTarget}
+  //           loading={updatingTarget && isEdited}
+  //           block
+  //         >
+  //           {updatingTarget && isEdited ? "Updating..." : "Update"}
+  //         </Button>
+  //       </Col>
+  //     </Row>
+  //   );
+  // };
+
   const renderTargetRow = (target) => {
     const isEdited = !!editedTargets[target.entityId]; // Check if this row is edited
 
@@ -92,7 +149,13 @@ const TargetPage = () => {
         {["q1", "q2", "q3", "q4"].map((quarter) => (
           <Col span={4} key={quarter}>
             <Input
-              defaultValue={target.targets[quarter]}
+              value={
+                editedTargets[target.entityId]?.[quarter] ??
+                convertCurrency({
+                  value: target.targets[quarter],
+                  selectedCurrency: currency?.value,
+                })
+              }
               onChange={(e) =>
                 handleInputChange(target.entityId, quarter, e.target.value)
               }
@@ -172,10 +235,13 @@ const TargetPage = () => {
         {/* Render Targets */}
         {fetchingTargets && <FullScreenLoading center={true} />}
         {!fetchingTargets && targets && targets.length > 0 && (
-          <div>
+          <div style={{ height: "100%" }}>
             <Row
               gutter={16}
-              style={{ marginBottom: "16px", fontWeight: "bold" }}
+              style={{
+                marginBottom: "16px",
+                fontWeight: "bold",
+              }}
             >
               <Col span={4}>Label</Col>
               <Col span={4}>Q1</Col>
@@ -184,7 +250,15 @@ const TargetPage = () => {
               <Col span={4}>Q4</Col>
               <Col span={4}>Action</Col>
             </Row>
-            {targets.map((target) => renderTargetRow(target))}
+            <div
+              style={{
+                maxHeight: "400px", // Adjust the height as needed
+                overflowY: "auto",
+                padding: "8px",
+              }}
+            >
+              {targets.map((target) => renderTargetRow(target))}
+            </div>
           </div>
         )}
       </div>

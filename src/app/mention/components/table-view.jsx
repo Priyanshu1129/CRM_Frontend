@@ -22,6 +22,7 @@ export const BusinessDevelopmentTableView = ({
 
   const columns = getColumns({
     selectedCurrency,
+    data,
   });
 
   return (

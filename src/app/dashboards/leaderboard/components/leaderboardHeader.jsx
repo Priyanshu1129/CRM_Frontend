@@ -5,6 +5,7 @@ import { Grid, Button, Space, Radio } from "antd";
 export const LeaderboardHeader = ({
   view,
   setView,
+  type,
   setSortParameter,
   sortParameter,
   selectedQuarter,
@@ -37,6 +38,7 @@ export const LeaderboardHeader = ({
           selectedQuarter={selectedQuarter}
         />
         <EntryTypeSelector
+          type={type}
           disable={view === "tableView"}
           handleChange={(value) => setSortParameter(value)}
           sortParameter={sortParameter}

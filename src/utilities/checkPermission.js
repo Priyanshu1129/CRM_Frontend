@@ -102,6 +102,7 @@ export const hasRoutePermission = (permissions, route) => {
 
 // for sidebar resources
 export const getAuthorizedResources = (resources, permissions) => {
+  console.log("admin-resources", resources);
   return resources
     .map((resource) => {
       if (resource.key === "dashboard") {
@@ -121,6 +122,7 @@ export const getAuthorizedResources = (resources, permissions) => {
         // Do not include dashboard if no children are authorized
         return null;
       } else {
+        console.log("items", sideBarPermissions[resource.key]);
         // Handle other resources
         return hasPermission(permissions, sideBarPermissions[resource.key])
           ? resource

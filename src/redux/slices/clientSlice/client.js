@@ -133,6 +133,53 @@ const clientSlice = createSlice({
     clearDeleteClientError: (state) => {
       state.deleteClient.error = null;
     },
+    updateClientList: (state, action) => {
+      const { type, payload } = action.payload;
+
+      console.log("Current data:", state.getAllClients.data?.clients);
+      console.log("insert on", type, payload);
+
+      // Ensure `state.getAllUsers.data.users` exists and is an array
+      if (!Array.isArray(state.getAllClients?.data?.clients)) {
+        state.getAllClients.data = {
+          ...state.getAllClients.data,
+          clients: [],
+          totalCount: 0,
+        };
+      }
+
+      switch (type) {
+        case "add": {
+          state.getAllClients.data.clients = [
+            payload,
+            ...state.getAllClients.data.clients,
+          ];
+          state.getAllClients.data.totalCount++;
+          break;
+        }
+
+        case "update": {
+          const index = state.getAllClients.data.clients.findIndex(
+            (client) => client._id.toString() === payload?._id.toString()
+          );
+          if (index !== -1) {
+            state.getAllClients.data.clients[index] = payload;
+          }
+          break;
+        }
+
+        case "delete": {
+          state.getAllClients.data.clients =
+            state.getAllClients.data.clients.filter(
+              (client) => client._id.toString() !== payload._id.toString()
+            );
+          break;
+        }
+
+        default:
+          console.warn(`Unhandled type: ${type}`);
+      }
+    },
   },
 });
 

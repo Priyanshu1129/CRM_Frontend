@@ -20,7 +20,7 @@ export const useUpdateUser = ({ user, form }) => {
         firstName: user.firstName,
         lastName: user.lastName,
         gender: user.gender,
-        role: user.role,
+        role: user.role._id,
         email: user.email,
         country: user.address?.country,
         state: user.address?.state,
@@ -47,7 +47,6 @@ export const useUpdateUser = ({ user, form }) => {
         message: "Success",
         description: "User updated successfully.",
       });
-      dispatch(getAllUsers({}));
       setLoading(false);
       dispatch(userActions.clearUpdateUserStatus());
     } else if (status === "failed") {

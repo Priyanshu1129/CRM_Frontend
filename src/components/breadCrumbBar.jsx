@@ -67,7 +67,6 @@ export const BreadcrumbBar = () => {
   };
 
   const breadcrumbItems = generateBreadcrumbItems();
-  console.log("breadcrumbItems", breadcrumbItems);
 
   return (
     <Breadcrumb

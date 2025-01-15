@@ -152,14 +152,14 @@ html, body {
   }
 
   /* avoid wrapping in table*/
-  .ant-table-thead th {
-  white-space: nowrap; /* Prevent wrapping */
+  /* .ant-table-thead th {
+  white-space: nowrap; 
   text-overflow: ellipsis; 
   text-align: center;
   overflow: hidden;
-  padding: 12px; /* Adjust padding for better spacing */
-  font-weight: bold; /* Optional: Make header text bold */
-}
+  padding: 12px;
+  font-weight: bold;
+} */
 
 .ant-table-cell {
   white-space: nowrap; /* Prevent cell wrapping */
@@ -191,4 +191,8 @@ html, body {
 /* Optional: If any list items (li) have default margins, override them */
 .ant-breadcrumb li {
   margin-bottom: 0; /* Ensures uniform spacing across all list items */
+}
+
+.ant-table-column-sort .ant-table-column-title {
+  color: #007CA6 !important; /* Highlight color for title when sorted */
 }

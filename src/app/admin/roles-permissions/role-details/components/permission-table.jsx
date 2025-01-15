@@ -3,13 +3,24 @@ import { Button, Table, Space } from "antd";
 import { useEditPermissions } from "@/hooks/adminPanel/roles-Permissions";
 import { getColumns } from "./columns";
 import { useCheckPermission } from "@/hooks/permissions/useCheckPermission";
+import { useSelector } from "react-redux";
 
 export const PermissionTable = ({ role, permissionEntities }) => {
   let dataSource = permissionEntities?.map((entity, index) => ({
     key: index,
     ...entity,
   }));
+
+  console.log("permissionEntities", permissionEntities);
+  console.log("role", role);
   const canUpdateRole = useCheckPermission("/admin/roles-permissions/update");
+  const { data } = useSelector((state) => state.auth.authDetails);
+  const [isMyRole, setIsMyRole] = useState(true);
+
+  useEffect(() => {
+    if (data && role)
+      setIsMyRole(data?.role?._id.toString() == role?._id.toString());
+  }, [role, data]);
 
   // Initialize checkedActions as an array of objects with entity and allowedActions
   const initialCheckedActions = dataSource?.map((entity) => {
@@ -56,7 +67,7 @@ export const PermissionTable = ({ role, permissionEntities }) => {
   };
 
   // Handle individual action checkbox change
-  const handleActionCheck = (rowIndex, action, checked) => {
+  const oldHandleActionCheck = (rowIndex, action, checked) => {
     const newCheckedActions = [...checkedActions];
     const entityId = dataSource[rowIndex]._id;
     const entityIndex = findEntityIndex(entityId);
@@ -79,6 +90,62 @@ export const PermissionTable = ({ role, permissionEntities }) => {
     // console.log("checked", newCheckedActions);
   };
 
+  const handleActionCheck = (rowIndex, action, checked) => {
+    const newCheckedActions = [...checkedActions];
+    const entityId = dataSource[rowIndex]._id;
+    const entityIndex = findEntityIndex(entityId);
+
+    const currentAllowedActions = newCheckedActions[entityIndex].allowedActions;
+
+    // Ensure List View is checked when any other action is selected
+    const ensureListView = () => {
+      if (!currentAllowedActions.includes("GET ALL")) {
+        return [...currentAllowedActions, "GET ALL"];
+      }
+      return currentAllowedActions;
+    };
+
+    // Ensure Details View and List View are checked when Update or Delete is selected
+    const ensureDetailsAndListView = () => {
+      let updatedActions = ensureListView();
+      if (!updatedActions.includes("READ")) {
+        updatedActions = [...updatedActions, "READ"];
+      }
+      return updatedActions;
+    };
+
+    if (checked) {
+      // Add the action to the allowedActions list
+      let updatedActions;
+      if (action === "CREATE" || action === "READ") {
+        updatedActions = ensureListView();
+        updatedActions = [...updatedActions, action];
+      } else if (action === "UPDATE" || action === "DELETE") {
+        updatedActions = ensureDetailsAndListView();
+        updatedActions = [...updatedActions, action];
+      } else {
+        updatedActions = [...currentAllowedActions, action];
+      }
+      updatedActions = Array.from(new Set(updatedActions)); // Remove duplicates
+      newCheckedActions[entityIndex].allowedActions = updatedActions;
+    } else {
+      // Remove the action and adjust dependent rules
+      let updatedActions = currentAllowedActions.filter((a) => a !== action);
+      if (action === "READ") {
+        updatedActions = updatedActions.filter(
+          (a) => a !== "UPDATE" && a !== "DELETE"
+        );
+      }
+      if (action === "GET ALL") {
+        updatedActions = [];
+      }
+      newCheckedActions[entityIndex].allowedActions = updatedActions;
+    }
+
+    setCheckedActions(newCheckedActions);
+    // console.log("updated permissions:", newCheckedActions);
+  };
+
   // Handle reset action
   const handleReset = () => {
     setCheckedActions(initialCheckedActions);
@@ -94,6 +161,7 @@ export const PermissionTable = ({ role, permissionEntities }) => {
     handleActionCheck,
     handleModuleCheck,
     canUpdateRole,
+    isMyRole,
   });
 
   return (
@@ -105,11 +173,14 @@ export const PermissionTable = ({ role, permissionEntities }) => {
             loading={loading}
             type="primary"
             onClick={handleUpdate}
-            disabled={!canUpdateRole}
+            disabled={!canUpdateRole || isMyRole}
           >
             Update
           </Button>
-          <Button disabled={loading || !canUpdateRole} onClick={handleReset}>
+          <Button
+            disabled={loading || !canUpdateRole || isMyRole}
+            onClick={handleReset}
+          >
             Reset
           </Button>
         </Space>

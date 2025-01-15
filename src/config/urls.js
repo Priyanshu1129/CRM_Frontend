@@ -10,42 +10,51 @@ const urls = {
   TENDER: "/tender",
   TENDER_ADD: "/tender/add-tender",
   TENDER_DETAILS: "/tender/tender-details/:id",
+  TENDER_UPDATE: "/tender/update",
 
   // Opportunity Routes
   OPPORTUNITY: "/opportunity",
   OPPORTUNITY_ADD: "/opportunity/add-opportunity",
   OPPORTUNITY_DETAILS: "/opportunity/opportunity-details/:id",
+  OPPORTUNITY_UPDATE: "/opportunity/update",
 
   // Client Routes
   CLIENT: "/client",
   CLIENT_ADD: "/client/add-client",
   CLIENT_DETAILS: "/client/client-details/:id",
+  CLIENT_UPDATE: "/client/update",
 
   // Contact Routes
   CONTACT: "/contact",
   CONTACT_ADD: "/contact/add-contact",
   CONTACT_DETAILS: "/contact/contact-details/:id",
+  CONTACT_UPDATE: "/contact/update",
 
   // Registration Routes
   REGISTRATION: "/registration",
   REGISTRATION_ADD: "/registration/add-registration",
   REGISTRATION_DETAILS: "/registration/registration-details/:id",
+  REGISTRATION_UPDATE: "/registration/update",
 
   // Mention Routes (Business Development)
   MENTION: "/mention",
   MENTION_ADD: "/mention/add-mention",
   MENTION_DETAILS: "/mention/mention-details/:id",
+  MENTION_UPDATE: "/mention/update",
 
   // User Routes
   USER: "/user",
   USER_ADD: "/user/add-user",
   USER_DETAILS: "/user/user-details/:roleId/:id",
+  USER_UPDATE: "/user/update/:roleId",
 
   // Admin Routes
   ADMIN: "/admin",
 
   // Admin Configuration Routes
   ADMIN_CONFIGURATIONS: "/admin/configurations",
+  ADMIN_CONFIGURATIONS_DETAILS: "/admin/configurations/details",
+  ADMIN_CONFIGURATIONS_UPDATE: "/admin/configurations/update",
   ADMIN_CONFIGURATIONS_ADD: "/admin/configurations/add-configuration",
   ADMIN_CONFIGURATIONS_INDUSTRY: "/admin/configurations/industry",
   ADMIN_CONFIGURATIONS_SUB_INDUSTRY: "/admin/configurations/sub-industry",
@@ -59,6 +68,7 @@ const urls = {
   ADMIN_ROLES_PERMISSIONS: "/admin/roles-permissions",
   ADMIN_ROLES_PERMISSIONS_ADD: "/admin/roles-permissions/add-role",
   ADMIN_ROLES_PERMISSIONS_DETAILS: "/admin/roles-permissions/role-details/:id",
+  ADMIN_ROLES_PERMISSIONS_UPDATE: "/admin/roles-permissions/update",
 };
 
 export default urls;

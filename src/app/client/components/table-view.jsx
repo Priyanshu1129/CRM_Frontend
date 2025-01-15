@@ -11,7 +11,6 @@ export const ClientsTableView = ({
   totalClients,
   handleFilter,
 }) => {
-
   const [selectedCurrency, setSelectedCurrency] = useState(1);
   const { currency } = useSelector((state) => state.currency.viewCurrency);
 
@@ -23,6 +22,7 @@ export const ClientsTableView = ({
 
   const columns = getColumns({
     selectedCurrency,
+    data,
   });
 
   return (

@@ -1,10 +1,31 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { List } from "antd";
 import { AdminPanelCard } from "./components";
 import { resources } from "./resource";
+import { getAuthorizedResources } from "@/utilities/checkPermission";
+import { useSelector } from "react-redux";
 
 const AdminPanel = () => {
+  const [authorizedResources, setAuthorizedResources] = useState([]);
+  const { data, permissions } = useSelector((state) => state.auth.authDetails);
+
+  useEffect(() => {
+    try {
+      if (data?.role?.name === "SUPER ADMIN") {
+        setAuthorizedResources(resources);
+      } else {
+        const authorized = getAuthorizedResources(resources, permissions || []);
+        setAuthorizedResources(authorized);
+      }
+    } catch (error) {
+      console.error("Error while filtering authorized resources:", error);
+      setAuthorizedResources([]); // Fallback to empty array
+    }
+  }, [permissions, data]);
+
+  console.log("authorizedResources", authorizedResources);
+
   return (
     <>
       <List
@@ -18,7 +39,7 @@ const AdminPanel = () => {
           xl: 3,
           xxl: 3,
         }}
-        dataSource={resources}
+        dataSource={authorizedResources}
         renderItem={(resource) => (
           <List.Item style={{ marginBottom: "24px" }}>
             <AdminPanelCard resource={resource} />

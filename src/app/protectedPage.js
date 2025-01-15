@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import PrivateLayout from "@/components/layout/Layout";
 import { checkAuth } from "@/redux/actions/authAction";
 import { setRouter } from "@/utilities/globalRouter";
+import { FullScreenLoading } from "@/components";
 
 const NoLayout = ({ children }) => (
   <Layout
@@ -49,7 +50,11 @@ export const ProtectedPage = ({ children }) => {
   }, [checked, dispatch]);
 
   if (!checked || status === "pending") {
-    return <NoLayout>Loading...</NoLayout>;
+    return (
+      <NoLayout>
+        <FullScreenLoading />
+      </NoLayout>
+    );
   }
 
   if (data) {
@@ -64,8 +69,10 @@ export const ProtectedPage = ({ children }) => {
       currentPath === "/unauthorized" ||
       hasRoutePermission(permissions, currentPath)
     ) {
-      // Render protected content
-      const Wrapper = PrivateLayout;
+      let Wrapper = PrivateLayout;
+      // if (currentPath === "/unauthorized") {
+      //   Wrapper = NoLayout;
+      // }
       return <Wrapper>{children}</Wrapper>;
     } else {
       // Redirect unauthorized access
