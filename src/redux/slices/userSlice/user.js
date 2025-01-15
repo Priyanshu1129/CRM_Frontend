@@ -138,8 +138,6 @@ const userSlice = createSlice({
     updateUserList: (state, action) => {
       const { type, payload } = action.payload;
 
-      console.log("Current data:", state.getAllUsers.data);
-
       // Ensure `state.getAllUsers.data.users` exists and is an array
       if (!Array.isArray(state.getAllUsers?.data?.users)) {
         state.getAllUsers.data = {

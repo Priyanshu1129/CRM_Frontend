@@ -18,19 +18,21 @@ export const useUpdateContact = ({ form, contact }) => {
   const [avatarChanged, setAvatarChanged] = useState(false);
   const [avatar, setAvatar] = useState(null);
 
+  console.log("contact", contact);
+
   useEffect(() => {
     if (contact) {
       const contactInitialValues = {
         firstName: contact.firstName,
         lastName: contact.lastName,
         gender: contact.gender,
-        client: contact.client,
+        client: contact.client?._id,
         jobTitle: contact.jobTitle,
         workEmail: contact.workEmail,
         personalEmail: contact.personalEmail,
-        archeType: contact.archeType,
-        territory: contact.territory,
-        relationshipDegree: contact.relationshipDegree,
+        archeType: contact.archeType?._id,
+        territory: contact.territory?._id,
+        relationshipDegree: contact.relationshipDegree?._id,
         country: contact.country,
         memorableInfo: contact.memorableInfo,
         detailsConfirmation: contact.detailsConfirmation,

@@ -101,6 +101,12 @@ export const createContact = (contactData) => async (dispatch) => {
     );
     console.log("create-contact-res-data", data);
     dispatch(contactActions.createContactSuccess(data));
+    dispatch(
+      contactActions.updateContactList({
+        type: "add",
+        payload: data.data,
+      })
+    );
   } catch (error) {
     console.log("error", error);
     let errorMessage = error.message || "An error occurred";
@@ -122,6 +128,12 @@ export const updateContact = (contactData, contactId) => async (dispatch) => {
     );
     console.log("update-contact-res-data", data);
     dispatch(contactActions.getContactSuccess(data));
+    dispatch(
+      contactActions.updateContactList({
+        type: "update",
+        payload: data.data,
+      })
+    );
     dispatch(contactActions.updateContactSuccess(data));
   } catch (error) {
     console.log("error", error);
