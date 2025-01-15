@@ -109,7 +109,8 @@ export const updateUser = (userData, userId) => async (dispatch) => {
     );
 
     console.log("update-user-res-data", response.data);
-    dispatch(userActions.getUserSuccess(response.data));
+
+    dispatch(userActions.getUserSuccess(response));
     dispatch(
       userActions.updateUserList({
         type: "update",

@@ -101,8 +101,14 @@ export const createClient = (clientData) => async (dispatch) => {
       clientData
     );
 
-    console.log("create-client-res-data", response);
+    console.log("create-client-res-data", response.data);
     dispatch(clientActions.createClientSuccess(response));
+    dispatch(
+      clientActions.updateClientList({
+        type: "add",
+        payload: response.data,
+      })
+    );
   } catch (error) {
     console.log("create-client-error", error);
 
@@ -128,9 +134,15 @@ export const updateClient = (clientData, clientId) => async (dispatch) => {
       clientData
     );
 
-    console.log("update-client-res-data", response);
+    console.log("update-client-res-data", response.data);
     dispatch(clientActions.getClientSuccess(response)); // If needed after update
     dispatch(clientActions.updateClientSuccess(response)); // Successful update
+    dispatch(
+      clientActions.updateClientList({
+        type: "update",
+        payload: response.data,
+      })
+    );
   } catch (error) {
     console.log("update-client-error", error);
     // Error message is already handled by axiosRequest
@@ -142,26 +154,25 @@ export const updateClient = (clientData, clientId) => async (dispatch) => {
   }
 };
 
+export const deleteClient =
+  (clientId, confirm = "false") =>
+  async (dispatch) => {
+    try {
+      console.log("delete-ClientData", clientId);
+      dispatch(clientActions.deleteClientRequest());
 
-export const deleteClient = (clientId, confirm = 'false') => async (dispatch) => {
-  try {
-    console.log("delete-ClientData", clientId);
-    dispatch(clientActions.deleteClientRequest());
+      // Make the API call using the axiosRequest helper
+      const response = await axiosRequest(
+        dispatch,
+        "DELETE", // HTTP method for DELETE request
+        `${route}/${clientId}?confirm=${confirm}` // Endpoint for deleting Client by ID
+      );
 
-    // Make the API call using the axiosRequest helper
-    const response = await axiosRequest(
-      dispatch,
-      "DELETE", // HTTP method for DELETE request
-      `${route}/${clientId}?confirm=${confirm}`, // Endpoint for deleting Client by ID
-    );
-
-    console.log("delete-Client-res-data", response.data);
-    dispatch(clientActions.deleteClientSuccess(response.data));
-  } catch (error) {
-    dispatch(
-      clientActions.deleteClientFailure(
-        error.message || "An error occurred"
-      )
-    );
-  }
-};
+      console.log("delete-Client-res-data", response.data);
+      dispatch(clientActions.deleteClientSuccess(response.data));
+    } catch (error) {
+      dispatch(
+        clientActions.deleteClientFailure(error.message || "An error occurred")
+      );
+    }
+  };

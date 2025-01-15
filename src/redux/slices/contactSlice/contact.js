@@ -133,6 +133,50 @@ const contactSlice = createSlice({
     clearDeleteContactError: (state) => {
       state.deleteContact.error = null;
     },
+    updateContactList: (state, action) => {
+      const { type, payload } = action.payload;
+
+      // Ensure `state.getAllUsers.data.users` exists and is an array
+      if (!Array.isArray(state.getAllContacts?.data?.contacts)) {
+        state.getAllContacts.data = {
+          ...state.getAllContacts.data,
+          contacts: [],
+          totalCount: 0,
+        };
+      }
+
+      switch (type) {
+        case "add": {
+          state.getAllContacts.data.contacts = [
+            payload,
+            ...state.getAllContacts.data.contacts,
+          ];
+          state.getAllContacts.data.totalCount++;
+          break;
+        }
+
+        case "update": {
+          const index = state.getAllContacts.data.contacts.findIndex(
+            (contact) => contact._id.toString() === payload._id.toString()
+          );
+          if (index !== -1) {
+            state.getAllContacts.data.contacts[index] = payload;
+          }
+          break;
+        }
+
+        case "delete": {
+          state.getAllContacts.data.contacts =
+            state.getAllContacts.data.contacts.filter(
+              (contact) => contact._id.toString() !== payload._id.toString()
+            );
+          break;
+        }
+
+        default:
+          console.warn(`Unhandled type: ${type}`);
+      }
+    },
   },
 });
 

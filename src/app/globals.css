@@ -192,3 +192,7 @@ html, body {
 .ant-breadcrumb li {
   margin-bottom: 0; /* Ensures uniform spacing across all list items */
 }
+
+.ant-table-column-sort .ant-table-column-title {
+  color: #007CA6 !important; /* Highlight color for title when sorted */
+}

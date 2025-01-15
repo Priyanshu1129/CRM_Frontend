@@ -22,9 +22,13 @@ export const getColumns = ({ data }) => {
   const columns = [
     {
       title: <div style={{ paddingLeft: "24px" }}>Name</div>,
-      // dataIndex: "firstName",
       key: "firstName",
       width: calculateDynamicWidth("Name", "firstName", data) + 20,
+      sorter: (a, b) => {
+        const nameA = `${a.firstName} ${a.lastName}`.toLowerCase();
+        const nameB = `${b.firstName} ${b.lastName}`.toLowerCase();
+        return nameA.localeCompare(nameB); // String comparison for alphabetical order
+      },
       render: (_, record) => (
         <Space>
           <CustomAvatar src={record.avatar} />
@@ -39,6 +43,15 @@ export const getColumns = ({ data }) => {
     //     width: 150,
     //     render: (text) => text || "N/A",
     // },
+    {
+      title: "Created At",
+      dataIndex: "createdAt",
+      key: "createdAt",
+      // sorter: (a, b) => {},
+      // sortDirections: ["ascend", "descend"],
+      render: (text) => (text ? new Date(text).toLocaleDateString() : "N/A"),
+      width: "150px",
+    },
     {
       title: "Gender",
       dataIndex: "gender",
@@ -121,8 +134,8 @@ export const getColumns = ({ data }) => {
       fixed: "right",
       width: 100,
       render: (_, record) => {
-        const roleId = record.role._id;
-        const userId = record._id;
+        const roleId = record?.role?._id;
+        const userId = record?._id;
         return (
           <TableActions showUrl={`/user/user-details/${roleId}/${userId}`} />
         );
