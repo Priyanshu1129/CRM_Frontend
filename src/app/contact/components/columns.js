@@ -168,7 +168,10 @@ export const getColumns = ({ data }) => {
       fixed: "right",
       width: 100,
       render: (_, record) => (
-        <TableActions showUrl={`/contact/contact-details/${record._id}`} />
+        <TableActions
+          showUrl={`/contact/contact-details/${record._id}`}
+          deleteUrl={`/contact/delete-contact/${record._id}`}
+        />
       ),
     },
   ];
