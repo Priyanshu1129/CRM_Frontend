@@ -130,7 +130,7 @@ export const updateContact = (contactData, contactId) => async (dispatch) => {
   }
 };
 
-export const deleteContact = (contactId) => async (dispatch) => {
+export const deleteContact = (contactId, confirm = 'false') => async (dispatch) => {
   try {
     console.log("delete-contactData", contactId);
     dispatch(contactActions.deleteContactRequest());
@@ -139,7 +139,7 @@ export const deleteContact = (contactId) => async (dispatch) => {
     const data = await axiosRequest(
       dispatch,
       "DELETE", // HTTP method for DELETE request
-      `${route}/${contactId}` // URL for deleting the contact by ID
+      `${route}/${contactId}?confirm=${confirm}` // URL for deleting the contact by ID
     );
     console.log("delete-contact-res-data", data);
     dispatch(contactActions.deleteContactSuccess(data));
