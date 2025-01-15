@@ -152,8 +152,8 @@ const userSlice = createSlice({
       switch (type) {
         case "add": {
           state.getAllUsers.data.users = [
-            ...state.getAllUsers.data.users,
             payload,
+            ...state.getAllUsers.data.users,
           ];
           state.getAllUsers.data.totalCount++;
           break;

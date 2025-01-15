@@ -34,7 +34,6 @@ export const getColumns = ({ selectedCurrency, data }) => {
     //   dataIndex: "customId",
     //   key: "customId",
     // },
-
     {
       title: "Entry Date",
       dataIndex: "entryDate",
