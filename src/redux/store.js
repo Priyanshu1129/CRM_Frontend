@@ -43,11 +43,13 @@ import { forgotPasswordReducer } from "./slices/forgotPasswordSlice/forgotPasswo
 import { systemConfigReducer } from "./slices/systemSlice";
 import { targetReducer } from "./slices/targetSlice";
 import { trendViewReducer } from "./slices/dashboardSlice/trendView";
+import { profileReducer } from "./slices/profileSIice";
 
 const store = configureStore({
   reducer: {
     auth: authReducer,
     forgotPassword: forgotPasswordReducer,
+    profile: profileReducer,
     pipeView: pipeViewReducer,
     funnelView: funnelViewReducer,
     summaryView: summaryViewReducer,

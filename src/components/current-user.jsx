@@ -10,17 +10,27 @@ import { Button, Popover } from "antd";
 import { CustomAvatar } from "./custom-avatar";
 import { Text } from "./text";
 import { AccountSettings } from "./account-settings";
-import { useLogout, useChangePassword } from "@/hooks/auth";
+import { useLogout } from "@/hooks/auth";
 import { useSelector } from "react-redux";
+import { useGetUserProfile } from "@/hooks/user";
 
 export const CurrentUser = () => {
   const [opened, setOpened] = useState(false);
-  const { data, status } = useSelector((state) => state.auth.authDetails);
+  const { data } = useSelector((state) => state.auth.authDetails);
   const user = data;
   const { loading, handleLogout } = useLogout();
-  // const { handleChangePassword } = useChangePassword();
 
   const router = useRouter();
+
+  const handleClick = () => {
+    try {
+      console.log("clicked for data");
+      router.push("/profile");
+      setOpened(false);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
 
   const content = (
     <div
@@ -33,9 +43,12 @@ export const CurrentUser = () => {
         strong
         style={{
           padding: "12px 20px",
+          cursor: "pointer",
         }}
+        onClick={handleClick}
       >
-        {`${user?.firstName} ${user?.lastName}`}
+        {`${user?.firstName} ${user?.lastName}
+        `}
       </Text>
       <div
         style={{
@@ -66,11 +79,11 @@ export const CurrentUser = () => {
 
         <Button
           style={{ textAlign: "left" }}
-          // @ts-expect-error Ant Design Icon's v5.0.1 has an issue with @types/react@^18.2.66
           icon={<LogoutOutlined />}
           type="text"
           danger
           block
+          loading={loading}
           onClick={handleLogout}
         >
           Logout
