@@ -144,7 +144,7 @@ export const editRolePermissions =
     }
   };
 
-export const deleteRole = (roleId) => async (dispatch) => {
+export const deleteRole = (roleId, confirm) => async (dispatch) => {
   try {
     console.log("delete-roleData", roleId);
     dispatch(roleActions.deleteRoleRequest());
@@ -153,9 +153,7 @@ export const deleteRole = (roleId) => async (dispatch) => {
     const response = await axiosRequest(
       dispatch,
       "DELETE", // HTTP method for DELETE request
-      `${route}/${roleId}`, // Endpoint to delete the role
-      null, // No body data for DELETE request
-      null // No query parameters
+      `${route}/${roleId}?confirm=${confirm}`, // Endpoint to delete the role
     );
 
     console.log("delete-role-res-data", response.data);

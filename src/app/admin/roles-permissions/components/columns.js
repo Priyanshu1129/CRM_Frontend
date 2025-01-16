@@ -36,6 +36,7 @@ export const columns = [
     render: (_, record) => (
       <TableActions
         showUrl={`/admin/roles-permissions/role-details/${record._id}`}
+        deleteUrl={`/admin/roles-permissions/delete-role/${record._id}`}
       />
     ),
   },
