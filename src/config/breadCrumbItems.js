@@ -2,11 +2,11 @@ import urls from "./urls";
 
 const breadcrumbNames = {
   // Dashboard Routes
-  [urls.DASHBOARD_PIPE_VIEW]: ["Home", "Dashboards", "Pipe View"],
-  [urls.DASHBOARD_FUNNEL_VIEW]: ["Home", "Dashboards", "Funnel View"],
-  [urls.DASHBOARD_SUMMARY_VIEW]: ["Home", "Dashboards", "Summary View"],
-  [urls.DASHBOARD_TREND_VIEW]: ["Home", "Dashboards", "Trend View"],
-  [urls.DASHBOARD_LEADERBOARD]: ["Home", "Dashboards", "Leaderboard"],
+  [urls.DASHBOARD_PIPE_VIEW]: ["Home", "Live Reports", "Pipe View"],
+  [urls.DASHBOARD_FUNNEL_VIEW]: ["Home", "Live Reports", "Funnel View"],
+  [urls.DASHBOARD_SUMMARY_VIEW]: ["Home", "Live Reports", "Summary View"],
+  [urls.DASHBOARD_TREND_VIEW]: ["Home", "Live Reports", "Trend View"],
+  [urls.DASHBOARD_LEADERBOARD]: ["Home", "Live Reports", "Leaderboard"],
 
   // Tender Routes
   [urls.TENDER]: ["Home", "Tenders"],

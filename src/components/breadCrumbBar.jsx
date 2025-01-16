@@ -7,6 +7,8 @@ import { usePathname } from "next/navigation";
 import breadcrumbNames from "@/config/breadCrumbItems";
 import { frontEndServerUrl } from "@/config";
 
+const notClickAble = ["Opportunities", "Live Reports"];
+
 export const BreadcrumbBar = () => {
   const pathname = usePathname();
 
@@ -42,6 +44,13 @@ export const BreadcrumbBar = () => {
 
         if (isParam) {
           return null; // Return null to skip this part
+        }
+
+        if (notClickAble.includes(breadcrumbLabels[index])) {
+          return {
+            title: breadcrumbLabels[index], // Render as plain text
+            key: breadcrumbLabels[index],
+          };
         }
 
         // Use actual value for dynamic segments
