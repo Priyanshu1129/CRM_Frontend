@@ -192,10 +192,9 @@ const ProfilePage = () => {
         <Card
           style={{
             maxWidth: screens.xs ? "100%" : "900px",
-            padding: screens.xs ? "12px" : "24px",
+            padding: "12px",
             boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
             borderRadius: "8px",
-            // marginTop: screens.xs ? 12 : 24,
             backgroundColor: "#fff",
           }}
         >

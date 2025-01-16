@@ -23,6 +23,7 @@ const ChangePassword = () => {
         justifyContent: "center",
         alignItems: "center",
         height: "100%", // Full viewport height
+        background: "#fff",
       }}
     >
       <div

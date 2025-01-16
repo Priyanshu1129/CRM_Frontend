@@ -75,6 +75,9 @@ const urls = {
   ADMIN_ROLES_PERMISSIONS_ADD: "/admin/roles-permissions/add-role",
   ADMIN_ROLES_PERMISSIONS_DETAILS: "/admin/roles-permissions/role-details/:id",
   ADMIN_ROLES_PERMISSIONS_UPDATE: "/admin/roles-permissions/update",
+
+  CHANGE_PASSWORD: "/change-password",
+  MY_PROFILE: "/profile",
 };
 
 export default urls;

@@ -120,6 +120,9 @@ const breadcrumbNames = {
     "Roles and Permissions",
     "Role Details",
   ],
+
+  [urls.MY_PROFILE]: ["Home", "Profile"],
+  [urls.CHANGE_PASSWORD]: ["Home", "Change Password"],
 };
 
 export default breadcrumbNames;
