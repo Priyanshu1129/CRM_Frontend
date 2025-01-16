@@ -104,6 +104,12 @@ export const createBusinessDevelopment =
       dispatch(
         businessDevelopmentActions.createBusinessDevelopmentSuccess(response)
       );
+      dispatch(
+        businessDevelopmentActions.updateBusinessDevelopmentList({
+          type: "add",
+          payload: response.data,
+        })
+      );
     } catch (error) {
       console.log("create-businessDevelopment-error", error);
 
@@ -142,6 +148,12 @@ export const updateBusinessDevelopment =
       dispatch(
         businessDevelopmentActions.updateBusinessDevelopmentSuccess(response)
       );
+      dispatch(
+        businessDevelopmentActions.updateBusinessDevelopmentList({
+          type: "update",
+          payload: response.data,
+        })
+      );
     } catch (error) {
       console.log("update-businessDevelopment-error", error);
 
@@ -155,7 +167,8 @@ export const updateBusinessDevelopment =
   };
 
 export const deleteBusinessDevelopment =
-  (businessDevelopmentId, confirm = 'false') => async (dispatch) => {
+  (businessDevelopmentId, confirm = "false") =>
+  async (dispatch) => {
     try {
       console.log("delete-businessDevelopmentData", businessDevelopmentId);
       dispatch(businessDevelopmentActions.deleteBusinessDevelopmentRequest());

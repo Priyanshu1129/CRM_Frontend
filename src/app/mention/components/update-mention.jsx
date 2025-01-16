@@ -51,15 +51,15 @@ export const UpdateBusinessDevelopmentForm = ({ businessDevelopment }) => {
   useEffect(() => {
     if (businessDevelopment) {
       const businessDevelopmentInitialValues = {
-        client: businessDevelopment.client,
-        contact: businessDevelopment.contact,
+        client: businessDevelopment.client._id,
+        contact: businessDevelopment.contact._id,
         connectionSource: businessDevelopment.connectionSource,
         potentialProject: businessDevelopment.potentialProject,
-        solution: businessDevelopment.solution,
-        subSolution: businessDevelopment.subSolution,
-        industry: businessDevelopment.industry,
-        territory: businessDevelopment.territory,
-        salesChamp: businessDevelopment.salesChamp,
+        solution: businessDevelopment.solution._id,
+        subSolution: businessDevelopment.subSolution._id,
+        industry: businessDevelopment.industry._id,
+        territory: businessDevelopment.territory._id,
+        salesChamp: businessDevelopment.salesChamp._id,
         potentialTopLine: convertCurrency({
           value: businessDevelopment.potentialTopLine,
           selectedCurrency: currency?.value,
@@ -84,7 +84,7 @@ export const UpdateBusinessDevelopmentForm = ({ businessDevelopment }) => {
         message: "Success",
         description: "Business development updated successfully.",
       });
-      dispatch(getAllBusinessDevelopments({}));
+
       dispatch(
         businessDevelopmentActions.clearUpdateBusinessDevelopmentStatus()
       );
