@@ -24,16 +24,16 @@ export const useUpdateOpportunity = ({ opportunity, form }) => {
   useEffect(() => {
     if (opportunity) {
       const opportunityInitialValues = {
-        client: opportunity.client,
+        client: opportunity.client?._id,
         customId: opportunity.customId,
         partneredWith: opportunity.partneredWith,
         projectName: opportunity.projectName,
-        associatedTender: opportunity.associatedTender,
-        solution: opportunity.solution,
-        subSolution: opportunity.subSolution,
-        salesChamp: opportunity.salesChamp,
-        salesStage: opportunity.salesStage,
-        salesSubStage: opportunity.salesSubStage,
+        associatedTender: opportunity.associatedTender?._id,
+        solution: opportunity.solution?._id,
+        subSolution: opportunity.subSolution?._id,
+        salesChamp: opportunity.salesChamp?._id,
+        salesStage: opportunity.salesStage?._id,
+        salesSubStage: opportunity.salesSubStage?._id,
         stageClarification: opportunity.stageClarification,
         salesTopLine: convertCurrency({
           value: opportunity.salesTopLine,
@@ -59,7 +59,7 @@ export const useUpdateOpportunity = ({ opportunity, form }) => {
       // align the sales sub stage with sales stage
       dispatch(
         salesSubStageActions.filterSalesSubStages(
-          opportunityInitialValues.salesStage._id.toString()
+          opportunityInitialValues.salesStage?._id?.toString()
         )
       );
       initialValues.current = opportunityInitialValues;

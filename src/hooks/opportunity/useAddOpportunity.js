@@ -60,8 +60,8 @@ export const useAddOpportunity = () => {
       offsets: offsetsInUSD,
       // entryDate: new Date().toISOString(),
     };
-    console.log(newValues);
-    // dispatch(createOpportunity(newValues));
+
+    dispatch(createOpportunity(newValues));
   };
 
   return { loading, onFinish };

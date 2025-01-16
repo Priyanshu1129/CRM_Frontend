@@ -31,20 +31,20 @@ export const useUpdateTender = ({ tender, form }) => {
           ? dayjs(tender.bondIssueDate)
           : null,
         bondExpiry: tender.bondExpiry ? dayjs(tender.bondExpiry) : null,
-        client: tender.client,
+        client: tender.client?._id,
         reference: tender.reference,
         rfpTitle: tender.rfpTitle,
         rfpSource: tender.rfpSource,
-        associatedOpportunity: tender.associatedOpportunity,
+        associatedOpportunity: tender.associatedOpportunity?._id,
         bond: tender.bond,
         bondValue: convertCurrency({
           value: tender.bondValue,
           selectedCurrency: currency?.value,
         }),
         submissionMode: tender.submissionMode,
-        officer: tender.officer,
-        bidManager: tender.bidManager,
-        stage: tender.stage,
+        officer: tender.officer?._id,
+        bidManager: tender.bidManager?._id,
+        stage: tender.stage?._id,
         stageExplanation: tender.stageExplanation,
       };
       form.setFieldsValue(tenderInitialValues);
@@ -61,7 +61,6 @@ export const useUpdateTender = ({ tender, form }) => {
         message: "Success",
         description: "Tender updated successfully.",
       });
-      dispatch(getAllTenders({}));
       dispatch(tenderActions.clearUpdateTenderStatus());
     } else if (status === "failed") {
       setLoading(false);

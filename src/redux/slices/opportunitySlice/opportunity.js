@@ -27,10 +27,10 @@ const initialOpportunityState = {
     error: null,
     data: null,
   },
-  deleteOpportunityPopup : {
-    open : false,
-    opportunityId : null
-  }
+  deleteOpportunityPopup: {
+    open: false,
+    opportunityId: null,
+  },
 };
 
 const opportunitySlice = createSlice({
@@ -38,15 +38,16 @@ const opportunitySlice = createSlice({
   initialState: initialOpportunityState,
   reducers: {
     // delete popup
-    setDeleteOpportunityPopup : (state, action) => {
-      state.deleteOpportunityPopup.open = true,
-      state.deleteOpportunityPopup.opportunityId = action.payload.toString()
+    setDeleteOpportunityPopup: (state, action) => {
+      (state.deleteOpportunityPopup.open = true),
+        (state.deleteOpportunityPopup.opportunityId =
+          action.payload.toString());
     },
-    clearDeleteOpportunityPopup : (state, action) => {
-      state.deleteOpportunityPopup.open = false,
-      state.deleteOpportunityPopup.opportunityId = null
+    clearDeleteOpportunityPopup: (state, action) => {
+      (state.deleteOpportunityPopup.open = false),
+        (state.deleteOpportunityPopup.opportunityId = null);
     },
-    
+
     getOpportunityRequest: (state, action) => {
       state.getOpportunity.status = "pending";
     },
@@ -98,7 +99,7 @@ const opportunitySlice = createSlice({
     deleteOpportunitySuccess: (state, action) => {
       state.deleteOpportunity.status = "success";
       state.deleteOpportunity.data = action.payload.data;
-      state.deleteOpportunity.confirm = action.payload.confirm;  
+      state.deleteOpportunity.confirm = action.payload.confirm;
     },
     deleteOpportunityFailure: (state, action) => {
       state.deleteOpportunity.status = "failed";
@@ -148,6 +149,52 @@ const opportunitySlice = createSlice({
     },
     clearDeleteOpportunityError: (state) => {
       state.deleteOpportunity.error = null;
+    },
+    updateOpportunityList: (state, action) => {
+      const { type, payload } = action.payload;
+
+      // Ensure `state.getAllOpportunities.data.opportunities` exists and is an array
+      if (!Array.isArray(state.getAllOpportunities?.data?.opportunities)) {
+        state.getAllOpportunities.data = {
+          ...state.getAllOpportunities.data,
+          opportunities: [],
+          totalCount: 0,
+        };
+      }
+
+      switch (type) {
+        case "add": {
+          state.getAllOpportunities.data.opportunities = [
+            payload,
+            ...state.getAllOpportunities.data.opportunities,
+          ];
+          state.getAllOpportunities.data.totalCount++;
+          break;
+        }
+
+        case "update": {
+          const index = state.getAllOpportunities.data.opportunities.findIndex(
+            (opportunity) =>
+              opportunity._id.toString() === payload._id.toString()
+          );
+          if (index !== -1) {
+            state.getAllOpportunities.data.opportunities[index] = payload;
+          }
+          break;
+        }
+
+        case "delete": {
+          state.getAllOpportunities.data.opportunities =
+            state.getAllOpportunities.data.opportunities.filter(
+              (opportunity) =>
+                opportunity._id.toString() !== payload._id.toString()
+            );
+          break;
+        }
+
+        default:
+          console.warn(`Unhandled type: ${type}`);
+      }
     },
   },
 });

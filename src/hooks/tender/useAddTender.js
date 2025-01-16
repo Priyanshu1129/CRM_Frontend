@@ -50,6 +50,7 @@ export const useAddTender = () => {
       bondExpiry: values?.bondExpiry?.format("YYYY-MM-DD"),
       entryDate: new Date().toISOString(),
     };
+
     dispatch(createTender(formattedValues));
   };
 

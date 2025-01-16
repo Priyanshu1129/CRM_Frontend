@@ -133,6 +133,50 @@ const tenderSlice = createSlice({
     clearDeleteTenderError: (state) => {
       state.deleteTender.error = null;
     },
+    updateTenderList: (state, action) => {
+      const { type, payload } = action.payload;
+
+      // Ensure `state.getAllTenders.data.tenders` exists and is an array
+      if (!Array.isArray(state.getAllTenders?.data?.tenders)) {
+        state.getAllTenders.data = {
+          ...state.getAllTenders.data,
+          tenders: [],
+          totalCount: 0,
+        };
+      }
+
+      switch (type) {
+        case "add": {
+          state.getAllTenders.data.tenders = [
+            payload,
+            ...state.getAllTenders.data.tenders,
+          ];
+          state.getAllTenders.data.totalCount++;
+          break;
+        }
+
+        case "update": {
+          const index = state.getAllTenders.data.tenders.findIndex(
+            (tender) => tender._id.toString() === payload._id.toString()
+          );
+          if (index !== -1) {
+            state.getAllTenders.data.tenders[index] = payload;
+          }
+          break;
+        }
+
+        case "delete": {
+          state.getAllTenders.data.tenders =
+            state.getAllTenders.data.tenders.filter(
+              (tender) => tender._id.toString() !== payload._id.toString()
+            );
+          break;
+        }
+
+        default:
+          console.warn(`Unhandled type: ${type}`);
+      }
+    },
   },
 });
 

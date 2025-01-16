@@ -136,7 +136,6 @@ const businessDevelopmentSlice = createSlice({
     updateBusinessDevelopmentList: (state, action) => {
       const { type, payload } = action.payload;
 
-      console.log("update business development", state, payload);
       if (
         !Array.isArray(
           state.getAllBusinessDevelopments?.data?.businessDevelopments
