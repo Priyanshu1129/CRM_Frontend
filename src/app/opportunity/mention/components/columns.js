@@ -171,8 +171,8 @@ export const getColumns = ({ selectedCurrency, data }) => {
       width: 100,
       render: (_, record) => (
         <TableActions
-          showUrl={`/mention/mention-details/${record._id}`}
-          deleteUrl={`/mention/delete-mention/${record._id}`}
+          showUrl={`/opportunity/mention/mention-details/${record._id}`}
+          deleteUrl={`/opportunity/mention/delete-mention/${record._id}`}
         />
       ),
     },

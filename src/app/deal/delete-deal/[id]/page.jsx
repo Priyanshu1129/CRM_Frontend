@@ -17,8 +17,8 @@
 //   //     handleDeleteOpportunity(id);
 //   //   }
 //   // }, [id]);
-  
-//   // Because when ever the page is rendered we have to cal the function 
+
+//   // Because when ever the page is rendered we have to cal the function
 //   useEffect(()=>{
 //     handleDeleteOpportunity(id);
 //   },[])
@@ -66,13 +66,12 @@
 
 // export default DeleteOpportunityPage;
 
-
 "use client";
 import React, { useEffect } from "react";
 import { Button, Card, Col, Row, Typography, Spin } from "antd";
 import { useParams } from "next/navigation";
 import { ReloadOutlined } from "@ant-design/icons";
-import { useDeleteOpportunity } from "@/hooks/opportunity/useDeleteOpportunity";
+import { useDeleteOpportunity } from "@/hooks/deal/useDeleteDeal";
 import OpportunityCard from "@/app/client/delete-client/[id]/component/OpportunityCard";
 import TenderCard from "@/app/client/delete-client/[id]/component/tenderCard";
 

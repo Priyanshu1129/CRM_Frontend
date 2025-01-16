@@ -30,7 +30,7 @@ import {
   opportunityFormRules,
   tenderFormRules,
 } from "@/utilities/formValidationRules";
-import { useUpdateOpportunity } from "@/hooks/opportunity";
+import { useUpdateOpportunity } from "@/hooks/deal";
 import { colorConfig } from "@/config";
 import { useCheckPermission } from "@/hooks/permissions/useCheckPermission";
 

@@ -50,7 +50,7 @@ export const resources = [
     ],
   },
   {
-    key: "opportunity",
+    key: "deal",
     label: "Deals",
     icon: <FileOutlined />,
   },
@@ -60,9 +60,28 @@ export const resources = [
     icon: <FileTextOutlined />,
   },
   {
-    key: "mention",
-    label: "Mentions",
+    key: "opportunity",
+    label: "Opportunities",
     icon: <ProjectOutlined />,
+    children: [
+      {
+        key: "opportunity/lead",
+        label: "Lead",
+        icon: <MdOutlineCircle />,
+        disabled: true,
+      },
+      {
+        key: "opportunity/interaction",
+        label: "Interaction",
+        icon: <MdOutlineCircle />,
+        disabled: true,
+      },
+      {
+        key: "opportunity/mention",
+        label: "Mention",
+        icon: <MdOutlineCircle />,
+      },
+    ],
   },
   {
     key: "registration",
@@ -95,21 +114,25 @@ export const resources = [
     key: "account-management",
     label: "Account Management",
     icon: <SettingOutlined />,
+    disabled: true,
   },
   {
     key: "customer-360",
     label: "Customer 360",
     icon: <SolutionOutlined />,
+    disabled: true,
   },
   {
     key: "incentive",
     label: "Incentive",
     icon: <GiftOutlined />,
+    disabled: true,
   },
   {
     key: "task",
     label: "Task",
     icon: <CheckSquareOutlined />,
+    disabled: true,
   },
   {
     key: "admin",

@@ -14,9 +14,9 @@ const breadcrumbNames = {
   [urls.TENDER_DETAILS]: ["Home", "Tenders", "Tender Details"],
 
   // Opportunity Routes
-  [urls.OPPORTUNITY]: ["Home", "Deals"],
-  [urls.OPPORTUNITY_ADD]: ["Home", "Deals", "Add Deal"],
-  [urls.OPPORTUNITY_DETAILS]: ["Home", "Deals", "Deal Details"],
+  [urls.DEAL]: ["Home", "Deals"],
+  [urls.DEAL_ADD]: ["Home", "Deals", "Add Deal"],
+  [urls.DEAL_DETAILS]: ["Home", "Deals", "Deal Details"],
 
   // Client Routes
   [urls.CLIENT]: ["Home", "Clients"],
@@ -38,9 +38,14 @@ const breadcrumbNames = {
   ],
 
   // Mention Routes (Business Development)
-  [urls.MENTION]: ["Home", "Mentions"],
-  [urls.MENTION_ADD]: ["Home", "Mentions", "Add Mention"],
-  [urls.MENTION_DETAILS]: ["Home", "Mentions", "Mention Details"],
+  [urls.MENTION]: ["Home", "Opportunities", "Mentions"],
+  [urls.MENTION_ADD]: ["Home", "Opportunities", "Mentions", "Add Mention"],
+  [urls.MENTION_DETAILS]: [
+    "Home",
+    "Opportunities",
+    "Mentions",
+    "Mention Details",
+  ],
 
   // User Routes
   [urls.USER]: ["Home", "Team"],

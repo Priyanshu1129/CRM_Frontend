@@ -12,11 +12,17 @@ const urls = {
   TENDER_DETAILS: "/tender/tender-details/:id",
   TENDER_UPDATE: "/tender/update",
 
-  // Opportunity Routes
-  OPPORTUNITY: "/opportunity",
-  OPPORTUNITY_ADD: "/opportunity/add-opportunity",
-  OPPORTUNITY_DETAILS: "/opportunity/opportunity-details/:id",
-  OPPORTUNITY_UPDATE: "/opportunity/update",
+  // // Opportunity Routes
+  // OPPORTUNITY: "/opportunity",
+  // OPPORTUNITY_ADD: "/opportunity/add-opportunity",
+  // OPPORTUNITY_DETAILS: "/opportunity/opportunity-details/:id",
+  // OPPORTUNITY_UPDATE: "/opportunity/update",
+
+  // deals Routes
+  DEAL: "/deal",
+  DEAL_ADD: "/deal/add-deal",
+  DEAL_DETAILS: "/deal/deal-details/:id",
+  DEAL_UPDATE: "/deal/update",
 
   // Client Routes
   CLIENT: "/client",
@@ -37,10 +43,10 @@ const urls = {
   REGISTRATION_UPDATE: "/registration/update",
 
   // Mention Routes (Business Development)
-  MENTION: "/mention",
-  MENTION_ADD: "/mention/add-mention",
-  MENTION_DETAILS: "/mention/mention-details/:id",
-  MENTION_UPDATE: "/mention/update",
+  MENTION: "/opportunity/mention",
+  MENTION_ADD: "/opportunity/mention/add-mention",
+  MENTION_DETAILS: "/opportunity/mention/mention-details/:id",
+  MENTION_UPDATE: "/opportunity/mention/update",
 
   // User Routes
   USER: "/user",

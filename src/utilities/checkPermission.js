@@ -105,7 +105,7 @@ export const getAuthorizedResources = (resources, permissions) => {
   console.log("admin-resources", resources);
   return resources
     .map((resource) => {
-      if (resource.key === "dashboard") {
+      if (resource.key === "dashboard" || resource.key === "opportunity") {
         // Handle dashboard and its children
         const authorizedChildren = resource.children.filter((child) =>
           hasPermission(permissions, sideBarPermissions[child.key])
@@ -122,7 +122,6 @@ export const getAuthorizedResources = (resources, permissions) => {
         // Do not include dashboard if no children are authorized
         return null;
       } else {
-        console.log("items", sideBarPermissions[resource.key]);
         // Handle other resources
         return hasPermission(permissions, sideBarPermissions[resource.key])
           ? resource

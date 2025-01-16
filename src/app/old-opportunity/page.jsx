@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { ListHeader } from "@/components";
 import { OpportunitiesTableView } from "./components";
 import { Filter } from "./components/filter";
-import { useFetchOpportunities } from "@/hooks/opportunity";
+import { useFetchOpportunities } from "@/hooks/deal";
 
 const OpportunityMaster = () => {
   const [currentPage, setCurrentPage] = useState(1);

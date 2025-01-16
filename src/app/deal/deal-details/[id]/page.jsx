@@ -4,7 +4,7 @@ import { Grid, Space, theme } from "antd";
 import { UpdateOpportunityForm } from "../components/update-opportunity-form";
 import { useParams } from "next/navigation";
 import { FullScreenLoading, FormHeader } from "@/components";
-import { useFetchOpportunityDetails } from "@/hooks/opportunity";
+import { useFetchOpportunityDetails } from "@/hooks/deal";
 
 const OpportunityDetails = () => {
   const screens = Grid.useBreakpoint();
@@ -24,7 +24,7 @@ const OpportunityDetails = () => {
         height: "100%", // Full viewport height
       }}
     >
-      <FormHeader backButtonText="Back to Opportunities" />
+      <FormHeader backButtonText="Back to Deals" />
       <Space
         direction="vertical"
         style={{

@@ -124,7 +124,7 @@ const BusinessDevelopmentMaster = () => {
       }}
     >
       <ListHeader
-        toPath={"/mention/add-mention"}
+        toPath={"/opportunity/mention/add-mention"}
         buttonText={"Add New Mention"}
         setRefresh={setRefresh}
         setFilter={setFilter}

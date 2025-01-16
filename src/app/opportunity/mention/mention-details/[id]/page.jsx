@@ -62,7 +62,7 @@ const BusinessDevelopmentDetails = () => {
         height: "100%", // Full viewport height
       }}
     >
-      <FormHeader backButtonText="Back to BusinessDevelopments" />
+      <FormHeader backButtonText="Back to Mentions" />
       <Space
         direction="vertical"
         style={{
