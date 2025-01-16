@@ -133,6 +133,57 @@ const businessDevelopmentSlice = createSlice({
     clearDeleteBusinessDevelopmentError: (state) => {
       state.deleteBusinessDevelopment.error = null;
     },
+    updateBusinessDevelopmentList: (state, action) => {
+      const { type, payload } = action.payload;
+
+      if (
+        !Array.isArray(
+          state.getAllBusinessDevelopments?.data?.businessDevelopments
+        )
+      ) {
+        state.getAllBusinessDevelopments.data = {
+          ...state.getAllBusinessDevelopments.data,
+          businessDevelopments: [],
+          totalCount: 0,
+        };
+      }
+
+      switch (type) {
+        case "add": {
+          state.getAllBusinessDevelopments.data.businessDevelopments = [
+            payload,
+            ...state.getAllBusinessDevelopments.data.businessDevelopments,
+          ];
+          state.getAllBusinessDevelopments.data.totalCount++;
+          break;
+        }
+
+        case "update": {
+          const index =
+            state.getAllBusinessDevelopments.data.businessDevelopments.findIndex(
+              (businessDevelopment) =>
+                businessDevelopment._id.toString() === payload._id.toString()
+            );
+          if (index !== -1) {
+            state.getAllBusinessDevelopments.data.businessDevelopments[index] =
+              payload;
+          }
+          break;
+        }
+
+        case "delete": {
+          state.getAllBusinessDevelopments.data.businessDevelopments =
+            state.getAllBusinessDevelopments.data.businessDevelopments.filter(
+              (businessDevelopment) =>
+                businessDevelopment._id.toString() !== payload._id.toString()
+            );
+          break;
+        }
+
+        default:
+          console.warn(`Unhandled type: ${type}`);
+      }
+    },
   },
 });
 

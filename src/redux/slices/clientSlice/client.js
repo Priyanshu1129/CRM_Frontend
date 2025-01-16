@@ -136,9 +136,6 @@ const clientSlice = createSlice({
     updateClientList: (state, action) => {
       const { type, payload } = action.payload;
 
-      console.log("Current data:", state.getAllClients.data?.clients);
-      console.log("insert on", type, payload);
-
       // Ensure `state.getAllUsers.data.users` exists and is an array
       if (!Array.isArray(state.getAllClients?.data?.clients)) {
         state.getAllClients.data = {

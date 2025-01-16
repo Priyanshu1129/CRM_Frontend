@@ -8,6 +8,7 @@ import { customTheme } from "@/config";
 import { StoreProvider } from "./storeProvider";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 // const roboto = Roboto({ subsets: ["latin"], weight: ["300", "400", "500"] });
+import "../config/config";
 
 const poppins = Poppins({
   subsets: ["latin"],

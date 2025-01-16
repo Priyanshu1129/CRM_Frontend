@@ -92,7 +92,14 @@ export const createOpportunity = (opportunityData) => async (dispatch) => {
     );
 
     console.log("create-opportunity-res-data", response);
+    console.log("create-opportunity-res-data-1", response.data.data);
     dispatch(opportunityActions.createOpportunitySuccess(response.data.data));
+    dispatch(
+      opportunityActions.updateOpportunityList({
+        type: "add",
+        payload: response.data,
+      })
+    );
   } catch (error) {
     dispatch(
       opportunityActions.createOpportunityFailure(
@@ -129,25 +136,27 @@ export const updateOpportunity =
     }
   };
 
-export const deleteOpportunity = (opportunityId, confirm = 'false') => async (dispatch) => {
-  try {
-    console.log("delete-opportunityData", opportunityId);
-    dispatch(opportunityActions.deleteOpportunityRequest());
+export const deleteOpportunity =
+  (opportunityId, confirm = "false") =>
+  async (dispatch) => {
+    try {
+      console.log("delete-opportunityData", opportunityId);
+      dispatch(opportunityActions.deleteOpportunityRequest());
 
-    // Make the API call using the axiosRequest helper
-    const response = await axiosRequest(
-      dispatch,
-      "DELETE", // HTTP method for DELETE request
-      `${route}/${opportunityId}?confirm=${confirm}`, // Endpoint for deleting opportunity by ID
-    );
+      // Make the API call using the axiosRequest helper
+      const response = await axiosRequest(
+        dispatch,
+        "DELETE", // HTTP method for DELETE request
+        `${route}/${opportunityId}?confirm=${confirm}` // Endpoint for deleting opportunity by ID
+      );
 
-    console.log("delete-opportunity-res-data", response.data);
-    dispatch(opportunityActions.deleteOpportunitySuccess(response));
-  } catch (error) {
-    dispatch(
-      opportunityActions.deleteOpportunityFailure(
-        error.message || "An error occurred"
-      )
-    );
-  }
-};
+      console.log("delete-opportunity-res-data", response.data);
+      dispatch(opportunityActions.deleteOpportunitySuccess(response));
+    } catch (error) {
+      dispatch(
+        opportunityActions.deleteOpportunityFailure(
+          error.message || "An error occurred"
+        )
+      );
+    }
+  };

@@ -22,9 +22,9 @@ export const useUpdateRegistration = ({ registration, form }) => {
   useEffect(() => {
     if (registration) {
       const registrationInitialValues = {
-        client: registration.client,
-        registrationChamp: registration.registrationChamp,
-        status: registration.status,
+        client: registration.client?._id,
+        registrationChamp: registration.registrationChamp?._id,
+        status: registration.status?._id,
         link: registration.websiteDetails?.link,
         username: registration.websiteDetails?.username,
         password: registration.websiteDetails?.password,
@@ -35,7 +35,7 @@ export const useUpdateRegistration = ({ registration, form }) => {
         expiryDate: registration.expiryDate
           ? dayjs(registration.expiryDate)
           : null,
-        primaryContact: registration.primaryContact,
+        primaryContact: registration.primaryContact?._id,
         submittedDocuments: registration.submittedDocuments,
         notes: registration.notes,
       };

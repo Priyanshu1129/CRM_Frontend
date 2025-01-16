@@ -23,12 +23,10 @@ export const routePermissions = {
   [urls.TENDER_UPDATE]: [{ entity: "TENDER", action: ["UPDATE"] }], // fake route
 
   // opportunity routes
-  [urls.OPPORTUNITY]: [
-    { entity: "OPPORTUNITY", action: ["GET ALL", "CREATE"] },
-  ],
-  [urls.OPPORTUNITY_ADD]: [{ entity: "OPPORTUNITY", action: ["CREATE"] }],
-  [urls.OPPORTUNITY_DETAILS]: [{ entity: "OPPORTUNITY", action: ["READ"] }],
-  [urls.OPPORTUNITY_UPDATE]: [{ entity: "OPPORTUNITY", action: ["UPDATE"] }], // fake route
+  [urls.DEAL]: [{ entity: "OPPORTUNITY", action: ["GET ALL", "CREATE"] }],
+  [urls.DEAL_ADD]: [{ entity: "OPPORTUNITY", action: ["CREATE"] }],
+  [urls.DEAL_DETAILS]: [{ entity: "OPPORTUNITY", action: ["READ"] }],
+  [urls.DEAL_UPDATE]: [{ entity: "OPPORTUNITY", action: ["UPDATE"] }], // fake route
 
   // client routes
   [urls.CLIENT]: [{ entity: "CLIENT", action: ["GET ALL", "CREATE"] }],
@@ -117,6 +115,7 @@ export const routePermissions = {
 };
 
 export const sideBarPermissions = {
+  // dashboard tab
   "dashboards/pipe-view": [
     { entity: "PIPE VIEW", action: ["ALL VIEW", "MY VIEW"] },
   ],
@@ -126,21 +125,51 @@ export const sideBarPermissions = {
   "dashboards/summary-view": [{ entity: "SUMMARY VIEW", action: ["ALL VIEW"] }],
   "dashboards/trend-view": [{ entity: "TREND VIEW", action: ["ALL VIEW"] }],
   "dashboards/leaderboard": [{ entity: "LEADERBOARD", action: ["ALL VIEW"] }],
-  opportunity: [{ entity: "OPPORTUNITY", action: ["GET ALL", "CREATE"] }],
+
+  // for deal tab
+  deal: [{ entity: "OPPORTUNITY", action: ["GET ALL", "CREATE"] }],
+
+  // for tender tab
   tender: [{ entity: "TENDER", action: ["GET ALL", "CREATE"] }],
-  mention: [{ entity: "BUSINESS DEVELOPMENT", action: ["GET ALL", "CREATE"] }],
+
+  // for opportunity mention tab
+  "opportunity/mention": [
+    { entity: "BUSINESS DEVELOPMENT", action: ["GET ALL", "CREATE"] },
+  ],
+
+  // for registration tab
   registration: [{ entity: "REGISTRATION", action: ["GET ALL", "CREATE"] }],
+
+  // for client tab
   client: [{ entity: "CLIENT", action: ["GET ALL", "CREATE"] }],
+
+  // for contact tab
   contact: [{ entity: "CONTACT", action: ["GET ALL", "CREATE"] }],
+
+  // for user tab
   user: [{ entity: "ROLE ENTITY", action: ["GET ALL", "CREATE"] }],
+
+  // for admin tab
   admin: [
     { entity: "CONFIGURATION", action: ["GET ALL", "CREATE"] },
     { entity: "ROLE", action: ["GET ALL", "CREATE"] },
   ],
+
+  // for configurations tab
   configurations: [{ entity: "CONFIGURATION", action: ["GET ALL"] }],
+
+  // for roles-permissions tab
   "roles-permissions": [{ entity: "ROLE", action: ["GET ALL"] }],
+
+  // for targets tab
   targets: [{ entity: "TARGET", action: ["GET ALL"] }],
+
+  // for db-backup tab
   "db-backup": [{ entity: "BACKUP", action: ["YES"] }],
+
+  // for report tab
   report: [{ entity: "REPORT", action: ["YES"] }],
+
+  // for system-config tab
   "system-config": [{ entity: "SYSTEM_CONFIG", action: ["YES"] }],
 };

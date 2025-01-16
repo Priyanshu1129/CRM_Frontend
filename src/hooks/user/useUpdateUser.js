@@ -20,7 +20,7 @@ export const useUpdateUser = ({ user, form }) => {
         firstName: user.firstName,
         lastName: user.lastName,
         gender: user.gender,
-        role: user.role._id,
+        role: user.role?._id,
         email: user.email,
         country: user.address?.country,
         state: user.address?.state,

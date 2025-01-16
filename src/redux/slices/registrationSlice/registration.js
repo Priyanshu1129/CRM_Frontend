@@ -136,12 +136,6 @@ const registrationSlice = createSlice({
     updateRegistrationList: (state, action) => {
       const { type, payload } = action.payload;
 
-      console.log(
-        "Current data:",
-        state.getAllRegistrations.data?.registrations
-      );
-      console.log("insert on", type, payload);
-
       // Ensure `state.getAllUsers.data.users` exists and is an array
       if (!Array.isArray(state.getAllRegistrations?.data?.registrations)) {
         state.getAllRegistrations.data = {

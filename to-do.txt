@@ -29,6 +29,7 @@ check all routes
 sorting
 ---------------------------------------------------update list on update/add + added user not coming
 frontend testing
+include sit in user table
 
 -------------------------------------------------------------list is should also hide (excluded)
 -------------------------------------------------------------------correct the flow

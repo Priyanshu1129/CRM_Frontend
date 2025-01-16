@@ -107,7 +107,6 @@ const AddTender = () => {
               <ClientSelector
                 name="client"
                 label="Client Name"
-                rules={tenderFormRules.clientName}
                 disabled={true}
               />
             </Col>

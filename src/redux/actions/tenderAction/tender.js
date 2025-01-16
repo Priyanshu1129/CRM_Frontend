@@ -83,7 +83,7 @@ export const createTender = (tenderData) => async (dispatch) => {
     console.log("create-tenderData", tenderData);
     dispatch(tenderActions.createTenderRequest());
 
-    const data = await axiosRequest(
+    const response = await axiosRequest(
       dispatch,
       "POST", // HTTP method for POST request
       `${route}/`, // Endpoint for creating a tender
@@ -91,8 +91,14 @@ export const createTender = (tenderData) => async (dispatch) => {
       null // No query parameters
     );
 
-    console.log("create-tender-res-data", data);
-    dispatch(tenderActions.createTenderSuccess(data));
+    console.log("create-tender-res-data", response);
+    dispatch(tenderActions.createTenderSuccess(response));
+    dispatch(
+      tenderActions.updateTenderList({
+        type: "add",
+        payload: response.data,
+      })
+    );
   } catch (error) {
     console.log("error", error);
     dispatch(tenderActions.createTenderFailure(error.message));
@@ -104,7 +110,7 @@ export const updateTender = (tenderData, tenderId) => async (dispatch) => {
     console.log("update-tenderData-req", tenderData);
     dispatch(tenderActions.updateTenderRequest());
 
-    const data = await axiosRequest(
+    const response = await axiosRequest(
       dispatch,
       "PUT", // HTTP method for PUT request
       `${route}/${tenderId}`, // Endpoint for updating a tender by ID
@@ -112,30 +118,38 @@ export const updateTender = (tenderData, tenderId) => async (dispatch) => {
       null // No query parameters
     );
 
-    console.log("update-tender-res-data", data);
-    dispatch(tenderActions.getTenderSuccess(data)); // You might want to dispatch this if needed
-    dispatch(tenderActions.updateTenderSuccess(data));
+    console.log("update-tender-res-data", response);
+    dispatch(tenderActions.getTenderSuccess(response));
+    dispatch(tenderActions.updateTenderSuccess(response));
+    dispatch(
+      tenderActions.updateTenderList({
+        type: "update",
+        payload: response.data,
+      })
+    );
   } catch (error) {
     console.log("error", error);
     dispatch(tenderActions.updateTenderFailure(error.message));
   }
 };
 
-export const deleteTender = (tenderId, confirm = 'false') => async (dispatch) => {
-  try {
-    console.log("delete-tenderData", tenderId);
-    dispatch(tenderActions.deleteTenderRequest());
+export const deleteTender =
+  (tenderId, confirm = "false") =>
+  async (dispatch) => {
+    try {
+      console.log("delete-tenderData", tenderId);
+      dispatch(tenderActions.deleteTenderRequest());
 
-    const data = await axiosRequest(
-      dispatch,
-      "DELETE", // HTTP method for DELETE request
-      `${route}/${tenderId}?confirm=${confirm}`, // Endpoint for deleting a tender by ID
-    );
+      const data = await axiosRequest(
+        dispatch,
+        "DELETE", // HTTP method for DELETE request
+        `${route}/${tenderId}?confirm=${confirm}` // Endpoint for deleting a tender by ID
+      );
 
-    console.log("delete-tender-res-data", data);
-    dispatch(tenderActions.deleteTenderSuccess(data));
-  } catch (error) {
-    console.log("delete-tender-error", error);
-    dispatch(tenderActions.deleteTenderFailure(error.message));
-  }
-};
+      console.log("delete-tender-res-data", data);
+      dispatch(tenderActions.deleteTenderSuccess(data));
+    } catch (error) {
+      console.log("delete-tender-error", error);
+      dispatch(tenderActions.deleteTenderFailure(error.message));
+    }
+  };
