@@ -3,10 +3,12 @@
 import OpportunityCard from "@/app/client/delete-client/[id]/component/OpportunityCard";
 import TenderCard from "@/app/client/delete-client/[id]/component/tenderCard";
 import { useEffect } from "react";
-import { Divider, Typography, Row, Col, Button } from "antd";
+import { Divider, Typography, Row, Col, Button, Alert } from "antd";
+import { useParams } from "next/navigation";
+import { ReloadOutlined } from "@ant-design/icons";
+import { BackButton } from "@/components";
 
 const { useDeleteTender } = require("@/hooks/tender/useDeleteTender");
-const { useParams } = require("next/navigation");
 
 const DeleteTenderPage = () => {
   const { id } = useParams();
@@ -18,56 +20,87 @@ const DeleteTenderPage = () => {
   }, [id]);
 
   return (
-    <div style={{ padding: '20px' }}>
-      {/* Header Section */}
-      <Typography.Title level={2}>Delete Tender Page</Typography.Title>
-      <Typography.Text style={{ fontSize: '14px', color: '#888' }}>
-        Please check the tender and related items before deletion.
-      </Typography.Text>
-      <Divider style={{ margin: '20px 0' }} />
+    <>
+      {/* Top Action Bar */}
+      <div
+        style={{
+          width: "100%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        <BackButton buttonText={"Back to Tenders"} />
+        <Button
+          icon={<ReloadOutlined />}
+          type="default"
+          onClick={() => handleDeleteTender(id)}
+          loading={loading}
+        >
+          Reload
+        </Button>
+      </div>
 
-      {/* Tender Details Section */}
-      <section>
-        <Typography.Title level={4}>Tender Details</Typography.Title>
-        <Typography.Text>
-          Review the tender details below before confirming the deletion.
-        </Typography.Text>
-        <div>
-          {data?.data.tender && <TenderCard tender={data?.data?.tender} />}
-        </div>
-      </section>
-      
-      <Divider />
-
-      {/* Associated Opportunity Section */}
-      {data?.data?.tender?.associatedOpportunity && (
-        <section>
-          <Typography.Title level={4}>Associated Opportunity</Typography.Title>
-          <Typography.Text>
-            Below are the details of the opportunity associated with this tender.
-          </Typography.Text>
-          <div>
-            <OpportunityCard opportunity={data?.data?.tender?.associatedOpportunity} />
+      <div
+        style={{
+          marginTop: "24px",
+          padding: "24px",
+          backgroundColor: "#f5f5f5",
+          minHeight: "100vh",
+        }}
+      >
+        {/* Tender Details Section */}
+        <section style={{ marginBottom: "12px" }}>
+          <div style={{ fontSize: "20px", fontWeight: 600 }}>Tender Details</div>
+          <Alert
+            style={{ padding: "6px" }}
+            description="Review the tender details carefully before confirming the deletion."
+            type="info"
+            showIcon
+          />
+          <div style={{ marginTop: "6px" }}>
+            {data?.data?.tender ? (
+              <TenderCard tender={data?.data?.tender} />
+            ) : (
+              <Alert message="No Tender Information Available" type="info" showIcon />
+            )}
           </div>
         </section>
-      )}
-      
-      {/* Confirmation or Delete Button Section */}
-      {/* Optionally, add a confirmation or delete button at the end */}
-      <Row justify="center" style={{ marginTop: "24px" }}>
-        <Col>
+
+        <Divider />
+
+        {/* Associated Opportunity Section */}
+        {data?.data?.tender?.associatedOpportunity && (
+          <section style={{ marginBottom: "12px" }}>
+            <div style={{ fontSize: "20px", fontWeight: 600 }}>Associated Opportunity</div>
+            <Alert
+              style={{ padding: "6px" }}
+              description="The following opportunity is associated with this tender. Deleting the tender will impact this opportunity."
+              type="warning"
+              showIcon
+            />
+            <div style={{ marginTop: "6px" }}>
+              <OpportunityCard opportunity={data?.data?.tender?.associatedOpportunity} />
+            </div>
+          </section>
+        )}
+
+        <Divider />
+
+        {/* Confirm Deletion Button Section */}
+        <section style={{ marginTop: "24px", textAlign: "center" }}>
           <Button
             type="primary"
             danger
             size="large"
-            onClick={() => handleDeleteTender(id, "true")}
             loading={loading}
+            onClick={() => handleDeleteTender(id, "true")}
           >
             Confirm Delete
           </Button>
-        </Col>
-      </Row>
-    </div>
+        </section>
+      </div>
+    </>
   );
 };
 

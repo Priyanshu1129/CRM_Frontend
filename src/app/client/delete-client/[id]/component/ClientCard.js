@@ -10,9 +10,15 @@ import {
   Col,
   Space,
 } from "antd";
-import { EyeOutlined, DownOutlined, UpOutlined, UserOutlined } from "@ant-design/icons";
+import {
+  EyeOutlined,
+  DownOutlined,
+  UpOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 import { colorConfig } from "@/config";
 import { useRouter } from "next/navigation";
+import ActionButtons from "@/components/ActionButtons";
 
 const { Title, Text } = Typography;
 
@@ -36,7 +42,6 @@ const ClientCard = ({ client }) => {
       </div>
     </Space>
   );
-
 
   const topSectionItems = [
     {
@@ -75,12 +80,18 @@ const ClientCard = ({ client }) => {
     {
       key: "2",
       label: "Primary Relationship",
-      children: renderProfile(client.primaryRelationship, "Primary relationship"),
+      children: renderProfile(
+        client.primaryRelationship,
+        "Primary relationship"
+      ),
     },
     {
       key: "3",
       label: "Secondary Relationship",
-      children: renderProfile(client.secondaryRelationship, "Secondary relationship"),
+      children: renderProfile(
+        client.secondaryRelationship,
+        "Secondary relationship"
+      ),
     },
     {
       key: "5",
@@ -127,12 +138,9 @@ const ClientCard = ({ client }) => {
           <Title level={5} style={{ margin: 0, color: "#fff" }}>
             {client.name || "Client"}
           </Title>
-          <Button
-            onClick={() =>
-              router.push(`/client/client-details/${client._id.toString()}`)
-            }
-            type="text"
-            icon={<EyeOutlined style={{ fontSize: 18, color: "#fff" }} />}
+          <ActionButtons
+            showUrl={`/client/client-details/${client._id.toString()}`}
+            deleteUrl={`/client/delete-client/${client._id.toString()}`}
           />
         </div>
       }
@@ -159,7 +167,6 @@ const ClientCard = ({ client }) => {
           />
         </Col>
       </Row>
-
 
       {/* Expandable Section */}
       {isExpanded && (

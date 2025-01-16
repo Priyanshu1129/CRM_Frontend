@@ -1,26 +1,23 @@
+import { DeleteOutlined, EyeOutlined } from "@ant-design/icons";
+import { Button, Space } from "antd";
+import { useRouter } from "next/navigation";
+
 const ActionButtons = ({ showUrl = "", deleteUrl = "" }) => {
+  const router = useRouter();
   return (
     <Space>
       <Button
         size="small"
-        disabled={!canSeeDetails}
         onClick={() => {
-          if (record.updateConfigPopup) {
-            setUpdateConfigData(updateConfigData);
-            setShowUpdateConfigPopup(true);
-          } else {
-            router.push(showUrl);
-          }
+          router.push(showUrl);
         }}
         icon={<EyeOutlined />}
       />
 
       <Button
         onClick={() => {
-          console.log("delete opp url : ", deleteUrl);
           router.push(deleteUrl);
         }}
-        disabled={!canDelete}
         size="small"
         danger
         icon={<DeleteOutlined />}

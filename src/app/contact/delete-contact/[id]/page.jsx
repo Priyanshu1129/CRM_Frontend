@@ -10,6 +10,7 @@ import RegistrationsList from "./component/RegistrationsList";
 import ClientList from "./component/ClientList";
 import BDList from "./component/BdList";
 import { colorConfig } from "@/config";
+import { BackButton } from "@/components";
 
 const { Title, Text } = Typography;
 
@@ -21,67 +22,67 @@ const DeleteContactPage = () => {
   useEffect(() => {
     handleDeleteContact(id);
   }, [id]);
-``
+
   return (
-    <div
-      style={{
-        padding: "24px",
-        backgroundColor: "#f5f5f5",
-        minHeight: "100vh",
-      }}
-    >
-      {/* Header Section */}
-      <Row
-        justify="space-between"
-        align="middle"
-        style={{ marginBottom: "24px" }}
+    <>
+      {/* Top Action Bar */}
+      <div
+              style={{
+                width: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <BackButton buttonText={"Go Back"} />
+              <Button
+                icon={<ReloadOutlined />}
+                type="default"
+                onClick={() => handleDeleteRole(id)}
+                loading={loading}
+              >
+                Reload
+              </Button>
+            </div>
+      
+      <div
+        style={{
+          marginTop: "24px",
+          padding: "24px",
+          backgroundColor: "#f5f5f5",
+          minHeight: "100vh",
+        }}
       >
-        <Col>
-          <Title level={3}>Delete Contact</Title>
+        {/* Contact Details Section */}
+        <section style={{ marginBottom: "24px" }}>
+          <Title level={4}>Contact Details</Title>
           <Text style={{ color: "#888" }}>
-            Please review the contact and related entries where this contact is
-            used before confirming the deletion.
+            Below are the details of the contact. Please verify all fields before
+            proceeding with deletion.
           </Text>
-        </Col>
-        <Col>
-          <Button
-            icon={<ReloadOutlined />}
-            type="default"
-            onClick={() => handleDeleteContact(id)}
-            loading={loading}
-          >
-            Reload
-          </Button>
-        </Col>
-      </Row>
-      <Divider />
+          <div style={{ marginTop: "16px" }}>
+            {data?.data?.contact ? (
+              <ContactCard contact={data?.data?.contact} />
+            ) : (
+              <Alert
+                message="No Contact Information Available"
+                type="info"
+                showIcon
+              />
+            )}
+          </div>
+        </section>
 
-      {/* Contact Details Section */}
-      <section style={{ marginBottom: "24px" }}>
-        <Title level={4}>Contact Details</Title>
-        <Text style={{ color: "#888" }}>
-          Below are the details of the contact. Please verify all fields before
-          proceeding with deletion.
-        </Text>
-        <div style={{ marginTop: "16px" }}>
-          {data?.data?.contact ? (
-            <ContactCard contact={data?.data?.contact} />
-            
-          ) : (
-            <Alert
-              message="No Contact Information Available"
-              type="info"
-              showIcon
-            />
-          )}
-        </div>
-      </section>
+        {/* Warning Alert */}
+        <Alert
+          message="Warning: On deleting this contact, it will be removed from the following"
+          type="warning"
+          showIcon
+          closable
+        />
+        <br />
 
-      <Alert message="Warning : On deleting this contact it will be removed from following" type="warning" showIcon closable />
-      <br />
-
-      {/* Registrations Section */}
-      { (
+        {/* Registrations Section */}
         <section style={{ marginBottom: "24px" }}>
           <Title level={4}>Associated Registrations</Title>
           <Text style={{ color: "#888" }}>
@@ -92,12 +93,10 @@ const DeleteContactPage = () => {
             <RegistrationsList registrations={data?.data?.registrations} />
           </div>
         </section>
-      )}
 
-      <Divider />
+        <Divider />
 
-      {/* Clients Section */}
-      { (
+        {/* Clients Section */}
         <section style={{ marginBottom: "24px" }}>
           <Title level={4}>Associated Clients</Title>
           <Text style={{ color: "#888" }}>
@@ -108,12 +107,10 @@ const DeleteContactPage = () => {
             <ClientList clients={data?.data?.clients} />
           </div>
         </section>
-      )}
 
-      <Divider />
+        <Divider />
 
-      {/* Business Developments Section */}
-      { (
+        {/* Business Developments Section */}
         <section style={{ marginBottom: "24px" }}>
           <Title level={4}>Business Developments</Title>
           <Text style={{ color: "#888" }}>
@@ -123,25 +120,23 @@ const DeleteContactPage = () => {
             <BDList businessDevelopments={data?.data?.businessDevelopments} />
           </div>
         </section>
-      )}
 
-      <Divider />
+        <Divider />
 
-      {/* Confirm Deletion Button Section */}
-      <Row justify="center" style={{ marginTop: "24px" }}>
-        <Col>
+        {/* Confirm Deletion Button Section */}
+        <section style={{ marginTop: "24px", textAlign: "center" }}>
           <Button
             type="primary"
             danger
             size="large"
-            onClick={() => handleDeleteContact(id, "true")}
             loading={loading}
+            onClick={() => handleDeleteContact(id, "true")}
           >
             Confirm Delete
           </Button>
-        </Col>
-      </Row>
-    </div>
+        </section>
+      </div>
+    </>
   );
 };
 

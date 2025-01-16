@@ -12,6 +12,7 @@ import { EyeOutlined, DownOutlined, UpOutlined } from "@ant-design/icons";
 import { colorConfig } from "@/config";
 import { useRouter } from "next/navigation";
 import TenderCard from "./tenderCard";
+import ActionButtons from "@/components/ActionButtons";
 
 const { Title } = Typography;
 
@@ -113,14 +114,9 @@ const OpportunityCard = ({ opportunity }) => {
             Opportunity: {projectName || "N/A"}
           </Title>
           <Tooltip title="View Details">
-            <Button
-              onClick={() =>
-                router.push(
-                  `/opportunity/opportunity-details/${opportunity._id.toString()}`
-                )
-              }
-              type="text"
-              icon={<EyeOutlined style={{ fontSize: 18, color: "#fff" }} />}
+            <ActionButtons
+              showUrl={`/deal/deal-details/${opportunity._id.toString()}`}
+              deleteUrl={`/deal/delete-deal/${opportunity._id.toString()}`}
             />
           </Tooltip>
         </div>

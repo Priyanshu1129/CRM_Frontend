@@ -17,6 +17,7 @@ import {
 } from "@ant-design/icons";
 import { colorConfig } from "@/config";
 import { useRouter } from "next/navigation";
+import ActionButtons from "@/components/ActionButtons";
 
 const { Title } = Typography;
 
@@ -131,12 +132,9 @@ const BusinessDevelopmentCard = ({ bd }) => {
             Business Development
           </Title>
           <Tooltip title="View Details">
-            <Button
-              onClick={() => {
-                router.push(`/mention/mention-details/${bd._id.toString()}`);
-              }}
-              type="text"
-              icon={<EyeOutlined style={{ fontSize: 18, color: "#fff" }} />}
+            <ActionButtons
+              showUrl={`/opportunity/mention/mention-details/${bd._id.toString()}`}
+              deleteUrl={`/opportunity/mention/delete-mention/${bd._id.toString()}`}
             />
           </Tooltip>
         </div>

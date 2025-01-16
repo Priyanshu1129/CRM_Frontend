@@ -10,9 +10,16 @@ import {
   Col,
   Space,
 } from "antd";
-import { EyeOutlined, DownOutlined, UpOutlined, EyeInvisibleOutlined, UserOutlined } from "@ant-design/icons";
+import {
+  EyeOutlined,
+  DownOutlined,
+  UpOutlined,
+  EyeInvisibleOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 import { colorConfig } from "@/config";
 import { useRouter } from "next/navigation";
+import ActionButtons from "@/components/ActionButtons";
 
 const { Title, Text } = Typography;
 
@@ -43,7 +50,10 @@ const RegistrationCard = ({ registration }) => {
     {
       key: "1",
       label: "Registration Champ",
-      children: renderProfile(registration.registrationChamp, "Registration Champ"),
+      children: renderProfile(
+        registration.registrationChamp,
+        "Registration Champ"
+      ),
     },
     {
       key: "2",
@@ -53,7 +63,8 @@ const RegistrationCard = ({ registration }) => {
     {
       key: "3",
       label: "Registration Date",
-      children: new Date(registration.registrationDate).toLocaleDateString() || "N/A",
+      children:
+        new Date(registration.registrationDate).toLocaleDateString() || "N/A",
     },
     {
       key: "4",
@@ -88,7 +99,8 @@ const RegistrationCard = ({ registration }) => {
       label: "Website Details",
       children: (
         <Space size="small">
-          <Text strong>Username:</Text> {registration.websiteDetails.username || "N/A"}
+          <Text strong>Username:</Text>{" "}
+          {registration.websiteDetails.username || "N/A"}
           <br />
           <Text strong>Password:</Text>
           <Space>
@@ -119,12 +131,10 @@ const RegistrationCard = ({ registration }) => {
           <Title level={5} style={{ margin: 0, color: "#fff" }}>
             {registration.registrationChamp?.firstName || "Registration"}
           </Title>
-          <Button
-            onClick={() =>
-              router.push(`/registration/registration-details/${registration._id.toString()}`)
-            }
-            type="text"
-            icon={<EyeOutlined style={{ fontSize: 18, color: "#fff" }} />}
+          
+          <ActionButtons
+            showUrl={`/registration/registration-details/${registration._id.toString()}`}
+            deleteUrl={`/registration/delete-registration/${registration._id.toString()}`}
           />
         </div>
       }

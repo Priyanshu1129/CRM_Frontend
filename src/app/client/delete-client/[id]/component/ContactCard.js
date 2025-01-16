@@ -18,6 +18,7 @@ import {
 } from "@ant-design/icons";
 import { colorConfig } from "@/config";
 import { useRouter } from "next/navigation";
+import ActionButtons from "@/components/ActionButtons";
 
 const { Title, Text } = Typography;
 
@@ -115,12 +116,9 @@ const ContactCard = ({ contact }) => {
               contact.lastName || ""
             }`.trim()}
           </Title>
-          <Button
-            onClick={() =>
-              router.push(`/contact/contact-details/${contact._id.toString()}`)
-            }
-            type="text"
-            icon={<EyeOutlined style={{ fontSize: 18, color: "#fff" }} />}
+          <ActionButtons
+            showUrl={`/contact/contact-details/${contact._id.toString()}`}
+            deleteUrl={`/contact/delete-contact/${contact._id.toString()}`}
           />
         </div>
       }
