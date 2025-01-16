@@ -130,14 +130,14 @@ html, body {
     font-weight: bold; /* Bold header text */
   }
   
-  .ant-table-tbody > tr:nth-child(odd) > td {
+  /* .ant-table-tbody > tr:nth-child(odd) > td {
     background-color: #DAF0F3
-    /* f0f8ff; Odd row background */
+    
   }
   
   .ant-table-tbody > tr:nth-child(even) > td {
-    background-color: #ffffff; /* Even row background */
-  }
+    background-color: #ffffff; 
+  } */
   
   /* Button Styles */
   .ant-btn {
@@ -195,4 +195,19 @@ html, body {
 
 .ant-table-column-sort .ant-table-column-title {
   color: #007CA6 !important; /* Highlight color for title when sorted */
+}
+
+/* .ant-table {
+  border-color: #e7e7e7;
+}
+
+.ant-table td,
+.ant-table th {
+  border-color: #f0f0f0 !important; 
+} */
+
+/* Customizing vertical padding of table cells */
+.ant-table-cell {
+  padding-top: 8px !important; /* Reduce top padding */
+  padding-bottom: 8px !important; /* Reduce bottom padding */
 }

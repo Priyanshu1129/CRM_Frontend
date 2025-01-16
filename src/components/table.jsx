@@ -39,7 +39,6 @@ export const Table = ({
         marginTop: "24px",
         height: "100%",
         scrollbarWidth: "none",
-        border: "1px solid #e8e8e8", // Border around the table
         borderRadius: "8px", // Rounded corners
         // backgroundColor: "#fff", // White background for better contrast
       }}

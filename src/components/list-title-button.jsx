@@ -12,11 +12,10 @@ export const ListTitleButton = ({ buttonText, toPath }) => {
   return (
     <Button
       type="primary"
-
       // @ts-expect-error Ant Design Icon's v5.0.1 has an issue with @types/react@^18.2.66
       icon={<PlusCircleOutlined />}
       onClick={() => {
-        if(toPath) router.push(toPath);
+        if (toPath) router.push(toPath);
       }}
       size={"middle"}
       style={{
@@ -27,7 +26,7 @@ export const ListTitleButton = ({ buttonText, toPath }) => {
       <Text
         style={{
           color: "#fff",
-          fontSize: "16px",
+          fontSize: "14px",
           fontWeight: 400,
         }}
       >
