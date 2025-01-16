@@ -1,144 +1,122 @@
-// "use client";
-// import React, { useEffect } from "react";
-// import { Button, Card, Col, Row, Typography } from "antd";
-// import { useParams } from "next/navigation";
-// import { useDeleteOpportunity } from "@/hooks/opportunity/useDeleteOpportunity";
-// import OpportunityCard from "./component/opportunityCard";
-// import TenderCard from "./component/tenderCard";
-// const { Title } = Typography;
-
-// const DeleteOpportunityPage = () => {
-//   const { id } = useParams();
-//   const { loading, data, handleDeleteOpportunity } = useDeleteOpportunity();
-
-//   // Automatically call handleDeleteOpportunity when the component renders
-//   // useEffect(() => {
-//   //   if (!data || id !== data?.opportunity?._id.toString()) {
-//   //     handleDeleteOpportunity(id);
-//   //   }
-//   // }, [id]);
-
-//   // Because when ever the page is rendered we have to cal the function
-//   useEffect(()=>{
-//     handleDeleteOpportunity(id);
-//   },[])
-
-//   console.log("delete opportunity data", data);
-
-//   return (
-//     <div
-//       style={{
-//         padding: "24px",
-//         backgroundColor: "#f5f5f5",
-//         minHeight: "100vh",
-//       }}
-//     >
-//       <Card
-//         title={<Title level={3}>Delete Opportunity and Associated Tender</Title>}
-//         bordered={false}
-//         style={{ marginBottom: "24px" }}
-//       >
-//         <Row gutter={[16, 16]}>
-//           <Col xs={24} sm={24} md={12}>
-//             <OpportunityCard opportunity={data?.opportunity} />
-//           </Col>
-//           <Col xs={24} sm={24} md={12}>
-//             <TenderCard tender={data?.tender} />
-//           </Col>
-//         </Row>
-//       </Card>
-
-//       <Row justify="center">
-//         <Col>
-//           <Button
-//             type="primary"
-//             danger
-//             size="large"
-//             onClick={() => handleDeleteOpportunity(id, 'true')}
-//           >
-//             Confirm Delete
-//           </Button>
-//         </Col>
-//       </Row>
-//     </div>
-//   );
-// };
-
-// export default DeleteOpportunityPage;
-
 "use client";
 import React, { useEffect } from "react";
-import { Button, Card, Col, Row, Typography, Spin } from "antd";
-import { useParams } from "next/navigation";
+import { Button, Typography, Divider, Row, Col, Alert, theme } from "antd";
 import { ReloadOutlined } from "@ant-design/icons";
+import { useParams } from "next/navigation";
 import { useDeleteOpportunity } from "@/hooks/deal/useDeleteDeal";
 import OpportunityCard from "@/app/client/delete-client/[id]/component/OpportunityCard";
 import TenderCard from "@/app/client/delete-client/[id]/component/tenderCard";
+import { BackButton } from "@/components";
 
 const { Title } = Typography;
 
 const DeleteOpportunityPage = () => {
   const { id } = useParams();
   const { loading, data, handleDeleteOpportunity } = useDeleteOpportunity();
+  const {
+    token: { colorBgContainer, borderRadiusLG },
+  } = theme.useToken();
 
-  // Call handleDeleteOpportunity when the page is rendered
+  // Fetch opportunity and related data when the page is loaded
   useEffect(() => {
     handleDeleteOpportunity(id);
   }, [id]);
 
   return (
-    <div
-      style={{
-        padding: "24px",
-        backgroundColor: "#f5f5f5",
-        minHeight: "100vh",
-      }}
-    >
-      <Card
-        title={
-          <Row justify="space-between" align="middle">
-            <Col>
-              <Title level={3}>Delete Opportunity and Associated Tender</Title>
-            </Col>
-            <Col>
-              <Button
-                icon={<ReloadOutlined />}
-                type="default"
-                onClick={() => handleDeleteOpportunity(id)}
-                loading={loading}
-              >
-                Reload
-              </Button>
-            </Col>
-          </Row>
-        }
-        bordered={false}
-        style={{ marginBottom: "24px" }}
+    <>
+      {/* Top Action Bar */}
+      <div
+        style={{
+          width: "100%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
       >
-        <Row gutter={[16, 16]}>
-          <Col xs={24} sm={24} md={12}>
-            <OpportunityCard opportunity={data?.opportunity} />
-          </Col>
-          <Col xs={24} sm={24} md={12}>
-            <TenderCard tender={data?.tender} />
+        <BackButton buttonText={"Back to Deals"} />
+        <Button
+          icon={<ReloadOutlined />}
+          type="default"
+          onClick={() => handleDeleteOpportunity(id)}
+          loading={loading}
+        >
+          Reload
+        </Button>
+      </div>
+
+      <div
+        style={{
+          marginTop: "24px",
+          background: colorBgContainer,
+          borderRadius: borderRadiusLG,
+          padding: "24px",
+          minHeight: "100vh",
+        }}
+      >
+        {/* Opportunity Details Section */}
+        <section style={{ marginBottom: "12px" }}>
+          <div style={{ fontSize: "20px", fontWeight: 600 , marginBottom : '8px'}}>Opportunity Details</div>
+          <Alert
+            style={{ padding: "6px" }}
+            description="Below are the details of the opportunity. Please verify all information before proceeding with the deletion."
+            type="info"
+            showIcon
+          />
+          <div style={{ marginTop: "6px" }}>
+            {data?.opportunity ? (
+              <OpportunityCard opportunity={data?.opportunity} />
+            ) : (
+              <Alert
+                message="No Opportunity Information Available"
+                type="info"
+                showIcon
+              />
+            )}
+          </div>
+        </section>
+
+        <Divider />
+
+        {/* Associated Tender Section */}
+        <section style={{ marginBottom: "20px" }}>
+          <div style={{ fontSize: "20px", fontWeight: 600 , marginBottom : '8px'}}>Associated Tender</div>
+          <Alert
+            style={{ padding: "6px" }}
+            description="Deleting the opportunity will also remove the associated tender. Ensure this action aligns with your intentions."
+            type="warning"
+            showIcon
+          />
+          <div style={{ marginTop: "6px" }}>
+            {data?.tender ? (
+              <TenderCard tender={data?.tender} />
+            ) : (
+              <Alert
+                message="No Tender Information Available"
+                type="info"
+                showIcon
+              />
+            )}
+          </div>
+        </section>
+
+        <Divider />
+
+        {/* Confirm Deletion Button Section */}
+        <Row justify="center" style={{ marginTop: "24px" }}>
+          <Col>
+            <Button
+              type="primary"
+              danger
+              size="large"
+              onClick={() => handleDeleteOpportunity(id, "true")}
+              loading={loading}
+            >
+              Confirm Delete
+            </Button>
           </Col>
         </Row>
-      </Card>
-
-      <Row justify="center" style={{ marginTop: "24px" }}>
-        <Col>
-          <Button
-            type="primary"
-            danger
-            size="large"
-            onClick={() => handleDeleteOpportunity(id, "true")}
-            loading={loading}
-          >
-            Confirm Delete
-          </Button>
-        </Col>
-      </Row>
-    </div>
+      </div>
+    </>
   );
 };
 

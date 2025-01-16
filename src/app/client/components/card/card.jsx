@@ -22,6 +22,7 @@ export const ClientCard = ({ client }) => {
   } = client;
 
   let showURL = `/client/client-details/${_id}`;
+  let deleteURL = `/client/delete-client/${_id}`;
   const canViewClient = useCheckPermission(showURL);
 
   if (!client) return <ClientCardSkeleton />;
@@ -134,10 +135,9 @@ export const ClientCard = ({ client }) => {
                 danger: true,
                 label: "Delete client",
                 key: "2",
-                disabled: true,
                 // @ts-expect-error Ant Design Icon's v5.0.1 has an issue with @types/react@^18.2.66
                 icon: <DeleteOutlined />,
-                onClick: () => {},
+                onClick: () => {router.push(deleteURL);},
               },
             ],
           }}

@@ -78,7 +78,7 @@ const UserList = ({ users }) => {
           render: (_, record) => (
             <TableActions
               showUrl={`/user/user-details/${record._id}`}
-              deleteUrl={`/user/delete-user/${record._id}`}
+              deleteUrl={`/user/delete-user/${record.role}/${record._id}`}
             />
           ),
         },

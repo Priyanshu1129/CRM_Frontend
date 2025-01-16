@@ -99,7 +99,8 @@ const DeleteRolePage = () => {
         <section style={{ marginBottom: "20px" }}>
           <Title level={4}>Associated Users</Title>
           <Alert
-            message="Section Description"
+            // message="Section Description"
+            style={{padding : '6px'}}
             description="The following users are associated with this role. Deleting the role will revoke their system access unless roles are reassigned."
             type="warning"
             showIcon
