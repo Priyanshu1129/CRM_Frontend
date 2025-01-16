@@ -22,8 +22,7 @@ const ChangePassword = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        height: "100vh", // Full viewport height
-        backgroundColor: "#f0f2f5", // Light background color
+        height: "100%", // Full viewport height
       }}
     >
       <div

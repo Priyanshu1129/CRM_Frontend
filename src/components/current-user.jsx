@@ -12,7 +12,7 @@ import { Text } from "./text";
 import { AccountSettings } from "./account-settings";
 import { useLogout } from "@/hooks/auth";
 import { useSelector } from "react-redux";
-import { useGetUserProfile } from "@/hooks/user";
+import { Card } from "antd";
 
 export const CurrentUser = () => {
   const [opened, setOpened] = useState(false);
@@ -37,19 +37,63 @@ export const CurrentUser = () => {
       style={{
         display: "flex",
         flexDirection: "column",
+        gap: "4px",
       }}
     >
-      <Text
-        strong
-        style={{
-          padding: "12px 20px",
-          cursor: "pointer",
-        }}
-        onClick={handleClick}
-      >
-        {`${user?.firstName} ${user?.lastName}
-        `}
-      </Text>
+      <div style={{ paddingTop: "4px" }}>
+        {/* <Button
+          style={{
+            textAlign: "left",
+            border: 0,
+            fontWeight: "500",
+            paddingTop: "16px",
+            paddingBottom: "16px",
+          }}
+          icon={
+            <CustomAvatar
+              name={user?.name}
+              src={user?.avatar}
+              size="default"
+              style={{ cursor: "pointer" }}
+            />
+          }
+        >
+          {`${user?.firstName} ${user?.lastName}`}
+        </Button> */}
+        <div
+          style={{
+            display: "flex",
+            // alignItems: "flex-start",
+            alignItems: "center",
+            gap: "6px",
+            paddingLeft: "16px",
+            paddingTop: "4px",
+            cursor: "pointer",
+            border: "1px solid transparent",
+            borderRadius: "4px",
+            transition: "background-color 0.3s ease",
+            backgroundColor: "#fff",
+          }}
+          onClick={handleClick} // Handles click for navigation
+        >
+          <CustomAvatar
+            name={user?.name}
+            src={user?.avatar}
+            size="default"
+            style={{ cursor: "pointer" }}
+          />
+          <div>
+            {/* User Name */}
+            <div style={{ fontSize: "14px", fontWeight: "600" }}>
+              {`${user?.firstName} ${user?.lastName}`}
+            </div>
+            {/* User Role */}
+            <div style={{ fontSize: "11px", color: "#8c8c8c" }}>
+              {user?.role?.name}
+            </div>
+          </div>
+        </div>
+      </div>
       <div
         style={{
           borderTop: "1px solid #d9d9d9",
@@ -59,7 +103,7 @@ export const CurrentUser = () => {
           gap: "4px",
         }}
       >
-        <Button
+        {/* <Button
           style={{ textAlign: "left" }}
           // @ts-expect-error Ant Design Icon's v5.0.1 has an issue with @types/react@^18.2.66
           icon={<SettingOutlined />}
@@ -68,7 +112,7 @@ export const CurrentUser = () => {
           onClick={() => setOpened(true)}
         >
           Account settings
-        </Button>
+        </Button> */}
         <Button
           style={{ border: "none", textAlign: "left" }}
           icon={<EditOutlined />}
