@@ -28,7 +28,6 @@ export const useUpdateSolution = ({
         message: "Success",
         description: "Solution updated successfully.",
       });
-      dispatch(getAllSolutions());
       dispatch(solutionActions.clearUpdateSolutionStatus());
       setShowUpdateConfigPopup(false);
     } else if (status === "failed") {

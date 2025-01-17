@@ -23,7 +23,6 @@ export const useCreateSolution = ({ setShowCreateConfigPopup }) => {
         message: "Success",
         description: "Solution Created successfully.",
       });
-      dispatch(getAllSolutions());
       dispatch(solutionActions.clearCreateSolutionStatus());
       setShowCreateConfigPopup(false);
     } else if (status === "failed") {

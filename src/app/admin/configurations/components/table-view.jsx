@@ -22,6 +22,7 @@ export const ConfigTableView = ({
       <Table
         loading={loading}
         data={data}
+        showAll={true}
         ScrollX="0"
         columns={columns}
         entityName={`${configType}`}

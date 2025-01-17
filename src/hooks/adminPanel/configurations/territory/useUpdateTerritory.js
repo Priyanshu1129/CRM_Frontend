@@ -26,7 +26,6 @@ export const useUpdateTerritory = ({
         message: "Success",
         description: "Territory updated successfully.",
       });
-      dispatch(getAllTerritories());
       dispatch(territoryActions.clearUpdateTerritoryStatus());
       setShowUpdateConfigPopup(false);
     } else if (status === "failed") {

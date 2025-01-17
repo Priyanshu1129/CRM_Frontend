@@ -70,6 +70,12 @@ export const createSolution = (solutionData) => async (dispatch) => {
 
     console.log("create-solution-res-data", response);
     dispatch(solutionActions.createSolutionSuccess(response));
+    dispatch(
+      solutionActions.updateSolutionList({
+        type: "add",
+        payload: response?.data,
+      })
+    );
   } catch (error) {
     console.log("error", error);
     // Error message is handled by axiosRequest, so just pass it to the failure action
@@ -99,6 +105,12 @@ export const updateSolution =
 
       console.log("update-solution-res-data", response);
       dispatch(solutionActions.updateSolutionSuccess(response));
+      dispatch(
+        solutionActions.updateSolutionList({
+          type: "update",
+          payload: response?.data,
+        })
+      );
     } catch (error) {
       console.log("error", error);
       // Error message is handled by axiosRequest, so just pass it to the failure action

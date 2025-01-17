@@ -76,6 +76,12 @@ export const createIndustry = (industryData) => async (dispatch) => {
 
     console.log("create-industry-res-data", response);
     dispatch(industryActions.createIndustrySuccess(response));
+    dispatch(
+      industryActions.updateIndustryList({
+        type: "add",
+        payload: response?.data,
+      })
+    );
   } catch (error) {
     console.log("create-industry-error", error);
     // Error message is handled by axiosRequest, so just pass it to the failure action
@@ -90,8 +96,7 @@ export const createIndustry = (industryData) => async (dispatch) => {
 export const updateIndustry =
   (industryData, industryId) => async (dispatch) => {
     try {
-      console.log("update-industryData%", industryData);
-      console.log("update-industry-ID", industryId);
+      console.log("update-industryData-req", industryData);
       dispatch(industryActions.updateIndustryRequest());
 
       // Use axiosRequest helper function for PUT request
@@ -105,6 +110,12 @@ export const updateIndustry =
 
       console.log("update-industry-res-data", response);
       dispatch(industryActions.updateIndustrySuccess(response));
+      dispatch(
+        industryActions.updateIndustryList({
+          type: "update",
+          payload: response?.data,
+        })
+      );
     } catch (error) {
       console.log("update-industry-error", error);
       // Error message is handled by axiosRequest, so just pass it to the failure action

@@ -133,6 +133,50 @@ const solutionSlice = createSlice({
     clearDeleteSolutionError: (state) => {
       state.deleteSolution.error = null;
     },
+    updateSolutionList: (state, action) => {
+      const { type, payload } = action.payload;
+
+      // Ensure `state.getAllUsers.data.users` exists and is an array
+      if (!Array.isArray(state.getAllSolutions?.data?.data)) {
+        state.getAllSolutions.data = {
+          ...state.getAllSolutions.data,
+          data: [],
+        };
+      }
+
+      switch (type) {
+        case "add": {
+          state.getAllSolutions.data.data = [
+            payload,
+            ...state.getAllSolutions.data.data,
+          ];
+          break;
+        }
+
+        case "update": {
+          const index = state.getAllSolutions.data.data.findIndex(
+            (solution) => {
+              return solution._id.toString() === payload?._id.toString();
+            }
+          );
+          if (index !== -1) {
+            state.getAllSolutions.data.data[index] = payload;
+          }
+          break;
+        }
+
+        case "delete": {
+          state.getAllSolutions.data.data =
+            state.getAllSolutions.data.data.filter(
+              (solution) => solution._id.toString() !== payload._id.toString()
+            );
+          break;
+        }
+
+        default:
+          console.warn(`Unhandled type: ${type}`);
+      }
+    },
   },
 });
 

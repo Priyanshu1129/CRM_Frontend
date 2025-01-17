@@ -24,7 +24,6 @@ export const useCreateIndustry = ({ industry, setShowCreateConfigPopup }) => {
         message: "Success",
         description: "Industry Created successfully.",
       });
-      dispatch(getAllIndustries());
       dispatch(industryActions.clearCreateIndustryStatus());
       setShowCreateConfigPopup(false);
     } else if (status === "failed") {
