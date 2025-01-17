@@ -27,7 +27,8 @@ export const getColumns = ({ selectedCurrency, data }) => {
     {
       title: "S No.",
       key: "serialNumber",
-      width: 80, // Fixed width for serial number
+      width: 60,
+      align: "center",
       render: (_, __, rowIndex) => rowIndex + 1, // Dynamically calculate serial number
     },
     // {
@@ -211,7 +212,10 @@ export const getColumns = ({ selectedCurrency, data }) => {
       fixed: "right",
       width: 120,
       render: (_, record) => (
-        <TableActions showUrl={`/tender/tender-details/${record._id}` } deleteUrl={`/tender/delete-tender/${record._id}`} />
+        <TableActions
+          showUrl={`/tender/tender-details/${record._id}`}
+          deleteUrl={`/tender/delete-tender/${record._id}`}
+        />
       ),
     },
   ];

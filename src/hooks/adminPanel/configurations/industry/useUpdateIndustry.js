@@ -28,7 +28,6 @@ export const useUpdateIndustry = ({
         message: "Success",
         description: "Industry updated successfully.",
       });
-      dispatch(getAllIndustries());
       dispatch(industryActions.clearUpdateIndustryStatus());
       setShowUpdateConfigPopup(false);
     } else if (status === "failed") {

@@ -22,7 +22,6 @@ export const useCreateTerritory = ({ territory, setShowCreateConfigPopup }) => {
         message: "Success",
         description: "Territory Created successfully.",
       });
-      dispatch(getAllTerritories());
       dispatch(territoryActions.clearCreateTerritoriesStatus());
       setShowCreateConfigPopup(false);
     } else if (status === "failed") {

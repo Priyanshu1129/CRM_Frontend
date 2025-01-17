@@ -73,6 +73,12 @@ export const createTerritory = (territoryData) => async (dispatch) => {
 
     console.log("create-territory-res-data", data);
     dispatch(territoryActions.createTerritorySuccess(data));
+    dispatch(
+      territoryActions.updateTerritoryList({
+        type: "add",
+        payload: data?.data,
+      })
+    );
   } catch (error) {
     console.log("error", error);
     dispatch(
@@ -100,6 +106,12 @@ export const updateTerritory =
 
       console.log("update-territory-res-data", data);
       dispatch(territoryActions.updateTerritorySuccess(data));
+      dispatch(
+        territoryActions.updateTerritoryList({
+          type: "update",
+          payload: data?.data,
+        })
+      );
     } catch (error) {
       console.log("error", error);
       dispatch(

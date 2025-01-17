@@ -12,21 +12,21 @@
 ---------------------------------------------------------primary relationship is not added in add client
 ------------------------------------------------------admin cards are not hiding
 -----------------------------------------------------------proper- logout and login 
-praveen new changes
+------------------------------------------------------praveen new changes
 arrange entities 
 -----------------------------------------------------dates in add client - frontend
 something memorable is not working - contact 
 notes is not visible in mention update form
 after delete------fix role and permission
 profile change error
-breadcrumb bug
+------------------------------------------------------------------breadcrumb
 
-add .env
+---------------------------------------------------------------------add .env
 dashboard filters
 funnel view shimmer and design
 subindustries refresh not working
 check all routes
-sorting
+------------------------------------------------------sorting
 ---------------------------------------------------update list on update/add + added user not coming
 frontend testing
 include sit in user table
@@ -34,7 +34,6 @@ include sit in user table
 -------------------------------------------------------------list is should also hide (excluded)
 -------------------------------------------------------------------correct the flow
 -------------------------------------------------------------self understandable permission action names 
----------------------------
 -----------------------------------------------------------------sort entities
 -------------------------------------------------------------component level rbac
 --------------------------------------------------------remove table filter options extra hook

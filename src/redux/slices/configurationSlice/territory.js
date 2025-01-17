@@ -133,6 +133,50 @@ export const territorySlice = createSlice({
     clearDeleteTerritoryError: (state) => {
       state.deleteTerritory.error = null;
     },
+    updateTerritoryList: (state, action) => {
+      const { type, payload } = action.payload;
+
+      // Ensure `state.getAllUsers.data.users` exists and is an array
+      if (!Array.isArray(state.getAllTerritories?.data?.data)) {
+        state.getAllTerritories.data = {
+          ...state.getAllTerritories.data,
+          data: [],
+        };
+      }
+
+      switch (type) {
+        case "add": {
+          state.getAllTerritories.data.data = [
+            payload,
+            ...state.getAllTerritories.data.data,
+          ];
+          break;
+        }
+
+        case "update": {
+          const index = state.getAllTerritories.data.data.findIndex(
+            (territory) => {
+              return territory._id.toString() === payload?._id.toString();
+            }
+          );
+          if (index !== -1) {
+            state.getAllTerritories.data.data[index] = payload;
+          }
+          break;
+        }
+
+        case "delete": {
+          state.getAllTerritories.data.data =
+            state.getAllTerritories.data.data.filter(
+              (territory) => territory._id.toString() !== payload._id.toString()
+            );
+          break;
+        }
+
+        default:
+          console.warn(`Unhandled type: ${type}`);
+      }
+    },
   },
 });
 

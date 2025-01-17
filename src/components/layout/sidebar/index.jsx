@@ -30,7 +30,7 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
 
   useEffect(() => {
     // Set the selected key based on the current route
-    const path = window.location.pathname.substring(1); // Remove leading "/"
+    const path = window.location.pathname.substring(1);
     setSelectedKey(path || "dashboard");
   }, []);
 
@@ -97,10 +97,56 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
         theme="light" // Ensures proper base styling
         title="title"
         selectedKeys={[selectedKey]}
-        // defaultOpenKeys={["sub1"]}
+        defaultOpenKeys={["opportunity"]}
         mode="inline"
         items={authorizedResources}
       />
+
+      {/* for categorized tabs */}
+      {/* <Menu
+        onClick={onClick}
+        style={{
+          height: "calc(100% - 64px)", // Adjust to account for header height
+          overflow: "auto",
+          scrollbarWidth: "none",
+          fontWeight: "500",
+          paddingLeft: "12px",
+          paddingRight: "12px",
+          marginTop: "8px",
+          fontSize: "0.90rem",
+        }}
+        theme="light"
+        selectedKeys={[selectedKey]}
+        mode="inline"
+      >
+        {resources.map((group) => (
+          <Menu.ItemGroup key={group.category} title={group.category}>
+            {group.items.map((item) =>
+              item.children ? (
+                <Menu.SubMenu
+                  key={item.key}
+                  icon={item.icon}
+                  title={item.label}
+                >
+                  {item.children.map((child) => (
+                    <Menu.Item key={child.key} icon={child.icon}>
+                      {child.label}
+                    </Menu.Item>
+                  ))}
+                </Menu.SubMenu>
+              ) : (
+                <Menu.Item
+                  key={item.key}
+                  icon={item.icon}
+                  disabled={item.disabled}
+                >
+                  {item.label}
+                </Menu.Item>
+              )
+            )}
+          </Menu.ItemGroup>
+        ))}
+      </Menu> */}
     </Sider>
   );
 };

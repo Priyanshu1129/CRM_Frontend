@@ -5,32 +5,38 @@ import { PaginationTotal } from ".";
 export const Table = ({
   setCurrentPage = 1,
   setPageSize = 12,
+  defaultPageSize = 12,
   columns,
   data,
   loading,
   entityName,
   total = 0,
   handleChange,
+  showAll = false,
   ScrollX = "max-content",
 }) => {
   return (
     <AntTable
       loading={loading}
       onChange={handleChange}
-      pagination={{
-        pageSizeOptions: ["12", "24", "48", "96"],
-        defaultPageSize: 12,
-        defaultCurrent: 1,
-        onChange: (page, pageSize) => {
-          setCurrentPage(page);
-          setPageSize(pageSize);
-        },
-        showTotal: (total) => (
-          <PaginationTotal total={total} entityName={entityName} />
-        ),
-        total: total,
-        showQuickJumper: true,
-      }}
+      pagination={
+        showAll
+          ? false
+          : {
+              pageSizeOptions: ["12", "24", "48", "96"],
+              defaultPageSize: defaultPageSize,
+              defaultCurrent: 1,
+              onChange: (page, pageSize) => {
+                setCurrentPage(page);
+                setPageSize(pageSize);
+              },
+              showTotal: (total) => (
+                <PaginationTotal total={total} entityName={entityName} />
+              ),
+              total: total,
+              showQuickJumper: true,
+            }
+      }
       rowKey="id"
       columns={columns}
       dataSource={data}
