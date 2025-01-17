@@ -137,7 +137,7 @@ export const getColumns = ({ data }) => {
         const roleId = record?.role?._id;
         const userId = record?._id;
         return (
-          <TableActions showUrl={`/user/user-details/${roleId}/${userId}`} />
+          <TableActions deletePopupFor="user" record={record} showUrl={`/user/user-details/${roleId}/${userId}`} />
         );
       },
     },

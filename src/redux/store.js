@@ -83,6 +83,7 @@ const store = configureStore({
     currency: currencyReducer,
     systemConfig: systemConfigReducer,
     target: targetReducer,
+    
   },
 });
 

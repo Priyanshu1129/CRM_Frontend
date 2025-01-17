@@ -112,7 +112,7 @@ export const updateSubSolution =
     }
   };
 
-export const deleteSubSolution = (subSolutionId) => async (dispatch) => {
+export const deleteSubSolution = (subSolutionId,confirm = 'true', undo = 'false') => async (dispatch) => {
   try {
     console.log("delete-subSolutionData", subSolutionId);
     dispatch(subSolutionActions.deleteSubSolutionRequest());
@@ -121,9 +121,7 @@ export const deleteSubSolution = (subSolutionId) => async (dispatch) => {
     const response = await axiosRequest(
       dispatch,
       "DELETE", // HTTP method for deleting a sub-solution
-      `${route}/${subSolutionId}`, // URL for the specific sub-solution to delete
-      null, // No data to send in the body for DELETE requests
-      null // No query parameters
+      `${route}/${subSolutionId}?confirm=${confirm}&undo=${undo}`, // URL for the specific sub-solution to delete
     );
 
     console.log("delete-subSolution-res-data", response);

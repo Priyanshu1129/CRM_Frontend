@@ -116,7 +116,7 @@ export const updateIndustry =
     }
   };
 
-export const deleteIndustry = (industryId) => async (dispatch) => {
+export const deleteIndustry = (industryId, confirm = 'true', undo = 'false') => async (dispatch) => {
   try {
     console.log("delete-industryData", industryId);
     dispatch(industryActions.deleteIndustryRequest());
@@ -125,9 +125,7 @@ export const deleteIndustry = (industryId) => async (dispatch) => {
     const response = await axiosRequest(
       dispatch,
       "DELETE",
-      `${route}/${industryId}`,
-      null, // No data for DELETE request
-      null // No query params for DELETE
+      `${route}/${industryId}?confirm=${confirm}&undo=${undo}`,
     );
 
     console.log("delete-industry-res-data", response);

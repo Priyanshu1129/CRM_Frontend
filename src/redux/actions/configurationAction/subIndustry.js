@@ -115,7 +115,7 @@ export const updateSubIndustry =
     }
   };
 
-export const deleteSubIndustry = (subIndustryId) => async (dispatch) => {
+export const deleteSubIndustry = (subIndustryId, confirm = 'true', undo = 'false') => async (dispatch) => {
   try {
     console.log("delete-subIndustryData", subIndustryId);
     dispatch(subIndustryActions.deleteSubIndustryRequest());
@@ -124,9 +124,7 @@ export const deleteSubIndustry = (subIndustryId) => async (dispatch) => {
     const response = await axiosRequest(
       dispatch,
       "DELETE", // HTTP method for deleting
-      `${route}/${subIndustryId}`, // The endpoint for deleting a specific sub-industry
-      null, // No data needed for DELETE requests
-      null // No query parameters for this request
+      `${route}/${subIndustryId}?confirm=${confirm}&undo=${undo}`, // The endpoint for deleting a specific sub-industry
     );
 
     console.log("delete-subIndustry-res-data", response);

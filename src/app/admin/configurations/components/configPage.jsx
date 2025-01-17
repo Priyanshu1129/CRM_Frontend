@@ -9,6 +9,7 @@ import { useSolutions } from "@/hooks";
 import { useSubSolutions } from "@/hooks/useSubSolutions";
 import { useSalesStages } from "@/hooks/useSalesStage";
 import { useSalesSubStages } from "@/hooks/useSalesSubStage";
+import DeleteConfigModal from "./delete-config-model";
 
 const ConfigPage = ({ configType }) => {
   const [pageSize, setPageSize] = useState(100);
@@ -114,6 +115,7 @@ const ConfigPage = ({ configType }) => {
         setPageSize={setPageSize}
         pageSize={pageSize}
         configType={configType}
+        setCurrentPage={setCurrentPage}
       />
       <UpdateConfigModal
         configType={configType}
@@ -121,6 +123,8 @@ const ConfigPage = ({ configType }) => {
         showUpdateConfigPopup={showUpdateConfigPopup}
         setShowUpdateConfigPopup={setShowUpdateConfigPopup}
       />
+
+      <DeleteConfigModal/>
 
       {configType != "sales-stage" && (
         <CreateConfigModal

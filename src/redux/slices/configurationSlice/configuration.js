@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { Descriptions } from "antd";
 
 const initialState = {
   getConfigCounts: {
@@ -6,12 +7,30 @@ const initialState = {
     error: null,
     data: null,
   },
+
+  deleteConfigPopup: {
+    open: false,
+    configData: null,
+    configType: "",
+  },
 };
 
 const configurationSlice = createSlice({
-  name: "currency",
+  name: "configuration", // currency previously
   initialState,
   reducers: {
+    setDeleteConfigPopup: (state, action) => {
+      const {open , configData, configType} = action.payload;
+      state.deleteConfigPopup.open = open;
+      state.deleteConfigPopup.configData = configData;
+      state.deleteConfigPopup.configType = configType;
+    },
+    resetDeleteConfigPopup: (state, action) => {
+      state.deleteConfigPopup.open = false;
+      state.deleteConfigPopup.configData = null;
+      state.deleteConfigPopup.configType = "";
+    },
+
     getConfigCountsRequest: (state, action) => {
       state.getConfigCounts.status = "pending";
     },
