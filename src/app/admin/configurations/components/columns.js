@@ -13,13 +13,13 @@ export const getColumns = ({
       dataIndex: "text",
       key: "label",
       render: (text) => text || "N/A",
-      width: 150,
+      // width: 150,
     },
     {
       title: "Created At",
       dataIndex: "createdAt",
       key: "createdAt",
-      width: 150,
+      width: 120,
       // render: (text) => text || "N/A",
       render: (text) =>
         text
@@ -30,7 +30,7 @@ export const getColumns = ({
       title: "Last Edit",
       dataIndex: "updatedAt",
       key: "last-edit",
-      width: 150,
+      width: 120,
       // render: (text) => text || "N/A",
       render: (text) =>
         text
