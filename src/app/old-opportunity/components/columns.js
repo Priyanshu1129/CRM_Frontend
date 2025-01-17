@@ -26,7 +26,8 @@ export const getColumns = ({ selectedCurrency, data }) => {
       title: "S No.",
       dataIndex: "serialNumber",
       key: "serialNumber",
-      width: calculateDynamicWidth("S No.", "serialNumber", data),
+      width: 60,
+      align: "center",
       render: (_, __, rowIndex) => rowIndex + 1, // Dynamically calculate the serial number
     },
     // {
