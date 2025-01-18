@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { notification } from "antd";
@@ -10,8 +10,8 @@ import { useRouter } from "next/navigation";
 export const useDeleteIndustry = () => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  const router = useRouter()
-  
+  const router = useRouter();
+
   const { status, data, error } = useSelector(
     (state) => state.industry.deleteIndustry
   );
@@ -39,9 +39,13 @@ export const useDeleteIndustry = () => {
     }
   }, [status, error, dispatch]);
 
-  const handleDeleteIndustry = (industryId, confirm = 'true', undo = 'false') => {
-      dispatch(deleteIndustry(industryId, confirm, undo));
+  const handleDeleteIndustry = (
+    industryId,
+    confirm = "true",
+    undo = "false"
+  ) => {
+    dispatch(deleteIndustry(industryId, confirm, undo));
   };
 
-  return {loading, data, handleDeleteIndustry};
+  return { loading, data, handleDeleteIndustry };
 };
