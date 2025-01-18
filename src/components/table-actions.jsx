@@ -54,9 +54,9 @@ export const TableActions = ({
         )}
         {deleteAction && (
           <Button
-            onClick={()=> {
-              console.log("delete opp url : ", deleteUrl)
-              router.push(deleteUrl)
+            onClick={() => {
+              console.log("delete opp url : ", deleteUrl);
+              router.push(deleteUrl);
             }}
             disabled={!canDelete}
             size="small"

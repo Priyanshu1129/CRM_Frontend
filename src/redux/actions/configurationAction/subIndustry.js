@@ -60,7 +60,7 @@ export const getSubIndustry = (subIndustryId) => async (dispatch) => {
 export const createSubIndustry = (subIndustryData) => async (dispatch) => {
   try {
     dispatch(subIndustryActions.createSubIndustryRequest());
-    console.log("create-subIndustryData%", subIndustryData);
+    console.log("create-subIndustryData-req", subIndustryData);
 
     // Use axiosRequest helper function for POST request
     const response = await axiosRequest(
@@ -73,6 +73,12 @@ export const createSubIndustry = (subIndustryData) => async (dispatch) => {
 
     console.log("create-subIndustry-res-data", response);
     dispatch(subIndustryActions.createSubIndustrySuccess(response));
+    dispatch(
+      subIndustryActions.updateSubIndustryList({
+        type: "add",
+        payload: response?.data,
+      })
+    );
   } catch (error) {
     console.log("error", error);
     dispatch(
@@ -86,10 +92,9 @@ export const createSubIndustry = (subIndustryData) => async (dispatch) => {
 export const updateSubIndustry =
   (subIndustryData, subIndustryId) => async (dispatch) => {
     try {
-      console.log("update-subIndustryData%", subIndustryData);
+      console.log("update-subIndustryData-req", subIndustryData);
 
       dispatch(subIndustryActions.updateSubIndustryRequest());
-      console.log("update url----------", `${route}/${subIndustryId}`);
 
       // Use axiosRequest helper function for PUT request
       const response = await axiosRequest(
@@ -102,9 +107,12 @@ export const updateSubIndustry =
 
       console.log("update-subIndustry-res-data", response);
       dispatch(subIndustryActions.updateSubIndustrySuccess(response));
-
-      // You can re-fetch the sub-industries list if needed
-      dispatch(getAllSubIndustries());
+      dispatch(
+        subIndustryActions.updateSubIndustryList({
+          type: "update",
+          payload: response?.data,
+        })
+      );
     } catch (error) {
       console.log("error", error);
       dispatch(

@@ -47,6 +47,6 @@ export const useSubSolutions = (params = {}) => {
       text: label,
     }));
   }, [subSolutions]);
-  console.log("transformed sub solutions ", transformedSubSolutions);
+
   return { subSolutions: transformedSubSolutions ?? [], loading };
 };

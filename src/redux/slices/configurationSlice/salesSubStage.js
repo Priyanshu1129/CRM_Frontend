@@ -37,13 +37,17 @@ const salesSubStageSlice = createSlice({
   name: "salesSubStage",
   initialState: initialSalesSubStageState,
   reducers: {
-   // reducer to filter the salesSubStages acc to selected sales stage
-    filterSalesSubStages : (state , action) => {
+    // reducer to filter the salesSubStages acc to selected sales stage
+    filterSalesSubStages: (state, action) => {
       const salesStageId = action.payload;
-      console.log("filtered executed-----", salesStageId)
-      const allSubStages = JSON.parse(JSON.stringify(state?.getAllSalesSubStages?.data?.data));
-      state.getFilteredSalesSubStages.data = allSubStages.filter((subStage)=> subStage?.salesStage?._id?.toString() == salesStageId);
-    }, 
+      console.log("filtered executed-----", salesStageId);
+      const allSubStages = JSON.parse(
+        JSON.stringify(state?.getAllSalesSubStages?.data?.data)
+      );
+      state.getFilteredSalesSubStages.data = allSubStages.filter(
+        (subStage) => subStage?.salesStage?._id?.toString() == salesStageId
+      );
+    },
 
     getSalesSubStageRequest: (state, action) => {
       state.getSalesSubStage.status = "pending";
@@ -145,6 +149,51 @@ const salesSubStageSlice = createSlice({
     },
     clearDeleteSalesSubStageError: (state) => {
       state.deleteSalesSubStage.error = null;
+    },
+    updateSalesSubStageList: (state, action) => {
+      const { type, payload } = action.payload;
+
+      // Ensure `state.getAllUsers.data.users` exists and is an array
+      if (!Array.isArray(state.getAllSalesSubStages?.data?.data)) {
+        state.getAllSalesSubStages.data = {
+          ...state.getAllSalesSubStages.data,
+          data: [],
+        };
+      }
+
+      switch (type) {
+        case "add": {
+          state.getAllSalesSubStages.data.data = [
+            payload,
+            ...state.getAllSalesSubStages.data.data,
+          ];
+          break;
+        }
+
+        case "update": {
+          const index = state.getAllSalesSubStages.data.data.findIndex(
+            (salesSubStage) => {
+              return salesSubStage._id.toString() === payload?._id.toString();
+            }
+          );
+          if (index !== -1) {
+            state.getAllSalesSubStages.data.data[index] = payload;
+          }
+          break;
+        }
+
+        case "delete": {
+          state.getAllSalesSubStages.data.data =
+            state.getAllSalesSubStages.data.data.filter(
+              (salesSubStage) =>
+                salesSubStage._id.toString() !== payload._id.toString()
+            );
+          break;
+        }
+
+        default:
+          console.warn(`Unhandled type: ${type}`);
+      }
     },
   },
 });

@@ -6,9 +6,9 @@ import UpdateConfigModal from "./update-config-modal";
 import CreateConfigModal from "./create-config-modal";
 import { ConfigTableView } from "./table-view";
 import { useSolutions } from "@/hooks";
-import { useSubSolutions } from "@/hooks/useSubSolutions";
-import { useSalesStages } from "@/hooks/useSalesStage";
-import { useSalesSubStages } from "@/hooks/useSalesSubStage";
+import { useSubSolutions } from "@/hooks/adminPanel/configurations/sub-solution/useSubSolutions";
+import { useSalesStages } from "@/hooks/adminPanel/configurations/sales-stage/useSalesStage";
+import { useSalesSubStages } from "@/hooks/adminPanel/configurations/sales-sub-stage/useSalesSubStage";
 
 const ConfigPage = ({ configType }) => {
   const [pageSize, setPageSize] = useState(100);

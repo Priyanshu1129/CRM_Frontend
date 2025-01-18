@@ -1,10 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { notification } from "antd";
-import {
-  createSubIndustry,
-  getAllSubIndustries,
-} from "@/redux/actions/configurationAction";
+import { createSubIndustry } from "@/redux/actions/configurationAction";
 import { subIndustryActions } from "@/redux/slices/configurationSlice";
 
 export const useCreateSubIndustry = ({
@@ -27,7 +24,6 @@ export const useCreateSubIndustry = ({
         message: "Success",
         description: "Sub Industry Created successfully.",
       });
-      dispatch(getAllSubIndustries());
       dispatch(subIndustryActions.clearCreateSubIndustryStatus());
       setShowCreateConfigPopup(false);
     } else if (status === "failed") {

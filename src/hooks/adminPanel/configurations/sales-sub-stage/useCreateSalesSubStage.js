@@ -24,7 +24,6 @@ export const useCreateSalesSubStage = ({ setShowCreateConfigPopup }) => {
         message: "Success",
         description: "Sales Sub Stage Created successfully.",
       });
-      dispatch(getAllSalesSubStages());
       dispatch(salesSubStageActions.clearCreateSalesSubStageStatus());
       setShowCreateConfigPopup(false);
     } else if (status === "failed") {

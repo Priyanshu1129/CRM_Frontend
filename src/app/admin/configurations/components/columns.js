@@ -55,6 +55,7 @@ export const getColumns = ({
             updateConfigData={updateConfigData}
             setShowUpdateConfigPopup={setShowUpdateConfigPopup}
             record={record}
+            deleteAction={configType == "sales-stage" ? false : true}
             // showUrl={`/admin/configurations/territory/${record.value}`}
             showUrl={`/admin/configurations/update`}
             updateAction={true}

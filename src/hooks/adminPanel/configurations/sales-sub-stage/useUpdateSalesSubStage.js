@@ -28,7 +28,6 @@ export const useUpdateSalesSubStage = ({
         message: "Success",
         description: "Sales Sub Stage updated successfully.",
       });
-      dispatch(getAllSalesSubStages());
       dispatch(salesSubStageActions.clearUpdateSalesSubStageStatus());
       setShowUpdateConfigPopup(false);
     } else if (status === "failed") {

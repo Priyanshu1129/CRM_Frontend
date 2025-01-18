@@ -24,7 +24,6 @@ export const useCreateSubSolution = ({ setShowCreateConfigPopup }) => {
         message: "Success",
         description: "Sub Solution Created successfully.",
       });
-      dispatch(getAllSubSolutions());
       dispatch(subSolutionActions.clearCreateSubSolutionStatus());
       setShowCreateConfigPopup(false);
     } else if (status === "failed") {

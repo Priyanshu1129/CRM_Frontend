@@ -1,10 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { notification } from "antd";
-import {
-  getAllSubIndustries,
-  updateSubIndustry,
-} from "@/redux/actions/configurationAction";
+import { updateSubIndustry } from "@/redux/actions/configurationAction";
 import { subIndustryActions } from "@/redux/slices/configurationSlice";
 
 export const useUpdateSubIndustry = ({
@@ -28,7 +25,6 @@ export const useUpdateSubIndustry = ({
         message: "Success",
         description: "Sub Industry updated successfully.",
       });
-      dispatch(getAllSubIndustries());
       dispatch(subIndustryActions.clearUpdateSubIndustryStatus());
       setShowUpdateConfigPopup(false);
     } else if (status === "failed") {

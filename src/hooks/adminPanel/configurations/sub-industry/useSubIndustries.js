@@ -25,7 +25,7 @@ export const useSubIndustries = (params = {}) => {
   }, [dispatch, data, refresh]);
 
   useEffect(() => {
-    if (!configType || configType == "subIndustry") fetchAllSubIndustries();
+    if (!configType || configType == "sub-industry") fetchAllSubIndustries();
   }, [fetchAllSubIndustries, configType]);
 
   useEffect(() => {

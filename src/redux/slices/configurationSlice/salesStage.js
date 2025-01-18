@@ -11,18 +11,8 @@ const initialSalesStageState = {
     error: null,
     data: null,
   },
-  
-  createSalesStage: {
-    status: "idle",
-    error: null,
-    data: null,
-  },
+
   updateSalesStage: {
-    status: "idle",
-    error: null,
-    data: null,
-  },
-  deleteSalesStage: {
     status: "idle",
     error: null,
     data: null,
@@ -55,18 +45,7 @@ const salesStageSlice = createSlice({
       state.getAllSalesStages.status = "failed";
       state.getAllSalesStages.error = action.payload;
     },
-    createSalesStageRequest: (state, action) => {
-      state.createSalesStage.status = "pending";
-    },
-    createSalesStageSuccess: (state, action) => {
-      state.createSalesStage.status = "success";
-      state.createSalesStage.data = action.payload;
-    },
-    createSalesStageFailure: (state, action) => {
-      state.createSalesStage.status = "failed";
-      state.createSalesStage.data = null;
-      state.createSalesStage.error = action.payload;
-    },
+
     updateSalesStageRequest: (state, action) => {
       state.updateSalesStage.status = "pending";
     },
@@ -78,17 +57,7 @@ const salesStageSlice = createSlice({
       state.updateSalesStage.status = "failed";
       state.updateSalesStage.error = action.payload;
     },
-    deleteSalesStageRequest: (state) => {
-      state.deleteSalesStage.status = "pending";
-    },
-    deleteSalesStageSuccess: (state, action) => {
-      state.deleteSalesStage.status = "success";
-      state.deleteSalesStage.data = action.payload;
-    },
-    deleteSalesStageFailure: (state, action) => {
-      state.deleteSalesStage.status = "failed";
-      state.deleteSalesStage.error = action.payload;
-    },
+
     clearGetSalesStageStatus: (state) => {
       state.getSalesStage.status = "idle";
     },
@@ -107,15 +76,7 @@ const salesStageSlice = createSlice({
     clearGetAllSalesStagesError: (state) => {
       state.getAllSalesStages.error = null;
     },
-    clearCreateSalesStageStatus: (state) => {
-      state.createSalesStage.status = "idle";
-    },
-    clearCreateSalesStageData: () => {
-      state.createSalesStage.data = null;
-    },
-    clearCreateSalesStageError: (state) => {
-      state.createSalesStage.error = null;
-    },
+
     clearUpdateSalesStageStatus: (state) => {
       state.updateSalesStage.status = "idle";
     },
@@ -125,14 +86,34 @@ const salesStageSlice = createSlice({
     clearUpdateSalesStageError: (state) => {
       state.updateSalesStage.error = null;
     },
-    clearDeleteSalesStageStatus: (state) => {
-      state.deleteSalesStage.status = "idle";
-    },
-    clearDeleteSalesStageData: () => {
-      state.deleteSalesStage.data = null;
-    },
-    clearDeleteSalesStageError: (state) => {
-      state.deleteSalesStage.error = null;
+
+    updateSalesStageList: (state, action) => {
+      const { type, payload } = action.payload;
+
+      // Ensure `state.getAllUsers.data.users` exists and is an array
+      if (!Array.isArray(state.getAllSalesStages?.data?.data)) {
+        state.getAllSalesStages.data = {
+          ...state.getAllSalesStages.data,
+          data: [],
+        };
+      }
+
+      switch (type) {
+        case "update": {
+          const index = state.getAllSalesStages.data.data.findIndex(
+            (salesStage) => {
+              return salesStage._id.toString() === payload?._id.toString();
+            }
+          );
+          if (index !== -1) {
+            state.getAllSalesStages.data.data[index] = payload;
+          }
+          break;
+        }
+
+        default:
+          console.warn(`Unhandled type: ${type}`);
+      }
     },
   },
 });

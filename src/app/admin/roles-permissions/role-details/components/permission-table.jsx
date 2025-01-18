@@ -11,8 +11,6 @@ export const PermissionTable = ({ role, permissionEntities }) => {
     ...entity,
   }));
 
-  console.log("permissionEntities", permissionEntities);
-  console.log("role", role);
   const canUpdateRole = useCheckPermission("/admin/roles-permissions/update");
   const { data } = useSelector((state) => state.auth.authDetails);
   const [isMyRole, setIsMyRole] = useState(true);

@@ -15,10 +15,7 @@ import { useUpdateTerritory } from "@/hooks/adminPanel/configurations/territory/
 import { useUpdateIndustry } from "@/hooks/adminPanel/configurations/industry/useUpdateIndustry";
 import { useUpdateSubIndustry } from "@/hooks/adminPanel/configurations/sub-industry/useUpdateSubIndustry";
 import { useUpdateSolution } from "@/hooks/adminPanel/configurations/solution/useUpdateSolution";
-import {
-  opportunityFormRules,
-  roleFormRules,
-} from "@/utilities/formValidationRules";
+import { roleFormRules } from "@/utilities/formValidationRules";
 import { useUpdateSubSolution } from "@/hooks/adminPanel/configurations/sub-solution/useUpdateSubSolution";
 import { useUpdateSalesStage } from "@/hooks/adminPanel/configurations/sales-stage/useUpdateSalesStage";
 import { useUpdateSalesSubStage } from "@/hooks/adminPanel/configurations/sales-sub-stage/useUpdateSalesSubStage";
@@ -32,7 +29,6 @@ const UpdateConfigModal = ({
 }) => {
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [modalText, setModalText] = useState("");
-  console.log("updateConfigData in Modal : ", updateConfigData);
 
   // Call all hooks unconditionally
   const territoryUpdate = useUpdateTerritory({
@@ -111,7 +107,6 @@ const UpdateConfigModal = ({
   };
 
   const handleCancel = () => {
-    console.log("Clicked cancel button");
     setShowUpdateConfigPopup(false);
   };
 

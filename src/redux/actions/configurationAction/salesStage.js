@@ -61,59 +61,10 @@ export const getSalesStage = (salesStageId) => async (dispatch) => {
   }
 };
 
-// export const createSalesStage = (salesStageData, token) => async (dispatch) => {
-//   try {
-//     console.log("create-salesStageData", salesStageData);
-//     dispatch(salesStageActions.createSalesStageRequest());
-//     const formData = new FormData();
-
-//     // Append other form data to FormData
-//     Object.entries(salesStageData).forEach(([key, value]) => {
-//       if (key != "avatarUri") {
-//         formData.append(key, value);
-//       }
-//     });
-
-//     const fileName = salesStageData.avatarUri.split("/").pop();
-//     // Determine file type based on file extension
-//     const fileType = fileName.split(".").pop();
-
-//     // Append avatar file to FormData
-//     formData.append("avatar", {
-//       uri: salesStageData.avatarUri,
-//       type: `image/${fileType}`,
-//       name: fileName,
-//     });
-
-//     console.log("formdata-----before");
-//     console.log("formdata-----", formData);
-
-//     const data = await axios.post(`${route}/`, formData, {
-//       headers: {
-//         "Content-Type": "multipart/form-data",
-//         authorization: token,
-//       },
-//     });
-//     console.log("create-salesStage-res-data", data);
-//     dispatch(salesStageActions.createSalesStageSuccess(data.data));
-//   } catch (error) {
-//     console.log("error", error);
-//     let errorMessage = "An error occurred";
-//     if (error.response) {
-//       errorMessage = error.response.data.message || "Server error";
-//     } else if (error.request) {
-//       errorMessage = "Network error";
-//     } else {
-//       errorMessage = error.message || "Unknown error";
-//     }
-//     dispatch(salesStageActions.createSalesStageFailure(errorMessage));
-//   }
-// };
-
 export const updateSalesStage =
   (salesStageData, salesStageId) => async (dispatch) => {
     try {
-      console.log("update-salesStageData", salesStageData);
+      console.log("update-salesStageData-req", salesStageData);
       dispatch(salesStageActions.updateSalesStageRequest());
 
       // Use axiosRequest helper function for PUT request
@@ -127,6 +78,12 @@ export const updateSalesStage =
 
       console.log("update-salesStage-res-data", response);
       dispatch(salesStageActions.updateSalesStageSuccess(response));
+      dispatch(
+        salesStageActions.updateSalesStageList({
+          type: "update",
+          payload: response?.data,
+        })
+      );
     } catch (error) {
       console.log("error", error);
       // Error message is handled by axiosRequest, so just pass it to the failure action
@@ -137,30 +94,3 @@ export const updateSalesStage =
       );
     }
   };
-
-// export const deleteSalesStage = (salesStageId, token) => async (dispatch) => {
-//   try {
-//     console.log("delete-salesStageData", salesStageId);
-//     dispatch(salesStageActions.deleteSalesStageRequest());
-
-//     const data = await axios.delete(`${route}/${salesStageId}`, {
-//       headers: {
-//         "Content-Type": "application/json",
-//         authorization: token,
-//       },
-//     });
-//     console.log("delete-salesStage-res-data", data.data);
-//     dispatch(salesStageActions.deleteSalesStageSuccess(data.data));
-//   } catch (error) {
-//     console.log("delete-salesStage-error", error);
-//     let errorMessage = "An error occurred";
-//     if (error.response) {
-//       errorMessage = error.response.data.message || "Server error";
-//     } else if (error.request) {
-//       errorMessage = "Network error";
-//     } else {
-//       errorMessage = error.message || "Unknown error";
-//     }
-//     dispatch(salesStageActions.deleteSalesStageFailure(errorMessage));
-//   }
-// };

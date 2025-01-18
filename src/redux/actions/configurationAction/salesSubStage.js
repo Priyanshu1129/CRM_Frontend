@@ -75,6 +75,12 @@ export const createSalesSubStage = (salesSubStageData) => async (dispatch) => {
 
     console.log("create-salesSubStage-res-data", response);
     dispatch(salesSubStageActions.createSalesSubStageSuccess(response));
+    dispatch(
+      salesSubStageActions.updateSalesSubStageList({
+        type: "add",
+        payload: response?.data,
+      })
+    );
   } catch (error) {
     console.log("error", error);
     // Error message is handled by axiosRequest, so just pass it to the failure action
@@ -103,6 +109,12 @@ export const updateSalesSubStage =
 
       console.log("update-salesSubStage-res-data", response);
       dispatch(salesSubStageActions.updateSalesSubStageSuccess(response));
+      dispatch(
+        salesSubStageActions.updateSalesSubStageList({
+          type: "update",
+          payload: response?.data,
+        })
+      );
     } catch (error) {
       console.log("error", error);
       // Error message is handled by axiosRequest, so just pass it to the failure action

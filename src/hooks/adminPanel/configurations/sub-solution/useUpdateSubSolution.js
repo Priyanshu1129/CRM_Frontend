@@ -1,10 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { notification } from "antd";
-import {
-  getAllSolutions,
-  updateSubSolution,
-} from "@/redux/actions/configurationAction";
+import { updateSubSolution } from "@/redux/actions/configurationAction";
 import { subSolutionActions } from "@/redux/slices/configurationSlice";
 
 export const useUpdateSubSolution = ({
@@ -28,7 +25,6 @@ export const useUpdateSubSolution = ({
         message: "Success",
         description: "Sub Solution updated successfully.",
       });
-      dispatch(getAllSolutions());
       dispatch(subSolutionActions.clearUpdateSubSolutionStatus());
       setShowUpdateConfigPopup(false);
     } else if (status === "failed") {

@@ -9,7 +9,6 @@ export const ConfigTableView = ({
   refresh,
   setPageSize,
   configType,
-  // total,
 }) => {
   const columns = getColumns({
     setShowUpdateConfigPopup,

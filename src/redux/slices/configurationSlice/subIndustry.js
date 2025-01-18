@@ -133,6 +133,51 @@ const subIndustrySlice = createSlice({
     clearDeleteSubIndustryError: (state) => {
       state.deleteSubIndustry.error = null;
     },
+    updateSubIndustryList: (state, action) => {
+      const { type, payload } = action.payload;
+
+      // Ensure `state.getAllUsers.data.users` exists and is an array
+      if (!Array.isArray(state.getAllSubIndustries?.data?.data)) {
+        state.getAllSubIndustries.data = {
+          ...state.getAllSubIndustries.data,
+          data: [],
+        };
+      }
+
+      switch (type) {
+        case "add": {
+          state.getAllSubIndustries.data.data = [
+            payload,
+            ...state.getAllSubIndustries.data.data,
+          ];
+          break;
+        }
+
+        case "update": {
+          const index = state.getAllSubIndustries.data.data.findIndex(
+            (subIndustry) => {
+              return subIndustry._id.toString() === payload?._id.toString();
+            }
+          );
+          if (index !== -1) {
+            state.getAllSubIndustries.data.data[index] = payload;
+          }
+          break;
+        }
+
+        case "delete": {
+          state.getAllSubIndustries.data.data =
+            state.getAllSubIndustries.data.data.filter(
+              (subIndustry) =>
+                subIndustry._id.toString() !== payload._id.toString()
+            );
+          break;
+        }
+
+        default:
+          console.warn(`Unhandled type: ${type}`);
+      }
+    },
   },
 });
 

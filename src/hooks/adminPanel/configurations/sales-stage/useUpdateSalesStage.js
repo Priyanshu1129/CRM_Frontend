@@ -28,7 +28,6 @@ export const useUpdateSalesStage = ({
         message: "Success",
         description: "Sales Stage updated successfully.",
       });
-      dispatch(getAllSalesStages());
       dispatch(salesStageActions.clearUpdateSalesStageStatus());
       setShowUpdateConfigPopup(false);
     } else if (status === "failed") {

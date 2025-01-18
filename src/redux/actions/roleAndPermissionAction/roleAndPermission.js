@@ -28,7 +28,7 @@ export const getAllRoles = () => async (dispatch) => {
 
 export const getAllEntities = () => async (dispatch) => {
   try {
-    console.log("get all entities request");
+    console.log("get all entities request-%");
     dispatch(roleActions.getAllEntitiesRequest());
 
     // Using axiosRequest helper for GET request
@@ -86,6 +86,12 @@ export const createRole = (roleData) => async (dispatch) => {
 
     console.log("create-role-res-data", response);
     dispatch(roleActions.createRoleSuccess(response.data));
+    dispatch(
+      roleActions.updateRoleList({
+        type: "add",
+        payload: response.data,
+      })
+    );
   } catch (error) {
     dispatch(
       roleActions.createRoleFailure(error.message || "An error occurred")
@@ -110,6 +116,12 @@ export const updateRole = (roleData, roleId) => async (dispatch) => {
     console.log("update-role-res-data", response);
     dispatch(roleActions.getRoleSuccess(response));
     dispatch(roleActions.updateRoleSuccess(response));
+    dispatch(
+      roleActions.updateRoleList({
+        type: "update",
+        payload: response.data,
+      })
+    );
   } catch (error) {
     dispatch(
       roleActions.updateRoleFailure(error.message || "An error occurred")
@@ -153,7 +165,7 @@ export const deleteRole = (roleId, confirm) => async (dispatch) => {
     const response = await axiosRequest(
       dispatch,
       "DELETE", // HTTP method for DELETE request
-      `${route}/${roleId}?confirm=${confirm}`, // Endpoint to delete the role
+      `${route}/${roleId}?confirm=${confirm}` // Endpoint to delete the role
     );
 
     console.log("delete-role-res-data", response.data);

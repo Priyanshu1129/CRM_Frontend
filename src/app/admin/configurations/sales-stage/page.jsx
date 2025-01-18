@@ -5,7 +5,7 @@ import ConfigPage from "../components/configPage";
 const Configurations = () => {
   return (
     <>
-     <ConfigPage configType={"sales-stage"}/>
+      <ConfigPage configType={"sales-stage"} />
     </>
   );
 };

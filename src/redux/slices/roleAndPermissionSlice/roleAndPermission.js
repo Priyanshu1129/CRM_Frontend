@@ -183,6 +183,50 @@ const roleSlice = createSlice({
     clearDeleteRoleError: (state) => {
       state.deleteRole.error = null;
     },
+    updateRoleList: (state, action) => {
+      const { type, payload } = action.payload;
+
+      // Ensure `state.getAllUsers.data.users` exists and is an array
+      if (!Array.isArray(state.getAllRoles?.data?.roles)) {
+        state.getAllRoles.data = {
+          ...state.getAllRoles.data,
+          roles: [],
+          totalCount: 0,
+        };
+      }
+
+      switch (type) {
+        case "add": {
+          state.getAllRoles.data.roles = [
+            payload,
+            ...state.getAllRoles.data.roles,
+          ];
+          state.getAllRoles.data.totalCount++;
+          break;
+        }
+
+        case "update": {
+          const index = state.getAllRoles.data.roles.findIndex((role) => {
+            return role._id.toString() === payload?._id.toString();
+          });
+          if (index !== -1) {
+            state.getAllRoles.data.roles[index] = payload;
+          }
+          break;
+        }
+
+        case "delete": {
+          state.getAllRoles.data.roles = state.getAllRoles.data.roles.filter(
+            (role) => role._id.toString() !== payload._id.toString()
+          );
+          state.getAllRoles.data.totalCount--;
+          break;
+        }
+
+        default:
+          console.warn(`Unhandled type: ${type}`);
+      }
+    },
   },
 });
 

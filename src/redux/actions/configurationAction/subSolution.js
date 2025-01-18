@@ -73,6 +73,12 @@ export const createSubSolution = (subSolutionData) => async (dispatch) => {
 
     console.log("create-subSolution-res-data", response);
     dispatch(subSolutionActions.createSubSolutionSuccess(response));
+    dispatch(
+      subSolutionActions.updateSubSolutionList({
+        type: "add",
+        payload: response?.data,
+      })
+    );
   } catch (error) {
     console.log("error", error);
     dispatch(
@@ -101,7 +107,12 @@ export const updateSubSolution =
 
       console.log("update-subSolution-res-data", response);
       dispatch(subSolutionActions.updateSubSolutionSuccess(response));
-      dispatch(getAllSubSolutions()); // Optionally fetch updated sub-solutions
+      dispatch(
+        subSolutionActions.updateSubSolutionList({
+          type: "update",
+          payload: response?.data,
+        })
+      );
     } catch (error) {
       console.log("error", error);
       dispatch(
