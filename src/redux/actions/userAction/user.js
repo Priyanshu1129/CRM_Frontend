@@ -125,7 +125,7 @@ export const updateUser = (userData, userId) => async (dispatch) => {
   }
 };
 
-export const deleteUser = (userId) => async (dispatch) => {
+export const deleteUser = (userId, confirm = 'true' ,undo='false') => async (dispatch) => {
   try {
     console.log("delete-userData", userId);
     dispatch(userActions.deleteUserRequest());
@@ -134,11 +134,17 @@ export const deleteUser = (userId) => async (dispatch) => {
     const response = await axiosRequest(
       dispatch,
       "DELETE", // HTTP method for DELETE request
-      `${route}/${userId}` // Endpoint for deleting a user by ID
+      `${route}/${userId}?undo=${undo}&confirm=${confirm}` // Endpoint for deleting a user by ID
     );
 
     console.log("delete-user-res-data", response.data);
     dispatch(userActions.deleteUserSuccess(response.data));
+    dispatch(
+      userActions.updateUserList({
+        type: "delete",
+        payload: response.data.user,
+      })
+    );
   } catch (error) {
     dispatch(
       userActions.deleteUserFailure(error.message || "An error occurred")

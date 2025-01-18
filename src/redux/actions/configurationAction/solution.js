@@ -122,7 +122,7 @@ export const updateSolution =
     }
   };
 
-export const deleteSolution = (solutionId) => async (dispatch) => {
+export const deleteSolution = (solutionId, confirm = 'true', undo = 'false') => async (dispatch) => {
   try {
     console.log("delete-solutionData", solutionId);
 
@@ -132,7 +132,7 @@ export const deleteSolution = (solutionId) => async (dispatch) => {
     const response = await axiosRequest(
       dispatch,
       "DELETE", // HTTP method
-      `${route}/${solutionId}` // The URL to delete the specific solution
+      `${route}/${solutionId}?confirm=${confirm}&undo=${undo}` // The URL to delete the specific solution
     );
 
     console.log("delete-solution-res-data", response);

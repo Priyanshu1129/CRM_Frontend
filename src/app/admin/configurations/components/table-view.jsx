@@ -8,6 +8,7 @@ export const ConfigTableView = ({
   setUpdateConfigData,
   refresh,
   setPageSize,
+  setCurrentPage,
   configType,
 }) => {
   const columns = getColumns({
@@ -25,6 +26,8 @@ export const ConfigTableView = ({
         ScrollX="0"
         columns={columns}
         entityName={`${configType}`}
+        setCurrentPage={setCurrentPage}
+        setPageSize={setPageSize}
       />
     </>
   );

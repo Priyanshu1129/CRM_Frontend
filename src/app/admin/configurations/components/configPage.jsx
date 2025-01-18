@@ -1,14 +1,21 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { useSubIndustries, useTerritories, useIndustries } from "@/hooks";
+import React, { useState } from "react";
+
 import { ListHeader } from "@/components";
 import UpdateConfigModal from "./update-config-modal";
 import CreateConfigModal from "./create-config-modal";
 import { ConfigTableView } from "./table-view";
-import { useSolutions } from "@/hooks";
-import { useSubSolutions } from "@/hooks/adminPanel/configurations/sub-solution/useSubSolutions";
-import { useSalesStages } from "@/hooks/adminPanel/configurations/sales-stage/useSalesStage";
-import { useSalesSubStages } from "@/hooks/adminPanel/configurations/sales-sub-stage/useSalesSubStage";
+import {
+  useSubIndustries,
+  useTerritories,
+  useIndustries,
+  useSolutions,
+  useSubSolutions,
+  useSalesStages,
+  useSalesSubStages,
+} from "@/hooks";
+
+import DeleteConfigModal from "./delete-config-model";
 
 const ConfigPage = ({ configType }) => {
   const [pageSize, setPageSize] = useState(100);
@@ -114,6 +121,7 @@ const ConfigPage = ({ configType }) => {
         setPageSize={setPageSize}
         pageSize={pageSize}
         configType={configType}
+        setCurrentPage={setCurrentPage}
       />
       <UpdateConfigModal
         configType={configType}
@@ -121,6 +129,8 @@ const ConfigPage = ({ configType }) => {
         showUpdateConfigPopup={showUpdateConfigPopup}
         setShowUpdateConfigPopup={setShowUpdateConfigPopup}
       />
+
+      <DeleteConfigModal />
 
       {configType != "sales-stage" && (
         <CreateConfigModal

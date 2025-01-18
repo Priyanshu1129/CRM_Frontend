@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { ListHeader } from "@/components";
 import { UsersTableView } from "./components";
 import { useFetchUsers } from "@/hooks/user";
+import DeleteUserModel from "./components/DeleteUserModal";
 
 const UserMaster = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -45,6 +46,7 @@ const UserMaster = () => {
           total={totalCount}
         />
       </div>
+      <DeleteUserModel/>
     </div>
   );
 };

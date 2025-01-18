@@ -121,7 +121,7 @@ export const updateTerritory =
       );
     }
   };
-export const deleteTerritory = (territoryId) => async (dispatch) => {
+export const deleteTerritory = (territoryId, confirm = 'true', undo = 'false') => async (dispatch) => {
   try {
     console.log("delete-territoryData", territoryId);
     dispatch(territoryActions.deleteTerritoryRequest());
@@ -130,9 +130,7 @@ export const deleteTerritory = (territoryId) => async (dispatch) => {
     const data = await axiosRequest(
       dispatch,
       "DELETE", // HTTP method for DELETE request
-      `${route}/${territoryId}`, // URL for deleting the territory with ID
-      null, // No data body for DELETE request
-      null // No query parameters for this request
+      `${route}/${territoryId}?confirm=${confirm}&undo=${undo}`, // URL for deleting the territory with ID
     );
 
     console.log("delete-territory-res-data", data);

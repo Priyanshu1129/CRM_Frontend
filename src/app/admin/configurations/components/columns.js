@@ -60,6 +60,7 @@ export const getColumns = ({
             showUrl={`/admin/configurations/update`}
             updateAction={true}
             detailsAction={false}
+            deletePopupFor={configType}
           />
         );
       },
